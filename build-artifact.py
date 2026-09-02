@@ -10,6 +10,10 @@ so the published file must carry none of those. This script lifts out the two
 shared sections marked in index.html and writes just those, in order.
 """
 
+import base64
+import mimetypes
+import os
+import re
 import sys
 
 HEAD = ('<!-- SHARED-HEAD-START -->', '<!-- SHARED-HEAD-END -->')
@@ -34,6 +38,22 @@ def main():
         page = fh.read()
 
     out = section(page, HEAD, src_path) + '\n\n' + section(page, BODY, src_path) + '\n'
+
+    # The Artifact host blocks images from anywhere else, so bake them in.
+    base = os.path.dirname(os.path.abspath(src_path))
+
+    def inline(match):
+        rel = match.group(2)
+        path = os.path.join(base, rel)
+        if not os.path.isfile(path):
+            sys.exit('referenced asset is missing, ' + rel)
+        kind = mimetypes.guess_type(path)[0] or 'application/octet-stream'
+        with open(path, 'rb') as fh:
+            blob = base64.b64encode(fh.read()).decode('ascii')
+        print('inlined {} ({} KB)'.format(rel, len(blob) // 1024))
+        return match.group(1) + 'data:' + kind + ';base64,' + blob + match.group(3)
+
+    out = re.sub(r'(src=")((?:assets/)?[\w./-]+\.(?:jpg|jpeg|png|svg|webp))(")', inline, out)
 
     for bad in ('<!doctype', '<html', '<head>', '<body>'):
         if bad in out.lower():
