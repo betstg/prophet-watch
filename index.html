@@ -13,97 +13,105 @@
   [hidden] { display: none !important; }
 </style>
 <title>Prophet Watch</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@400;500;700&family=IM+Fell+English+SC&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
+  /* ---- Light, aged parchment under lamplight ---- */
   :root {
-    --bg: #F3F5F1;
-    --surface: #FFFFFF;
-    --surface-sunk: #EBEEE8;
-    --ink: #171B18;
-    --ink-soft: #59615B;
-    --ink-faint: #838C85;
-    --rule: #DDE2D8;
-    --rule-strong: #C6CDC0;
-    --accent: #7E6218;
-    --accent-ink: #5E4910;
-    --accent-soft: #F1E8CE;
-    --focus: #2B5FA8;
+    --bg: #EDE4D1;
+    --bg-deep: #E4D9C1;
+    --surface: #F6F0E1;
+    --surface-sunk: #E7DCC5;
+    --ink: #241B12;
+    --ink-soft: #594935;
+    --ink-faint: #8B7A62;
+    --rule: #D3C5A8;
+    --rule-strong: #B8A785;
+    --gilt: #856517;
+    --gilt-bright: #A8842A;
+    --wax: #7C2026;
+    --focus: #2C5C8F;
 
-    --s-official-fg: #1F6B4C;
-    --s-official-bg: #DDF0E5;
-    --s-confirmed-fg: #23558F;
-    --s-confirmed-bg: #DCE8F7;
-    --s-rumor-fg: #8A5B0B;
-    --s-rumor-bg: #F7E9CE;
-    --s-leak-fg: #5C3F98;
-    --s-leak-bg: #E7E0F8;
-    --s-papz-fg: #97325A;
-    --s-papz-bg: #F8DDE6;
+    --grain: .055;
+    --glow: transparent;
 
-    --shadow: 0 1px 2px rgba(23, 27, 24, .05), 0 8px 24px -18px rgba(23, 27, 24, .35);
-    --radius: 10px;
+    --s-official-fg: #1E5B3E;
+    --s-official-bg: #D9E7D9;
+    --s-confirmed-fg: #234E86;
+    --s-confirmed-bg: #D8E2F0;
+    --s-rumor-fg: #7E5507;
+    --s-rumor-bg: #F1E4C2;
+    --s-leak-fg: #573A8C;
+    --s-leak-bg: #E2DAEF;
+    --s-papz-fg: #8E2A38;
+    --s-papz-bg: #F1D8DB;
 
-    --font-display: "Gloock", "Newsreader", Georgia, serif;
-    --font-read: "Newsreader", Georgia, "Times New Roman", serif;
+    --font-plate: "Grenze Gotisch", "EB Garamond", Georgia, serif;
+    --font-slug: "IM Fell English SC", "EB Garamond", Georgia, serif;
+    --font-read: "EB Garamond", Georgia, "Times New Roman", serif;
     --font-ui: "IBM Plex Sans", ui-sans-serif, system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
   }
 
+  /* ---- Dark, the Great Hall after curfew ---- */
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #101310;
-      --surface: #181D19;
-      --surface-sunk: #131714;
-      --ink: #EAEEE8;
-      --ink-soft: #9BA49C;
-      --ink-faint: #78827A;
-      --rule: #262C27;
-      --rule-strong: #333C34;
-      --accent: #D8B65E;
-      --accent-ink: #E7CB84;
-      --accent-soft: #2B2515;
+      --bg: #0E1117;
+      --bg-deep: #090B10;
+      --surface: #161B24;
+      --surface-sunk: #121721;
+      --ink: #ECE2CE;
+      --ink-soft: #A99B83;
+      --ink-faint: #7C7160;
+      --rule: #242C38;
+      --rule-strong: #35404F;
+      --gilt: #D3AF56;
+      --gilt-bright: #E8CB82;
+      --wax: #B4444A;
       --focus: #7FB0EE;
 
-      --s-official-fg: #74D3A5;
-      --s-official-bg: #10321F;
-      --s-confirmed-fg: #8CBAF0;
-      --s-confirmed-bg: #12243B;
-      --s-rumor-fg: #E5B65E;
-      --s-rumor-bg: #33270E;
-      --s-leak-fg: #BCA2F0;
-      --s-leak-bg: #241C3B;
-      --s-papz-fg: #F094B4;
-      --s-papz-bg: #381524;
+      --grain: .07;
+      --glow: rgba(211, 175, 86, .10);
 
-      --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 26px -20px rgba(0, 0, 0, .9);
+      --s-official-fg: #74D3A5;
+      --s-official-bg: #10291D;
+      --s-confirmed-fg: #8CBAF0;
+      --s-confirmed-bg: #131F33;
+      --s-rumor-fg: #E5B65E;
+      --s-rumor-bg: #2E240F;
+      --s-leak-fg: #BCA2F0;
+      --s-leak-bg: #211B33;
+      --s-papz-fg: #F0929F;
+      --s-papz-bg: #31151B;
     }
   }
 
   :root[data-theme="dark"] {
-    --bg: #101310;
-    --surface: #181D19;
-    --surface-sunk: #131714;
-    --ink: #EAEEE8;
-    --ink-soft: #9BA49C;
-    --ink-faint: #78827A;
-    --rule: #262C27;
-    --rule-strong: #333C34;
-    --accent: #D8B65E;
-    --accent-ink: #E7CB84;
-    --accent-soft: #2B2515;
+    --bg: #0E1117;
+    --bg-deep: #090B10;
+    --surface: #161B24;
+    --surface-sunk: #121721;
+    --ink: #ECE2CE;
+    --ink-soft: #A99B83;
+    --ink-faint: #7C7160;
+    --rule: #242C38;
+    --rule-strong: #35404F;
+    --gilt: #D3AF56;
+    --gilt-bright: #E8CB82;
+    --wax: #B4444A;
     --focus: #7FB0EE;
 
-    --s-official-fg: #74D3A5;
-    --s-official-bg: #10321F;
-    --s-confirmed-fg: #8CBAF0;
-    --s-confirmed-bg: #12243B;
-    --s-rumor-fg: #E5B65E;
-    --s-rumor-bg: #33270E;
-    --s-leak-fg: #BCA2F0;
-    --s-leak-bg: #241C3B;
-    --s-papz-fg: #F094B4;
-    --s-papz-bg: #381524;
+    --grain: .07;
+    --glow: rgba(211, 175, 86, .10);
 
-    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 26px -20px rgba(0, 0, 0, .9);
+    --s-official-fg: #74D3A5;
+    --s-official-bg: #10291D;
+    --s-confirmed-fg: #8CBAF0;
+    --s-confirmed-bg: #131F33;
+    --s-rumor-fg: #E5B65E;
+    --s-rumor-bg: #2E240F;
+    --s-leak-fg: #BCA2F0;
+    --s-leak-bg: #211B33;
+    --s-papz-fg: #F0929F;
+    --s-papz-bg: #31151B;
   }
 
   * { box-sizing: border-box; }
@@ -116,158 +124,196 @@
     font-size: 16px;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+    position: relative;
   }
 
-  a { color: var(--accent-ink); }
+  /* Pressed paper grain, and candlelight from above */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: var(--grain);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  body::after {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 420px;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(ellipse 70% 100% at 50% 0%, var(--glow), transparent 70%);
+  }
+
+  a { color: var(--gilt); }
 
   :focus-visible {
     outline: 2px solid var(--focus);
-    outline-offset: 2px;
-    border-radius: 4px;
+    outline-offset: 3px;
+    border-radius: 3px;
   }
 
   .wrap {
-    max-width: 860px;
+    position: relative;
+    z-index: 2;
+    max-width: 880px;
     margin: 0 auto;
-    padding: 0 20px 72px;
+    padding: 0 20px 80px;
   }
 
-  /* Masthead */
+  /* ---------- Nameplate ---------- */
   header.masthead {
-    border-bottom: 1px solid var(--rule-strong);
-    background: var(--bg);
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(180deg, var(--bg-deep), var(--bg));
+    padding: 30px 20px 0;
   }
-  .masthead-inner {
-    max-width: 860px;
+  .plate {
+    max-width: 880px;
     margin: 0 auto;
-    padding: 26px 20px 20px;
+    text-align: center;
+  }
+  .plate-rule {
+    height: 0;
+    border-top: 3px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 3px;
+    opacity: .82;
+  }
+  .plate-rule.under { border-top-width: 1px; border-bottom-width: 3px; }
+
+  .plate-slugs {
     display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    gap: 14px 20px;
     justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-slug);
+    font-size: 12.5px;
+    letter-spacing: .1em;
+    color: var(--ink-soft);
+    padding: 7px 2px;
   }
-  .brand { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-  .eyebrow {
-    font-family: var(--font-ui);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--accent-ink);
-  }
-  h1 {
-    font-family: var(--font-display);
+  .plate-slugs .mid { color: var(--gilt); }
+
+  h1.nameplate {
+    font-family: var(--font-plate);
     font-weight: 400;
-    font-size: clamp(34px, 9vw, 52px);
-    line-height: 1;
-    margin: 0;
-    letter-spacing: -.01em;
+    font-size: clamp(42px, 12.5vw, 78px);
+    line-height: 1.02;
+    margin: 14px 0 8px;
+    letter-spacing: .015em;
     text-wrap: balance;
   }
-  .stamp {
-    font-size: 12.5px;
+  .deck {
+    font-family: var(--font-slug);
+    font-size: clamp(12px, 3vw, 14px);
+    letter-spacing: .16em;
     color: var(--ink-soft);
-    text-align: right;
-    line-height: 1.45;
-    font-variant-numeric: tabular-nums;
+    margin: 0 0 16px;
   }
-  .stamp b { color: var(--ink); font-weight: 600; }
-  .theme-toggle {
-    margin-top: 6px;
-    font: inherit;
-    font-size: 12px;
+  .ornament { display: block; margin: 0 auto 14px; color: var(--gilt); }
+
+  .plate-foot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-family: var(--font-slug);
+    font-size: 12.5px;
+    letter-spacing: .08em;
     color: var(--ink-soft);
-    background: none;
+    padding: 8px 0 12px;
+  }
+  .plate-foot b { color: var(--ink); font-weight: 400; }
+  .theme-toggle {
+    font-family: var(--font-ui);
+    font-size: 11.5px;
+    letter-spacing: .04em;
+    color: var(--ink-soft);
+    background: transparent;
     border: 1px solid var(--rule-strong);
-    border-radius: 999px;
+    border-radius: 2px;
     padding: 3px 10px;
     cursor: pointer;
   }
-  .theme-toggle:hover { color: var(--ink); border-color: var(--ink-faint); }
+  .theme-toggle:hover { color: var(--ink); border-color: var(--gilt); }
 
-  /* Controls */
+  /* ---------- Controls ---------- */
   .controls {
     position: sticky;
     top: 0;
-    z-index: 10;
+    z-index: 12;
     background: var(--bg);
-    border-bottom: 1px solid var(--rule);
+    border-bottom: 2px solid var(--rule-strong);
     padding: 14px 0 12px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 11px;
   }
   .search-row { display: flex; gap: 10px; align-items: center; }
   .search {
     flex: 1 1 auto;
     min-width: 0;
-    font: inherit;
-    font-size: 15px;
+    font-family: var(--font-read);
+    font-size: 17px;
     color: var(--ink);
     background: var(--surface);
     border: 1px solid var(--rule-strong);
-    border-radius: var(--radius);
-    padding: 10px 12px;
+    border-radius: 3px;
+    padding: 9px 13px;
   }
-  .search::placeholder { color: var(--ink-faint); }
+  .search::placeholder { color: var(--ink-faint); font-style: italic; }
   .sort {
     flex: 0 0 auto;
-    font: inherit;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--ink-soft);
-    background: var(--surface);
-    border: 1px solid var(--rule-strong);
-    border-radius: var(--radius);
-    padding: 10px 12px;
-    cursor: pointer;
-    white-space: nowrap;
-  }
-  .sort:hover { color: var(--ink); }
-
-  .chip-group { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; }
-  .group-label {
-    flex: 0 0 auto;
-    font-size: 10.5px;
-    font-weight: 600;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
-    width: 62px;
-  }
-  .chip {
-    font: inherit;
+    font-family: var(--font-ui);
     font-size: 12.5px;
     font-weight: 500;
     color: var(--ink-soft);
     background: var(--surface);
     border: 1px solid var(--rule-strong);
-    border-radius: 999px;
-    padding: 4px 11px;
+    border-radius: 3px;
+    padding: 10px 13px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .sort:hover { color: var(--ink); border-color: var(--gilt); }
+
+  .chip-group { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .group-label {
+    flex: 0 0 auto;
+    font-family: var(--font-slug);
+    font-size: 12px;
+    letter-spacing: .12em;
+    color: var(--ink-faint);
+    width: 74px;
+  }
+  .chip {
+    font-family: var(--font-ui);
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    background: var(--surface);
+    border: 1px solid var(--rule-strong);
+    border-radius: 2px;
+    padding: 4px 10px;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     gap: 6px;
     line-height: 1.6;
   }
-  .chip:hover { border-color: var(--ink-faint); color: var(--ink); }
-  .chip .n {
-    font-size: 11px;
-    font-variant-numeric: tabular-nums;
-    color: var(--ink-faint);
-  }
-  .chip .dot {
-    width: 7px; height: 7px; border-radius: 50%;
-    background: currentColor;
-    flex: 0 0 auto;
-  }
+  .chip:hover { border-color: var(--gilt); color: var(--ink); }
+  .chip .n { font-size: 11px; font-variant-numeric: tabular-nums; color: var(--ink-faint); }
+  .chip .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex: 0 0 auto; }
   .chip[aria-pressed="true"] {
     background: var(--ink);
     border-color: var(--ink);
     color: var(--bg);
   }
-  .chip[aria-pressed="true"] .n { color: var(--bg); opacity: .7; }
+  .chip[aria-pressed="true"] .n { color: var(--bg); opacity: .72; }
   .chip.s-official .dot { color: var(--s-official-fg); }
   .chip.s-confirmed .dot { color: var(--s-confirmed-fg); }
   .chip.s-rumor .dot { color: var(--s-rumor-fg); }
@@ -276,92 +322,102 @@
 
   details.legend { margin-top: 2px; }
   details.legend summary {
-    font-size: 12.5px;
+    font-family: var(--font-slug);
+    font-size: 13px;
+    letter-spacing: .06em;
     color: var(--ink-soft);
     cursor: pointer;
     width: fit-content;
   }
-  details.legend summary:hover { color: var(--ink); }
+  details.legend summary:hover { color: var(--gilt); }
   .legend-body {
-    margin-top: 10px;
+    position: relative;
+    margin-top: 11px;
     background: var(--surface-sunk);
-    border: 1px solid var(--rule);
-    border-radius: var(--radius);
-    padding: 12px 14px;
+    border: 1px solid var(--rule-strong);
+    border-radius: 2px;
+    padding: 15px 17px;
     display: grid;
-    gap: 8px;
-    font-size: 13.5px;
+    gap: 9px;
+    font-family: var(--font-read);
+    font-size: 16px;
+    line-height: 1.45;
     color: var(--ink-soft);
+    box-shadow: inset 0 0 0 1px var(--surface), inset 0 0 0 2px var(--rule);
   }
-  .legend-body b { color: var(--ink); font-weight: 600; }
+  .legend-body b {
+    font-family: var(--font-slug);
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: .06em;
+    color: var(--ink);
+  }
 
-  /* Result line */
   .resultline {
+    font-family: var(--font-slug);
     font-size: 13px;
+    letter-spacing: .07em;
     color: var(--ink-faint);
-    padding: 18px 0 6px;
+    padding: 20px 0 4px;
     font-variant-numeric: tabular-nums;
   }
 
-  /* Day groups */
-  .day { border-top: 1px solid var(--rule-strong); }
+  /* ---------- Day sections ---------- */
+  .day { border-top: 2px solid var(--rule-strong); }
   .day-head {
     display: flex;
-    align-items: baseline;
-    gap: 10px;
-    padding: 18px 0 10px;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 0 12px;
   }
   .day-date {
-    font-family: var(--font-ui);
-    font-size: 12px;
-    font-weight: 600;
+    font-family: var(--font-slug);
+    font-size: 15px;
     letter-spacing: .1em;
-    text-transform: uppercase;
-    color: var(--accent-ink);
-    font-variant-numeric: tabular-nums;
+    color: var(--gilt);
+    white-space: nowrap;
   }
-  .day-count { font-size: 12px; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+  .day-line { flex: 1 1 auto; height: 1px; background: var(--rule); }
+  .day-count {
+    font-family: var(--font-ui);
+    font-size: 11.5px;
+    letter-spacing: .05em;
+    color: var(--ink-faint);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
 
   article.story {
     border-top: 1px solid var(--rule);
-    padding: 16px 0;
+    padding: 18px 0;
     display: flex;
-    gap: 14px;
+    gap: 16px;
     align-items: flex-start;
   }
-  .story-body {
-    flex: 1 1 auto;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
   .day .story:first-of-type { border-top: none; }
+  .story-body { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
 
-  .thumb {
-    flex: 0 0 auto;
-    width: 62px;
-    height: 62px;
-    border-radius: 14px;
-    display: grid;
-    place-items: center;
-    margin-top: 3px;
-  }
-  .thumb svg { width: 28px; height: 28px; display: block; }
-  .thumb.official { color: var(--s-official-fg); background: var(--s-official-bg); }
-  .thumb.confirmed { color: var(--s-confirmed-fg); background: var(--s-confirmed-bg); }
-  .thumb.rumor { color: var(--s-rumor-fg); background: var(--s-rumor-bg); }
-  .thumb.leak { color: var(--s-leak-fg); background: var(--s-leak-bg); }
-  .thumb.paparazzi { color: var(--s-papz-fg); background: var(--s-papz-bg); }
+  /* Crest thumbnails */
+  .crest { flex: 0 0 auto; width: 56px; margin-top: 4px; }
+  .crest svg { width: 100%; height: auto; display: block; }
+  .crest.official { color: var(--s-official-fg); --crest-bg: var(--s-official-bg); }
+  .crest.confirmed { color: var(--s-confirmed-fg); --crest-bg: var(--s-confirmed-bg); }
+  .crest.rumor { color: var(--s-rumor-fg); --crest-bg: var(--s-rumor-bg); }
+  .crest.leak { color: var(--s-leak-fg); --crest-bg: var(--s-leak-bg); }
+  .crest.paparazzi { color: var(--s-papz-fg); --crest-bg: var(--s-papz-bg); }
+  .crest .shield-ground { fill: var(--crest-bg); }
+  .crest .shield-edge { fill: none; stroke: currentColor; stroke-width: 1.4; opacity: .55; }
+  .crest .shield-gilt { fill: none; stroke: var(--gilt); stroke-width: .8; opacity: .5; }
 
   .story-top { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; }
   .tag {
-    font-size: 11px;
+    font-family: var(--font-ui);
+    font-size: 10.5px;
     font-weight: 600;
-    letter-spacing: .08em;
+    letter-spacing: .11em;
     text-transform: uppercase;
-    border-radius: 5px;
-    padding: 2px 7px;
+    border-radius: 2px;
+    padding: 3px 8px;
     white-space: nowrap;
   }
   .tag.status.official { color: var(--s-official-fg); background: var(--s-official-bg); }
@@ -374,91 +430,107 @@
     background: transparent;
     border: 1px solid var(--rule-strong);
     font-weight: 500;
-    letter-spacing: .06em;
+    letter-spacing: .09em;
   }
 
   h2.headline {
     font-family: var(--font-read);
     font-weight: 600;
-    font-size: clamp(20px, 4.4vw, 24px);
-    line-height: 1.22;
+    font-size: clamp(21px, 4.6vw, 27px);
+    line-height: 1.2;
     margin: 0;
-    letter-spacing: -.005em;
+    letter-spacing: -.004em;
     text-wrap: balance;
   }
   h2.headline a { color: inherit; text-decoration: none; }
-  h2.headline a:hover { color: var(--accent-ink); text-decoration: underline; text-underline-offset: 3px; }
+  h2.headline a:hover { color: var(--wax); text-decoration: underline; text-underline-offset: 4px; }
 
   .summary {
     font-family: var(--font-read);
-    font-size: 17px;
-    line-height: 1.55;
+    font-size: 17.5px;
+    line-height: 1.58;
     color: var(--ink-soft);
     margin: 0;
     max-width: 62ch;
+  }
+  .summary.lede::first-letter {
+    font-family: var(--font-plate);
+    font-size: 3.1em;
+    line-height: .82;
+    float: left;
+    padding: 4px 9px 0 0;
+    color: var(--wax);
   }
 
   .story-foot {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px 14px;
+    gap: 5px 14px;
     align-items: center;
-    font-size: 13px;
+    font-family: var(--font-ui);
+    font-size: 12.5px;
     color: var(--ink-faint);
-    padding-top: 2px;
+    padding-top: 3px;
   }
   .src {
     font-weight: 500;
-    color: var(--accent-ink);
+    color: var(--gilt);
     text-decoration: none;
     display: inline-flex;
     align-items: center;
     gap: 5px;
   }
-  .src:hover { text-decoration: underline; text-underline-offset: 3px; }
-  .src .arrow { font-size: 11px; opacity: .8; }
+  .src:hover { color: var(--gilt-bright); text-decoration: underline; text-underline-offset: 3px; }
+  .src .arrow { font-size: 11px; opacity: .85; }
   .when { font-variant-numeric: tabular-nums; }
 
   .empty {
-    border-top: 1px solid var(--rule-strong);
-    padding: 48px 8px;
+    border-top: 2px solid var(--rule-strong);
+    padding: 56px 8px;
     text-align: center;
     color: var(--ink-soft);
     font-family: var(--font-read);
-    font-size: 18px;
+    font-size: 19px;
+    font-style: italic;
   }
   .empty button {
     display: block;
-    margin: 14px auto 0;
-    font: inherit;
+    margin: 16px auto 0;
     font-family: var(--font-ui);
-    font-size: 13px;
+    font-style: normal;
+    font-size: 12.5px;
     color: var(--ink);
     background: var(--surface);
     border: 1px solid var(--rule-strong);
-    border-radius: 999px;
+    border-radius: 2px;
     padding: 6px 14px;
     cursor: pointer;
   }
 
   footer.foot {
-    border-top: 1px solid var(--rule);
-    margin-top: 28px;
+    border-top: 3px solid var(--ink);
+    margin-top: 34px;
     padding-top: 18px;
-    font-size: 13px;
-    color: var(--ink-faint);
+    text-align: center;
+    font-family: var(--font-read);
+    font-size: 16px;
     line-height: 1.6;
+    color: var(--ink-faint);
+    max-width: 58ch;
+    margin-left: auto;
+    margin-right: auto;
   }
+  footer.foot .ornament { margin-bottom: 12px; }
 
   @media (max-width: 560px) {
-    .masthead-inner { align-items: flex-start; }
-    .stamp { text-align: left; }
+    header.masthead { padding-top: 22px; }
+    .plate-slugs { font-size: 11px; letter-spacing: .06em; }
     .group-label { width: 100%; }
     .controls { padding-top: 10px; }
-    .summary { font-size: 16px; }
+    .summary { font-size: 16.5px; }
     article.story { gap: 12px; }
-    .thumb { width: 48px; height: 48px; border-radius: 11px; }
-    .thumb svg { width: 23px; height: 23px; }
+    .crest { width: 42px; margin-top: 3px; }
+    .summary.lede::first-letter { font-size: 2.7em; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -468,36 +540,51 @@
 </head>
 <body>
 <header class="masthead">
-  <div class="masthead-inner">
-    <div class="brand">
-      <span class="eyebrow">Harry Potter news, filtered</span>
-      <h1>Prophet Watch</h1>
+  <div class="plate">
+    <div class="plate-rule"></div>
+    <div class="plate-slugs">
+      <span>Owl Post Edition</span>
+      <span class="mid" id="slug-count">20 stories on file</span>
+      <span id="slug-date">2 September 2026</span>
     </div>
-    <div class="stamp">
-      Updated <b id="stamp-date">2 September 2026</b><br>
-      <span id="stamp-count">20 stories on file</span>
-      <br><button class="theme-toggle" id="themeBtn" type="button">Switch theme</button>
+    <div class="plate-rule under"></div>
+
+    <h1 class="nameplate">Prophet&nbsp;Watch</h1>
+    <p class="deck">Harry Potter news, sorted by how well it is sourced</p>
+
+    <svg class="ornament" width="132" height="12" viewBox="0 0 132 12" fill="none"
+         stroke="currentColor" stroke-width="1.1" aria-hidden="true">
+      <path d="M2 6h44"/><path d="M86 6h44"/>
+      <path d="M66 1.5 71 6l-5 4.5L61 6z"/>
+      <path d="M52 6c2-2.5 4-2.5 6 0-2 2.5-4 2.5-6 0z"/>
+      <path d="M80 6c-2-2.5-4-2.5-6 0 2 2.5 4 2.5 6 0z"/>
+    </svg>
+
+    <div class="plate-foot">
+      <span>Printed twice daily, morning and dusk</span>
+      <button class="theme-toggle" id="themeBtn" type="button">Turn the lamps</button>
     </div>
+    <div class="plate-rule under"></div>
   </div>
 </header>
 
 <div class="wrap">
   <div class="controls">
     <div class="search-row">
-      <input class="search" id="q" type="search" placeholder="Search headlines, summaries, sources" aria-label="Search the news">
+      <input class="search" id="q" type="search" placeholder="Search the archive" aria-label="Search the news">
       <button class="sort" id="sortBtn" type="button" aria-live="polite">Newest first</button>
     </div>
 
     <div class="chip-group" id="statusChips" role="group" aria-label="Filter by status">
-      <span class="group-label">Status</span>
+      <span class="group-label">Sourcing</span>
     </div>
 
     <div class="chip-group" id="catChips" role="group" aria-label="Filter by category">
-      <span class="group-label">Topic</span>
+      <span class="group-label">Desk</span>
     </div>
 
     <details class="legend">
-      <summary>What the status tags mean</summary>
+      <summary>What the sourcing marks mean</summary>
       <div class="legend-body">
         <div><b>Official</b> Announced by Warner Bros, HBO, Bloomsbury or the Wizarding World channels themselves.</div>
         <div><b>Confirmed</b> Not an official announcement, but reported and stood up by the trade press such as Variety, Deadline or The Hollywood Reporter.</div>
@@ -512,7 +599,14 @@
   <main id="list"></main>
 
   <footer class="foot">
-    Prophet Watch refreshes twice a day, in the morning and at the end of the afternoon, Rome time. Every entry keeps the link to where it came from, so you can check anything yourself. Status tags reflect how well sourced a story was at the time it was added, not how likely it is to be true.
+    <svg class="ornament" width="132" height="12" viewBox="0 0 132 12" fill="none"
+         stroke="currentColor" stroke-width="1.1" aria-hidden="true">
+      <path d="M2 6h44"/><path d="M86 6h44"/>
+      <path d="M66 1.5 71 6l-5 4.5L61 6z"/>
+      <path d="M52 6c2-2.5 4-2.5 6 0-2 2.5-4 2.5-6 0z"/>
+      <path d="M80 6c-2-2.5-4-2.5-6 0 2 2.5 4 2.5 6 0z"/>
+    </svg>
+    Prophet Watch gathers Harry Potter news twice a day, in the morning and at the end of the afternoon, Rome time. Every entry keeps the link to where it came from, so nothing has to be taken on trust. The sourcing mark reflects how well stood up a story was when it was filed, not how likely it is to be true.
   </footer>
 </div>
 
@@ -747,11 +841,19 @@
     "_default": '<path d="M12 3.2 14.5 9l6.3.5-4.8 4.2 1.5 6.2L12 16.6 6.5 19.9 8 13.7 3.2 9.5 9.5 9z"/>'
   };
 
-  function tile(cat, status) {
+  var SHIELD = "M5.5 3h37a2.5 2.5 0 0 1 2.5 2.5v22.9c0 12.4-9.6 20.1-21 24.6C12.6 48.5 3 40.8 3 28.4V5.5A2.5 2.5 0 0 1 5.5 3z";
+  var SHIELD_INNER = "M7.5 6.4h33v21.9c0 10.7-8.2 17.6-16.5 21.6C15.7 45.9 7.5 39 7.5 28.3z";
+
+  function crest(cat, status) {
     var g = GLYPHS[cat] || GLYPHS._default;
-    return '<span class="thumb ' + status + '" aria-hidden="true">' +
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" ' +
-      'stroke-linecap="round" stroke-linejoin="round">' + g + '</svg></span>';
+    return '<span class="crest ' + status + '" aria-hidden="true">' +
+      '<svg viewBox="0 0 48 56">' +
+        '<path class="shield-ground" d="' + SHIELD + '"/>' +
+        '<path class="shield-edge" d="' + SHIELD + '"/>' +
+        '<path class="shield-gilt" d="' + SHIELD_INNER + '"/>' +
+        '<g transform="translate(11.5 10)" fill="none" stroke="currentColor" ' +
+          'stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' + g + '</g>' +
+      '</svg></span>';
   }
 
   var data = JSON.parse(document.getElementById("news-data").textContent);
@@ -828,6 +930,10 @@
     render();
   }
 
+  function esc(t) {
+    return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
   function render() {
     var rows = stories.filter(matches);
     rows.sort(function (a, b) {
@@ -845,7 +951,7 @@
     if (!rows.length) {
       var e = document.createElement("div");
       e.className = "empty";
-      e.innerHTML = "Nothing matches that yet.";
+      e.innerHTML = "Nothing in the archive matches that.";
       var btn = document.createElement("button");
       btn.type = "button";
       btn.textContent = "Clear the filters";
@@ -858,7 +964,7 @@
     var currentDate = null;
     var dayEl = null;
 
-    rows.forEach(function (s) {
+    rows.forEach(function (s, idx) {
       if (s.date !== currentDate) {
         currentDate = s.date;
         dayEl = document.createElement("section");
@@ -867,6 +973,7 @@
         var head = document.createElement("div");
         head.className = "day-head";
         head.innerHTML = '<span class="day-date">' + fmtDate(s.date) + '</span>' +
+                         '<span class="day-line"></span>' +
                          '<span class="day-count">' + n + (n === 1 ? " story" : " stories") + '</span>';
         dayEl.appendChild(head);
         listEl.appendChild(dayEl);
@@ -875,7 +982,7 @@
       var art = document.createElement("article");
       art.className = "story";
       art.innerHTML =
-        tile(s.category, s.status) +
+        crest(s.category, s.status) +
         '<div class="story-body">' +
           '<div class="story-top">' +
             '<span class="tag status ' + s.status + '">' + STATUS_LABEL[s.status] + '</span>' +
@@ -883,7 +990,7 @@
           '</div>' +
           '<h2 class="headline"><a href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer">' +
             esc(s.headline) + '</a></h2>' +
-          '<p class="summary">' + esc(s.summary) + '</p>' +
+          '<p class="summary' + (idx === 0 ? ' lede' : '') + '">' + esc(s.summary) + '</p>' +
           '<div class="story-foot">' +
             '<a class="src" href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer">' +
               esc(s.source) + ' <span class="arrow" aria-hidden="true">&#8599;</span></a>' +
@@ -894,10 +1001,6 @@
     });
   }
 
-  function esc(t) {
-    return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-  }
-
   qEl.addEventListener("input", function () { state.q = qEl.value.trim(); render(); });
   sortEl.addEventListener("click", function () {
     state.newestFirst = !state.newestFirst;
@@ -905,8 +1008,8 @@
     render();
   });
 
-  document.getElementById("stamp-date").textContent = fmtDate(data.updated);
-  document.getElementById("stamp-count").textContent = stories.length + " stories on file";
+  document.getElementById("slug-date").textContent = fmtDate(data.updated);
+  document.getElementById("slug-count").textContent = stories.length + " stories on file";
 
   var btn = document.getElementById("themeBtn");
   btn.addEventListener("click", function () {
