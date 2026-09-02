@@ -1,0 +1,927 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A filterable feed of Harry Potter and HBO series news, tagged official, confirmed, rumor, leak or paparazzi, with a source link on every story.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A6%89%3C/text%3E%3C/svg%3E">
+<style>
+  html { color-scheme: light dark; }
+  body { margin: 0; }
+  img { max-width: 100%; }
+  [hidden] { display: none !important; }
+</style>
+<title>Prophet Watch</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  :root {
+    --bg: #F3F5F1;
+    --surface: #FFFFFF;
+    --surface-sunk: #EBEEE8;
+    --ink: #171B18;
+    --ink-soft: #59615B;
+    --ink-faint: #838C85;
+    --rule: #DDE2D8;
+    --rule-strong: #C6CDC0;
+    --accent: #7E6218;
+    --accent-ink: #5E4910;
+    --accent-soft: #F1E8CE;
+    --focus: #2B5FA8;
+
+    --s-official-fg: #1F6B4C;
+    --s-official-bg: #DDF0E5;
+    --s-confirmed-fg: #23558F;
+    --s-confirmed-bg: #DCE8F7;
+    --s-rumor-fg: #8A5B0B;
+    --s-rumor-bg: #F7E9CE;
+    --s-leak-fg: #5C3F98;
+    --s-leak-bg: #E7E0F8;
+    --s-papz-fg: #97325A;
+    --s-papz-bg: #F8DDE6;
+
+    --shadow: 0 1px 2px rgba(23, 27, 24, .05), 0 8px 24px -18px rgba(23, 27, 24, .35);
+    --radius: 10px;
+
+    --font-display: "Gloock", "Newsreader", Georgia, serif;
+    --font-read: "Newsreader", Georgia, "Times New Roman", serif;
+    --font-ui: "IBM Plex Sans", ui-sans-serif, system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #101310;
+      --surface: #181D19;
+      --surface-sunk: #131714;
+      --ink: #EAEEE8;
+      --ink-soft: #9BA49C;
+      --ink-faint: #78827A;
+      --rule: #262C27;
+      --rule-strong: #333C34;
+      --accent: #D8B65E;
+      --accent-ink: #E7CB84;
+      --accent-soft: #2B2515;
+      --focus: #7FB0EE;
+
+      --s-official-fg: #74D3A5;
+      --s-official-bg: #10321F;
+      --s-confirmed-fg: #8CBAF0;
+      --s-confirmed-bg: #12243B;
+      --s-rumor-fg: #E5B65E;
+      --s-rumor-bg: #33270E;
+      --s-leak-fg: #BCA2F0;
+      --s-leak-bg: #241C3B;
+      --s-papz-fg: #F094B4;
+      --s-papz-bg: #381524;
+
+      --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 26px -20px rgba(0, 0, 0, .9);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #101310;
+    --surface: #181D19;
+    --surface-sunk: #131714;
+    --ink: #EAEEE8;
+    --ink-soft: #9BA49C;
+    --ink-faint: #78827A;
+    --rule: #262C27;
+    --rule-strong: #333C34;
+    --accent: #D8B65E;
+    --accent-ink: #E7CB84;
+    --accent-soft: #2B2515;
+    --focus: #7FB0EE;
+
+    --s-official-fg: #74D3A5;
+    --s-official-bg: #10321F;
+    --s-confirmed-fg: #8CBAF0;
+    --s-confirmed-bg: #12243B;
+    --s-rumor-fg: #E5B65E;
+    --s-rumor-bg: #33270E;
+    --s-leak-fg: #BCA2F0;
+    --s-leak-bg: #241C3B;
+    --s-papz-fg: #F094B4;
+    --s-papz-bg: #381524;
+
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 26px -20px rgba(0, 0, 0, .9);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-ui);
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--accent-ink); }
+
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  .wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 20px 72px;
+  }
+
+  /* Masthead */
+  header.masthead {
+    border-bottom: 1px solid var(--rule-strong);
+    background: var(--bg);
+  }
+  .masthead-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 26px 20px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 14px 20px;
+    justify-content: space-between;
+  }
+  .brand { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .eyebrow {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+  }
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(34px, 9vw, 52px);
+    line-height: 1;
+    margin: 0;
+    letter-spacing: -.01em;
+    text-wrap: balance;
+  }
+  .stamp {
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    text-align: right;
+    line-height: 1.45;
+    font-variant-numeric: tabular-nums;
+  }
+  .stamp b { color: var(--ink); font-weight: 600; }
+  .theme-toggle {
+    margin-top: 6px;
+    font: inherit;
+    font-size: 12px;
+    color: var(--ink-soft);
+    background: none;
+    border: 1px solid var(--rule-strong);
+    border-radius: 999px;
+    padding: 3px 10px;
+    cursor: pointer;
+  }
+  .theme-toggle:hover { color: var(--ink); border-color: var(--ink-faint); }
+
+  /* Controls */
+  .controls {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--bg);
+    border-bottom: 1px solid var(--rule);
+    padding: 14px 0 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .search-row { display: flex; gap: 10px; align-items: center; }
+  .search {
+    flex: 1 1 auto;
+    min-width: 0;
+    font: inherit;
+    font-size: 15px;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--rule-strong);
+    border-radius: var(--radius);
+    padding: 10px 12px;
+  }
+  .search::placeholder { color: var(--ink-faint); }
+  .sort {
+    flex: 0 0 auto;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    background: var(--surface);
+    border: 1px solid var(--rule-strong);
+    border-radius: var(--radius);
+    padding: 10px 12px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .sort:hover { color: var(--ink); }
+
+  .chip-group { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; }
+  .group-label {
+    flex: 0 0 auto;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    width: 62px;
+  }
+  .chip {
+    font: inherit;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    background: var(--surface);
+    border: 1px solid var(--rule-strong);
+    border-radius: 999px;
+    padding: 4px 11px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    line-height: 1.6;
+  }
+  .chip:hover { border-color: var(--ink-faint); color: var(--ink); }
+  .chip .n {
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-faint);
+  }
+  .chip .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: currentColor;
+    flex: 0 0 auto;
+  }
+  .chip[aria-pressed="true"] {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--bg);
+  }
+  .chip[aria-pressed="true"] .n { color: var(--bg); opacity: .7; }
+  .chip.s-official .dot { color: var(--s-official-fg); }
+  .chip.s-confirmed .dot { color: var(--s-confirmed-fg); }
+  .chip.s-rumor .dot { color: var(--s-rumor-fg); }
+  .chip.s-leak .dot { color: var(--s-leak-fg); }
+  .chip.s-paparazzi .dot { color: var(--s-papz-fg); }
+
+  details.legend { margin-top: 2px; }
+  details.legend summary {
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    width: fit-content;
+  }
+  details.legend summary:hover { color: var(--ink); }
+  .legend-body {
+    margin-top: 10px;
+    background: var(--surface-sunk);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    display: grid;
+    gap: 8px;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+  }
+  .legend-body b { color: var(--ink); font-weight: 600; }
+
+  /* Result line */
+  .resultline {
+    font-size: 13px;
+    color: var(--ink-faint);
+    padding: 18px 0 6px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Day groups */
+  .day { border-top: 1px solid var(--rule-strong); }
+  .day-head {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 18px 0 10px;
+  }
+  .day-date {
+    font-family: var(--font-ui);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .day-count { font-size: 12px; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+
+  article.story {
+    border-top: 1px solid var(--rule);
+    padding: 16px 0;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .story-body {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .day .story:first-of-type { border-top: none; }
+
+  .thumb {
+    flex: 0 0 auto;
+    width: 62px;
+    height: 62px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    margin-top: 3px;
+  }
+  .thumb svg { width: 28px; height: 28px; display: block; }
+  .thumb.official { color: var(--s-official-fg); background: var(--s-official-bg); }
+  .thumb.confirmed { color: var(--s-confirmed-fg); background: var(--s-confirmed-bg); }
+  .thumb.rumor { color: var(--s-rumor-fg); background: var(--s-rumor-bg); }
+  .thumb.leak { color: var(--s-leak-fg); background: var(--s-leak-bg); }
+  .thumb.paparazzi { color: var(--s-papz-fg); background: var(--s-papz-bg); }
+
+  .story-top { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; }
+  .tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    border-radius: 5px;
+    padding: 2px 7px;
+    white-space: nowrap;
+  }
+  .tag.status.official { color: var(--s-official-fg); background: var(--s-official-bg); }
+  .tag.status.confirmed { color: var(--s-confirmed-fg); background: var(--s-confirmed-bg); }
+  .tag.status.rumor { color: var(--s-rumor-fg); background: var(--s-rumor-bg); }
+  .tag.status.leak { color: var(--s-leak-fg); background: var(--s-leak-bg); }
+  .tag.status.paparazzi { color: var(--s-papz-fg); background: var(--s-papz-bg); }
+  .tag.cat {
+    color: var(--ink-soft);
+    background: transparent;
+    border: 1px solid var(--rule-strong);
+    font-weight: 500;
+    letter-spacing: .06em;
+  }
+
+  h2.headline {
+    font-family: var(--font-read);
+    font-weight: 600;
+    font-size: clamp(20px, 4.4vw, 24px);
+    line-height: 1.22;
+    margin: 0;
+    letter-spacing: -.005em;
+    text-wrap: balance;
+  }
+  h2.headline a { color: inherit; text-decoration: none; }
+  h2.headline a:hover { color: var(--accent-ink); text-decoration: underline; text-underline-offset: 3px; }
+
+  .summary {
+    font-family: var(--font-read);
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin: 0;
+    max-width: 62ch;
+  }
+
+  .story-foot {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    align-items: center;
+    font-size: 13px;
+    color: var(--ink-faint);
+    padding-top: 2px;
+  }
+  .src {
+    font-weight: 500;
+    color: var(--accent-ink);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .src:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .src .arrow { font-size: 11px; opacity: .8; }
+  .when { font-variant-numeric: tabular-nums; }
+
+  .empty {
+    border-top: 1px solid var(--rule-strong);
+    padding: 48px 8px;
+    text-align: center;
+    color: var(--ink-soft);
+    font-family: var(--font-read);
+    font-size: 18px;
+  }
+  .empty button {
+    display: block;
+    margin: 14px auto 0;
+    font: inherit;
+    font-family: var(--font-ui);
+    font-size: 13px;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--rule-strong);
+    border-radius: 999px;
+    padding: 6px 14px;
+    cursor: pointer;
+  }
+
+  footer.foot {
+    border-top: 1px solid var(--rule);
+    margin-top: 28px;
+    padding-top: 18px;
+    font-size: 13px;
+    color: var(--ink-faint);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 560px) {
+    .masthead-inner { align-items: flex-start; }
+    .stamp { text-align: left; }
+    .group-label { width: 100%; }
+    .controls { padding-top: 10px; }
+    .summary { font-size: 16px; }
+    article.story { gap: 12px; }
+    .thumb { width: 48px; height: 48px; border-radius: 11px; }
+    .thumb svg { width: 23px; height: 23px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="brand">
+      <span class="eyebrow">Harry Potter news, filtered</span>
+      <h1>Prophet Watch</h1>
+    </div>
+    <div class="stamp">
+      Updated <b id="stamp-date">2 September 2026</b><br>
+      <span id="stamp-count">20 stories on file</span>
+      <br><button class="theme-toggle" id="themeBtn" type="button">Switch theme</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="controls">
+    <div class="search-row">
+      <input class="search" id="q" type="search" placeholder="Search headlines, summaries, sources" aria-label="Search the news">
+      <button class="sort" id="sortBtn" type="button" aria-live="polite">Newest first</button>
+    </div>
+
+    <div class="chip-group" id="statusChips" role="group" aria-label="Filter by status">
+      <span class="group-label">Status</span>
+    </div>
+
+    <div class="chip-group" id="catChips" role="group" aria-label="Filter by category">
+      <span class="group-label">Topic</span>
+    </div>
+
+    <details class="legend">
+      <summary>What the status tags mean</summary>
+      <div class="legend-body">
+        <div><b>Official</b> Announced by Warner Bros, HBO, Bloomsbury or the Wizarding World channels themselves.</div>
+        <div><b>Confirmed</b> Not an official announcement, but reported and stood up by the trade press such as Variety, Deadline or The Hollywood Reporter.</div>
+        <div><b>Rumor</b> Circulating without a named, reliable source. Treat it as unproven.</div>
+        <div><b>Leak</b> Material that escaped before release, such as set images, scripts or unlisted footage.</div>
+        <div><b>Paparazzi</b> Photos taken off set or in public by press photographers rather than published by the studio.</div>
+      </div>
+    </details>
+  </div>
+
+  <p class="resultline" id="resultline"></p>
+  <main id="list"></main>
+
+  <footer class="foot">
+    Prophet Watch refreshes twice a day, in the morning and at the end of the afternoon, Rome time. Every entry keeps the link to where it came from, so you can check anything yourself. Status tags reflect how well sourced a story was at the time it was added, not how likely it is to be true.
+  </footer>
+</div>
+
+<script type="application/json" id="news-data">
+{
+  "updated": "2026-09-02",
+  "stories": [
+    {
+      "id": "house-crests-ravenclaw-eagle-2026-09-01",
+      "date": "2026-09-01",
+      "status": "official",
+      "category": "HBO series",
+      "headline": "New Hogwarts house crests revealed, and the Ravenclaw eagle divides fans",
+      "summary": "The Back to Hogwarts event in London unveiled simplified house crests for the HBO series, with more focus on the house animals and closer wording to the books. Ravenclaw's crest uses an eagle rather than a raven, which is book accurate and still set off a long argument online.",
+      "source": "Soap Central",
+      "url": "https://www.soapcentral.com/shows/harry-potter-back-hogwarts-event-every-reveal-new-house-crests-wand-replicas"
+    },
+    {
+      "id": "sorting-ceremony-reimagined-2026-09-01",
+      "date": "2026-09-01",
+      "status": "official",
+      "category": "Fandom",
+      "headline": "The online Sorting Ceremony is rebuilt with new animation, music and crests",
+      "summary": "Wizarding World relaunched its Sorting Ceremony at HarryPotter.com using the new house heraldry from the series. Anyone already sorted can go through it again.",
+      "source": "Wizarding World",
+      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026"
+    },
+    {
+      "id": "free-audiobooks-philosophers-stone-2026-09-01",
+      "date": "2026-09-01",
+      "status": "official",
+      "category": "Books and audio",
+      "headline": "Stephen Fry and Jim Dale audiobooks of the first book go free until Halloween",
+      "summary": "Both narrated editions of Philosopher's Stone are free on Audible, Amazon Music, Spotify and the Harry Potter YouTube channel from 1 September through Halloween.",
+      "source": "Wizarding World",
+      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026"
+    },
+    {
+      "id": "cinema-run-closes-2026-09-01",
+      "date": "2026-09-01",
+      "status": "official",
+      "category": "Films",
+      "headline": "The eight film cinema run closes with Deathly Hallows Part 2",
+      "summary": "All eight films returned to cinemas for the 25th anniversary of Philosopher's Stone. Regal ran one film a day from 25 August to 1 September, inside a wider Warner Bros window of 27 August to 3 September, with AMC, Cinemark, Megaplex, Harkins and Marcus also taking part.",
+      "source": "Attractions Magazine",
+      "url": "https://attractionsmagazine.com/harry-potter-movie-theaters-2026-sorcerers-stone-25th-anniversary/"
+    },
+    {
+      "id": "back-to-hogwarts-showcase-2026-08-31",
+      "date": "2026-08-31",
+      "status": "official",
+      "category": "Fandom",
+      "headline": "Back to Hogwarts showcase lands 18 announcements in one sitting",
+      "summary": "The annual 1 September showcase covered the HBO series, a returning podcast, LEGO sets tied to the show, a Snapchat lens set, a Macy's Thanksgiving Parade debut, new shops, park lands and games. It is the single densest source of the week.",
+      "source": "Wizarding World",
+      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026"
+    },
+    {
+      "id": "teaser-christmas-2026-08-31",
+      "date": "2026-08-31",
+      "status": "official",
+      "category": "HBO series",
+      "headline": "Season one is titled Philosopher's Stone and arrives Christmas 2026",
+      "summary": "A new teaser was set for 1 September, with the first season confirmed as Harry Potter and the Philosopher's Stone, premiering on HBO and streaming on HBO Max at Christmas. The trailer earlier this year drew 277 million views in its first 48 hours, a record for HBO.",
+      "source": "Wizarding World",
+      "url": "https://www.harrypotter.com/news/watch-the-first-teaser-for-hbo-original-harry-potter-series-premiering-christmas-2026"
+    },
+    {
+      "id": "official-podcast-heyman-2026-08-31",
+      "date": "2026-08-31",
+      "status": "official",
+      "category": "HBO series",
+      "headline": "Official podcast returns weekly, with David Heyman in a bonus episode",
+      "summary": "Rhianna Dhillon and Law Sharma are back to cover the series week by week. A bonus episode with executive producer David Heyman went up on 31 August.",
+      "source": "Wizarding World",
+      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026"
+    },
+    {
+      "id": "oxford-street-flagship-2026-08-31",
+      "date": "2026-08-31",
+      "status": "official",
+      "category": "Shops and experiences",
+      "headline": "London gets a 21,000 square foot flagship shop on Oxford Street on 4 November",
+      "summary": "The store is built around a Diagon Alley look, with a Knight Bus and a Ukrainian Ironbelly dragon installed inside. A greenscreen broomstick flight also arrives at the New York shop this autumn.",
+      "source": "Soap Central",
+      "url": "https://www.soapcentral.com/shows/harry-potter-back-hogwarts-event-every-reveal-new-house-crests-wand-replicas"
+    },
+    {
+      "id": "illustrated-half-blood-prince-2026-08-31",
+      "date": "2026-08-31",
+      "status": "official",
+      "category": "Books and audio",
+      "headline": "Levi Pinfold's illustrated Half-Blood Prince arrives 6 October",
+      "summary": "Bloomsbury publishes the sixth illustrated edition, continuing the series Pinfold took over from Jim Kay.",
+      "source": "Wizarding World",
+      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026"
+    },
+    {
+      "id": "lego-remastered-switch-2-2026-08-31",
+      "date": "2026-08-31",
+      "status": "official",
+      "category": "Games",
+      "headline": "LEGO Harry Potter Remastered hits Nintendo Switch 2 on 16 October",
+      "summary": "Pre-orders opened alongside the announcement. Hogwarts Mystery also starts a Castle Chronicles event in September built on the Lily and James Potter story, and Puzzles and Spells adds an Epic Quidditch mode with multi day club competitions.",
+      "source": "Wizarding World",
+      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026"
+    },
+    {
+      "id": "abu-dhabi-lands-reveal-2026-08-31",
+      "date": "2026-08-31",
+      "status": "official",
+      "category": "Shops and experiences",
+      "headline": "Warner Bros World Abu Dhabi reveals new Harry Potter lands on 7 September",
+      "summary": "Three new themed lands were trailed at the showcase, with the full reveal set for 7 September. Worth watching if you want the first concept art.",
+      "source": "Soap Central",
+      "url": "https://www.soapcentral.com/shows/harry-potter-back-hogwarts-event-every-reveal-new-house-crests-wand-replicas"
+    },
+    {
+      "id": "ice-gaylord-texan-2026-08-31",
+      "date": "2026-08-31",
+      "status": "official",
+      "category": "Shops and experiences",
+      "headline": "An ice carved Harry Potter walkthrough opens in Texas on 13 November",
+      "summary": "ICE! at the Gaylord Texan near Dallas turns roughly two million pounds of ice into ten scenes from the films. It runs to early January.",
+      "source": "Wizarding World",
+      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026"
+    },
+    {
+      "id": "macys-parade-debut-2026-08-31",
+      "date": "2026-08-31",
+      "status": "official",
+      "category": "Shops and experiences",
+      "headline": "Harry Potter joins the Macy's Thanksgiving parade for the first time",
+      "summary": "The debut lands on the parade's 100th anniversary this November in the United States.",
+      "source": "Wizarding World",
+      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026"
+    },
+    {
+      "id": "wizards-of-baking-s3-2026-08-31",
+      "date": "2026-08-31",
+      "status": "official",
+      "category": "Television",
+      "headline": "Wizards of Baking returns for a third season in a tournament format",
+      "summary": "The four houses compete this festive season, with bakes themed around all eight films.",
+      "source": "Wizarding World",
+      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026"
+    },
+    {
+      "id": "rupert-grint-cursed-child-2026-08-27",
+      "date": "2026-08-27",
+      "status": "official",
+      "category": "Stage",
+      "headline": "Rupert Grint will play Ron Weasley again, this time on Broadway",
+      "summary": "Grint joins Harry Potter and the Cursed Child in New York, returning to the role 15 years after the last film. Tom Felton played Draco in the same production earlier this year.",
+      "source": "Variety",
+      "url": "https://variety.com/2026/legit/global/rupert-grint-ron-weasley-harry-potter-and-the-cursed-child-1236843779/"
+    },
+    {
+      "id": "season-2-filming-fall-2026",
+      "date": "2026-08-26",
+      "status": "confirmed",
+      "category": "HBO series",
+      "headline": "Season two starts filming this autumn on Chamber of Secrets",
+      "summary": "HBO renewed the show back in May and the second season goes into production in late 2026, before the first has even aired. Francesca Gardiner runs the show with Jon Brown promoted to co showrunner.",
+      "source": "Variety",
+      "url": "https://variety.com/2026/tv/news/harry-potter-renewed-season-2-hbo-chamber-of-secrets-1236739605/"
+    },
+    {
+      "id": "hogwarts-legacy-2-development-2026-08-17",
+      "date": "2026-08-17",
+      "status": "confirmed",
+      "category": "Games",
+      "headline": "A Hogwarts Legacy sequel is officially in development",
+      "summary": "Warner Bros confirmed the follow up in August. No release window and no platforms yet, and a first look is widely expected to be timed near the series launch.",
+      "source": "Game Informer",
+      "url": "https://gameinformer.com/2026/08/17/a-hogwarts-legacy-sequel-is-officially-in-development"
+    },
+    {
+      "id": "voldemort-casting-secret-2026",
+      "date": "2026-08-28",
+      "status": "rumor",
+      "category": "HBO series",
+      "headline": "Voldemort casting is still unannounced, and the viral cast lists are wrong",
+      "summary": "HBO has kept the role quiet on purpose. A widely shared list naming Jamie Campbell Bower and Peter Capaldi has no studio backing, and one popular claim about a Marvel actor traces back to the German language audiobook cast rather than the series. Treat every Voldemort name as unproven until HBO says otherwise.",
+      "source": "Sportskeeda",
+      "url": "https://www.sportskeeda.com/pop-culture/news-from-jamie-campbell-bower-peter-capaldi-post-alleged-harry-potter-new-series-cast-list-goes-viral-online"
+    },
+    {
+      "id": "leaked-prologue-dedalus-diggle",
+      "date": "2026-08-26",
+      "status": "leak",
+      "category": "HBO series",
+      "headline": "Leaked set images point to a prologue scene the films never had",
+      "summary": "Images from location filming show Dedalus Diggle and the Dursleys in what looks like an opening sequence drawn from the first chapter of the book. Nothing here is studio released, so details can still change in the edit.",
+      "source": "Collider",
+      "url": "https://collider.com/hbo-harry-potter-series-set-images-dedalus-diggle-vernon-dursley-prologue-scene/"
+    },
+    {
+      "id": "cast-reference-rotten-tomatoes",
+      "date": "2026-08-26",
+      "status": "confirmed",
+      "category": "HBO series",
+      "headline": "Where the full cast list stands going into the premiere",
+      "summary": "Dominic McLaughlin, Arabella Stanton and Alastair Stout lead as Harry, Hermione and Ron, with John Lithgow as Dumbledore, Paapa Essiedu as Snape, Janet McTeer as McGonagall, Nick Frost as Hagrid and Nicholas Hoult added in August as Gilderoy Lockhart. Peter Serafinowicz plays Peeves, a character the films cut.",
+      "source": "Rotten Tomatoes",
+      "url": "https://editorial.rottentomatoes.com/article/everything-we-know-about-hbos-harry-potter-series/"
+    }
+  ]
+}
+</script>
+
+<script>
+(function () {
+  var STATUS_ORDER = ["official", "confirmed", "rumor", "leak", "paparazzi"];
+  var STATUS_LABEL = {
+    official: "Official",
+    confirmed: "Confirmed",
+    rumor: "Rumor",
+    leak: "Leak",
+    paparazzi: "Paparazzi"
+  };
+
+  var GLYPHS = {
+    "HBO series": '<path d="M13.6 2.6 6 13.9h4.3L9.7 21.4 18.2 10h-4.6z" fill="currentColor" stroke="none"/>',
+    "Films": '<rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><path d="M7.6 5.2v13.6M16.4 5.2v13.6M3.2 12h17.6"/>',
+    "Books and audio": '<path d="M12 6.4C9.4 4.9 6.6 4.9 3.8 6v12.4c2.8-1.1 5.6-1.1 8.2.4 2.6-1.5 5.4-1.5 8.2-.4V6c-2.8-1.1-5.6-1.1-8.2.4z"/><path d="M12 6.4v12.4"/>',
+    "Games": '<circle cx="12" cy="13.8" r="3.9"/><path d="M8.4 11.8C6.2 8.1 3.9 7.3 2.4 8.8c-.9 2.3 1.2 4.2 5.4 4.6"/><path d="M15.6 11.8c2.2-3.7 4.5-4.5 6-3 .9 2.3-1.2 4.2-5.4 4.6"/>',
+    "Stage": '<path d="M3 4h18"/><path d="M6 4v16c3.4-.6 4.6-3.4 4.6-8V4"/><path d="M18 4v16c-3.4-.6-4.6-3.4-4.6-8V4"/>',
+    "Television": '<rect x="3.2" y="8" width="17.6" height="12" rx="2.2"/><path d="M8.8 8 5.6 3.4M15.2 8l3.2-4.6"/>',
+    "Shops and experiences": '<path d="M4 9.6h16V20H4z"/><path d="M4 9.6 6.2 4h11.6L20 9.6"/><path d="M9.6 20v-5.2h4.8V20"/>',
+    "Fandom": '<path d="M12 2.4 7.4 16.6h9.2z"/><path d="M4 19.6h16"/><path d="M9.2 12.4h5.6"/>',
+    "_default": '<path d="M12 3.2 14.5 9l6.3.5-4.8 4.2 1.5 6.2L12 16.6 6.5 19.9 8 13.7 3.2 9.5 9.5 9z"/>'
+  };
+
+  function tile(cat, status) {
+    var g = GLYPHS[cat] || GLYPHS._default;
+    return '<span class="thumb ' + status + '" aria-hidden="true">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" ' +
+      'stroke-linecap="round" stroke-linejoin="round">' + g + '</svg></span>';
+  }
+
+  var data = JSON.parse(document.getElementById("news-data").textContent);
+  var stories = data.stories.slice();
+
+  var state = { q: "", statuses: [], cats: [], newestFirst: true };
+
+  var listEl = document.getElementById("list");
+  var resultEl = document.getElementById("resultline");
+  var qEl = document.getElementById("q");
+  var sortEl = document.getElementById("sortBtn");
+
+  function fmtDate(iso) {
+    var p = iso.split("-");
+    var months = ["January", "February", "March", "April", "May", "June",
+                  "July", "August", "September", "October", "November", "December"];
+    return Number(p[2]) + " " + months[Number(p[1]) - 1] + " " + p[0];
+  }
+
+  var cats = [];
+  stories.forEach(function (s) { if (cats.indexOf(s.category) === -1) cats.push(s.category); });
+  cats.sort();
+
+  function countBy(key, value) {
+    return stories.filter(function (s) { return s[key] === value; }).length;
+  }
+
+  function buildChips(containerId, key, values, labelFn, classFn) {
+    var box = document.getElementById(containerId);
+    values.forEach(function (v) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "chip" + (classFn ? " " + classFn(v) : "");
+      b.setAttribute("aria-pressed", "false");
+      b.dataset.value = v;
+      var dot = classFn ? '<span class="dot" aria-hidden="true"></span>' : "";
+      b.innerHTML = dot + '<span>' + labelFn(v) + '</span><span class="n">' + countBy(key, v) + '</span>';
+      b.addEventListener("click", function () {
+        var arr = key === "status" ? state.statuses : state.cats;
+        var i = arr.indexOf(v);
+        if (i === -1) { arr.push(v); } else { arr.splice(i, 1); }
+        b.setAttribute("aria-pressed", i === -1 ? "true" : "false");
+        render();
+      });
+      box.appendChild(b);
+    });
+  }
+
+  buildChips("statusChips", "status", STATUS_ORDER, function (v) { return STATUS_LABEL[v]; },
+             function (v) { return "s-" + v; });
+  buildChips("catChips", "category", cats, function (v) { return v; }, null);
+
+  function matches(s) {
+    if (state.statuses.length && state.statuses.indexOf(s.status) === -1) return false;
+    if (state.cats.length && state.cats.indexOf(s.category) === -1) return false;
+    if (state.q) {
+      var hay = (s.headline + " " + s.summary + " " + s.source + " " + s.category).toLowerCase();
+      var terms = state.q.toLowerCase().split(/\s+/).filter(Boolean);
+      for (var i = 0; i < terms.length; i++) {
+        if (hay.indexOf(terms[i]) === -1) return false;
+      }
+    }
+    return true;
+  }
+
+  function clearAll() {
+    state.q = "";
+    state.statuses = [];
+    state.cats = [];
+    qEl.value = "";
+    Array.prototype.forEach.call(document.querySelectorAll(".chip"), function (c) {
+      c.setAttribute("aria-pressed", "false");
+    });
+    render();
+  }
+
+  function render() {
+    var rows = stories.filter(matches);
+    rows.sort(function (a, b) {
+      if (a.date === b.date) return 0;
+      return state.newestFirst ? (a.date < b.date ? 1 : -1) : (a.date > b.date ? 1 : -1);
+    });
+
+    var filtered = state.q || state.statuses.length || state.cats.length;
+    resultEl.textContent = filtered
+      ? rows.length + " of " + stories.length + " stories match"
+      : "Showing all " + stories.length + " stories";
+
+    listEl.innerHTML = "";
+
+    if (!rows.length) {
+      var e = document.createElement("div");
+      e.className = "empty";
+      e.innerHTML = "Nothing matches that yet.";
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.textContent = "Clear the filters";
+      btn.addEventListener("click", clearAll);
+      e.appendChild(btn);
+      listEl.appendChild(e);
+      return;
+    }
+
+    var currentDate = null;
+    var dayEl = null;
+
+    rows.forEach(function (s) {
+      if (s.date !== currentDate) {
+        currentDate = s.date;
+        dayEl = document.createElement("section");
+        dayEl.className = "day";
+        var n = rows.filter(function (r) { return r.date === s.date; }).length;
+        var head = document.createElement("div");
+        head.className = "day-head";
+        head.innerHTML = '<span class="day-date">' + fmtDate(s.date) + '</span>' +
+                         '<span class="day-count">' + n + (n === 1 ? " story" : " stories") + '</span>';
+        dayEl.appendChild(head);
+        listEl.appendChild(dayEl);
+      }
+
+      var art = document.createElement("article");
+      art.className = "story";
+      art.innerHTML =
+        tile(s.category, s.status) +
+        '<div class="story-body">' +
+          '<div class="story-top">' +
+            '<span class="tag status ' + s.status + '">' + STATUS_LABEL[s.status] + '</span>' +
+            '<span class="tag cat">' + esc(s.category) + '</span>' +
+          '</div>' +
+          '<h2 class="headline"><a href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer">' +
+            esc(s.headline) + '</a></h2>' +
+          '<p class="summary">' + esc(s.summary) + '</p>' +
+          '<div class="story-foot">' +
+            '<a class="src" href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer">' +
+              esc(s.source) + ' <span class="arrow" aria-hidden="true">&#8599;</span></a>' +
+            '<span class="when">' + fmtDate(s.date) + '</span>' +
+          '</div>' +
+        '</div>';
+      dayEl.appendChild(art);
+    });
+  }
+
+  function esc(t) {
+    return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  qEl.addEventListener("input", function () { state.q = qEl.value.trim(); render(); });
+  sortEl.addEventListener("click", function () {
+    state.newestFirst = !state.newestFirst;
+    sortEl.textContent = state.newestFirst ? "Newest first" : "Oldest first";
+    render();
+  });
+
+  document.getElementById("stamp-date").textContent = fmtDate(data.updated);
+  document.getElementById("stamp-count").textContent = stories.length + " stories on file";
+
+  var btn = document.getElementById("themeBtn");
+  btn.addEventListener("click", function () {
+    var root = document.documentElement;
+    var now = root.getAttribute("data-theme");
+    if (!now) {
+      var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      now = prefersDark ? "dark" : "light";
+    }
+    root.setAttribute("data-theme", now === "dark" ? "light" : "dark");
+  });
+
+  render();
+})();
+</script>
+
+</body>
+</html>
