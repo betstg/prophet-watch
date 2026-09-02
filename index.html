@@ -15,61 +15,109 @@
 </style>
 <!-- SHARED-HEAD-START -->
 <title>Prophet Watch</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Manrope:wght@400;500;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
-  /* ===== Wizarding World, midnight and gold ===== */
+  /* Nox, o tema base */
   :root {
     --bg: #070A1C;
     --bg-2: #0C1130;
-    --veil: #050713;
-    --surface: #111737;
-    --surface-2: #182047;
-    --ink: #F4F1E8;
-    --ink-soft: #B4BBD6;
-    --ink-faint: #7B85A8;
-    --rule: #202a55;
-    --rule-strong: #35407A;
+    --veil: #121838;
+    --surface: #0F1534;
+    --surface-2: #161D45;
+    --ink: #F3EFE1;
+    --ink-soft: #CBC4AE;
+    --ink-faint: #8F8A76;
+    --rule: rgba(210,166,75,.22);
+    --rule-strong: rgba(210,166,75,.46);
     --gold: #D2A64B;
-    --gold-bright: #F2D48E;
-    --gold-dim: rgba(210, 166, 75, .30);
-    --focus: #8FB6F5;
+    --gold-bright: #F2D68F;
+    --gold-dim: rgba(210,166,75,.34);
 
-    --s-official: #5FCB9A;
-    --s-confirmed: #7FB0F0;
-    --s-rumor: #E5B25C;
-    --s-leak: #B79CF0;
-    --s-paparazzi: #F08FA0;
+    --s-official: #7FD3A6;
+    --s-confirmed: #8FB8F0;
+    --s-rumor: #E2BC63;
+    --s-leak: #BCA2F2;
+    --s-paparazzi: #F09098;
+    --shadow: 0 18px 40px -30px rgba(0, 0, 0, .9);
+  }
 
-    --shadow: 0 18px 40px -28px rgba(0,0,0,.95);
-    --font-plate: "Cinzel Decorative", "Cinzel", Georgia, serif;
-    --font-label: "Cinzel", Georgia, serif;
-    --font-read: "Newsreader", Georgia, "Times New Roman", serif;
-    --font-ui: "IBM Plex Sans", ui-sans-serif, system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+  :root[data-theme="light"] {
+    --bg: #E7DCBE;
+    --bg-2: #F1E9D2;
+    --veil: #C6B48A;
+    --surface: #F3ECD8;
+    --surface-2: #E2D6B4;
+    --ink: #17110A;
+    --ink-soft: #3F3320;
+    --ink-faint: #7A6A47;
+    --rule: #C0AE84;
+    --rule-strong: #9A8757;
+    --gold: #6B4E10;
+    --gold-bright: #8A6716;
+    --gold-dim: rgba(107, 78, 16, .34);
+
+    --s-official: #1C5F3F;
+    --s-confirmed: #234B85;
+    --s-rumor: #7A5207;
+    --s-leak: #4E3187;
+    --s-paparazzi: #8B2739;
+    --shadow: 0 16px 36px -28px rgba(30, 22, 8, .7);
+  }
+
+  /* impresso, não é card, é recorte de jornal */
+  :root[data-theme="light"] body {
+    background-image:
+      radial-gradient(120% 70% at 10% 0%, rgba(255,252,240,.85), transparent 55%),
+      radial-gradient(110% 80% at 92% 100%, rgba(180,158,110,.45), transparent 58%);
+  }
+  :root[data-theme="light"] .wrap::before {
+    content: "";
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    opacity: .10; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='150' height='150' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  :root[data-theme="light"] .card {
+    background: transparent;
+    border: none;
+    border-top: 1px solid var(--rule-strong);
+    border-radius: 0;
+    padding-top: 16px;
+  }
+  :root[data-theme="light"] .card:hover { transform: none; box-shadow: none; }
+  :root[data-theme="light"] .card-body { padding: 12px 0 4px; }
+  :root[data-theme="light"] .shot {
+    border: 2px solid #241A08;
+    border-radius: 0;
+  }
+  :root[data-theme="light"] .shot img { filter: grayscale(1) contrast(1.5) brightness(1.02) sepia(.32); }
+  :root[data-theme="light"] .shot::after {
+    background-image: radial-gradient(circle at 1px 1px, #241A08 .8px, transparent .9px);
+    background-size: 3px 3px;
+    background-color: transparent;
+    opacity: .45;
+    mix-blend-mode: multiply;
+  }
+  :root[data-theme="light"] h2.headline { font-weight: 600; }
+  :root[data-theme="light"] .card.lead h2.headline {
+    font-family: var(--font-plate);
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 1.04;
+  }
+  :root[data-theme="light"] .summary { text-align: justify; hyphens: auto; }
+  :root[data-theme="light"] .day-line { border-top: 3px double var(--rule-strong); height: 0; background: none; }
+  :root[data-theme="light"] .toolbar { border-bottom: 3px double var(--rule-strong); }
+  :root[data-theme="light"] .search,
+  :root[data-theme="light"] .btn { border-radius: 0; background: rgba(255,252,240,.5); }
+  :root[data-theme="light"] .panel { border-radius: 0; }
+  @media (min-width: 900px) {
+    :root[data-theme="light"] .card.lead .shot { float: left; width: 42%; margin: 4px 22px 10px 0; }
+    :root[data-theme="light"] .card.lead .card-body { display: block; }
+    :root[data-theme="light"] .card.lead .summary { columns: 2; column-gap: 30px; column-rule: 1px solid var(--rule); }
+    :root[data-theme="light"] .card.lead { grid-column: 1 / -1; }
   }
 
   /* Lumos, the same world with the lamps up */
-  :root[data-theme="light"] {
-    --bg: #E9E9F2;
-    --bg-2: #F4F4FA;
-    --veil: #C9CBDD;
-    --surface: #FFFFFF;
-    --surface-2: #F1F1F8;
-    --ink: #10142E;
-    --ink-soft: #3E4666;
-    --ink-faint: #6E7699;
-    --rule: #D6D8E6;
-    --rule-strong: #B6BACE;
-    --gold: #8A6A15;
-    --gold-bright: #A9861F;
-    --gold-dim: rgba(138, 106, 21, .28);
-
-    --s-official: #1C6B48;
-    --s-confirmed: #24508E;
-    --s-rumor: #7E5507;
-    --s-leak: #533494;
-    --s-paparazzi: #922C3E;
-    --shadow: 0 14px 34px -26px rgba(16, 20, 46, .5);
-  }
 
   * { box-sizing: border-box; }
 
@@ -84,6 +132,54 @@
     overflow-x: hidden;
   }
   a { color: var(--gold); }
+
+  /* poeira de magia */
+  .sparks { position: fixed; inset: 0; pointer-events: none; z-index: 2; overflow: hidden; }
+  .spark {
+    position: absolute;
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: var(--gold-bright);
+    box-shadow: 0 0 8px var(--gold);
+    opacity: 0;
+    animation: floatUp linear infinite;
+  }
+  @keyframes floatUp {
+    0%   { transform: translate3d(0, 30px, 0) scale(.4); opacity: 0; }
+    15%  { opacity: .9; }
+    80%  { opacity: .7; }
+    100% { transform: translate3d(var(--dx, 20px), -160px, 0) scale(1.1); opacity: 0; }
+  }
+
+  /* o nome acende ao carregar */
+  h1.wordmark { position: relative; }
+  h1.wordmark::after {
+    content: "";
+    position: absolute; inset: -6% -4%;
+    pointer-events: none;
+    background: linear-gradient(100deg, transparent 38%, rgba(255,240,190,.55) 48%, transparent 58%);
+    background-size: 260% 100%;
+    background-position: 130% 0;
+    mix-blend-mode: screen;
+    animation: sweep 2.8s ease-out .4s 1 both;
+  }
+  @keyframes sweep { to { background-position: -40% 0; } }
+
+  /* varinha, um brilho que segue o cursor */
+  .lumos-orb {
+    position: fixed;
+    width: 320px; height: 320px;
+    margin: -160px 0 0 -160px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity .5s;
+    background: radial-gradient(circle, var(--orb) 0%, transparent 62%);
+  }
+  :root { --orb: rgba(210,166,75,.10); }
+  :root[data-theme="light"] { --orb: rgba(107,78,16,.09); }
+  .lumos-orb.on { opacity: 1; }
   :focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 4px; }
 
   .wrap { max-width: 1120px; margin: 0 auto; padding: 0 22px 100px; }
@@ -135,11 +231,28 @@
   .tagline {
     font-family: var(--font-label);
     font-size: clamp(11px, 2.4vw, 13.5px);
-    letter-spacing: .3em;
+    letter-spacing: .22em;
     text-transform: uppercase;
     color: var(--ink-soft);
     margin: 14px 0 0;
   }
+  .issue {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    margin: 16px auto 0;
+    max-width: 560px;
+    border-top: 1px solid var(--gold-dim);
+    border-bottom: 1px solid var(--gold-dim);
+    font-family: var(--font-label);
+    font-size: 11px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .issue span { flex: 1; padding: 8px 6px; text-align: center; }
+  .issue span + span { border-left: 1px solid var(--gold-dim); }
+
   .stamp {
     display: inline-flex;
     align-items: center;
@@ -173,127 +286,168 @@
   .lumos:hover { background: rgba(210,166,75,.14); border-color: var(--gold); color: var(--gold-bright); }
   .lumos .spark { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 8px var(--gold); }
 
-  /* ================= Desk rail, like the official chips ================= */
-  .rail {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    padding: 26px 0 4px;
-  }
-  .pill {
-    font-family: var(--font-read);
-    font-size: 15.5px;
-    font-weight: 500;
-    color: var(--ink-soft);
-    background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0));
-    border: 1px solid var(--rule-strong);
-    border-radius: 999px;
-    padding: 9px 18px 9px 14px;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-    transition: border-color .2s, color .2s, background .2s, transform .2s;
-  }
-  :root[data-theme="light"] .pill { background: var(--surface); }
-  .pill svg { width: 19px; height: 19px; flex: 0 0 auto; opacity: .85; }
-  .pill .n {
-    font-family: var(--font-ui);
-    font-size: 10.5px;
-    font-variant-numeric: tabular-nums;
-    color: var(--ink-faint);
-  }
-  .pill:hover { color: var(--ink); border-color: var(--gold-dim); transform: translateY(-1px); }
-  .pill[aria-pressed="true"] {
-    color: var(--ink);
-    border-color: var(--gold);
-    background: rgba(210,166,75,.10);
-    box-shadow: 0 0 0 1px var(--gold-dim), 0 6px 18px -12px var(--gold);
-  }
-  .pill[aria-pressed="true"] .n { color: var(--gold); }
-
-  /* ================= Toolbar ================= */
+  /* ============ Barra de resultados ============ */
   .toolbar {
-    position: sticky;
-    top: 0;
-    z-index: 20;
+    position: relative;
+    z-index: 30;
     display: flex;
-    gap: 12px;
     align-items: center;
     flex-wrap: wrap;
-    padding: 14px 0 13px;
-    background: linear-gradient(180deg, var(--bg) 72%, transparent);
-    backdrop-filter: blur(6px);
+    gap: 10px 12px;
+    padding: 20px 0 14px;
+    border-bottom: 1px solid var(--rule);
   }
-  .search-field { position: relative; flex: 1 1 260px; min-width: 0; }
-  .search {
-    width: 100%;
-    font-family: var(--font-read);
-    font-size: 16px;
-    color: var(--ink);
-    background: var(--surface);
-    border: 1px solid var(--rule-strong);
-    border-radius: 999px;
-    padding: 10px 16px 10px 42px;
+  .tools { flex: 1 1 auto; justify-content: flex-end; min-width: 0; }
+  .search-field { flex: 1 1 auto; }
+  @media (max-width: 560px) {
+    .count { margin-right: 0; width: 100%; }
+    .search-field { width: auto; }
+    .panel { right: auto; left: 0; width: min(300px, calc(100vw - 44px)); }
   }
-  .search::placeholder { color: var(--ink-faint); font-style: italic; }
-  .search:focus { border-color: var(--gold); outline: none; }
-  .wand { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--ink-faint); pointer-events: none; }
-  .search:focus + .wand { color: var(--gold); }
-
-  .marks { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-  .mark {
-    font-family: var(--font-ui);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
-    background: none;
-    border: 1px solid var(--rule);
-    border-radius: 999px;
-    padding: 6px 12px;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    transition: border-color .2s, color .2s, background .2s;
-  }
-  .mark .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-  .mark.official { --c: var(--s-official); }
-  .mark.confirmed { --c: var(--s-confirmed); }
-  .mark.rumor { --c: var(--s-rumor); }
-  .mark.leak { --c: var(--s-leak); }
-  .mark.paparazzi { --c: var(--s-paparazzi); }
-  .mark .dot { color: var(--c); }
-  .mark:hover { color: var(--ink); border-color: var(--c); }
-  .mark[aria-pressed="true"] { color: var(--c); border-color: var(--c); background: color-mix(in srgb, var(--c) 12%, transparent); }
-  .mark .n { font-size: 10px; color: var(--ink-faint); }
-
-  .sort {
-    font-family: var(--font-ui);
-    font-size: 11.5px;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    background: none;
-    border: 1px solid var(--rule);
-    border-radius: 999px;
-    padding: 7px 14px;
-    cursor: pointer;
-    white-space: nowrap;
-  }
-  .sort:hover { color: var(--ink); border-color: var(--gold-dim); }
-
-  .resultline {
+  .count {
     font-family: var(--font-ui);
     font-size: 12px;
     letter-spacing: .1em;
     text-transform: uppercase;
     color: var(--ink-faint);
-    padding: 18px 0 14px;
+    margin-right: auto;
+    white-space: nowrap;
   }
+  .tools { display: flex; align-items: center; gap: 8px; }
+  .panel { max-width: calc(100vw - 44px); }
+
+  .search-field { position: relative; width: clamp(150px, 26vw, 260px); }
+  .search {
+    width: 100%;
+    font-family: var(--font-read);
+    font-size: 15px;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--rule-strong);
+    border-radius: 999px;
+    padding: 8px 14px 8px 36px;
+  }
+  .search::placeholder { color: var(--ink-faint); font-style: italic; }
+  .search:focus { border-color: var(--gold); outline: none; }
+  .wand { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: var(--ink-faint); pointer-events: none; }
+  .search:focus + .wand { color: var(--gold); }
+
+  .btn {
+    font-family: var(--font-ui);
+    font-size: 11.5px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    background: var(--surface);
+    border: 1px solid var(--rule-strong);
+    border-radius: 999px;
+    padding: 8px 14px;
+    cursor: pointer;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .btn:hover { color: var(--ink); border-color: var(--gold-dim); }
+  .btn .badge {
+    font-size: 10px;
+    background: var(--gold);
+    color: #10142E;
+    border-radius: 999px;
+    padding: 1px 6px;
+    font-weight: 600;
+  }
+
+  /* painel de filtro */
+  details.filter { position: relative; }
+  details.filter > summary { list-style: none; }
+  details.filter > summary::-webkit-details-marker { display: none; }
+  details.filter[open] > summary .btn,
+  details.filter > summary:hover .btn { border-color: var(--gold); color: var(--ink); }
+  .panel {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    z-index: 40;
+    width: 244px;
+    background: var(--surface);
+    border: 1px solid var(--rule-strong);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 8px;
+    max-height: min(70vh, 520px);
+    overflow-y: auto;
+  }
+  .panel-sep { height: 1px; background: var(--rule); margin: 8px 4px; }
+  .opt.cat .swatch { background: var(--ink-faint); }
+  .opt.cat[aria-pressed="true"] .box { background: var(--gold); border-color: var(--gold); }
+  .panel h3 {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin: 6px 8px 8px;
+  }
+  .opt {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    background: none;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 9px;
+    cursor: pointer;
+    font-family: var(--font-ui);
+    font-size: 13px;
+    color: var(--ink-soft);
+    text-align: left;
+  }
+  .opt:hover { background: var(--surface-2); color: var(--ink); }
+  .opt .box {
+    width: 15px; height: 15px;
+    border: 1px solid var(--rule-strong);
+    border-radius: 4px;
+    display: grid; place-items: center;
+    flex: 0 0 auto;
+  }
+  .opt[aria-pressed="true"] { color: var(--ink); }
+  .opt[aria-pressed="true"] .box { background: var(--c); border-color: var(--c); }
+  .opt[aria-pressed="true"] .box::after { content: ""; width: 7px; height: 7px; border-radius: 2px; background: #0B0F2A; }
+  .opt .swatch { width: 7px; height: 7px; border-radius: 50%; background: var(--c); }
+  .opt .n { margin-left: auto; font-size: 11px; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+  .opt.official { --c: var(--s-official); }
+  .opt.confirmed { --c: var(--s-confirmed); }
+  .opt.rumor { --c: var(--s-rumor); }
+  .opt.leak { --c: var(--s-leak); }
+  .opt.paparazzi { --c: var(--s-paparazzi); }
+
+  /* chips do que está aplicado, só aparecem quando há algo */
+  .applied { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 14px 0 0; }
+  .applied:empty { display: none; }
+  .chip-on {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    letter-spacing: .06em;
+    color: var(--ink);
+    background: var(--surface-2);
+    border: 1px solid var(--rule-strong);
+    border-radius: 999px;
+    padding: 5px 8px 5px 12px;
+    display: inline-flex; align-items: center; gap: 8px;
+    cursor: pointer;
+  }
+  .chip-on:hover { border-color: var(--gold); }
+  .chip-on .x { color: var(--ink-faint); font-size: 13px; line-height: 1; }
+  .chip-on:hover .x { color: var(--gold); }
+  .clear-all {
+    font-family: var(--font-ui); font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--gold); background: none; border: none; cursor: pointer; padding: 5px 4px;
+  }
+
+  .resultline { display: none; }
 
   /* ================= Day sections ================= */
   .day-head {
@@ -313,7 +467,49 @@
   .day-line { flex: 1 1 auto; height: 1px; background: linear-gradient(90deg, var(--gold-dim), transparent); }
   .day-count { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); white-space: nowrap; }
 
-  .stories { display: grid; grid-template-columns: repeat(auto-fill, minmax(268px, 1fr)); gap: 22px; }
+  .stories {
+    column-count: 3;
+    column-gap: 30px;
+    column-rule: 1px solid var(--rule);
+    padding-top: 6px;
+  }
+  @media (max-width: 1000px) { .stories { column-count: 2; } }
+  @media (max-width: 620px) { .stories { column-count: 1; } }
+
+  .card {
+    break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    display: block !important;
+    background: none !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0 0 18px !important;
+    margin: 0 0 18px;
+    border-bottom: 1px solid var(--rule) !important;
+    overflow: visible;
+  }
+  .card:hover { transform: none; }
+  :root { --frame: rgba(210,166,75,.55); --paper: transparent; }
+  :root[data-theme="light"] { --frame: #1C1F33; --paper: transparent; }
+
+ }
+ }
+
+  /* imagem sempre com legenda */
+  figure.cut { margin: 0 0 10px; }
+  .shot { aspect-ratio: 4 / 3; }
+  .card.lead .shot { aspect-ratio: 21 / 9; }
+  figure.cut figcaption {
+    font-family: var(--font-label);
+    font-size: 10.5px;
+    letter-spacing: .04em;
+    color: var(--ink-faint);
+    padding-top: 6px;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 8px;
+  }
 
   /* ================= Cards ================= */
   .card {
@@ -346,7 +542,7 @@
   }
   @media (hover: hover) and (pointer: fine) { .card:hover::before { opacity: 1; } }
 
-  .shot { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: var(--surface-2); }
+  .shot { position: relative; aspect-ratio: 3 / 2; overflow: hidden; background: var(--surface-2); }
   .shot img {
     width: 100%; height: 100%;
     object-fit: cover;
@@ -393,9 +589,9 @@
     0%, 100% { transform: translateY(0) rotate(0deg); }
     50% { transform: translateY(-5px) rotate(-2deg); }
   }
-  .card.lead .shot { aspect-ratio: 16 / 10; }
+  .card.lead .shot { aspect-ratio: 16 / 9; }
 
-  .card-body { padding: 15px 17px 17px; display: flex; flex-direction: column; gap: 9px; flex: 1 1 auto; }
+  .card-body { padding: 0; display: flex; flex-direction: column; gap: 9px; flex: 1 1 auto; }
   .kicker { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
   .tag {
     font-family: var(--font-ui);
@@ -419,15 +615,54 @@
   .desk { font-family: var(--font-ui); font-size: 9.5px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-faint); }
 
   h2.headline {
-    font-family: var(--font-read);
+    font-family: var(--font-title);
     font-weight: 500;
     font-size: 20px;
     line-height: 1.22;
     margin: 0;
     text-wrap: balance;
   }
-  .card.lead h2.headline { font-size: clamp(24px, 3.4vw, 32px); font-weight: 400; }
-  h2.headline a { color: var(--ink); text-decoration: none; }
+  .card.lead {
+    column-span: all;
+    width: 100%;
+    display: block !important;
+    text-align: center;
+    border-bottom: 3px double var(--rule-strong) !important;
+    margin-bottom: 26px;
+    padding-bottom: 22px !important;
+  }
+  .card.lead h2.headline {
+    font-family: var(--font-title);
+    font-weight: 900;
+    font-size: clamp(30px, 4.6vw, 52px);
+    line-height: 1.02;
+    text-align: center;
+    max-width: 26ch;
+    margin: 10px auto 18px;
+  }
+  .card.lead .summary::first-letter {
+    font-family: var(--font-title);
+    font-size: 3.4em;
+    line-height: .8;
+    float: left;
+    padding: 6px 10px 0 0;
+    font-weight: 900;
+    color: var(--gold);
+  }
+  .card.lead .kicker { justify-content: center; }
+  .card.lead figure.cut { max-width: 780px; margin: 0 auto 16px; }
+  .card.lead .card-foot { max-width: 780px; margin: 0 auto; }
+  .card.lead .summary { text-align: justify; max-width: none; columns: 3; column-gap: 28px; column-rule: 1px solid var(--rule); -webkit-line-clamp: unset; display: block; }
+  @media (max-width: 900px) { .card.lead .summary { columns: 1; } }
+  .card.big h2.headline { font-size: 25px; font-weight: 900; }
+  .card.mid h2.headline { font-size: 20px; }
+  .card.brief h2.headline { font-size: 15px; font-weight: 700; }
+  .card.brief .summary { font-size: 14px; -webkit-line-clamp: 3; }
+  .card.brief figure.cut { display: none; }
+ }
+  h2.headline a { color: var(--ink); text-decoration: none !important; border: none; background: none; }
+  h2.headline a:hover { color: var(--gold-bright); text-decoration: none !important; }
+  .card-foot .src { text-decoration: none; }
   .card:hover h2.headline a { color: var(--gold-bright); }
 
   .summary {
@@ -444,9 +679,7 @@
   .card.lead .summary { -webkit-line-clamp: 7; font-size: 16.5px; }
 
   .card-foot {
-    margin-top: auto;
-    padding-top: 12px;
-    border-top: 1px solid var(--rule);
+    padding-top: 8px;
     display: flex;
     justify-content: space-between;
     align-items: baseline;
@@ -458,12 +691,7 @@
   }
   .card-foot .src { color: var(--gold); font-weight: 600; text-decoration: none; }
 
-  /* lead spans two columns on wide screens */
-  @media (min-width: 900px) {
-    .card.lead { grid-column: span 2; flex-direction: row; }
-    .card.lead .shot { width: 52%; aspect-ratio: auto; }
-    .card.lead .card-body { width: 48%; padding: 26px 28px 24px; gap: 12px; justify-content: center; }
-  }
+  /* a abertura ocupa a largura toda, sem coluna lateral */
 
   .empty {
     text-align: center;
@@ -506,6 +734,85 @@
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
   }
+
+  /* ===== ajustes finais ===== */
+  h2.headline a,
+  .card-foot .src,
+  .card a { text-decoration: none !important; }
+  h2.headline a { color: var(--ink) !important; }
+  h2.headline a:hover { color: var(--gold-bright) !important; }
+  :root[data-theme="light"] h2.headline a { color: #17110A !important; }
+  :root[data-theme="light"] .card.lead h2.headline a { color: #17110A !important; }
+
+  .card.lead {
+    column-span: all !important;
+    width: 100% !important;
+    max-width: none !important;
+    display: block !important;
+    text-align: center;
+    margin: 0 0 26px !important;
+    padding: 0 0 22px !important;
+  }
+  .card.lead .kicker { justify-content: center; }
+  .card.lead figure.cut { max-width: 820px; margin: 0 auto 18px !important; }
+  .card.lead .summary {
+    columns: 3 !important;
+    column-gap: 30px !important;
+    column-rule: 1px solid var(--rule);
+    text-align: justify;
+    max-width: none !important;
+    display: block !important;
+    -webkit-line-clamp: unset !important;
+  }
+  .card.lead .card-foot { max-width: 820px; margin: 10px auto 0; }
+  @media (max-width: 900px) { .card.lead .summary { columns: 1 !important; } }
+
+  /* nada de flutuar dentro da abertura, era isso que espremia tudo */
+  .card .shot, .card figure.cut,
+  :root[data-theme="light"] .card .shot,
+  :root[data-theme="light"] .card figure.cut,
+  :root[data-theme="light"] .card.lead .shot,
+  :root[data-theme="light"] .card.lead figure.cut {
+    float: none !important;
+    width: auto !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  :root[data-theme="light"] .card.lead .card-body { display: block !important; }
+  .card.lead .summary { width: 100% !important; }
+  .card.lead, .card.lead .card-body, .card.lead .summary {
+    width: 100% !important; max-width: none !important; box-sizing: border-box;
+  }
+  .card.lead .card-body { display: block !important; align-items: stretch !important; }
+
+  /* ===== molduras iguais nos dois temas, Lumos e Nox ===== */
+  :root { --frame: #C39B45; --frame-in: rgba(195,155,69,.38); }
+  :root[data-theme="light"] { --frame: #241A08; --frame-in: rgba(36,26,8,.30); }
+
+  .shot,
+  :root[data-theme="light"] .shot,
+  .card.lead .shot,
+  :root[data-theme="light"] .card.lead .shot {
+    border: 2px solid var(--frame) !important;
+    border-radius: 0 !important;
+    box-shadow: inset 0 0 0 1px var(--frame-in) !important;
+    background-clip: padding-box;
+  }
+  .shot.failed,
+  :root[data-theme="light"] .shot.failed {
+    box-shadow: inset 0 0 0 1px var(--frame-in) !important;
+  }
+  .shot.failed::before,
+  :root[data-theme="light"] .shot.failed::before {
+    border: 1px solid var(--frame-in) !important;
+    border-radius: 0 !important;
+  }
+  figure.cut figcaption,
+  :root[data-theme="light"] figure.cut figcaption {
+    border-bottom: 1px solid var(--rule);
+  }
+  .card.lead .shot { aspect-ratio: 21 / 9 !important; width: 100% !important; }
+  .card .shot { aspect-ratio: 3 / 2 !important; }
 </style>
 <!-- SHARED-HEAD-END -->
 </head>
@@ -516,28 +823,46 @@
   <div class="hero-inner">
     <h1 class="wordmark">Prophet Watch</h1>
     <p class="tagline">Harry Potter news, sorted by how well it is sourced</p>
+    <aside class="issue"><span id="issueNo">Issue #1</span><span id="issueDate">2 September 2026</span><span>5 Knuts</span></aside>
     <div class="stamp">
       <span>Updated <b id="stamp-date">2 September 2026</b></span>
       <span id="stamp-count">22 stories</span>
       <button class="lumos" id="themeBtn" type="button"><span class="spark"></span><span id="themeLabel">Lumos</span></button>
     </div>
-    <div class="rail" id="catRail" role="group" aria-label="Filter by desk"></div>
+
   </div>
 </header>
 
+<div class="sparks" id="sparks" aria-hidden="true"></div>
+<div class="lumos-orb" id="orb" aria-hidden="true"></div>
 <div class="wrap">
   <div class="toolbar">
-    <div class="search-field">
-      <input class="search" id="q" type="search" placeholder="Revelio, search the archive" aria-label="Search the news">
-      <svg class="wand" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor"
-           stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
-        <path d="M2.5 13.5 10 6"/><path d="M11.6 4.4 13.5 2.5"/>
-        <path d="M9.4 2.2v2M12.8 6.4h1.9M9.9 6.9l1.3 1.3"/>
-      </svg>
+    <span class="count" id="count">22 histórias</span>
+    <div class="tools">
+      <div class="search-field">
+        <input class="search" id="q" type="search" placeholder="Buscar" aria-label="Buscar no arquivo">
+        <svg class="wand" width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor"
+             stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
+          <path d="M2.5 13.5 10 6"/><path d="M11.6 4.4 13.5 2.5"/>
+          <path d="M9.4 2.2v2M12.8 6.4h1.9M9.9 6.9l1.3 1.3"/>
+        </svg>
+      </div>
+      <details class="filter" id="filterBox">
+        <summary>
+          <span class="btn">Filtrar<span class="badge" id="filterCount" hidden>0</span></span>
+        </summary>
+        <div class="panel">
+          <h3>Categoria</h3>
+          <div id="catRow"></div>
+          <div class="panel-sep"></div>
+          <h3>Procedência</h3>
+          <div id="markRow"></div>
+        </div>
+      </details>
+      <button class="btn" id="sortBtn" type="button" aria-live="polite">Mais recentes</button>
     </div>
-    <div class="marks" id="markRow" role="group" aria-label="Filter by sourcing"></div>
-    <button class="sort" id="sortBtn" type="button" aria-live="polite">Newest first</button>
   </div>
+  <div class="applied" id="applied"></div>
 
   <p class="resultline" id="resultline"></p>
   <main id="list"></main>
@@ -608,7 +933,8 @@
       "headline": "Stephen Fry and Jim Dale audiobooks of the first book go free until Halloween",
       "summary": "Both narrated editions of Philosopher's Stone are free on Audible, Amazon Music, Spotify and the Harry Potter YouTube channel from 1 September through Halloween.",
       "source": "Wizarding World",
-      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026"
+      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
+      "image": "https://contentful.harrypotter.com/usf1vwtuqyxm/57wSLj0bB2oMxI8sKLcFz0/6206da0e0eab7c6911b186bec459ff45/Article_Hero__Showcase_Wrap_-_Article_Homepage_Hero.png?w=1200&fit=fill&f=top"
     },
     {
       "id": "cinema-run-closes-2026-09-01",
@@ -651,7 +977,8 @@
       "headline": "Official podcast returns weekly, with David Heyman in a bonus episode",
       "summary": "Rhianna Dhillon and Law Sharma are back to cover the series week by week. A bonus episode with executive producer David Heyman went up on 31 August.",
       "source": "Wizarding World",
-      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026"
+      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
+      "image": "https://contentful.harrypotter.com/usf1vwtuqyxm/57wSLj0bB2oMxI8sKLcFz0/6206da0e0eab7c6911b186bec459ff45/Article_Hero__Showcase_Wrap_-_Article_Homepage_Hero.png?w=1200&fit=fill&f=top"
     },
     {
       "id": "oxford-street-flagship-2026-08-31",
@@ -672,7 +999,8 @@
       "headline": "Levi Pinfold's illustrated Half-Blood Prince arrives 6 October",
       "summary": "Bloomsbury publishes the sixth illustrated edition, continuing the series Pinfold took over from Jim Kay.",
       "source": "Wizarding World",
-      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026"
+      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
+      "image": "https://contentful.harrypotter.com/usf1vwtuqyxm/57wSLj0bB2oMxI8sKLcFz0/6206da0e0eab7c6911b186bec459ff45/Article_Hero__Showcase_Wrap_-_Article_Homepage_Hero.png?w=1200&fit=fill&f=top"
     },
     {
       "id": "lego-remastered-switch-2-2026-08-31",
@@ -682,7 +1010,8 @@
       "headline": "LEGO Harry Potter Remastered hits Nintendo Switch 2 on 16 October",
       "summary": "Pre-orders opened alongside the announcement. Hogwarts Mystery also starts a Castle Chronicles event in September built on the Lily and James Potter story, and Puzzles and Spells adds an Epic Quidditch mode with multi day club competitions.",
       "source": "Wizarding World",
-      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026"
+      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
+      "image": "https://contentful.harrypotter.com/usf1vwtuqyxm/57wSLj0bB2oMxI8sKLcFz0/6206da0e0eab7c6911b186bec459ff45/Article_Hero__Showcase_Wrap_-_Article_Homepage_Hero.png?w=1200&fit=fill&f=top"
     },
     {
       "id": "abu-dhabi-lands-reveal-2026-08-31",
@@ -692,7 +1021,8 @@
       "headline": "Warner Bros World Abu Dhabi reveals new Harry Potter lands on 7 September",
       "summary": "Three new themed lands were trailed at the showcase, with the full reveal set for 7 September. Worth watching if you want the first concept art.",
       "source": "Soap Central",
-      "url": "https://www.soapcentral.com/shows/harry-potter-back-hogwarts-event-every-reveal-new-house-crests-wand-replicas"
+      "url": "https://www.soapcentral.com/shows/harry-potter-back-hogwarts-event-every-reveal-new-house-crests-wand-replicas",
+      "image": "https://statico.soapcentral.com/editor/2026/09/fcbdc-17882987102634.jpg"
     },
     {
       "id": "ice-gaylord-texan-2026-08-31",
@@ -702,7 +1032,8 @@
       "headline": "An ice carved Harry Potter walkthrough opens in Texas on 13 November",
       "summary": "ICE! at the Gaylord Texan near Dallas turns roughly two million pounds of ice into ten scenes from the films. It runs to early January.",
       "source": "Wizarding World",
-      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026"
+      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
+      "image": "https://contentful.harrypotter.com/usf1vwtuqyxm/57wSLj0bB2oMxI8sKLcFz0/6206da0e0eab7c6911b186bec459ff45/Article_Hero__Showcase_Wrap_-_Article_Homepage_Hero.png?w=1200&fit=fill&f=top"
     },
     {
       "id": "macys-parade-debut-2026-08-31",
@@ -712,7 +1043,8 @@
       "headline": "Harry Potter joins the Macy's Thanksgiving parade for the first time",
       "summary": "The debut lands on the parade's 100th anniversary this November in the United States.",
       "source": "Wizarding World",
-      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026"
+      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
+      "image": "https://contentful.harrypotter.com/usf1vwtuqyxm/57wSLj0bB2oMxI8sKLcFz0/6206da0e0eab7c6911b186bec459ff45/Article_Hero__Showcase_Wrap_-_Article_Homepage_Hero.png?w=1200&fit=fill&f=top"
     },
     {
       "id": "wizards-of-baking-s3-2026-08-31",
@@ -722,7 +1054,8 @@
       "headline": "Wizards of Baking returns for a third season in a tournament format",
       "summary": "The four houses compete this festive season, with bakes themed around all eight films.",
       "source": "Wizarding World",
-      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026"
+      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
+      "image": "https://contentful.harrypotter.com/usf1vwtuqyxm/57wSLj0bB2oMxI8sKLcFz0/6206da0e0eab7c6911b186bec459ff45/Article_Hero__Showcase_Wrap_-_Article_Homepage_Hero.png?w=1200&fit=fill&f=top"
     },
     {
       "id": "rupert-grint-cursed-child-2026-08-27",
@@ -821,7 +1154,6 @@
   var state = { q: "", statuses: [], cats: [], newestFirst: true };
 
   var listEl = document.getElementById("list");
-  var resultEl = document.getElementById("resultline");
   var qEl = document.getElementById("q");
   var sortEl = document.getElementById("sortBtn");
 
@@ -853,25 +1185,32 @@
     render();
   }
 
-  var rail = document.getElementById("catRail");
-  cats.forEach(function (c, i) {
+  var catButtons = {};
+  var catRow = document.getElementById("catRow");
+  cats.forEach(function (c) {
     var b = document.createElement("button");
     b.type = "button";
-    b.className = "pill";
+    b.className = "opt cat";
     b.setAttribute("aria-pressed", "false");
-    b.innerHTML = icon(c) + "<span>" + esc(c) + '</span><span class="n">' + countBy("category", c) + "</span>";
-    b.style.animation = "rise .5s cubic-bezier(.2,.8,.3,1) " + (60 + i * 40) + "ms both";
+    b.innerHTML = '<span class="box"></span><span class="swatch"></span>' + esc(c) +
+                  '<span class="n">' + countBy("category", c) + "</span>";
     b.addEventListener("click", function () { toggle("category", c, b); });
-    rail.appendChild(b);
+    catRow.appendChild(b);
+    catButtons[c] = b;
   });
+  function syncNav() {
+    Object.keys(catButtons).forEach(function (k) {
+      catButtons[k].setAttribute("aria-pressed", state.cats.indexOf(k) !== -1 ? "true" : "false");
+    });
+  }
 
   var markRow = document.getElementById("markRow");
   STATUS_ORDER.forEach(function (st) {
     var b = document.createElement("button");
     b.type = "button";
-    b.className = "mark " + st;
+    b.className = "opt " + st;
     b.setAttribute("aria-pressed", "false");
-    b.innerHTML = '<span class="dot"></span>' + STATUS_LABEL[st] +
+    b.innerHTML = '<span class="box"></span><span class="swatch"></span>' + STATUS_LABEL[st] +
                   '<span class="n">' + countBy("status", st) + "</span>";
     b.addEventListener("click", function () { toggle("status", st, b); });
     markRow.appendChild(b);
@@ -892,21 +1231,22 @@
   function clearAll() {
     state.q = ""; state.statuses = []; state.cats = [];
     qEl.value = "";
-    Array.prototype.forEach.call(document.querySelectorAll('[aria-pressed]'), function (c) {
-      c.setAttribute("aria-pressed", "false");
-    });
+    Object.keys(markButtons).forEach(function (k) { markButtons[k].setAttribute("aria-pressed", "false"); });
+    syncNav();
     render();
   }
 
   function shot(s) {
     var fb = icon(s.category, "fallback");
-    if (!s.image) return '<div class="shot failed">' + fb + "</div>";
+    if (!s.image) return '<figure class="cut"><div class="shot failed">' + fb + "</div>" +
+      '<figcaption>' + esc(s.category) + "</figcaption></figure>";
     var seed = s.id.length;
     var style = "--pan:" + (22 + (seed % 9) * 2.4).toFixed(1) + "s;" +
                 "--panx:" + (((seed % 5) - 2) * 1.8).toFixed(1) + "%;" +
                 "--pany:" + (((seed % 4) - 1) * 1.6).toFixed(1) + "%;";
-    return '<div class="shot" style="' + style + '">' +
-      '<img src="' + esc(s.image) + '" alt="" loading="lazy" decoding="async">' + fb + "</div>";
+    return '<figure class="cut"><div class="shot" style="' + style + '">' +
+      '<img src="' + esc(s.image) + '" alt="" decoding="async">' + fb + "</div>" +
+      '<figcaption>' + esc(s.source) + ' &middot; ' + esc(s.category) + "</figcaption></figure>";
   }
 
   function markFailed(img) { if (img && img.parentNode) img.parentNode.classList.add("failed"); }
@@ -922,7 +1262,46 @@
     });
   }
 
+  function drawApplied() {
+    var box = document.getElementById("applied");
+    box.innerHTML = "";
+    var bits = [];
+    state.cats.forEach(function (c) { bits.push(["category", c, c]); });
+    state.statuses.forEach(function (st) { bits.push(["status", st, STATUS_LABEL[st]]); });
+    if (state.q) bits.push(["q", state.q, '"' + state.q + '"']);
+    bits.forEach(function (bit) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "chip-on";
+      b.innerHTML = esc(bit[2]) + '<span class="x">&times;</span>';
+      b.addEventListener("click", function () {
+        if (bit[0] === "q") { state.q = ""; qEl.value = ""; }
+        else if (bit[0] === "category") {
+          state.cats = state.cats.filter(function (x) { return x !== bit[1]; });
+          syncNav();
+        }
+        else {
+          state.statuses = state.statuses.filter(function (x) { return x !== bit[1]; });
+          markButtons[bit[1]].setAttribute("aria-pressed", "false");
+        }
+        render();
+      });
+      box.appendChild(b);
+    });
+    if (bits.length > 1) {
+      var c = document.createElement("button");
+      c.type = "button"; c.className = "clear-all"; c.textContent = "Limpar tudo";
+      c.addEventListener("click", clearAll);
+      box.appendChild(c);
+    }
+    var total = state.statuses.length + state.cats.length;
+    var fc = document.getElementById("filterCount");
+    fc.textContent = total;
+    fc.hidden = total === 0;
+  }
+
   function render() {
+    drawApplied();
     var rows = stories.filter(matches);
     rows.sort(function (a, b) {
       if (a.date === b.date) return 0;
@@ -930,9 +1309,9 @@
     });
 
     var filtered = state.q || state.statuses.length || state.cats.length;
-    resultEl.textContent = filtered
-      ? rows.length + " of " + stories.length + " stories"
-      : stories.length + " stories on file";
+    document.getElementById("count").textContent = filtered
+      ? rows.length + " de " + stories.length + " histórias"
+      : stories.length + " histórias";
 
     listEl.innerHTML = "";
     if (!rows.length) {
@@ -964,7 +1343,8 @@
       }
 
       var art = document.createElement("article");
-      art.className = "card" + (idx === 0 ? " lead" : "");
+      var RANK = ["big", "mid", "brief", "mid", "brief", "brief", "mid", "brief"];
+      art.className = "card" + (idx === 0 ? " lead" : " " + RANK[(idx - 1) % RANK.length]);
       art.style.animationDelay = Math.min(idx, 10) * 45 + "ms";
       art.innerHTML =
         shot(s) +
@@ -983,9 +1363,8 @@
             "<span>" + fmtDate(s.date) + "</span>" +
           "</div>" +
         "</div>";
-      grid.appendChild(art);
+      if (idx === 0) { listEl.insertBefore(art, grid); } else { grid.appendChild(art); }
     });
-    setTimeout(sweep, 5000);
   }
 
   listEl.addEventListener("click", function (ev) {
@@ -1026,12 +1405,19 @@
   qEl.addEventListener("input", function () { state.q = qEl.value.trim(); render(); });
   sortEl.addEventListener("click", function () {
     state.newestFirst = !state.newestFirst;
-    sortEl.textContent = state.newestFirst ? "Newest first" : "Oldest first";
+    sortEl.textContent = state.newestFirst ? "Mais recentes" : "Mais antigas";
     render();
   });
 
   document.getElementById("stamp-date").textContent = fmtDate(data.updated);
-  document.getElementById("stamp-count").textContent = stories.length + " stories";
+  var iss = document.getElementById("issueDate"); if (iss) iss.textContent = fmtDate(data.updated);
+  var isn = document.getElementById("issueNo"); if (isn) isn.textContent = "Issue #" + stories.length;
+  document.getElementById("stamp-count").textContent = stories.length + " histórias";
+  syncNav();
+  document.addEventListener("click", function (ev) {
+    var f = document.getElementById("filterBox");
+    if (f.open && !f.contains(ev.target)) f.open = false;
+  });
 
   function isDark() {
     var t = document.documentElement.getAttribute("data-theme");
@@ -1044,6 +1430,41 @@
     document.documentElement.setAttribute("data-theme", isDark() ? "light" : "dark");
     sync();
   });
+
+  /* poeira dourada subindo, discreta */
+  (function () {
+    var box = document.getElementById("sparks");
+    var frag = document.createDocumentFragment();
+    for (var i = 0; i < 22; i++) {
+      var m = document.createElement("span");
+      m.className = "spark";
+      m.style.left = ((i * 41.3) % 100).toFixed(1) + "%";
+      m.style.top = ((i * 67.9) % 100).toFixed(1) + "%";
+      m.style.setProperty("--dx", (((i % 5) - 2) * 24) + "px");
+      m.style.animationDuration = (14 + (i % 7) * 2.6).toFixed(1) + "s";
+      m.style.animationDelay = "-" + ((i * 2.1) % 17).toFixed(1) + "s";
+      var sc = 0.6 + (i % 4) * 0.3;
+      m.style.width = m.style.height = (3 * sc).toFixed(1) + "px";
+      frag.appendChild(m);
+    }
+    box.appendChild(frag);
+  })();
+
+  /* lumos, um halo que acompanha o cursor */
+  (function () {
+    if (!window.matchMedia || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    var orb = document.getElementById("orb"), raf = 0, x = 0, y = 0;
+    window.addEventListener("mousemove", function (e) {
+      x = e.clientX; y = e.clientY;
+      orb.classList.add("on");
+      if (raf) return;
+      raf = requestAnimationFrame(function () {
+        raf = 0;
+        orb.style.transform = "translate3d(" + x + "px," + y + "px,0)";
+      });
+    }, { passive: true });
+    window.addEventListener("mouseleave", function () { orb.classList.remove("on"); });
+  })();
 
   render();
 })();
