@@ -19,7 +19,7 @@ import sys
 OPEN = '<script type="application/json" id="news-data">'
 CLOSE = '</script>'
 FIELDS = ('id', 'date', 'status', 'category', 'headline', 'summary', 'source', 'url')
-STATUSES = ('official', 'confirmed', 'rumor', 'leak', 'paparazzi')
+STATUSES = ('official', 'confirmed', 'analysis', 'rumor', 'leak', 'paparazzi')
 MAX_STORIES = 120
 
 

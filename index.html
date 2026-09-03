@@ -38,6 +38,7 @@
     --s-rumor: #E2BC63;
     --s-leak: #BCA2F2;
     --s-paparazzi: #F09098;
+    --s-analysis: #86D2CE;
     --shadow: 0 18px 40px -30px rgba(0, 0, 0, .9);
   }
 
@@ -61,6 +62,7 @@
     --s-rumor: #7A5207;
     --s-leak: #4E3187;
     --s-paparazzi: #8B2739;
+    --s-analysis: #14625E;
     --shadow: 0 16px 36px -28px rgba(30, 22, 8, .7);
   }
 
@@ -423,6 +425,7 @@
   .opt.rumor { --c: var(--s-rumor); }
   .opt.leak { --c: var(--s-leak); }
   .opt.paparazzi { --c: var(--s-paparazzi); }
+  .opt.analysis { --c: var(--s-analysis); }
 
   /* chips do que está aplicado, só aparecem quando há algo */
   .applied { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 14px 0 0; }
@@ -612,6 +615,7 @@
   .tag.rumor { --c: var(--s-rumor); }
   .tag.leak { --c: var(--s-leak); }
   .tag.paparazzi { --c: var(--s-paparazzi); }
+  .tag.analysis { --c: var(--s-analysis); }
   .desk { font-family: var(--font-ui); font-size: 9.5px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-faint); }
 
   h2.headline {
@@ -867,6 +871,236 @@
   }
   .card.lead .card-body { padding-top: 6px !important; }
   .card.lead .kicker { justify-content: center; }
+
+  /* ===== a varinha, o cursor vira varinha e a luz sai da ponta ===== */
+  .wand {
+    position: fixed;
+    top: 0; left: 0;
+    width: 96px; height: 96px;
+    margin: -9px 0 0 -9px;      /* a ponta desenhada fica em 9,9 */
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity .35s ease;
+    will-change: transform;
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,.55));
+  }
+  .wand.lit { opacity: 1; }
+  .wand svg { transform: scale(1.22); transform-origin: 9px 9px; }
+  .wand svg { display: block; overflow: visible; }
+  .wand-tip {
+    fill: #FFF6DC;
+    filter: drop-shadow(0 0 6px #FFE7A6) drop-shadow(0 0 16px rgba(255,206,110,.9));
+    animation: tipBreath 2.4s ease-in-out infinite;
+  }
+  @keyframes tipBreath {
+    0%, 100% { r: 3.2; opacity: .92; }
+    50% { r: 4.2; opacity: 1; }
+  }
+  :root[data-theme="light"] .wand { filter: drop-shadow(0 3px 7px rgba(60,44,16,.35)); }
+
+  /* a luz mora na ponta da varinha, nao no ponteiro */
+  .wand-glow {
+    position: fixed;
+    top: 0; left: 0;
+    width: 1200px; height: 1200px;
+    margin: -600px 0 0 -600px;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity .45s ease;
+    will-change: transform;
+    mix-blend-mode: screen;
+    background:
+      radial-gradient(closest-side, rgba(255,240,198,.62) 0%, rgba(255,214,124,.42) 14%, rgba(226,176,80,.22) 32%, rgba(150,112,40,.08) 52%, transparent 72%);
+  }
+  .wand-glow.lit { opacity: 1; }
+  /* no Lumos o papel ja e claro, entao a luz vira sombra quente e discreta */
+  :root[data-theme="light"] .wand-glow {
+    mix-blend-mode: multiply;
+    background: radial-gradient(closest-side, rgba(255,248,222,0) 0%, rgba(150,124,66,.10) 40%, transparent 68%);
+  }
+
+  /* o nucleo quente, por cima de tudo, e o que faz o Nox parecer aceso */
+  .wand-core {
+    position: fixed;
+    top: 0; left: 0;
+    width: 420px; height: 420px;
+    margin: -210px 0 0 -210px;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0;
+    transition: opacity .35s ease;
+    will-change: transform;
+    mix-blend-mode: screen;
+    background: radial-gradient(closest-side, rgba(255,253,245,.95) 0%, rgba(255,244,206,.62) 12%, rgba(255,220,140,.34) 30%, rgba(255,198,92,.14) 52%, transparent 76%);
+  }
+  .wand-core.lit { opacity: 1; }
+  :root[data-theme="light"] .wand-core { opacity: 0 !important; }
+
+  /* no Nox a sala fica escura fora do alcance da varinha, e por isso que a luz aparece */
+  .wand-dark {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity .5s ease;
+    background: radial-gradient(760px circle at var(--wx, 50%) var(--wy, 50%),
+      rgba(3,5,18,0) 0%, rgba(3,5,18,.16) 34%, rgba(3,5,18,.44) 62%, rgba(3,5,18,.6) 100%);
+  }
+  .wand-dark.lit { opacity: 1; }
+  :root[data-theme="light"] .wand-dark { opacity: 0 !important; }
+
+  /* faiscas que caem da ponta */
+  .spark-bit {
+    position: fixed;
+    top: 0; left: 0;
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: #FFE9B4;
+    box-shadow: 0 0 8px #FFCE6E, 0 0 16px rgba(255,206,110,.7);
+    pointer-events: none;
+    z-index: 9997;
+    animation: sparkFall 1.1s ease-out forwards;
+  }
+  :root[data-theme="light"] .spark-bit { background: #A97F26; box-shadow: 0 0 6px rgba(169,127,38,.6); }
+  @keyframes sparkFall {
+    0%   { transform: translate3d(0,0,0) scale(1); opacity: 1; }
+    100% { transform: translate3d(var(--sx, 0px), var(--sy, 40px), 0) scale(.2); opacity: 0; }
+  }
+
+  /* o feitico ao clicar em Lumos ou Nox */
+  .cast {
+    position: fixed;
+    top: 0; left: 0;
+    width: 150px; height: 150px;
+    margin: -14px 0 0 -14px;
+    pointer-events: none;
+    z-index: 10000;
+    transform-origin: 14px 14px;
+    animation: castFlick .85s cubic-bezier(.2,.8,.25,1) forwards;
+  }
+  .cast svg { display: block; overflow: visible; }
+  @keyframes castFlick {
+    0%   { transform: rotate(-42deg) scale(.7); opacity: 0; }
+    18%  { transform: rotate(-14deg) scale(1.14); opacity: 1; }
+    52%  { transform: rotate(16deg) scale(1.06); opacity: 1; }
+    100% { transform: rotate(4deg) scale(1); opacity: 0; }
+  }
+  .cast-ring {
+    position: fixed;
+    top: 0; left: 0;
+    width: 26px; height: 26px;
+    margin: -13px 0 0 -13px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,226,150,.9);
+    pointer-events: none;
+    z-index: 9999;
+    animation: castRing .95s cubic-bezier(.16,.9,.3,1) forwards;
+  }
+  :root[data-theme="light"] .cast-ring { border-color: rgba(140,105,30,.8); }
+  @keyframes castRing {
+    0%   { transform: scale(.2); opacity: 1; box-shadow: 0 0 24px rgba(255,206,110,.9); }
+    100% { transform: scale(22); opacity: 0; box-shadow: 0 0 0 rgba(255,206,110,0); }
+  }
+  .cast-flash {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9996;
+    background: radial-gradient(closest-side at var(--fx, 50%) var(--fy, 50%), rgba(255,244,214,.5), transparent 62%);
+    mix-blend-mode: screen;
+    animation: castFlash .7s ease-out forwards;
+  }
+  :root[data-theme="light"] .cast-flash { mix-blend-mode: multiply; background: radial-gradient(closest-side at var(--fx,50%) var(--fy,50%), rgba(120,96,44,.16), transparent 62%); }
+  @keyframes castFlash { 0% { opacity: 0; } 22% { opacity: 1; } 100% { opacity: 0; } }
+
+  /* o ponteiro do sistema some, quem manda e a varinha */
+  html.wandering, html.wandering body { cursor: none; }
+  html.wandering a, html.wandering button, html.wandering .card, html.wandering label { cursor: none; }
+  html.wandering input, html.wandering textarea, html.wandering select { cursor: text; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wand, .wand-glow, .wand-core, .wand-dark, .spark-bit, .cast, .cast-ring, .cast-flash { display: none !important; }
+    html.wandering, html.wandering body { cursor: auto; }
+  }
+  @media (hover: none), (pointer: coarse) {
+    .wand, .wand-glow, .wand-core, .wand-dark { display: none !important; }
+  }
+
+  /* ===== de onde vem a noticia, o mapa das bancadas ===== */
+  .desks {
+    margin: 64px 0 0;
+    padding: 34px 0 8px;
+    border-top: 3px double var(--rule-strong);
+    position: relative;
+    z-index: 3;
+  }
+  .desks-head { max-width: 640px; margin: 0 0 26px; }
+  .desks-head h2 {
+    font-family: var(--font-plate);
+    font-size: clamp(20px, 3.4vw, 28px);
+    font-weight: 700;
+    letter-spacing: .02em;
+    margin: 0 0 8px;
+    color: var(--ink);
+  }
+  .desks-head p {
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+  .desks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 26px 30px;
+  }
+  .desk-col h3 {
+    font-family: var(--font-label);
+    font-size: 10.5px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 0 0 10px;
+    padding-bottom: 7px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .desk-col ul { list-style: none; margin: 0; padding: 0; }
+  .desk-col li { margin: 0 0 13px; }
+  .desk-col a {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--ink);
+    text-decoration: none;
+    line-height: 1.3;
+  }
+  .desk-col a:hover { color: var(--gold-bright); }
+  .desk-col span {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--ink-faint);
+    margin-top: 2px;
+  }
+  .desks-note {
+    font-family: var(--font-label);
+    font-size: 11px;
+    letter-spacing: .04em;
+    color: var(--ink-faint);
+    margin: 24px 0 0;
+    padding-top: 14px;
+    border-top: 1px solid var(--rule);
+  }
+  @media (max-width: 560px) {
+    .desks { margin-top: 44px; }
+    .desks-grid { gap: 22px; }
+  }
 </style>
 <!-- SHARED-HEAD-END -->
 </head>
@@ -889,6 +1123,26 @@
 
 <div class="sparks" id="sparks" aria-hidden="true"></div>
 <div class="lumos-orb" id="orb" aria-hidden="true"></div>
+<div class="wand-glow" id="wandGlow" aria-hidden="true"></div>
+<div class="wand" id="wand" aria-hidden="true">
+  <svg viewBox="0 0 96 96" width="96" height="96" fill="none">
+    <defs>
+      <linearGradient id="wandWood" x1="10" y1="10" x2="82" y2="82" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#6B4A24"/>
+        <stop offset=".45" stop-color="#3E2A14"/>
+        <stop offset="1" stop-color="#1E1409"/>
+      </linearGradient>
+      <linearGradient id="wandShine" x1="12" y1="12" x2="70" y2="70" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#C79A5C" stop-opacity=".9"/>
+        <stop offset="1" stop-color="#C79A5C" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <path d="M11 11 C 26 22, 44 40, 60 58 C 68 67, 76 76, 84 85 L 78 91 C 70 82, 62 73, 54 64 C 38 46, 20 28, 5 17 Z" fill="url(#wandWood)"/>
+    <path d="M11 11 C 24 21, 40 36, 54 52" stroke="url(#wandShine)" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M63 62 L 71 70 M69 68 L 77 76" stroke="#8A6432" stroke-width="2.4" stroke-linecap="round" opacity=".85"/>
+    <circle class="wand-tip" cx="9" cy="9" r="3.4"/>
+  </svg>
+</div>
 <div class="wrap">
   <div class="toolbar">
     <span class="count" id="count">22 histórias</span>
@@ -921,6 +1175,62 @@
   <p class="resultline" id="resultline"></p>
   <main id="list"></main>
 
+  <section class="desks" id="desks">
+    <div class="desks-head">
+      <h2>De onde vem a noticia</h2>
+      <p>Estas sao as bancadas que o Prophet Watch le todo dia, de manha e no fim da tarde. Oficiais primeiro, depois imprensa, depois fa, depois quem estuda os livros. Clique para abrir a fonte.</p>
+    </div>
+    <div class="desks-grid">
+      <div class="desk-col">
+        <h3>Oficial</h3>
+        <ul>
+          <li><a href="https://www.harrypotter.com/news" target="_blank" rel="noopener noreferrer">Wizarding World</a><span>O site oficial. Anuncio de produto, evento e serie.</span></li>
+          <li><a href="https://www.youtube.com/@harrypotter/videos" target="_blank" rel="noopener noreferrer">Canal oficial Harry Potter</a><span>Trailers, teasers e transmissoes. E daqui que saem os videos que se mexem no site.</span></li>
+          <li><a href="https://press.wbd.com/us" target="_blank" rel="noopener noreferrer">Warner Bros Discovery Pressroom</a><span>Comunicado de imprensa cru, sem intermediario.</span></li>
+        </ul>
+      </div>
+      <div class="desk-col">
+        <h3>Imprensa</h3>
+        <ul>
+          <li><a href="https://variety.com/t/harry-potter/" target="_blank" rel="noopener noreferrer">Variety</a><span>Escalacao, producao e negocio. Fura com fonte nomeada.</span></li>
+          <li><a href="https://deadline.com/tag/harry-potter/" target="_blank" rel="noopener noreferrer">Deadline</a><span>O mesmo terreno da Variety, costuma confirmar rapido.</span></li>
+          <li><a href="https://www.tvline.com/tag/harry-potter/" target="_blank" rel="noopener noreferrer">TVLine</a><span>Cobertura de serie, datas e episodios.</span></li>
+        </ul>
+      </div>
+      <div class="desk-col">
+        <h3>Fa, em ingles</h3>
+        <ul>
+          <li><a href="https://mugglenet.com/news/" target="_blank" rel="noopener noreferrer">MuggleNet</a><span>No ar desde 1999. Noticia diaria e cobertura de evento.</span></li>
+          <li><a href="https://www.the-leaky-cauldron.org/" target="_blank" rel="noopener noreferrer">The Leaky Cauldron</a><span>Fa site historico, ja foi convidado ao set da serie.</span></li>
+          <li><a href="https://www.hp-lexicon.org/" target="_blank" rel="noopener noreferrer">The Harry Potter Lexicon</a><span>Enciclopedia de canon. Serve para checar antes de acreditar.</span></li>
+        </ul>
+      </div>
+      <div class="desk-col">
+        <h3>Fa, em portugues</h3>
+        <ul>
+          <li><a href="https://www.youtube.com/channel/UCkhfuyQUD5GNulpQRJOqrGg/videos" target="_blank" rel="noopener noreferrer">Caldeirao Furado</a><span>Caco Cardassi, 1,67 milhao de inscritos, o maior canal de Harry Potter do mundo. Faz analise de noticia que nao aparece em outro lugar.</span></li>
+          <li><a href="https://potterish.com/?lang=en" target="_blank" rel="noopener noreferrer">Potterish</a><span>Site brasileiro no ar desde 2002. Publica em portugues e em ingles.</span></li>
+        </ul>
+      </div>
+      <div class="desk-col">
+        <h3>Estudo dos livros</h3>
+        <ul>
+          <li><a href="https://www.hogwartsprofessor.com/" target="_blank" rel="noopener noreferrer">Hogwarts Professor</a><span>John Granger. Leitura literaria da serie, alquimia e composicao em anel. Teoria com base no texto, nao no palpite.</span></li>
+          <li><a href="https://www.hp-lexicon.org/essays/" target="_blank" rel="noopener noreferrer">Ensaios do Lexicon</a><span>Artigos longos sobre canon, cronologia e contradicao entre livros.</span></li>
+        </ul>
+      </div>
+      <div class="desk-col">
+        <h3>Vazamento e set</h3>
+        <ul>
+          <li><a href="https://collider.com/tag/harry-potter/" target="_blank" rel="noopener noreferrer">Collider</a><span>Costuma ser o primeiro a publicar foto de set que vazou.</span></li>
+          <li><a href="https://www.soapcentral.com/shows/harry-potter" target="_blank" rel="noopener noreferrer">Soap Central</a><span>Junta o que aparece em rede social e forum sobre gravacao.</span></li>
+          <li><a href="https://www.reddit.com/r/HarryPotterOnHBO/" target="_blank" rel="noopener noreferrer">r/HarryPotterOnHBO</a><span>Onde a foto de paparazzi de Londres circula antes de virar materia.</span></li>
+        </ul>
+      </div>
+    </div>
+    <p class="desks-note">Nada aqui e publicado sem link. Se uma bancada some ou muda de endereco, a materia continua apontando para o texto original.</p>
+  </section>
+
   <footer class="foot">
     <svg class="seal" width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor"
          stroke-width="1.2" aria-hidden="true">
@@ -935,6 +1245,61 @@
 {
   "updated": "2026-09-03",
   "stories": [
+    {
+      "id": "caldeirao-furado-trailer-breakdown-2026-09-03",
+      "date": "2026-09-03",
+      "status": "analysis",
+      "category": "Analise e teoria",
+      "headline": "Caldeirao Furado destrincha o trailer quadro a quadro",
+      "summary": "Caco Cardassi publicou as primeiras impressoes do trailer completo em um video de cinquenta e dois minutos, que passou de cem mil visualizacoes em oito horas. O Caldeirao Furado tem 1,67 milhao de inscritos e e o maior canal de Harry Potter do mundo. No mesmo dia o canal ja tinha subido a analise do anuncio do trailer e a reacao ao vivo.",
+      "source": "Caldeirao Furado",
+      "url": "https://www.youtube.com/watch?v=RcY7feIAzSY",
+      "image": "assets/thumbs/caldeirao-furado-trailer-breakdown-2026-09-03.jpg"
+    },
+    {
+      "id": "hogwarts-professor-emoji-symbols-2026-09-03",
+      "date": "2026-09-03",
+      "status": "analysis",
+      "category": "Analise e teoria",
+      "headline": "Um estudioso dos livros le os tres emojis que Rowling postou com o trailer",
+      "summary": "John Granger, do Hogwarts Professor, argumenta que o coracao, a coruja e o raio que Rowling usou ao divulgar o trailer nao sao enfeite. No sistema simbolico dos livros o coracao e o centro espiritual, a coruja e a percepcao do que nao se ve e o raio e a transformacao. O site faz leitura literaria da serie ha anos, com alquimia e composicao em anel, e e o tipo de analise que nao aparece nos portais de noticia.",
+      "source": "Hogwarts Professor",
+      "url": "https://www.hogwartsprofessor.com/the-hbo-potter-trailer-the-meaning-of-rowlings-heart-owl-and-lightning-bolt/",
+      "image": "assets/hogwarts-night.jpg"
+    },
+    {
+      "id": "potterish-trailer-hedwig-2026-09-02",
+      "date": "2026-09-02",
+      "status": "confirmed",
+      "category": "HBO series",
+      "headline": "Potterish destaca a Cerimonia de Selecao, o Quadribol e a primeira Edwiges",
+      "summary": "O Potterish, site brasileiro de Harry Potter no ar desde 2002, publicou sua leitura do trailer completo em portugues e em ingles. O texto separa a Cerimonia de Selecao, a primeira partida de Quadribol e o primeiro vislumbre de Edwiges, e sai junto com um guia de estreia com data, numero de episodios e onde assistir.",
+      "source": "Potterish",
+      "url": "https://potterish.com/new-harry-potter-hbo-series-trailer/?lang=en",
+      "image": "assets/thumbs/potterish-trailer-hedwig-2026-09-02.jpg"
+    },
+    {
+      "id": "waterloo-station-paparazzi-2026-05-04",
+      "date": "2026-05-04",
+      "status": "paparazzi",
+      "category": "HBO series",
+      "headline": "Fotos de paparazzi poem os Dursley e os Weasley na estacao de Waterloo",
+      "summary": "A estacao de Waterloo, em Londres, foi usada como Kings Cross para gravar a Plataforma nove e tres quartos. As imagens mostram os atores de Valter Dursley e Molly Weasley juntos, mais figurantes fantasiados e os gemeos Weasley. As fotos sairam pelo Daily Mail e circularam a partir de um post do perfil Luka4152 no X.",
+      "source": "Notebookcheck",
+      "url": "https://www.notebookcheck.net/Harry-Potter-series-New-set-photos-spark-plenty-of-fan-speculation.1288829.0.html",
+      "image": "assets/thumbs/waterloo-station-paparazzi-2026-05-04.jpg"
+    },
+    {
+      "id": "asha-soetan-season-2-leavesden-2026-08-17",
+      "date": "2026-08-17",
+      "status": "confirmed",
+      "category": "HBO series",
+      "headline": "Atriz de Angelina Johnson deixa escapar que a segunda temporada ja grava em Leavesden",
+      "summary": "Asha Soetan, que vive a estudante Angelina Johnson, postou nas redes que estava de volta ao set com cenas empolgantes mas jurada de segredo. Foi assim que se soube que a segunda temporada comecou a rodar em Leavesden, antes de qualquer anuncio do estudio.",
+      "source": "Watford Observer",
+      "url": "https://uk.news.yahoo.com/hbo-harry-potter-actor-reveals-161500213.html",
+      "image": "assets/thumbs/asha-soetan-season-2-leavesden-2026-08-17.jpg"
+    },
     {
       "id": "full-trailer-arrives-2026-09-02",
       "date": "2026-09-02",
@@ -1227,14 +1592,15 @@
 
 <script>
 (function () {
-  var STATUS_ORDER = ["official", "confirmed", "rumor", "leak", "paparazzi"];
+  var STATUS_ORDER = ["official", "confirmed", "analysis", "rumor", "leak", "paparazzi"];
   var STATUS_LABEL = {
-    official: "Official", confirmed: "Confirmed", rumor: "Rumor",
-    leak: "Leak", paparazzi: "Paparazzi"
+    official: "Official", confirmed: "Confirmed", analysis: "Analysis",
+    rumor: "Rumor", leak: "Leak", paparazzi: "Paparazzi"
   };
 
   /* one drawn mark per desk, used on the rail and when a photograph will not load */
   var ICONS = {
+    "Analise e teoria": '<circle cx="10.6" cy="10.6" r="6.4"/><path d="M15.2 15.2 20.6 20.6"/><path d="M8.2 10.6h4.8M10.6 8.2v4.8"/>',
     "HBO series": '<path d="M13.6 2.6 6 13.9h4.3L9.7 21.4 18.2 10h-4.6z" fill="currentColor" stroke="none"/>',
     "Films": '<rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><path d="M7.6 5.2v13.6M16.4 5.2v13.6M3.2 12h17.6"/>',
     "Books and audio": '<path d="M12 6.4C9.4 4.9 6.6 4.9 3.8 6v12.4c2.8-1.1 5.6-1.1 8.2.4 2.6-1.5 5.4-1.5 8.2-.4V6c-2.8-1.1-5.6-1.1-8.2.4z"/><path d="M12 6.4v12.4"/>',
@@ -1594,7 +1960,11 @@
   var themeLabel = document.getElementById("themeLabel");
   function sync() { themeLabel.textContent = isDark() ? "Lumos" : "Nox"; }
   sync();
-  document.getElementById("themeBtn").addEventListener("click", function () {
+  document.getElementById("themeBtn").addEventListener("click", function (ev) {
+    var r = ev.currentTarget.getBoundingClientRect();
+    var x = ev.clientX || (r.left + r.width / 2);
+    var y = ev.clientY || (r.top + r.height / 2);
+    try { castSpell(x, y); } catch (e) {}
     document.documentElement.setAttribute("data-theme", isDark() ? "light" : "dark");
     sync();
   });
@@ -1618,20 +1988,154 @@
     box.appendChild(frag);
   })();
 
-  /* lumos, um halo que acompanha o cursor */
+  /* a varinha segue a mao, e a luz sai da ponta dela */
+  var castSpell = function () {};
   (function () {
-    if (!window.matchMedia || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-    var orb = document.getElementById("orb"), raf = 0, x = 0, y = 0;
-    window.addEventListener("mousemove", function (e) {
-      x = e.clientX; y = e.clientY;
-      orb.classList.add("on");
-      if (raf) return;
-      raf = requestAnimationFrame(function () {
-        raf = 0;
-        orb.style.transform = "translate3d(" + x + "px," + y + "px,0)";
-      });
+    if (!window.matchMedia) return;
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    var wand = document.getElementById("wand");
+    var glow = document.getElementById("wandGlow");
+    var orb = document.getElementById("orb");
+    if (orb) orb.remove();
+
+    var core = document.createElement("div");
+    core.className = "wand-core";
+    core.setAttribute("aria-hidden", "true");
+    document.body.appendChild(core);
+
+    var room = document.createElement("div");
+    room.className = "wand-dark";
+    room.setAttribute("aria-hidden", "true");
+    document.body.appendChild(room);
+
+    document.documentElement.classList.add("wandering");
+
+    /* mx e my sao a mao. wx e wy sao a ponta da varinha, que corre atras. */
+    var mx = -300, my = -300, wx = -300, wy = -300;
+    var prevX = -300, prevY = -300, tilt = 0, live = false, raf = 0, sparkClock = 0;
+
+    function frame(now) {
+      raf = requestAnimationFrame(frame);
+
+      /* a varinha persegue a mao com folga, entao ela balanca */
+      wx += (mx - wx) * 0.22;
+      wy += (my - wy) * 0.22;
+
+      var vx = wx - prevX, vy = wy - prevY;
+      prevX = wx; prevY = wy;
+
+      /* o pulso inclina a varinha no sentido do movimento */
+      var want = Math.max(-26, Math.min(26, (vx + vy) * 0.9));
+      tilt += (want - tilt) * 0.14;
+
+      wand.style.transform = "translate3d(" + wx + "px," + wy + "px,0) rotate(" + tilt.toFixed(2) + "deg)";
+
+      /* a luz nao mora no ponteiro, mora na ponta da varinha */
+      var t = "translate3d(" + wx + "px," + wy + "px,0)";
+      glow.style.transform = t;
+      core.style.transform = t;
+      room.style.setProperty("--wx", wx.toFixed(0) + "px");
+      room.style.setProperty("--wy", wy.toFixed(0) + "px");
+
+      /* faisca de vez em quando, so quando a varinha esta se mexendo */
+      var speed = Math.abs(vx) + Math.abs(vy);
+      if (live && speed > 2.4 && now - sparkClock > 70) {
+        sparkClock = now;
+        dropSpark(wx, wy);
+      }
+    }
+
+    function dropSpark(x, y) {
+      var b = document.createElement("div");
+      b.className = "spark-bit";
+      b.style.transform = "translate3d(" + x + "px," + y + "px,0)";
+      b.style.left = "0"; b.style.top = "0";
+      b.style.marginLeft = x.toFixed(0) + "px";
+      b.style.marginTop = y.toFixed(0) + "px";
+      b.style.setProperty("--sx", ((Math.random() - 0.5) * 34).toFixed(0) + "px");
+      b.style.setProperty("--sy", (24 + Math.random() * 38).toFixed(0) + "px");
+      document.body.appendChild(b);
+      setTimeout(function () { b.remove(); }, 1150);
+    }
+
+    function wake() {
+      if (live) return;
+      live = true;
+      wand.classList.add("lit");
+      glow.classList.add("lit");
+      core.classList.add("lit");
+      room.classList.add("lit");
+    }
+    function sleep() {
+      live = false;
+      wand.classList.remove("lit");
+      glow.classList.remove("lit");
+      core.classList.remove("lit");
+      room.classList.remove("lit");
+    }
+
+    document.addEventListener("mousemove", function (e) {
+      mx = e.clientX; my = e.clientY;
+      if (!live) { wx = mx; wy = my; prevX = mx; prevY = my; }
+      wake();
     }, { passive: true });
-    window.addEventListener("mouseleave", function () { orb.classList.remove("on"); });
+
+    document.addEventListener("mouseleave", sleep);
+    window.addEventListener("blur", sleep);
+
+    /* um punhado de faiscas ao clicar em qualquer lugar */
+    document.addEventListener("mousedown", function () {
+      for (var i = 0; i < 7; i++) dropSpark(wx, wy);
+    }, { passive: true });
+
+    raf = requestAnimationFrame(frame);
+
+    /* o feitico, uma varinha grande que brande no ponto do clique */
+    var WAND_SVG = wand.querySelector("svg").outerHTML;
+    castSpell = function (x, y) {
+      var c = document.createElement("div");
+      c.className = "cast";
+      c.setAttribute("aria-hidden", "true");
+      c.innerHTML = WAND_SVG;
+      c.style.left = x + "px";
+      c.style.top = y + "px";
+      document.body.appendChild(c);
+
+      var ring = document.createElement("div");
+      ring.className = "cast-ring";
+      ring.setAttribute("aria-hidden", "true");
+      ring.style.left = x + "px";
+      ring.style.top = y + "px";
+      document.body.appendChild(ring);
+
+      var flash = document.createElement("div");
+      flash.className = "cast-flash";
+      flash.setAttribute("aria-hidden", "true");
+      flash.style.setProperty("--fx", x + "px");
+      flash.style.setProperty("--fy", y + "px");
+      document.body.appendChild(flash);
+
+      for (var i = 0; i < 22; i++) {
+        (function (k) {
+          setTimeout(function () {
+            var a = (Math.PI * 2 * k) / 22 + Math.random() * 0.4;
+            var d = 60 + Math.random() * 110;
+            var b = document.createElement("div");
+            b.className = "spark-bit";
+            b.style.marginLeft = x.toFixed(0) + "px";
+            b.style.marginTop = y.toFixed(0) + "px";
+            b.style.setProperty("--sx", (Math.cos(a) * d).toFixed(0) + "px");
+            b.style.setProperty("--sy", (Math.sin(a) * d).toFixed(0) + "px");
+            document.body.appendChild(b);
+            setTimeout(function () { b.remove(); }, 1150);
+          }, k * 8);
+        })(i);
+      }
+
+      setTimeout(function () { c.remove(); ring.remove(); flash.remove(); }, 1000);
+    };
   })();
 
   render();
