@@ -813,6 +813,60 @@
   }
   .card.lead .shot { aspect-ratio: 21 / 9 !important; width: 100% !important; }
   .card .shot { aspect-ratio: 3 / 2 !important; }
+
+  /* ===== retratos que se mexem, videos oficiais em loop mudo ===== */
+  .shot.moving iframe {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 100%;
+    height: 100%;
+    min-width: 177.78%;
+    min-height: 100%;
+    transform: translate(-50%, -50%) scale(1.02);
+    border: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .9s ease;
+    z-index: 1;
+  }
+  .shot.moving.rolling iframe { opacity: 1; }
+  .shot.moving img { opacity: 1; }
+  .shot.moving::after { z-index: 2; }
+
+  .shot .reel {
+    position: absolute;
+    left: 10px; bottom: 10px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 0 3px rgba(0,0,0,.35), 0 0 12px var(--gold);
+    z-index: 3;
+    animation: pulseReel 2.6s ease-in-out infinite;
+  }
+  @keyframes pulseReel {
+    0%, 100% { opacity: .45; transform: scale(.85); }
+    50% { opacity: 1; transform: scale(1.15); }
+  }
+  figcaption .live {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  /* toda noticia tem retrato, inclusive as curtas */
+  .card.brief figure.cut { display: block !important; }
+  .card.brief .shot { aspect-ratio: 16 / 9 !important; }
+  .card.mid .shot { aspect-ratio: 3 / 2 !important; }
+
+  /* a foto da abertura pertence a noticia dela, sem filete no meio */
+  .card.lead figure.cut { margin-bottom: 10px !important; }
+  .card.lead figure.cut figcaption {
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+    max-width: 820px;
+    margin: 0 auto;
+  }
+  .card.lead .card-body { padding-top: 6px !important; }
+  .card.lead .kicker { justify-content: center; }
 </style>
 <!-- SHARED-HEAD-END -->
 </head>
@@ -890,7 +944,8 @@
       "summary": "The Back to Hogwarts livestream closed with a short teaser built around Harry's first Quidditch match, with Ron and Hermione cheering from the stands. HBO Max confirmed that the first full trailer for Harry Potter and the Philosopher's Stone arrives the next day. The series still premieres at Christmas 2026.",
       "source": "MuggleNet",
       "url": "https://mugglenet.com/2026/09/hbo-harry-potter-full-trailer-september-2/",
-      "image": "https://mugglenet.com/wp-content/uploads/2026/09/cropped-trailer-feature.png"
+      "image": "assets/thumbs/full-trailer-date-2026-09-01.jpg",
+      "video": "tqqhFtRpnWw"
     },
     {
       "id": "lego-hbo-series-sets-2026-09-01",
@@ -901,7 +956,7 @@
       "summary": "Warner Bros confirmed a new LEGO range based on the HBO series rather than the films. No sets, characters or release dates have been named yet. It would be the first time the long running LEGO partnership follows the television version of Hogwarts.",
       "source": "MuggleNet",
       "url": "https://mugglenet.com/2026/09/hbo-harry-potter-lego-sets-coming/",
-      "image": "https://mugglenet.com/wp-content/uploads/2026/09/cropped-hbo-lego-sets-feature.png"
+      "image": "assets/thumbs/lego-hbo-series-sets-2026-09-01.jpg"
     },
     {
       "id": "house-crests-ravenclaw-eagle-2026-09-01",
@@ -912,7 +967,7 @@
       "summary": "The Back to Hogwarts event in London unveiled simplified house crests for the HBO series, with more focus on the house animals and closer wording to the books. Ravenclaw's crest uses an eagle rather than a raven, which is book accurate and still set off a long argument online.",
       "source": "Soap Central",
       "url": "https://www.soapcentral.com/shows/harry-potter-back-hogwarts-event-every-reveal-new-house-crests-wand-replicas",
-      "image": "https://statico.soapcentral.com/editor/2026/09/fcbdc-17882987102634.jpg"
+      "image": "assets/thumbs/house-crests-ravenclaw-eagle-2026-09-01.jpg"
     },
     {
       "id": "sorting-ceremony-reimagined-2026-09-01",
@@ -923,7 +978,7 @@
       "summary": "Wizarding World relaunched its Sorting Ceremony at HarryPotter.com using the new house heraldry from the series. Anyone already sorted can go through it again.",
       "source": "Wizarding World",
       "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
-      "image": "https://contentful.harrypotter.com/usf1vwtuqyxm/57wSLj0bB2oMxI8sKLcFz0/6206da0e0eab7c6911b186bec459ff45/Article_Hero__Showcase_Wrap_-_Article_Homepage_Hero.png?w=1200&fit=fill&f=top"
+      "image": "assets/thumbs/sorting-ceremony-reimagined-2026-09-01.jpg"
     },
     {
       "id": "free-audiobooks-philosophers-stone-2026-09-01",
@@ -934,7 +989,8 @@
       "summary": "Both narrated editions of Philosopher's Stone are free on Audible, Amazon Music, Spotify and the Harry Potter YouTube channel from 1 September through Halloween.",
       "source": "Wizarding World",
       "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
-      "image": "https://contentful.harrypotter.com/usf1vwtuqyxm/57wSLj0bB2oMxI8sKLcFz0/6206da0e0eab7c6911b186bec459ff45/Article_Hero__Showcase_Wrap_-_Article_Homepage_Hero.png?w=1200&fit=fill&f=top"
+      "image": "assets/thumbs/free-audiobooks-philosophers-stone-2026-.jpg",
+      "video": "ZuD_Aah14P8"
     },
     {
       "id": "cinema-run-closes-2026-09-01",
@@ -945,7 +1001,7 @@
       "summary": "All eight films returned to cinemas for the 25th anniversary of Philosopher's Stone. Regal ran one film a day from 25 August to 1 September, inside a wider Warner Bros window of 27 August to 3 September, with AMC, Cinemark, Megaplex, Harkins and Marcus also taking part.",
       "source": "Attractions Magazine",
       "url": "https://attractionsmagazine.com/harry-potter-movie-theaters-2026-sorcerers-stone-25th-anniversary/",
-      "image": "https://attractionsmagazine.com/wp-content/uploads/2026/01/Harry-Potter-and-the-Sorcerers-Stone-25-Years-of-Magic.jpeg"
+      "image": "assets/thumbs/cinema-run-closes-2026-09-01.jpg"
     },
     {
       "id": "back-to-hogwarts-showcase-2026-08-31",
@@ -956,7 +1012,8 @@
       "summary": "The annual 1 September showcase covered the HBO series, a returning podcast, LEGO sets tied to the show, a Snapchat lens set, a Macy's Thanksgiving Parade debut, new shops, park lands and games. It is the single densest source of the week.",
       "source": "Wizarding World",
       "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
-      "image": "https://contentful.harrypotter.com/usf1vwtuqyxm/57wSLj0bB2oMxI8sKLcFz0/6206da0e0eab7c6911b186bec459ff45/Article_Hero__Showcase_Wrap_-_Article_Homepage_Hero.png?w=1200&fit=fill&f=top"
+      "image": "assets/thumbs/back-to-hogwarts-showcase-2026-08-31.jpg",
+      "video": "tqqhFtRpnWw"
     },
     {
       "id": "teaser-christmas-2026-08-31",
@@ -967,7 +1024,8 @@
       "summary": "A new teaser was set for 1 September, with the first season confirmed as Harry Potter and the Philosopher's Stone, premiering on HBO and streaming on HBO Max at Christmas. The trailer earlier this year drew 277 million views in its first 48 hours, a record for HBO.",
       "source": "Wizarding World",
       "url": "https://www.harrypotter.com/news/watch-the-first-teaser-for-hbo-original-harry-potter-series-premiering-christmas-2026",
-      "image": "https://contentful.harrypotter.com/usf1vwtuqyxm/4WpyqmCI7d7XOc3NaPrmQX/9399b0bff79c4082d1a4886e44f9552f/hbo-teaser-homepage-hero.jpg?w=1200&fit=fill&f=top"
+      "image": "assets/thumbs/teaser-christmas-2026-08-31.jpg",
+      "video": "RIu4sFKGi6E"
     },
     {
       "id": "official-podcast-heyman-2026-08-31",
@@ -978,7 +1036,8 @@
       "summary": "Rhianna Dhillon and Law Sharma are back to cover the series week by week. A bonus episode with executive producer David Heyman went up on 31 August.",
       "source": "Wizarding World",
       "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
-      "image": "https://contentful.harrypotter.com/usf1vwtuqyxm/57wSLj0bB2oMxI8sKLcFz0/6206da0e0eab7c6911b186bec459ff45/Article_Hero__Showcase_Wrap_-_Article_Homepage_Hero.png?w=1200&fit=fill&f=top"
+      "image": "assets/thumbs/official-podcast-heyman-2026-08-31.jpg",
+      "video": "pnfh52yeM9M"
     },
     {
       "id": "oxford-street-flagship-2026-08-31",
@@ -989,7 +1048,7 @@
       "summary": "The store is built around a Diagon Alley look, with a Knight Bus and a Ukrainian Ironbelly dragon installed inside. A greenscreen broomstick flight also arrives at the New York shop this autumn.",
       "source": "Soap Central",
       "url": "https://www.soapcentral.com/shows/harry-potter-back-hogwarts-event-every-reveal-new-house-crests-wand-replicas",
-      "image": "https://statico.soapcentral.com/editor/2026/09/fcbdc-17882987102634.jpg"
+      "image": "assets/thumbs/oxford-street-flagship-2026-08-31.jpg"
     },
     {
       "id": "illustrated-half-blood-prince-2026-08-31",
@@ -1000,7 +1059,7 @@
       "summary": "Bloomsbury publishes the sixth illustrated edition, continuing the series Pinfold took over from Jim Kay.",
       "source": "Wizarding World",
       "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
-      "image": "https://contentful.harrypotter.com/usf1vwtuqyxm/57wSLj0bB2oMxI8sKLcFz0/6206da0e0eab7c6911b186bec459ff45/Article_Hero__Showcase_Wrap_-_Article_Homepage_Hero.png?w=1200&fit=fill&f=top"
+      "image": "assets/thumbs/illustrated-half-blood-prince-2026-08-31.jpg"
     },
     {
       "id": "lego-remastered-switch-2-2026-08-31",
@@ -1011,7 +1070,8 @@
       "summary": "Pre-orders opened alongside the announcement. Hogwarts Mystery also starts a Castle Chronicles event in September built on the Lily and James Potter story, and Puzzles and Spells adds an Epic Quidditch mode with multi day club competitions.",
       "source": "Wizarding World",
       "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
-      "image": "https://contentful.harrypotter.com/usf1vwtuqyxm/57wSLj0bB2oMxI8sKLcFz0/6206da0e0eab7c6911b186bec459ff45/Article_Hero__Showcase_Wrap_-_Article_Homepage_Hero.png?w=1200&fit=fill&f=top"
+      "image": "assets/thumbs/lego-remastered-switch-2-2026-08-31.jpg",
+      "video": "zpLF2QXbb0g"
     },
     {
       "id": "abu-dhabi-lands-reveal-2026-08-31",
@@ -1022,7 +1082,8 @@
       "summary": "Three new themed lands were trailed at the showcase, with the full reveal set for 7 September. Worth watching if you want the first concept art.",
       "source": "Soap Central",
       "url": "https://www.soapcentral.com/shows/harry-potter-back-hogwarts-event-every-reveal-new-house-crests-wand-replicas",
-      "image": "https://statico.soapcentral.com/editor/2026/09/fcbdc-17882987102634.jpg"
+      "image": "assets/thumbs/abu-dhabi-lands-reveal-2026-08-31.jpg",
+      "video": "qWIByerF_Qc"
     },
     {
       "id": "ice-gaylord-texan-2026-08-31",
@@ -1033,7 +1094,8 @@
       "summary": "ICE! at the Gaylord Texan near Dallas turns roughly two million pounds of ice into ten scenes from the films. It runs to early January.",
       "source": "Wizarding World",
       "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
-      "image": "https://contentful.harrypotter.com/usf1vwtuqyxm/57wSLj0bB2oMxI8sKLcFz0/6206da0e0eab7c6911b186bec459ff45/Article_Hero__Showcase_Wrap_-_Article_Homepage_Hero.png?w=1200&fit=fill&f=top"
+      "image": "assets/thumbs/ice-gaylord-texan-2026-08-31.jpg",
+      "video": "z8cu9cB47Fs"
     },
     {
       "id": "macys-parade-debut-2026-08-31",
@@ -1044,7 +1106,7 @@
       "summary": "The debut lands on the parade's 100th anniversary this November in the United States.",
       "source": "Wizarding World",
       "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
-      "image": "https://contentful.harrypotter.com/usf1vwtuqyxm/57wSLj0bB2oMxI8sKLcFz0/6206da0e0eab7c6911b186bec459ff45/Article_Hero__Showcase_Wrap_-_Article_Homepage_Hero.png?w=1200&fit=fill&f=top"
+      "image": "assets/thumbs/macys-parade-debut-2026-08-31.jpg"
     },
     {
       "id": "wizards-of-baking-s3-2026-08-31",
@@ -1055,7 +1117,8 @@
       "summary": "The four houses compete this festive season, with bakes themed around all eight films.",
       "source": "Wizarding World",
       "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
-      "image": "https://contentful.harrypotter.com/usf1vwtuqyxm/57wSLj0bB2oMxI8sKLcFz0/6206da0e0eab7c6911b186bec459ff45/Article_Hero__Showcase_Wrap_-_Article_Homepage_Hero.png?w=1200&fit=fill&f=top"
+      "image": "assets/thumbs/wizards-of-baking-s3-2026-08-31.jpg",
+      "video": "AxYsZULb-LE"
     },
     {
       "id": "rupert-grint-cursed-child-2026-08-27",
@@ -1065,7 +1128,8 @@
       "headline": "Rupert Grint will play Ron Weasley again, this time on Broadway",
       "summary": "Grint joins Harry Potter and the Cursed Child in New York, returning to the role 15 years after the last film. Tom Felton played Draco in the same production earlier this year.",
       "source": "Variety",
-      "url": "https://variety.com/2026/legit/global/rupert-grint-ron-weasley-harry-potter-and-the-cursed-child-1236843779/"
+      "url": "https://variety.com/2026/legit/global/rupert-grint-ron-weasley-harry-potter-and-the-cursed-child-1236843779/",
+      "image": "assets/thumbs/rupert-grint-cursed-child-2026-08-27.jpg"
     },
     {
       "id": "season-2-filming-fall-2026",
@@ -1075,7 +1139,8 @@
       "headline": "Season two starts filming this autumn on Chamber of Secrets",
       "summary": "HBO renewed the show back in May and the second season goes into production in late 2026, before the first has even aired. Francesca Gardiner runs the show with Jon Brown promoted to co showrunner.",
       "source": "Variety",
-      "url": "https://variety.com/2026/tv/news/harry-potter-renewed-season-2-hbo-chamber-of-secrets-1236739605/"
+      "url": "https://variety.com/2026/tv/news/harry-potter-renewed-season-2-hbo-chamber-of-secrets-1236739605/",
+      "image": "assets/thumbs/season-2-filming-fall-2026.jpg"
     },
     {
       "id": "hogwarts-legacy-2-development-2026-08-17",
@@ -1086,7 +1151,7 @@
       "summary": "Warner Bros confirmed the follow up in August. No release window and no platforms yet, and a first look is widely expected to be timed near the series launch.",
       "source": "Game Informer",
       "url": "https://gameinformer.com/2026/08/17/a-hogwarts-legacy-sequel-is-officially-in-development",
-      "image": "https://gameinformer.com/sites/default/files/styles/og_image/public/2023/02/06/61585f08/darklegacy_spell.jpg.webp"
+      "image": "assets/thumbs/hogwarts-legacy-2-development-2026-08-17.jpg"
     },
     {
       "id": "voldemort-casting-secret-2026",
@@ -1096,7 +1161,8 @@
       "headline": "Voldemort casting is still unannounced, and the viral cast lists are wrong",
       "summary": "HBO has kept the role quiet on purpose. A widely shared list naming Jamie Campbell Bower and Peter Capaldi has no studio backing, and one popular claim about a Marvel actor traces back to the German language audiobook cast rather than the series. Treat every Voldemort name as unproven until HBO says otherwise.",
       "source": "Sportskeeda",
-      "url": "https://www.sportskeeda.com/pop-culture/news-from-jamie-campbell-bower-peter-capaldi-post-alleged-harry-potter-new-series-cast-list-goes-viral-online"
+      "url": "https://www.sportskeeda.com/pop-culture/news-from-jamie-campbell-bower-peter-capaldi-post-alleged-harry-potter-new-series-cast-list-goes-viral-online",
+      "image": "assets/hogwarts-night.jpg"
     },
     {
       "id": "leaked-prologue-dedalus-diggle",
@@ -1106,7 +1172,8 @@
       "headline": "Leaked set images point to a prologue scene the films never had",
       "summary": "Images from location filming show Dedalus Diggle and the Dursleys in what looks like an opening sequence drawn from the first chapter of the book. Nothing here is studio released, so details can still change in the edit.",
       "source": "Collider",
-      "url": "https://collider.com/hbo-harry-potter-series-set-images-dedalus-diggle-vernon-dursley-prologue-scene/"
+      "url": "https://collider.com/hbo-harry-potter-series-set-images-dedalus-diggle-vernon-dursley-prologue-scene/",
+      "image": "assets/thumbs/leaked-prologue-dedalus-diggle.jpg"
     },
     {
       "id": "cast-reference-rotten-tomatoes",
@@ -1117,7 +1184,7 @@
       "summary": "Dominic McLaughlin, Arabella Stanton and Alastair Stout lead as Harry, Hermione and Ron, with John Lithgow as Dumbledore, Paapa Essiedu as Snape, Janet McTeer as McGonagall, Nick Frost as Hagrid and Nicholas Hoult added in August as Gilderoy Lockhart. Peter Serafinowicz plays Peeves, a character the films cut.",
       "source": "Rotten Tomatoes",
       "url": "https://editorial.rottentomatoes.com/article/everything-we-know-about-hbos-harry-potter-series/",
-      "image": "https://editorial.rottentomatoes.com/wp-content/uploads/2025/07/EWKA_HBO_Harry_Potter-Rep.jpg?w=600"
+      "image": "assets/thumbs/cast-reference-rotten-tomatoes.jpg"
     }
   ]
 }
@@ -1236,20 +1303,85 @@
     render();
   }
 
+  var HOUSE_PLATE = "assets/hogwarts-night.jpg";
+
   function shot(s) {
     var fb = icon(s.category, "fallback");
-    if (!s.image) return '<figure class="cut"><div class="shot failed">' + fb + "</div>" +
-      '<figcaption>' + esc(s.category) + "</figcaption></figure>";
     var seed = s.id.length;
     var style = "--pan:" + (22 + (seed % 9) * 2.4).toFixed(1) + "s;" +
                 "--panx:" + (((seed % 5) - 2) * 1.8).toFixed(1) + "%;" +
                 "--pany:" + (((seed % 4) - 1) * 1.6).toFixed(1) + "%;";
-    return '<figure class="cut"><div class="shot" style="' + style + '">' +
-      '<img src="' + esc(s.image) + '" alt="" decoding="async">' + fb + "</div>" +
-      '<figcaption>' + esc(s.source) + ' &middot; ' + esc(s.category) + "</figcaption></figure>";
+    var src = s.image || HOUSE_PLATE;
+    var vid = s.video || "";
+    if (!VIDEO_OK) vid = "";
+    var cls = "shot" + (vid ? " moving" : "");
+    var body =
+      '<img src="' + esc(src) + '" alt="" decoding="async" data-plate="' + esc(HOUSE_PLATE) + '">' +
+      (vid ? '<span class="reel" aria-hidden="true"></span>' : "") + fb;
+    return '<figure class="cut">' +
+      '<div class="' + cls + '" style="' + style + '"' + (vid ? ' data-video="' + esc(vid) + '"' : "") + '>' +
+      body + "</div>" +
+      '<figcaption>' + esc(s.source) + ' &middot; ' + esc(s.category) +
+      (vid ? ' &middot; <span class="live">imagem que se mexe</span>' : "") +
+      "</figcaption></figure>";
   }
 
-  function markFailed(img) { if (img && img.parentNode) img.parentNode.classList.add("failed"); }
+  /* o retrato so ganha vida quando entra no campo de visao */
+  var reelObserver = null;
+  /* dentro de um quadro alheio, como o previsualizador, o video de fora vem bloqueado.
+     nesse caso o retrato continua se mexendo pela panoramica lenta e nada quebra. */
+  var VIDEO_OK = (function () {
+    try { return window.top === window.self; } catch (e) { return false; }
+  })();
+  function wakeReels() {
+    if (!VIDEO_OK) return;
+    if (!("IntersectionObserver" in window)) return;
+    if (reelObserver) reelObserver.disconnect();
+    reelObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        var box = en.target;
+        if (!en.isIntersecting) { sleepReel(box); return; }
+        if (box.querySelector("iframe")) return;
+        var id = box.getAttribute("data-video");
+        if (!id) return;
+        var f = document.createElement("iframe");
+        f.setAttribute("title", "");
+        f.setAttribute("tabindex", "-1");
+        f.setAttribute("allow", "autoplay; encrypted-media");
+        f.setAttribute("frameborder", "0");
+        f.src = "https://www.youtube-nocookie.com/embed/" + id +
+                "?autoplay=1&mute=1&loop=1&playlist=" + id +
+                "&controls=0&modestbranding=1&rel=0&playsinline=1&disablekb=1&iv_load_policy=3";
+        var settled = false;
+        f.addEventListener("load", function () {
+          settled = true;
+          box.classList.add("rolling");
+        });
+        f.addEventListener("error", function () { settled = true; sleepReel(box); });
+        setTimeout(function () { if (!settled) sleepReel(box); }, 6000);
+        box.appendChild(f);
+      });
+    }, { rootMargin: "180px 0px", threshold: 0.15 });
+    Array.prototype.forEach.call(listEl.querySelectorAll(".shot.moving"), function (b) {
+      reelObserver.observe(b);
+    });
+  }
+  function sleepReel(box) {
+    var f = box.querySelector("iframe");
+    if (f) { f.remove(); box.classList.remove("rolling"); }
+  }
+
+  function markFailed(img) {
+    if (!img || !img.parentNode) return;
+    var plate = img.getAttribute("data-plate");
+    if (plate && !img.hasAttribute("data-plated")) {
+      img.setAttribute("data-plated", "1");
+      img.parentNode.classList.add("plated");
+      img.src = plate;
+      return;
+    }
+    img.parentNode.classList.add("failed");
+  }
   listEl.addEventListener("error", function (e) {
     if (e.target && e.target.tagName === "IMG") markFailed(e.target);
   }, true);
@@ -1365,6 +1497,7 @@
         "</div>";
       if (idx === 0) { listEl.insertBefore(art, grid); } else { grid.appendChild(art); }
     });
+    wakeReels();
   }
 
   listEl.addEventListener("click", function (ev) {

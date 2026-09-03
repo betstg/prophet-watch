@@ -45,6 +45,10 @@ def main():
     def inline(match):
         rel = match.group(2)
         path = os.path.join(base, rel)
+        # a lighter copy, when one exists, keeps the published page quick to paint
+        small = os.path.join(base, 'assets', 'thumbs', 'small', os.path.basename(rel))
+        if os.path.isfile(small):
+            path = small
         if not os.path.isfile(path):
             sys.exit('referenced asset is missing, ' + rel)
         kind = mimetypes.guess_type(path)[0] or 'application/octet-stream'
@@ -54,6 +58,8 @@ def main():
         return match.group(1) + 'data:' + kind + ';base64,' + blob + match.group(3)
 
     out = re.sub(r'(src=")((?:assets/)?[\w./-]+\.(?:jpg|jpeg|png|svg|webp))(")', inline, out)
+    # the same for local paths that live in the script rather than in an attribute
+    out = re.sub(r'(")(assets/[\w./-]+\.(?:jpg|jpeg|png|svg|webp))(")', inline, out)
 
     for bad in ('<!doctype', '<html', '<head>', '<body>'):
         if bad in out.lower():
