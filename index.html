@@ -1207,6 +1207,23 @@
     color: #6B4E10;
     border-top-color: rgba(74,54,12,.35);
   }
+  /* o convite para clicar, e a marca de quem ja foi guardada */
+  .secret .hint {
+    margin: 10px 0 0;
+    font-family: var(--font-label);
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--gold-bright);
+  }
+  html.on-secret .secret .hint { animation: hintPulse 1.4s ease-in-out infinite; }
+  @keyframes hintPulse { 0%, 100% { opacity: .5; } 50% { opacity: 1; } }
+  .secret.found { border-color: var(--s-official); }
+  .secret.found .hint { animation: none !important; opacity: 1; }
+  .secret.found .hint { color: var(--s-official); }
+  :root[data-theme="light"] .secret .hint { color: #8A6410; }
+  :root[data-theme="light"] .secret.found { border-color: #2F6B4A; }
+  :root[data-theme="light"] .secret.found .hint { color: #2F6B4A; }
   @media (max-width: 620px) { .secrets { display: none; } }
 
   /* o placar dos achados, so aparece depois do primeiro */
@@ -2460,29 +2477,45 @@
       q.textContent = "\u201C" + e.q + "\u201D";
       var c = document.createElement("figcaption");
       c.textContent = e.who;
+      var h = document.createElement("p");
+      h.className = "hint";
+      h.textContent = "Clique para guardar";
       el.appendChild(q);
       el.appendChild(c);
+      el.appendChild(h);
       frag.appendChild(el);
-      nodes.push({ el: el, found: false, i: i });
+      nodes.push({ el: el, hint: h, found: false, i: i });
     });
     layer.appendChild(frag);
 
     var total = nodes.length;
     var found = 0;
     var REACH = 150;
+    var hot = null;   /* a frase que esta sob a luz agora */
 
     function paint() {
       var t = board();
       if (!t) return;
       t.innerHTML = found === total
-        ? "Voce leu as " + total + " frases desta edicao"
-        : "Frases encontradas <b>" + found + "</b> de " + total;
+        ? "Voce guardou as " + total + " frases desta edicao"
+        : "Frases guardadas <b>" + found + "</b> de " + total;
       t.classList.add("on");
     }
 
+    /* so conta quando a pessoa clica com a frase acesa, nunca de passagem */
+    document.addEventListener("click", function (ev) {
+      if (!hot || hot.found) return;
+      if (ev.target && ev.target.closest && ev.target.closest("a, button, input, select, textarea, label")) return;
+      hot.found = true;
+      hot.el.classList.add("found");
+      hot.hint.textContent = "Guardada";
+      found++;
+      paint();
+    });
+
     revealSecrets = function (wx, wy, live) {
       layer.classList.toggle("lit", !!live);
-      if (!live) return;
+      if (!live) { hot = null; return; }
       /* a luz cai um pouco acima e a esquerda da ponta, assim o corpo
          da varinha fica fora da frase e nao atrapalha a leitura */
       var lx = wx - 52, ly = wy - 52;
@@ -2490,18 +2523,14 @@
       layer.style.setProperty("--sx", (lx - box.left).toFixed(0) + "px");
       layer.style.setProperty("--sy", (ly - box.top).toFixed(0) + "px");
 
+      hot = null;
       for (var n = 0; n < nodes.length; n++) {
         var s = nodes[n];
-        if (s.found) continue;
         var r = s.el.getBoundingClientRect();
         var cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-        if (Math.abs(cx - lx) < REACH && Math.abs(cy - ly) < REACH) {
-          s.found = true;
-          s.el.classList.add("found");
-          found++;
-          paint();
-        }
+        if (Math.abs(cx - lx) < REACH && Math.abs(cy - ly) < REACH) { hot = s; break; }
       }
+      document.documentElement.classList.toggle("on-secret", !!(hot && !hot.found));
     };
   })();
 
