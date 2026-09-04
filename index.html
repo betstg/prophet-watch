@@ -126,7 +126,7 @@
   @media (min-width: 900px) {
     :root[data-theme="light"] .card.lead .shot { float: left; width: 42%; margin: 4px 22px 10px 0; }
     :root[data-theme="light"] .card.lead .card-body { display: block; }
-    :root[data-theme="light"] .card.lead .summary { columns: 2; column-gap: 30px; column-rule: 1px solid var(--rule); }
+    :root[data-theme="light"] .card.lead .summary { columns: 42ch auto; column-gap: 34px; column-rule: none; }
     :root[data-theme="light"] .card.lead { grid-column: 1 / -1; }
   }
 
@@ -488,8 +488,27 @@
     column-rule: 1px solid var(--rule);
     padding-top: 6px;
   }
-  @media (max-width: 1000px) { .stories { column-count: 2; } }
-  @media (max-width: 620px) { .stories { column-count: 1; } }
+  .stories[data-n="1"] { column-count: 1; column-rule: none; }
+  .stories[data-n="2"] { column-count: 2; }
+  @media (max-width: 1000px) {
+    .stories, .stories[data-n="2"], .stories[data-n="3"] { column-count: 2; }
+    .stories[data-n="1"] { column-count: 1; }
+  }
+  @media (max-width: 620px) {
+    .stories, .stories[data-n="1"], .stories[data-n="2"], .stories[data-n="3"] { column-count: 1; }
+  }
+
+  /* materia sozinha no dia, entao deita, foto de um lado e texto do outro */
+  @media (min-width: 820px) {
+    .stories.solo > .card {
+      display: grid !important;
+      grid-template-columns: minmax(0, 46%) minmax(0, 1fr);
+      column-gap: 30px;
+      align-items: start;
+    }
+    .stories.solo > .card > figure.cut { margin: 0 !important; }
+    .stories.solo > .card .summary { -webkit-line-clamp: 6; }
+  }
 
   .card {
     break-inside: avoid;
@@ -668,7 +687,9 @@
   .card.lead .kicker { justify-content: center; }
   .card.lead figure.cut { max-width: 780px; margin: 0 auto 16px; }
   .card.lead .card-foot { max-width: 780px; margin: 0 auto; }
-  .card.lead .summary { text-align: justify; max-width: none; columns: 3; column-gap: 28px; column-rule: 1px solid var(--rule); -webkit-line-clamp: unset; display: block; }
+  /* a largura da coluna manda, nao um numero fixo, assim nunca fica
+     tres tirinhas estreitas com uma sobra vazia no fim */
+  .card.lead .summary { text-align: justify; hyphens: auto; max-width: none; columns: 42ch auto; column-gap: 34px; column-rule: none; -webkit-line-clamp: unset; display: block; }
   @media (max-width: 900px) { .card.lead .summary { columns: 1; } }
   .card.big h2.headline { font-size: 25px; font-weight: 900; }
   .card.mid h2.headline { font-size: 20px; }
@@ -772,10 +793,11 @@
   .card.lead .kicker { justify-content: center; }
   .card.lead figure.cut { max-width: 820px; margin: 0 auto 18px !important; }
   .card.lead .summary {
-    columns: 3 !important;
-    column-gap: 30px !important;
-    column-rule: 1px solid var(--rule);
+    columns: 42ch auto !important;
+    column-gap: 34px !important;
+    column-rule: none !important;
     text-align: justify;
+    hyphens: auto;
     max-width: none !important;
     display: block !important;
     -webkit-line-clamp: unset !important;
@@ -2167,6 +2189,16 @@
         "</div>";
       if (idx === 0) { listEl.insertBefore(art, grid); } else { grid.appendChild(art); }
     });
+
+    /* um dia com poucas materias nao pode abrir tres colunas e deixar
+       duas vazias, entao a bancada usa so as colunas que tem materia */
+    var decks = listEl.querySelectorAll(".stories");
+    for (var d = 0; d < decks.length; d++) {
+      var deck = decks[d];
+      var many = deck.children.length;
+      deck.classList.toggle("solo", many === 1);
+      deck.setAttribute("data-n", many < 3 ? String(many) : "3");
+    }
     wakeReels();
   }
 
