@@ -1355,7 +1355,7 @@
   @media (min-width: 1240px) { .wrap { padding-left: 48px; padding-right: 48px; } }
   /* a partir daqui sobra uma margem so para o adesivo, entao ele nunca
      fica por cima de materia nenhuma */
-  @media (min-width: 1180px) { .wrap { padding-right: 186px; } }
+  @media (min-width: 1180px) { .wrap { padding-left: 186px; } }
   @media (max-width: 1239px) { .ear { display: none; } }
 
   /* ---- o cabecalho do jornal ---- */
@@ -1599,23 +1599,21 @@
      outras holograficas, e so se juntam colecionando.
      ===================================================================== */
 
-  /* ---- o adesivo, colado no canto da folha ----
-     Ele mora no canto de baixo, ao lado do jornal, entao nao cobre
-     materia nenhuma. A roda de letras gira bem devagar, num anel largo
-     o bastante para caber a frase inteira. Ele boia parado e, quando o
-     ponteiro chega perto, escorrega devagar para o lado, como quem nao
-     quer ser pego. ---- */
+  /* ---- o adesivo, colado no canto de cima da folha ----
+     Ele mora na margem esquerda, entao nao cobre materia nenhuma. A
+     borda e roxa com a letra dourada, como a carta. A roda de letras
+     gira bem devagar. O miolo holografico tem brilho proprio. Ele boia
+     parado e escorrega devagar quando o ponteiro chega perto. ---- */
   .album-seal {
     position: fixed;
-    right: 24px;
-    bottom: 34px;
+    left: 24px;
+    top: 96px;
     z-index: 45;
     width: 132px; height: 132px;
     border: none;
     background: none;
     padding: 0;
     cursor: pointer;
-    color: var(--ink);
     transition: transform 1.2s cubic-bezier(.22,.9,.3,1);
     will-change: transform;
   }
@@ -1624,7 +1622,7 @@
     inset: 0;
     display: block;
     animation: selaBoia 5.4s ease-in-out infinite;
-    filter: drop-shadow(0 8px 14px rgba(30,22,8,.36));
+    filter: drop-shadow(0 8px 14px rgba(30,22,8,.4));
     transition: scale .35s cubic-bezier(.2,.8,.3,1);
   }
   @keyframes selaBoia {
@@ -1632,40 +1630,35 @@
     50%      { translate: 0 -8px; rotate: 3deg; }
   }
   .album-seal:hover .seal-bob, .album-seal:focus-visible .seal-bob { scale: 1.06; }
-  .seal-bob::before {
-    content: "";
-    position: absolute;
-    inset: 2px;
-    border-radius: 50%;
-    background: #F4ECD6;
-    box-shadow: 0 3px 7px rgba(30,22,8,.28), inset 0 0 0 1px rgba(110,92,52,.4);
-  }
-  /* a roda de letras, uma volta a cada setenta e cinco segundos */
-  .album-seal svg {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%;
-    animation: selaGira 75s linear infinite;
-  }
+  .album-seal svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+  /* so a roda de letras gira, o resto do adesivo fica parado */
+  .seal-roda { transform-origin: 70px 70px; animation: selaGira 75s linear infinite; }
   @keyframes selaGira { to { rotate: 360deg; } }
   .seal-text {
     font-family: var(--font-label);
     font-size: 11.5px;
     letter-spacing: .14em;
     text-transform: uppercase;
-    fill: currentColor;
+    fill: #F4DFA6;
   }
+
+  /* o miolo holografico, com brilho */
   .seal-core {
     position: absolute;
     inset: 25px;
     border-radius: 50%;
     display: grid;
     place-content: center;
-    gap: 1px;
+    gap: 0;
     text-align: center;
     overflow: hidden;
     isolation: isolate;
     background: #F6EAC6;
-    box-shadow: inset 0 0 0 2px var(--ink), inset 0 0 18px rgba(255,255,255,.75);
+    box-shadow:
+      inset 0 0 0 2px rgba(58,36,96,.9),
+      inset 0 0 22px rgba(255,255,255,.85),
+      0 0 18px rgba(255,232,170,.55);
   }
   .seal-core::before {
     content: "";
@@ -1675,27 +1668,49 @@
     background: conic-gradient(#F4D07A, #C8E7D2, #BFD4F2, #E4C4F0, #F2C0C8, #F6E3A6, #F4D07A);
     animation: holoRoda 8s linear infinite;
   }
+  /* o reflexo parado mais o lustro que passa devagar */
+  .seal-core::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+    background:
+      radial-gradient(circle at 31% 25%, rgba(255,255,255,.95), rgba(255,255,255,.3) 32%, transparent 60%),
+      linear-gradient(118deg, transparent 38%, rgba(255,255,255,.8) 50%, transparent 62%);
+    background-repeat: no-repeat;
+    background-size: 100% 100%, 260% 100%;
+    animation: selaBrilho 5.2s ease-in-out infinite;
+  }
+  @keyframes selaBrilho {
+    0%, 100% { background-position: 0 0, 145% 0; }
+    50%      { background-position: 0 0, -45% 0; }
+  }
+  .seal-core b, .seal-core small { position: relative; z-index: 2; }
   .seal-core b {
     font-family: var(--font-head);
-    font-size: 25px;
+    font-size: 30px;
     line-height: 1;
-    color: #100B04;
+    color: #241541;
+    text-shadow: 0 1px 0 rgba(255,255,255,.7);
   }
   .seal-core small {
     font-family: var(--font-label);
-    font-size: 8.5px;
-    letter-spacing: .14em;
+    font-size: 8px;
+    letter-spacing: .1em;
     text-transform: uppercase;
-    color: #3A2E12;
+    color: #3A2460;
+    margin-top: 2px;
   }
   @media (min-width: 1180px) {
-    .album-seal { right: max(24px, calc((100vw - 1520px) / 2 + 26px)); bottom: 42px; }
+    .album-seal { left: max(24px, calc((100vw - 1520px) / 2 + 26px)); top: 108px; }
   }
   @media (max-width: 700px) {
-    .album-seal { width: 96px; height: 96px; right: 12px; bottom: 14px; }
-    .seal-core { inset: 18px; }
-    .seal-core b { font-size: 18px; }
-    .seal-core small { font-size: 7px; }
+    .album-seal { width: 84px; height: 84px; left: 8px; top: 8px; }
+    .seal-core { inset: 16px; }
+    .seal-core b { font-size: 17px; }
+    .seal-core small { font-size: 6px; margin-top: 1px; }
   }
 
   /* ---- o album aberto ---- */
@@ -2033,7 +2048,7 @@
     .album-page { padding: 18px 14px 28px; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .album-seal svg, .seal-core::before, .seal-bob { animation: none !important; }
+    .seal-roda, .seal-core::before, .seal-core::after, .seal-bob { animation: none !important; }
     .album-seal { transition: none !important; }
   }
 
@@ -2225,12 +2240,25 @@
     <button class="album-seal" id="albumSeal" type="button" aria-label="Abrir o Album de Quotes">
       <span class="seal-bob">
         <svg viewBox="0 0 140 140" aria-hidden="true">
-          <defs><path id="sealRing" d="M70,70 m-51,0 a51,51 0 1,1 102,0 a51,51 0 1,1 -102,0"/></defs>
-          <text class="seal-text">
-            <textPath href="#sealRing" startOffset="0">ADQUIRA SEU ALBUM DE QUOTES &#183;&nbsp;</textPath>
-          </text>
+          <defs>
+            <path id="sealRing" d="M70,70 m-52,0 a52,52 0 1,1 104,0 a52,52 0 1,1 -104,0"/>
+            <radialGradient id="sealRoxo" cx=".38" cy=".3" r=".82">
+              <stop offset="0" stop-color="#5C3E8E"/>
+              <stop offset=".58" stop-color="#3B2560"/>
+              <stop offset="1" stop-color="#221340"/>
+            </radialGradient>
+          </defs>
+          <circle cx="70" cy="70" r="69" fill="#F4ECD6"/>
+          <circle cx="70" cy="70" r="65" fill="url(#sealRoxo)"/>
+          <circle cx="70" cy="70" r="63.4" fill="none" stroke="#E3C275" stroke-width="1.3" opacity=".85"/>
+          <circle cx="70" cy="70" r="44" fill="none" stroke="#E3C275" stroke-width="1.3" opacity=".85"/>
+          <g class="seal-roda">
+            <text class="seal-text">
+              <textPath href="#sealRing" startOffset="0">ADQUIRA SEU ALBUM DE QUOTES &#183;&nbsp;</textPath>
+            </text>
+          </g>
         </svg>
-        <span class="seal-core"><b id="sealCount">0</b><small id="sealTotal">de 44</small></span>
+        <span class="seal-core"><b id="sealCount">0</b><small>figurinhas</small></span>
       </span>
     </button>
     <span class="ear ear-l" aria-hidden="true">Que ninguem diga que o Profeta nao avisou</span>
@@ -4264,21 +4292,61 @@ function retrato(nome) {
 
     /* o sapo, a marca d'agua atras da frase */
     /* o sapo, a marca d'agua atras da frase */
-    var SAPO =
-      /* o corpo e a cabeca, vista de cima */
-      '<ellipse cx="100" cy="120" rx="23" ry="26"/>' +
-      '<path d="M 76 88 Q 78 66 100 62 Q 122 66 124 88 Q 112 98 100 98 Q 88 98 76 88 Z"/>' +
-      '<circle cx="84" cy="72" r="8.5"/><circle cx="116" cy="72" r="8.5"/>' +
-      /* as patas da frente, dobradas em Z, com o pe aberto */
-      '<path d="M 80 100 C 64 100 54 108 52 118 C 51 124 56 126 59 122 C 63 116 70 111 79 110 Z"/>' +
-      '<path d="M 120 100 C 136 100 146 108 148 118 C 149 124 144 126 141 122 C 137 116 130 111 121 110 Z"/>' +
-      '<path d="M 52 118 L 41 128 M 52 118 L 38 122 M 52 118 L 44 132" stroke-width="3.4" stroke-linecap="round"/>' +
-      '<path d="M 148 118 L 159 128 M 148 118 L 162 122 M 148 118 L 156 132" stroke-width="3.4" stroke-linecap="round"/>' +
-      /* as patas de tras, mais longas, o salto guardado */
-      '<path d="M 84 136 C 68 142 58 156 61 168 C 63 175 70 174 71 167 C 73 156 79 147 89 143 Z"/>' +
-      '<path d="M 116 136 C 132 142 142 156 139 168 C 137 175 130 174 129 167 C 127 156 121 147 111 143 Z"/>' +
-      '<path d="M 61 168 L 50 178 M 61 168 L 47 173 M 61 168 L 55 182" stroke-width="3.8" stroke-linecap="round"/>' +
-      '<path d="M 139 168 L 150 178 M 139 168 L 153 173 M 139 168 L 145 182" stroke-width="3.8" stroke-linecap="round"/>';
+    /* Hogwarts, a silhueta que fica atras da frase. Assimetrica de
+     proposito, torres de alturas bem diferentes, o viaduto saindo pela
+     esquerda e o penhasco em que o castelo se apoia. */
+  function torre(cx, w, topo, base, agulha) {
+    var e = cx - w / 2, d = cx + w / 2;
+    return '<path d="M ' + e + ' ' + base + ' L ' + e + ' ' + topo + ' L ' + d + ' ' + topo +
+           ' L ' + d + ' ' + base + ' Z"/>' +
+           '<path d="M ' + (e - 1.8) + ' ' + topo + ' L ' + cx + ' ' + (topo - agulha) +
+           ' L ' + (d + 1.8) + ' ' + topo + ' Z"/>';
+  }
+  var CASTELO =
+    /* o penhasco, irregular */
+    '<path d="M 24 194 L 29 175 Q 48 169 70 173 Q 98 167 124 172 Q 150 168 171 175 ' +
+    'L 178 194 Z"/>' +
+    /* o viaduto que chega pela esquerda */
+    '<path d="M 6 143 L 44 143 L 44 150 L 6 150 Z"/>' +
+    '<path d="M 11 150 L 15.5 150 L 15.5 180 L 11 180 Z"/>' +
+    '<path d="M 23 150 L 27.5 150 L 27.5 180 L 23 180 Z"/>' +
+    '<path d="M 35 150 L 39.5 150 L 39.5 180 L 35 180 Z"/>' +
+    /* o salao, comprido, a direita do centro */
+    '<path d="M 106 182 L 106 138 L 152 138 L 152 182 Z"/>' +
+    '<path d="M 102 138 L 129 121 L 156 138 Z"/>' +
+    /* o corpo baixo que amarra tudo */
+    '<path d="M 52 182 L 52 148 L 106 148 L 106 182 Z"/>' +
+    /* as torres, da mais baixa a mais alta */
+    torre(46, 9, 124, 182, 13) +
+    torre(60, 11, 104, 182, 16) +
+    torre(78, 14, 66, 182, 25) +
+    torre(95, 16, 92, 182, 21) +
+    torre(129, 10, 112, 138, 14) +
+    torre(160, 13, 108, 182, 19) +
+    torre(172, 9, 128, 182, 12) +
+    /* o relogio da torre do meio */
+    '<circle cx="95" cy="106" r="5.4" fill="#241541" opacity=".5"/>' +
+    '<circle cx="95" cy="106" r="2.6" fill="none" stroke="#241541" stroke-width="1" opacity=".45"/>' +
+    /* as janelas acesas */
+    '<g fill="#241541" opacity=".5">' +
+    '<rect x="75.5" y="80" width="5" height="8" rx="2.4"/>' +
+    '<rect x="75.5" y="94" width="5" height="8" rx="2.4"/>' +
+    '<rect x="75.5" y="108" width="5" height="8" rx="2.4"/>' +
+    '<rect x="56" y="118" width="4" height="7" rx="2"/>' +
+    '<rect x="61" y="118" width="4" height="7" rx="2"/>' +
+    '<rect x="112" y="146" width="5" height="10" rx="2.5"/>' +
+    '<rect x="121" y="146" width="5" height="10" rx="2.5"/>' +
+    '<rect x="130" y="146" width="5" height="10" rx="2.5"/>' +
+    '<rect x="139" y="146" width="5" height="10" rx="2.5"/>' +
+    '<rect x="63" y="154" width="4.5" height="8" rx="2.2"/>' +
+    '<rect x="72" y="154" width="4.5" height="8" rx="2.2"/>' +
+    '<rect x="81" y="154" width="4.5" height="8" rx="2.2"/>' +
+    '<rect x="156" y="124" width="4" height="7" rx="2"/>' +
+    '<rect x="161" y="124" width="4" height="7" rx="2"/>' +
+    '<rect x="91" y="128" width="4" height="7" rx="2"/>' +
+    '<rect x="97" y="128" width="4" height="7" rx="2"/>' +
+    '<rect x="43.5" y="136" width="4" height="7" rx="2"/>' +
+    '</g>';
 
   /* a cartela onde a frase se apoia, no verso da carta */
     var CARTELA = "M 38 72 Q 100 66 162 72 L 162 167 L 152 181 L 48 181 L 38 167 Z";
@@ -4357,7 +4425,7 @@ function retrato(nome) {
         rebites(banda, 14, 1.5) +
         '<path d="' + tracado(dentro) + '" fill="url(#' + CAMPO[raro] + ')" stroke="#6E5116" stroke-width="1.1"/>' +
         '<path d="' + CARTELA + '" fill="rgba(255,246,214,.06)" stroke="url(#cfcOuro)" stroke-width="2.6"/>' +
-        '<g fill="url(#cfcOuro)" stroke="url(#cfcOuro)" opacity=".13">' + SAPO + "</g>" +
+        '<g fill="url(#cfcOuro)" opacity=".2">' + CASTELO + "</g>" +
         estrela(26, 70, 4.6) + estrela(174, 70, 4.6) +
         estrela(30, 150, 4.2) + estrela(170, 150, 4.2) +
         "</svg>";
@@ -4371,7 +4439,7 @@ function retrato(nome) {
         '<path d="' + tracado(banda) + '" fill="none" stroke="#A8946A" stroke-width="1.6" ' +
         'stroke-dasharray="5 4" stroke-linejoin="round"/>' +
         '<path d="' + tracado(dentro) + '" fill="none" stroke="#C2B08A" stroke-width="1"/>' +
-        '<g fill="#6E5C34" stroke="#6E5C34" opacity=".2">' + SAPO + "</g>" +
+        '<g fill="#6E5C34" opacity=".22">' + CASTELO + "</g>" +
         "</svg>";
     }
 
@@ -4476,11 +4544,16 @@ function retrato(nome) {
         forca *= forca;                 /* so foge de verdade quando esta perto */
         alvoX = (dx / d) * FUGA * forca;
         alvoY = (dy / d) * FUGA * forca;
-        /* ele nao pode escapar da tela */
-        var folgaX = window.innerWidth - r.right - 6;
-        var folgaY = window.innerHeight - r.bottom - 6;
-        if (alvoX > folgaX + x) alvoX = folgaX + x;
-        if (alvoY > folgaY + y) alvoY = folgaY + y;
+        /* ele nao pode escapar da tela, de nenhum dos quatro lados */
+        var teto = 6;
+        var podeDir = window.innerWidth - r.right - teto + x;
+        var podeEsq = -(r.left - teto) + x;
+        var podeBaixo = window.innerHeight - r.bottom - teto + y;
+        var podeCima = -(r.top - teto) + y;
+        if (alvoX > podeDir) alvoX = podeDir;
+        if (alvoX < podeEsq) alvoX = podeEsq;
+        if (alvoY > podeBaixo) alvoY = podeBaixo;
+        if (alvoY < podeCima) alvoY = podeCima;
       }
       if (!correndo) { correndo = true; requestAnimationFrame(passo); }
     }
@@ -4680,8 +4753,6 @@ function retrato(nome) {
       var fechaBt = document.getElementById("albumClose");
       var tintas = document.getElementById("cfcTintas");
       if (tintas && !tintas.firstChild) tintas.innerHTML = CFC.tintas();
-      var total = document.getElementById("sealTotal");
-      if (total) total.textContent = "de " + dados.length;
 
       if (selo) selo.addEventListener("click", abrir);
       if (fechaBt) fechaBt.addEventListener("click", fechar);
