@@ -1778,19 +1778,25 @@
     gap: 16px;
   }
 
-  /* ---- a figurinha ---- */
+  /* ---- a figurinha, agora carta de Sapo de Chocolate ---- */
+  .figs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(208px, 1fr));
+    gap: 18px 14px;
+  }
   .fig {
     all: unset;
     display: block;
     cursor: pointer;
-    perspective: 900px;
-    aspect-ratio: 3 / 4;
+    perspective: 1000px;
+    aspect-ratio: 1 / 1;
+    container-type: inline-size;
   }
   .fig-in {
     position: relative;
     display: block;
     width: 100%; height: 100%;
-    transition: transform .62s cubic-bezier(.2,.8,.25,1);
+    transition: transform .66s cubic-bezier(.2,.8,.25,1);
     transform-style: preserve-3d;
   }
   .fig.flip .fig-in { transform: rotateY(180deg); }
@@ -1799,173 +1805,178 @@
     inset: 0;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
-    display: flex;
-    flex-direction: column;
-    padding: 13px 13px 11px;
-    border: 1px solid #6E5C34;
-    background: #F7F0DC;
-    overflow: hidden;
+    display: block;
+    padding: 0;
+    border: none;
+    background: none;
+    overflow: visible;
+    filter: drop-shadow(0 6px 10px rgba(30,18,4,.42));
   }
   .fig-back { transform: rotateY(180deg); }
+  .cfc { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 
+  /* o pentagono, para recortar o brilho das raras */
+  .fig-face::before, .fig-face::after {
+    clip-path: polygon(50% 1%, 99% 38%, 82.5% 99%, 17.5% 99%, 1% 38%);
+  }
+
+  /* ---- o texto que se apoia sobre o desenho ----
+     A frase fica de um lado, a descricao do outro, junto do retrato.
+     Assim as duas faces respiram e nada monta em cima de nada. */
+  .cfc-txt {
+    position: absolute;
+    left: 23.5%; right: 23.5%;
+    top: 36.5%; bottom: 13%;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    color: #F6ECCE;
+  }
+  .fig-selo {
+    flex: none;
+    white-space: nowrap;
+    font-family: var(--font-label);
+    font-size: 3.4cqw;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: #E4C67C;
+  }
   .fig-q {
-    font-family: var(--font-read);
-    font-size: 14px;
-    line-height: 1.32;
-    color: #100B04;
-    margin: 0;
     flex: 1 1 auto;
+    min-height: 0;
     display: flex;
     align-items: center;
-    text-align: center;
     justify-content: center;
+    font-family: var(--font-read);
+    font-size: 6.5cqw;
+    line-height: 1.3;
+    color: #FCF4DE;
+    text-wrap: balance;
+    overflow: hidden;
   }
   .fig-q span { display: block; }
   .fig-who {
+    flex: none;
+    padding-top: 5%;
+    border-top: 1px solid rgba(233,203,128,.42);
     font-family: var(--font-deck);
-    font-size: 10.5px;
-    font-weight: 600;
-    letter-spacing: .12em;
+    font-size: 4.6cqw;
+    font-weight: 700;
+    letter-spacing: .13em;
     text-transform: uppercase;
-    color: #3A2E12;
-    text-align: center;
-    padding-top: 8px;
-    border-top: 1px solid rgba(110,92,52,.45);
-  }
-  .fig-num {
-    font-family: var(--font-label);
-    font-size: 9px;
-    letter-spacing: .18em;
-    color: #6E5C34;
-    text-align: center;
-    margin-bottom: 6px;
+    color: #F5DB9A;
+    line-height: 1.12;
   }
 
-  /* a imagem do verso, com a reticula do jornal por cima */
-  .fig-foto {
-    position: relative; display: block; flex: 1 1 auto; min-height: 0;
-    overflow: hidden; border: 1px solid #3A2E12; background: #E4DAC0;
-  }
-  .fig-foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .fig-foto::after {
-    content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .32;
-    background-image: radial-gradient(circle at center, rgba(0,0,0,.9) 34%, transparent 36%);
-    background-size: 3px 3px; mix-blend-mode: multiply;
-  }
-  .fig-vulto { display: none; }
-  .fig-foto.sem-foto img { display: none; }
-  .fig-foto.sem-foto .fig-vulto { display: block; }
-  .fig-back .cameo { width: 100%; display: block; }
-  .fig-credito {
-    font-family: var(--font-label); font-size: 8px; line-height: 1.4;
-    letter-spacing: .06em; color: #6E5C34; text-align: center; margin-top: 4px;
-  }
-  .fig.holo .fig-foto, .fig.holo .fig-credito { position: relative; z-index: 2; }
-  .album-creditos h3 { font-family: var(--font-head); }
-  .album-creditos p {
-    font-family: var(--font-read); font-size: 13px; line-height: 1.5;
-    max-width: 70ch; margin: 0 0 12px; color: #2E2515;
-  }
-  .album-creditos ul {
-    list-style: none; padding: 0; margin: 0; columns: 26ch auto; column-gap: 30px;
-    font-family: var(--font-label); font-size: 10.5px; line-height: 1.6; color: #4A3D22;
-  }
-  .album-creditos li { break-inside: avoid; }
-  .album-creditos a { color: #6E5C34; }
-  .fig-back .fig-who { border-top: none; padding-top: 4px; }
-  .fig-onde {
-    font-family: var(--font-label);
-    font-size: 9.5px;
-    line-height: 1.42;
-    letter-spacing: .04em;
-    color: #4A3D22;
+  /* a descricao, na faixa entre o retrato e a plaquinha */
+  .fig-desc {
+    position: absolute;
+    left: 18%; right: 18%;
+    top: 67%; height: 16%;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     text-align: center;
-    margin-top: 6px;
-    padding-top: 6px;
-    border-top: 1px solid rgba(110,92,52,.45);
+    overflow: hidden;
+    font-family: var(--font-label);
+    font-size: 3.1cqw;
+    line-height: 1.3;
+    color: #D6C298;
   }
-  .fig-onde b { font-weight: 700; color: #100B04; }
+  .fig-desc b { color: #F0D9A4; font-weight: 700; }
+  .fig-credito {
+    display: block;
+    margin-top: .2em;
+    font-size: 2.5cqw;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: #9C875B;
+  }
+
+  /* o nome na plaquinha de ouro */
+  .fig-placa {
+    position: absolute;
+    left: 19%; right: 19%;
+    top: 84%; height: 13.5%;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-deck);
+    font-size: 4.6cqw;
+    font-weight: 700;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    line-height: 1.06;
+    color: #4A3208;
+    text-shadow: 0 1px 0 rgba(255,248,214,.72);
+    text-wrap: balance;
+  }
+  .fig-placa.longo { font-size: 3.85cqw; letter-spacing: .04em; }
 
   /* ---- as raridades ---- */
-  .fig.gold .fig-face {
-    border-width: 2px;
-    border-color: #A47C1E;
-    background:
-      linear-gradient(148deg, #FBF0CC 0%, #F5DFA0 34%, #FFF8E2 52%, #EFCE84 72%, #FAEFC8 100%);
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,.75);
-  }
-  .fig.holo .fig-face {
-    border-width: 2px;
-    border-color: #4A3D6E;
-    background: #FFFDF6;
-  }
   .fig.holo .fig-face::before {
-    content: "";
-    position: absolute;
-    left: -60%; top: -60%; width: 220%; height: 220%;
-    pointer-events: none;
-    background:
-      conic-gradient(rgba(255,110,160,.85), rgba(255,206,110,.85), rgba(140,240,190,.85),
-        rgba(130,185,255,.85), rgba(205,145,255,.85), rgba(255,110,160,.85));
-    opacity: .44;
-    animation: holoRoda 9s linear infinite;
-  }
-  @keyframes holoRoda { to { transform: rotate(360deg); } }
-  .fig.holo .fig-face::after {
     content: "";
     position: absolute; inset: 0;
     pointer-events: none;
-    background: linear-gradient(115deg, transparent 34%, rgba(255,255,255,.72) 50%, transparent 64%);
-    background-size: 260% 100%;
-    animation: holoBrilho 4.6s ease-in-out infinite;
+    z-index: 3;
+    background: conic-gradient(from var(--gira, 0deg),
+      #FF6FA8, #FFD86E, #7BF0BC, #74B4FF, #C98BFF, #FF6FA8);
+    mix-blend-mode: overlay;
+    opacity: .3;
+    animation: holoGira 7s linear infinite;
   }
+  .fig.holo .fig-face::after,
+  .fig.gold .fig-face::after {
+    content: "";
+    position: absolute; inset: 0;
+    pointer-events: none;
+    z-index: 4;
+    background: linear-gradient(115deg, transparent 36%, rgba(255,255,255,.5) 50%, transparent 64%);
+    background-size: 260% 100%;
+    animation: holoBrilho 4.8s ease-in-out infinite;
+  }
+  .fig.gold .fig-face::after { opacity: .7; }
   @keyframes holoBrilho {
     0%, 100% { background-position: 140% 0; }
     50% { background-position: -40% 0; }
   }
-  .fig.holo .fig-q, .fig.holo .fig-who, .fig.holo .fig-onde, .fig.holo .fig-num { position: relative; z-index: 2; }
-  .fig.holo .fig-back .cameo { position: relative; z-index: 2; }
 
-  .fig-selo {
-    position: absolute;
-    top: 7px; right: 7px;
-    z-index: 3;
-    font-family: var(--font-label);
-    font-size: 8px;
-    letter-spacing: .16em;
-    text-transform: uppercase;
-    color: #5A4A22;
-  }
-  .fig.holo .fig-selo { color: #37305A; }
-
-  /* ---- o vazio, a figurinha que falta ---- */
+  /* ---- a carta que falta ---- */
   .fig.falta { cursor: default; }
-  .fig.falta .fig-face {
-    background: repeating-linear-gradient(45deg, #E6DCC0 0 6px, #E1D6B6 6px 12px);
-    border-style: dashed;
-    border-color: rgba(110,92,52,.6);
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    gap: 8px;
-  }
-  .fig.falta .vulto { width: 52%; opacity: .3; }
+  .fig.falta .fig-face { filter: none; opacity: .72; }
+  .fig.falta .cfc-txt { color: #6E5C34; }
   .fig.falta .falta-txt {
+    position: absolute;
+    left: 19%; right: 19%;
+    top: 44%;
+    z-index: 2;
+    text-align: center;
     font-family: var(--font-label);
-    font-size: 9px;
     letter-spacing: .18em;
     text-transform: uppercase;
     color: #6E5C34;
-    line-height: 1.5;
+    line-height: 1.6;
+    font-size: 4.1cqw;
   }
 
-  /* ---- a figurinha nova entra girando ---- */
+  /* ---- a carta nova entra girando ---- */
   @keyframes figNova {
-    0%   { transform: rotateY(180deg) scale(.7); opacity: 0; }
-    60%  { transform: rotateY(0deg) scale(1.06); opacity: 1; }
+    0%   { transform: rotateY(180deg) scale(.72); opacity: 0; }
+    60%  { transform: rotateY(0deg) scale(1.07); opacity: 1; }
     100% { transform: rotateY(0deg) scale(1); opacity: 1; }
   }
   .fig.nova .fig-in { animation: figNova .9s cubic-bezier(.2,.8,.25,1) both; }
+
+  @media (max-width: 620px) {
+    .figs { grid-template-columns: repeat(auto-fill, minmax(152px, 1fr)); gap: 12px 10px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .fig.holo .fig-face::before, .fig.holo .fig-face::after, .fig.gold .fig-face::after { animation: none !important; }
+    .fig-in { transition: none !important; }
+  }
 
   /* ---- o aviso de figurinha ganha ---- */
   .ganhou {
@@ -1994,12 +2005,9 @@
   @media (max-width: 620px) {
     .album { padding: 12px 8px 40px; }
     .album-page { padding: 18px 14px 28px; }
-    .figs { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
-    .fig-q { font-size: 12.5px; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .album-seal svg, .seal-core::before, .fig.holo .fig-face::before, .fig.holo .fig-face::after { animation: none !important; }
-    .fig-in { transition: none !important; }
+    .album-seal svg, .seal-core::before { animation: none !important; }
   }
 
   /* =====================================================================
@@ -4145,6 +4153,262 @@ function retrato(nome) {
          nome + '">' + p.join("") + "</svg>";
 }
 
+  /* =====================================================================
+     A CARTA DO SAPO DE CHOCOLATE
+     O pentagono, a moldura de ouro rebitada, o arco em ogiva com colunas,
+     as estrelas e a plaquinha do nome. Tudo desenhado em SVG, entao a
+     mesma carta serve para os vinte e tres personagens e continua nitida
+     em qualquer tamanho.
+     ===================================================================== */
+  var CFC = (function () {
+
+    /* o pentagono, nas medidas da carta de verdade */
+    var PENT = [[100, 2], [198, 76], [165, 198], [35, 198], [2, 76]];
+    var CX = 100, CY = 110;
+
+    function anel(k) {
+      return PENT.map(function (p) {
+        return [CX + (p[0] - CX) * k, CY + (p[1] - CY) * k];
+      });
+    }
+    function tracado(pts) {
+      return "M " + pts.map(function (p) {
+        return p[0].toFixed(1) + " " + p[1].toFixed(1);
+      }).join(" L ") + " Z";
+    }
+
+    /* os rebites que correm pela moldura */
+    function rebites(pts, passo, r) {
+      var out = "";
+      for (var i = 0; i < pts.length; i++) {
+        var a = pts[i], b = pts[(i + 1) % pts.length];
+        var L = Math.sqrt((b[0] - a[0]) * (b[0] - a[0]) + (b[1] - a[1]) * (b[1] - a[1]));
+        var n = Math.max(2, Math.round(L / passo));
+        for (var j = 0; j < n; j++) {
+          var t = (j + 0.5) / n;
+          out += '<circle cx="' + (a[0] + (b[0] - a[0]) * t).toFixed(1) +
+                 '" cy="' + (a[1] + (b[1] - a[1]) * t).toFixed(1) +
+                 '" r="' + r + '" fill="url(#cfcRebite)"/>';
+        }
+      }
+      return out;
+    }
+
+    /* a estrela de seis pontas */
+    function estrela(cx, cy, r) {
+      var p = [];
+      for (var i = 0; i < 12; i++) {
+        var ang = -Math.PI / 2 + i * Math.PI / 6;
+        var rr = (i % 2) ? r * 0.44 : r;
+        p.push((cx + Math.cos(ang) * rr).toFixed(1) + " " + (cy + Math.sin(ang) * rr).toFixed(1));
+      }
+      return '<path d="M ' + p.join(" L ") + ' Z" fill="url(#cfcOuro)" stroke="#5E430F" stroke-width=".55"/>';
+    }
+
+    /* o arco em ogiva onde o retrato mora */
+    var ARCO = "M 56 126 L 56 78 C 56 58 68 47 82 37 C 91 30 96 25 100 18 " +
+               "C 104 25 109 30 118 37 C 132 47 144 58 144 78 L 144 126 Z";
+
+    /* a coluna, com capitel, fuste canelado e base */
+    function coluna(x) {
+      return '<g>' +
+        '<rect x="' + (x - 9) + '" y="74" width="18" height="8" rx="1.5" fill="url(#cfcOuro)" stroke="#5E430F" stroke-width=".6"/>' +
+        '<rect x="' + (x - 6) + '" y="82" width="12" height="39" fill="url(#cfcColuna)" stroke="#5E430F" stroke-width=".6"/>' +
+        '<rect x="' + (x - 9) + '" y="121" width="18" height="8.5" rx="1.5" fill="url(#cfcOuro)" stroke="#5E430F" stroke-width=".6"/>' +
+        '<path d="M ' + (x - 2.6) + ' 84 L ' + (x - 2.6) + ' 119 M ' + (x + 2.6) + ' 84 L ' + (x + 2.6) + ' 119" ' +
+        'stroke="#7A5A18" stroke-width=".7" opacity=".6" fill="none"/>' +
+        '</g>';
+    }
+
+    /* a plaquinha do nome, no pe da carta */
+    var PLACA = "M 34 167 L 166 167 L 158 180.5 L 166 194 L 34 194 L 42 180.5 Z";
+
+    /* o sapo, a marca d'agua atras da frase */
+    /* o sapo, a marca d'agua atras da frase */
+    var SAPO =
+      /* o corpo e a cabeca, vista de cima */
+      '<ellipse cx="100" cy="120" rx="23" ry="26"/>' +
+      '<path d="M 76 88 Q 78 66 100 62 Q 122 66 124 88 Q 112 98 100 98 Q 88 98 76 88 Z"/>' +
+      '<circle cx="84" cy="72" r="8.5"/><circle cx="116" cy="72" r="8.5"/>' +
+      /* as patas da frente, dobradas em Z, com o pe aberto */
+      '<path d="M 80 100 C 64 100 54 108 52 118 C 51 124 56 126 59 122 C 63 116 70 111 79 110 Z"/>' +
+      '<path d="M 120 100 C 136 100 146 108 148 118 C 149 124 144 126 141 122 C 137 116 130 111 121 110 Z"/>' +
+      '<path d="M 52 118 L 41 128 M 52 118 L 38 122 M 52 118 L 44 132" stroke-width="3.4" stroke-linecap="round"/>' +
+      '<path d="M 148 118 L 159 128 M 148 118 L 162 122 M 148 118 L 156 132" stroke-width="3.4" stroke-linecap="round"/>' +
+      /* as patas de tras, mais longas, o salto guardado */
+      '<path d="M 84 136 C 68 142 58 156 61 168 C 63 175 70 174 71 167 C 73 156 79 147 89 143 Z"/>' +
+      '<path d="M 116 136 C 132 142 142 156 139 168 C 137 175 130 174 129 167 C 127 156 121 147 111 143 Z"/>' +
+      '<path d="M 61 168 L 50 178 M 61 168 L 47 173 M 61 168 L 55 182" stroke-width="3.8" stroke-linecap="round"/>' +
+      '<path d="M 139 168 L 150 178 M 139 168 L 153 173 M 139 168 L 145 182" stroke-width="3.8" stroke-linecap="round"/>';
+
+  /* a cartela onde a frase se apoia, no verso da carta */
+    var CARTELA = "M 38 72 Q 100 66 162 72 L 162 167 L 152 181 L 48 181 L 38 167 Z";
+
+    /* o campo de cada raridade */
+    var CAMPO = { comum: "cfcRoxo", gold: "cfcAmbar", holo: "cfcRoxo" };
+
+    /* ---- as tintas, declaradas uma unica vez para a pagina toda ---- */
+    function tintas() {
+      return '<svg class="cfc-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs>' +
+
+        '<linearGradient id="cfcOuro" x1="0" y1="0" x2=".55" y2="1">' +
+          '<stop offset="0" stop-color="#FCF0C6"/><stop offset=".24" stop-color="#E6C36C"/>' +
+          '<stop offset=".5" stop-color="#A87C22"/><stop offset=".76" stop-color="#EBD08A"/>' +
+          '<stop offset="1" stop-color="#8A6416"/></linearGradient>' +
+
+        '<linearGradient id="cfcColuna" x1="0" y1="0" x2="1" y2="0">' +
+          '<stop offset="0" stop-color="#8A6416"/><stop offset=".3" stop-color="#F3DFA0"/>' +
+          '<stop offset=".58" stop-color="#C79B38"/><stop offset="1" stop-color="#7A5713"/></linearGradient>' +
+
+        '<radialGradient id="cfcRoxo" cx=".5" cy=".42" r=".78">' +
+          '<stop offset="0" stop-color="#563A82"/><stop offset=".58" stop-color="#3D2760"/>' +
+          '<stop offset="1" stop-color="#241541"/></radialGradient>' +
+
+        '<radialGradient id="cfcAmbar" cx=".5" cy=".42" r=".78">' +
+          '<stop offset="0" stop-color="#4A360E"/><stop offset=".58" stop-color="#2A1D05"/>' +
+          '<stop offset="1" stop-color="#120C02"/></radialGradient>' +
+
+        '<radialGradient id="cfcRebite" cx=".35" cy=".3" r=".75">' +
+          '<stop offset="0" stop-color="#FFF6D4"/><stop offset=".55" stop-color="#D9B45E"/>' +
+          '<stop offset="1" stop-color="#7A5713"/></radialGradient>' +
+
+        '<linearGradient id="cfcPlaca" x1="0" y1="0" x2="0" y2="1">' +
+          '<stop offset="0" stop-color="#FFF6D2"/><stop offset=".42" stop-color="#EBCE86"/>' +
+          '<stop offset=".55" stop-color="#B98F2E"/><stop offset="1" stop-color="#F0DCA2"/></linearGradient>' +
+
+        '<linearGradient id="cfcVeu" x1="0" y1="0" x2="0" y2="1">' +
+          '<stop offset="0" stop-color="#1B1026" stop-opacity="0"/>' +
+          '<stop offset=".72" stop-color="#1B1026" stop-opacity="0"/>' +
+          '<stop offset="1" stop-color="#170D22" stop-opacity=".7"/></linearGradient>' +
+
+        '<clipPath id="cfcArco"><path d="' + ARCO + '"/></clipPath>' +
+
+        '</defs></svg>';
+    }
+
+    /* ---- a face do retrato ---- */
+    function frente(raro) {
+      var fora = anel(1), banda = anel(.925), dentro = anel(.845);
+      return '<svg class="cfc" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet" aria-hidden="true">' +
+        '<path d="' + tracado(fora) + '" fill="url(#' + CAMPO[raro] + ')" stroke="#3A2708" stroke-width="2.4"/>' +
+        '<path d="' + tracado(banda) + '" fill="none" stroke="url(#cfcOuro)" stroke-width="9" stroke-linejoin="round"/>' +
+        '<path d="' + tracado(banda) + '" fill="none" stroke="#5E430F" stroke-width="10.6" stroke-linejoin="round" opacity=".28"/>' +
+        '<path d="' + tracado(banda) + '" fill="none" stroke="url(#cfcOuro)" stroke-width="8" stroke-linejoin="round"/>' +
+        rebites(banda, 14, 1.5) +
+        '<path d="' + tracado(dentro) + '" fill="url(#' + CAMPO[raro] + ')" stroke="#6E5116" stroke-width="1.1"/>' +
+        estrela(26, 64, 5.8) + estrela(20, 86, 7.6) + estrela(28, 107, 5.2) +
+        estrela(174, 64, 5.8) + estrela(180, 86, 7.6) + estrela(172, 107, 5.2) +
+        '<g class="cfc-slot"></g>' +
+        coluna(46) + coluna(154) +
+        '<path d="' + ARCO + '" fill="none" stroke="#5E430F" stroke-width="9" stroke-linejoin="round"/>' +
+        '<path d="' + ARCO + '" fill="none" stroke="url(#cfcOuro)" stroke-width="7" stroke-linejoin="round"/>' +
+        '<circle cx="100" cy="15" r="4.4" fill="url(#cfcOuro)" stroke="#5E430F" stroke-width=".7"/>' +
+        '<path d="M 50 133 L 150 133" stroke="url(#cfcOuro)" stroke-width="1.4" opacity=".8"/>' +
+        '<path d="' + PLACA + '" fill="url(#cfcPlaca)" stroke="#6E5116" stroke-width="1.2" stroke-linejoin="round"/>' +
+        "</svg>";
+    }
+
+    /* ---- a face da frase, o verso roxo com o sapo ---- */
+    function verso(raro) {
+      var fora = anel(1), banda = anel(.925), dentro = anel(.845);
+      return '<svg class="cfc" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet" aria-hidden="true">' +
+        '<path d="' + tracado(fora) + '" fill="url(#' + CAMPO[raro] + ')" stroke="#3A2708" stroke-width="2.4"/>' +
+        '<path d="' + tracado(banda) + '" fill="none" stroke="#5E430F" stroke-width="10.6" stroke-linejoin="round" opacity=".28"/>' +
+        '<path d="' + tracado(banda) + '" fill="none" stroke="url(#cfcOuro)" stroke-width="8" stroke-linejoin="round"/>' +
+        rebites(banda, 14, 1.5) +
+        '<path d="' + tracado(dentro) + '" fill="url(#' + CAMPO[raro] + ')" stroke="#6E5116" stroke-width="1.1"/>' +
+        '<path d="' + CARTELA + '" fill="rgba(255,246,214,.06)" stroke="url(#cfcOuro)" stroke-width="2.6"/>' +
+        '<g fill="url(#cfcOuro)" stroke="url(#cfcOuro)" opacity=".13">' + SAPO + "</g>" +
+        estrela(26, 70, 4.6) + estrela(174, 70, 4.6) +
+        estrela(30, 150, 4.2) + estrela(170, 150, 4.2) +
+        "</svg>";
+    }
+
+    /* ---- a carta que ainda falta, so o contorno no papel ---- */
+    function vazia() {
+      var fora = anel(1), banda = anel(.925), dentro = anel(.845);
+      return '<svg class="cfc" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet" aria-hidden="true">' +
+        '<path d="' + tracado(fora) + '" fill="#E6DCC0" stroke="#B7A87E" stroke-width="1.6"/>' +
+        '<path d="' + tracado(banda) + '" fill="none" stroke="#A8946A" stroke-width="1.6" ' +
+        'stroke-dasharray="5 4" stroke-linejoin="round"/>' +
+        '<path d="' + tracado(dentro) + '" fill="none" stroke="#C2B08A" stroke-width="1"/>' +
+        '<g fill="#6E5C34" stroke="#6E5C34" opacity=".2">' + SAPO + "</g>" +
+        "</svg>";
+    }
+
+    return { tintas: tintas, frente: frente, verso: verso, vazia: vazia, ARCO: ARCO };
+  })();
+
+
+  /* o desenho de cada carta, frase de um lado e retrato do outro */
+  function cfcCarta(d, FOTOS, esc) {
+    var raro = d.raro || "comum";
+    var selo = raro === "holo" ? "Holográfica" : raro === "gold" ? "Dourada" : "Coleção";
+    var f = FOTOS[d.who];
+
+    var retratoSVG = CFC.frente(raro).replace('<g class="cfc-slot"></g>',
+      '<path d="' + CFC.ARCO + '" fill="#1B1026"/>' +
+      (f ? '<image href="' + esc(f.src) + '" x="44" y="13" width="112" height="114" ' +
+           'preserveAspectRatio="xMidYMid slice" clip-path="url(#cfcArco)"/>' : "") +
+      '<path d="' + CFC.ARCO + '" fill="url(#cfcVeu)"/>');
+
+    var credito = f ? "Imagem " + esc(f.fonte) : "Silhueta gravada para o Profeta";
+    var nome = esc(d.who);
+
+    return '<button type="button" class="fig ' + raro + '" data-i="' + d.i +
+      '" aria-label="Carta de ' + nome + ', clique para virar">' +
+      '<span class="fig-in">' +
+
+        /* a face da frase */
+        '<span class="fig-face fig-front">' + CFC.verso(raro) +
+          '<span class="cfc-txt">' +
+            '<span class="fig-selo">' + selo + " &middot; cap. " + d.chapter + "</span>" +
+            '<span class="fig-q"><span>&ldquo;' + esc(d.quote) + "&rdquo;</span></span>" +
+            '<span class="fig-who">' + nome + "</span>" +
+          "</span>" +
+        "</span>" +
+
+        /* a face do retrato */
+        '<span class="fig-face fig-back">' + retratoSVG +
+          '<span class="fig-desc"><b>' + esc(d.bookTitle) + "</b>" +
+            "<span>Cap. " + d.chapter + ", " + esc(d.chapterTitle) + "</span>" +
+            "<span>" + esc(d.moment) + "</span>" +
+            '<span class="fig-credito">' + credito + "</span></span>" +
+          '<span class="fig-placa' + (d.who.length > 14 ? " longo" : "") + '">' + nome + "</span>" +
+        "</span>" +
+
+      "</span></button>";
+  }
+
+  /* a carta que ainda falta */
+  function cfcFalta(d) {
+    return '<div class="fig falta" data-i="' + d.i + '">' +
+      '<span class="fig-in"><span class="fig-face">' + CFC.vazia() +
+      '<span class="falta-txt">Capítulo ' + d.chapter + "<br>por juntar</span>" +
+      "</span></span></div>";
+  }
+
+  /* a frase e a descricao encolhem ate caber, do mesmo jeito que a manchete */
+  function cfcEncolher(el, minimo) {
+    if (!el) return;
+    el.style.fontSize = "";
+    var base = parseFloat(getComputedStyle(el).fontSize) || 12;
+    var t = base, chao = base * minimo;
+    for (var n = 0; n < 18; n++) {
+      if (el.scrollHeight <= el.clientHeight + 1) break;
+      t *= 0.93;
+      if (t < chao) { t = chao; el.style.fontSize = t.toFixed(2) + "px"; break; }
+      el.style.fontSize = t.toFixed(2) + "px";
+    }
+  }
+  function cfcAjustar(raiz) {
+    var r = raiz || document;
+    var qs = r.querySelectorAll(".fig-q");
+    for (var i = 0; i < qs.length; i++) cfcEncolher(qs[i], 0.56);
+    var ds = r.querySelectorAll(".fig-desc");
+    for (var j = 0; j < ds.length; j++) cfcEncolher(ds[j], 0.72);
+  }
+
   var ALBUM = (function () {
     var CHAVE = "profeta-album-v1";
     var dados = [];
@@ -4268,56 +4532,9 @@ function retrato(nome) {
     }
 
     /* ---- desenhar o album ---- */
-    var VULTO = '<svg class="vulto" viewBox="0 0 120 132" aria-hidden="true">' +
-      '<ellipse cx="60" cy="66" rx="50" ry="58" fill="none" stroke="#6E5C34" stroke-width="2"/>' +
-      '<path d="M 16 132 Q 60 98 104 132 Z" fill="#6E5C34"/>' +
-      '<ellipse cx="60" cy="64" rx="24" ry="32" fill="#6E5C34"/></svg>';
-
-    /* a imagem do personagem, com a silhueta gravada de reserva */
-    function verso(quem) {
-      var f = FOTOS[quem];
-      if (!f) return '<span class="fig-foto">' + retrato(quem) + "</span>";
-      return '<span class="fig-foto">' +
-        '<img src="' + esc(f.src) + '" alt="" loading="lazy" decoding="async" ' +
-        'onerror="this.parentNode.classList.add(\'sem-foto\')">' +
-        '<span class="fig-vulto">' + retrato(quem) + "</span></span>";
-    }
-    /* a fonte, impressa em toda carta */
-    function fonte(quem) {
-      var f = FOTOS[quem];
-      if (!f) return '<span class="fig-credito">Silhueta gravada para o Profeta</span>';
-      return '<span class="fig-credito">Imagem ' + esc(f.fonte) + "</span>";
-    }
 
     function figurinha(d) {
-      var meu = !!tenho[d.i];
-      if (!meu) {
-        return '<div class="fig falta" data-i="' + d.i + '">' +
-          '<span class="fig-in"><span class="fig-face">' + VULTO +
-          '<span class="falta-txt">Capítulo ' + d.chapter + "<br>por juntar</span>" +
-          "</span></span></div>";
-      }
-      var selo = d.raro === "holo" ? "Holográfica" : d.raro === "gold" ? "Dourada" : "";
-      return '<button type="button" class="fig ' + d.raro + '" data-i="' + d.i +
-        '" aria-label="Figurinha de ' + esc(d.who) + ', clique para virar">' +
-        '<span class="fig-in">' +
-          '<span class="fig-face fig-front">' +
-            (selo ? '<span class="fig-selo">' + selo + "</span>" : "") +
-            '<span class="fig-num">' + d.bookTitle + " · cap. " + d.chapter + "</span>" +
-            '<span class="fig-q"><span>“' + esc(d.quote) + '”</span></span>' +
-            '<span class="fig-who">' + esc(d.who) + "</span>" +
-          "</span>" +
-          '<span class="fig-face fig-back">' +
-            (selo ? '<span class="fig-selo">' + selo + "</span>" : "") +
-            verso(d.who) +
-            '<span class="fig-who">' + esc(d.who) + "</span>" +
-            '<span class="fig-onde"><b>' + esc(d.bookTitle) + "</b><br>" +
-              "Capítulo " + d.chapter + ", " + esc(d.chapterTitle) + "<br>" +
-              esc(d.moment) + (d.note ? "<br>" + esc(d.note) : "") +
-            "</span>" +
-            fonte(d.who) +
-          "</span>" +
-        "</span></button>";
+      return tenho[d.i] ? cfcCarta(d, FOTOS, esc) : cfcFalta(d);
     }
 
     function pintar() {
@@ -4340,6 +4557,7 @@ function retrato(nome) {
           '<div class="figs">' + L.itens.map(figurinha).join("") + "</div>" +
           "</section>";
       }).join("");
+      cfcAjustar(folhas);
     }
 
     /* ---- abrir e fechar ---- */
@@ -4366,6 +4584,8 @@ function retrato(nome) {
       botaoPacote = document.getElementById("albumPack");
       var selo = document.getElementById("albumSeal");
       var fechaBt = document.getElementById("albumClose");
+      var tintas = document.getElementById("cfcTintas");
+      if (tintas && !tintas.firstChild) tintas.innerHTML = CFC.tintas();
       var total = document.getElementById("sealTotal");
       if (total) total.textContent = "de " + dados.length;
 
@@ -4380,6 +4600,13 @@ function retrato(nome) {
       if (folhas) folhas.addEventListener("click", function (e) {
         var f = e.target.closest && e.target.closest(".fig");
         if (f && !f.classList.contains("falta")) f.classList.toggle("flip");
+      });
+
+      /* a carta se remede quando a janela muda de tamanho */
+      var reMedir;
+      window.addEventListener("resize", function () {
+        clearTimeout(reMedir);
+        reMedir = setTimeout(function () { if (caixa && !caixa.hidden) cfcAjustar(folhas); }, 180);
       });
 
       /* um pacote por visita. Quem ainda nao tem nada comeca com um */
@@ -4741,6 +4968,7 @@ function retrato(nome) {
         <button type="button" class="album-btn" id="albumClose">Fechar</button>
       </div>
     </div>
+    <div id="cfcTintas"></div>
     <div id="albumBooks"></div>
   </div>
 </div>
