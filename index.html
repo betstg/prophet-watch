@@ -1365,61 +1365,67 @@
   .stamp { margin-top: 10px !important; }
   .toolbar { padding: 10px 0 !important; margin-bottom: 0 !important; }
 
-  /* ---- a pagina inteira e um rio de colunas, materia atras de materia ---- */
+  /* ---- a diagramacao se compoe sozinha ----
+     A folha e uma grade fina. Cada materia vira um modulo com largura
+     propria, medida pelo tamanho do texto e pela foto que ela tem, e a
+     altura sai da medicao depois que o navegador desenhou. O encaixe e
+     denso, entao um modulo pequeno sobe e tapa o vao que um grande
+     deixou. Nenhum buraco, e nenhum tamanho igual ao do vizinho. */
   #list {
-    column-count: 5;
+    display: grid;
+    grid-template-columns: repeat(var(--cols, 10), minmax(0, 1fr));
+    grid-auto-rows: 4px;
     column-gap: 22px;
-    column-rule: 1px solid var(--rule-strong);
+    row-gap: 0;
+    grid-auto-flow: row dense;
+    align-items: start;
   }
-  @media (max-width: 1360px) { #list { column-count: 4; } }
-  @media (max-width: 1080px) { #list { column-count: 3; } }
-  @media (max-width: 820px)  { #list { column-count: 2; } }
-  @media (max-width: 520px)  { #list { column-count: 1; } }
+  #list > * { align-self: start; min-width: 0; }
 
   /* ---- as bancadas do dia, atravessando a folha inteira ---- */
   .day-head {
-    break-inside: avoid;
+    grid-column: 1 / -1;
     border-top: 4px double var(--rule-strong);
     border-bottom: 1px solid var(--rule-strong);
     padding: 5px 2px !important;
     margin: 18px 0 12px !important;
   }
-  #list > .day-head:first-child { column-span: all; margin-top: 0 !important; border-top: none; }
+  #list > .day-head:first-child { margin-top: 0 !important; border-top: none; }
   /* dentro da coluna nao cabe a contagem, entao ela sai */
-  #list > .day-head:not(:first-child) .day-count { display: none; }
+
   .day-date { font-family: var(--font-deck); font-weight: 600; font-size: 13px; letter-spacing: .18em; }
   .day-count { font-family: var(--font-deck); font-size: 10px; }
 
-  /* ---- a materia dentro da coluna ---- */
-  #list .card:not(.lead),
-  :root[data-theme="light"] #list .card:not(.lead) {
-    border: none;
-    border-top: none;
-    border-bottom: 1px solid var(--rule);
+  /* ---- o modulo, a materia dentro da grade ---- */
+  /* Sem caixa e sem fio entre materias. O que separa e o espaco, o
+     alinhamento e a diferenca de tamanho, nao um risco desenhado. */
+  #list .card,
+  :root[data-theme="light"] #list .card {
+    border: none !important;
     border-radius: 0;
-    padding: 0 0 12px !important;
-    margin: 0 0 14px !important;
+    padding: 0 22px 0 0 !important;
+    margin: 0 0 30px 0 !important;
     background: none;
   }
-  #list .card:not(.lead) .card-body,
-  :root[data-theme="light"] #list .card:not(.lead) .card-body { padding: 0 !important; gap: 5px; }
-  #list .card:not(.lead) .kicker { gap: 5px; margin: 7px 0 1px; }
-  #list .card:not(.lead) .tag { font-size: 8.5px; padding: 2px 6px; letter-spacing: .1em; }
-  #list .card:not(.lead) .desk { font-size: 8.5px; letter-spacing: .12em; }
-  #list .card:not(.lead) h2.headline,
-  :root[data-theme="light"] #list .card:not(.lead) h2.headline {
-    font-family: var(--font-deck);
-    font-weight: 600;
+  #list .card.flush { padding-right: 0 !important; }
+  /* o rodape da materia desce para o pe da caixa, os fios ficam alinhados */
+  #list .card:not(.figured) { display: flex !important; flex-direction: column; }
+  #list .card:not(.figured) .card-foot { margin-top: auto; }
+  #list .card .card-body,
+  :root[data-theme="light"] #list .card .card-body { padding: 0 !important; gap: 5px; }
+  #list .card .kicker { gap: 5px; margin: 7px 0 1px; }
+  #list .card .tag { font-size: 9px; padding: 0 !important; letter-spacing: .18em; border: none !important; background: none !important; }
+  #list .card .desk { font-size: 8.5px; letter-spacing: .12em; }
+  #list .card h2.headline,
+  :root[data-theme="light"] #list .card h2.headline {
+    font-family: var(--head-face, var(--font-deck)) !important;
+    font-weight: var(--head-weight, 600) !important;
     text-transform: uppercase;
-    font-size: 17px !important;
-    line-height: 1.07;
-    letter-spacing: .003em;
-    margin: 2px 0 4px;
+    line-height: 1.02;
+    letter-spacing: -.004em;
+    margin: 2px 0 6px;
   }
-  #list .card.big h2.headline { font-size: 22px !important; }
-  #list .card.mid h2.headline { font-size: 18px !important; }
-  #list .card.brief h2.headline { font-size: 15px !important; }
-  #list .card:not(.lead) .summary {
+  #list .card .summary {
     font-family: var(--font-read);
     font-size: 12.5px !important;
     line-height: 1.42;
@@ -1430,15 +1436,41 @@
     overflow: visible !important;
     margin: 0;
   }
-  #list .card:not(.lead) figure.cut { margin: 0 0 6px !important; }
-  #list .card:not(.lead) figure.cut figcaption { font-size: 9px; line-height: 1.3; padding-top: 3px; }
-  #list .card:not(.lead) .card-foot { font-size: 9.5px; margin-top: 7px; padding-top: 5px; border-top: 1px solid var(--rule); }
-  #list .card:not(.lead) .shot { aspect-ratio: 4 / 3 !important; }
-  #list .card.brief .shot { aspect-ratio: 3 / 2 !important; }
+  #list .card figure.cut { margin: 0 0 6px !important; max-width: none !important; width: auto !important; }
+  #list .card figure.cut figcaption { font-size: 9px; line-height: 1.3; padding-top: 3px; }
+  #list .card .card-foot { font-size: 9.5px; margin-top: 10px; padding-top: 0; border-top: none; }
+  #list .card .shot { aspect-ratio: 4 / 3 !important; }
+
+
+  /* modulo largo, a foto entra torta e o texto contorna o recorte dela.
+     O corpo nao pode abrir contexto proprio, senao ele ignora o flutuante */
+  #list .card.figured .card-body { display: block !important; overflow: visible !important; }
+  #list .card.figured::after { content: ""; display: block; clear: both; }
+  #list .card.figured > figure.cut {
+    float: left !important;
+    width: var(--figw, 44%) !important;
+    margin: 3px 26px 10px 0 !important;
+    shape-outside: polygon(0% 0%, 100% 5%, 100% 95%, 0% 100%);
+    shape-margin: 22px;
+    -webkit-shape-outside: polygon(0% 0%, 100% 5%, 100% 95%, 0% 100%);
+  }
+  #list .card.figured .shot { aspect-ratio: 16 / 9 !important; }
+
+  /* modulo largo sem contorno nao pode abrir foto de pagina inteira */
+  #list .card[data-w="4"]:not(.figured) .shot,
+  #list .card[data-w="5"]:not(.figured) .shot,
+  #list .card[data-w="6"]:not(.figured) .shot,
+  #list .card[data-w="7"]:not(.figured) .shot,
+  #list .card[data-w="8"]:not(.figured) .shot,
+  #list .card[data-w="9"]:not(.figured) .shot,
+  #list .card[data-w="10"]:not(.figured) .shot { aspect-ratio: 21 / 9 !important; }
+
+  /* modulo estreito e alto, a foto vira tira em pe */
+  #list .card.tall .shot { aspect-ratio: 3 / 4 !important; }
 
   /* ---- a primeira pagina, diagramada a mao ---- */
   .frontpage {
-    column-span: all;
+    grid-column: 1 / -1;
     border-bottom: 4px double var(--rule-strong);
     padding: 2px 0 16px;
     margin: 0 0 16px;
@@ -1446,18 +1478,17 @@
   .frontpage .kicker { display: flex; justify-content: center; gap: 6px; margin: 0 0 6px; }
   .frontpage .tag {
     background: none !important;
-    border: 1px solid currentColor !important;
-    border-radius: 0 !important;
+    border: none !important;
     font-family: var(--font-deck);
     font-weight: 600;
-    padding: 1px 6px !important;
+    padding: 0 !important;
   }
   .frontpage .desk { font-size: 9px; letter-spacing: .14em; }
   .frontpage > h2.headline {
     font-family: var(--font-head) !important;
     font-weight: 400 !important;
     text-transform: uppercase;
-    font-size: clamp(30px, 5vw, 72px) !important;
+    font-size: clamp(30px, 5vw, 82px) !important;
     line-height: .92;
     letter-spacing: -.012em;
     text-align: center;
@@ -1472,12 +1503,12 @@
   .frontpage figure.cut {
     float: left;
     width: 30%;
-    margin: 4px 0 10px 0 !important;
+    margin: 4px 30px 12px 0 !important;
     max-width: none !important;
     transform: rotate(-1.4deg);
-    shape-outside: polygon(0% 0%, 92% 0%, 100% 46%, 96% 100%, 0% 100%);
-    shape-margin: 20px;
-    -webkit-shape-outside: polygon(0% 0%, 92% 0%, 100% 46%, 96% 100%, 0% 100%);
+    shape-outside: polygon(0% 0%, 100% 4%, 100% 96%, 0% 100%);
+    shape-margin: 24px;
+    -webkit-shape-outside: polygon(0% 0%, 100% 4%, 100% 96%, 0% 100%);
   }
   .frontpage figure.cut .shot { aspect-ratio: 16 / 9 !important; }
   .frontpage figure.cut figcaption { font-size: 9.5px; }
@@ -1525,28 +1556,21 @@
     font-size: 10px;
   }
 
-  /* ---- a capitular iluminada, com moldura de gravura ---- */
+  /* ---- a inicial ----
+     Letra grande e solta no texto, nunca dentro de caixa. O tamanho vem
+     do corpo do paragrafo, entao ela cresce e encolhe junto com o modulo. */
   .drop {
     float: left;
-    font-family: var(--font-black);
-    font-size: 58px;
-    line-height: .82;
+    font-family: var(--drop-face, var(--font-black));
+    font-size: 3.5em;
+    line-height: .74;
     color: var(--ink);
-    margin: 5px 12px 2px 0;
-    padding: 14px 16px 12px;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cg fill='none' stroke='%236E5C34' stroke-width='1.6'%3E%3Crect x='1' y='1' width='98' height='98'/%3E%3Crect x='6' y='6' width='88' height='88' stroke-width='.9'/%3E%3Cpath d='M6 20 C 14 14, 14 14, 20 6' /%3E%3Cpath d='M94 20 C 86 14, 86 14, 80 6'/%3E%3Cpath d='M6 80 C 14 86, 14 86, 20 94'/%3E%3Cpath d='M94 80 C 86 86, 86 86, 80 94'/%3E%3Ccircle cx='13' cy='13' r='2.4'/%3E%3Ccircle cx='87' cy='13' r='2.4'/%3E%3Ccircle cx='13' cy='87' r='2.4'/%3E%3Ccircle cx='87' cy='87' r='2.4'/%3E%3C/g%3E%3C/svg%3E");
+    margin: 0.06em 0.14em 0 0;
+    padding: 0;
+    border: none;
+    background: none;
   }
-  /* dentro da coluna estreita ela nao cabe, entao encolhe */
-  #list .card .drop {
-    float: none;
-    display: inline-block;
-    font-size: 24px;
-    padding: 5px 7px 4px;
-    margin: 0 6px 2px 0;
-    vertical-align: -6px;
-  }
+  .frontpage .drop { font-size: 4.1em; }
 
   @media (max-width: 900px) {
     .frontpage .pull { display: none; }
@@ -1608,11 +1632,11 @@
   /* a procedencia vira etiqueta de chumbo, nao pilula de site */
   #list .tag {
     background: none !important;
-    border: 1px solid currentColor !important;
+    border: none !important;
     color: var(--c) !important;
     font-family: var(--font-deck) !important;
     font-weight: 600;
-    padding: 1px 5px !important;
+    padding: 0 !important;
   }
   :root[data-theme="light"] #list .tag { color: #100B04 !important; border-color: #100B04 !important; }
   :root[data-theme="light"] #list .desk { color: #4A3D22 !important; }
@@ -1865,8 +1889,18 @@
 
 <script type="application/json" id="news-data">
 {
-  "updated": "2026-09-03",
+  "updated": "2026-09-04",
   "stories": [
+    {
+      "id": "season-2-production-problems-2026-09-04",
+      "date": "2026-09-04",
+      "status": "rumor",
+      "category": "HBO series",
+      "headline": "Fresh reports say season two has hit recasting and script trouble",
+      "summary": "UNILAD and The Tab both published roundups saying the second season of the HBO series has been slowed down. Gracie Cochrane left the part of Ginny Weasley in May and Kit Harington took over from Nicholas Hoult as Gilderoy Lockhart in August. Tabloid sources also claim the scripts were not finished and that a planned August start slipped to later in the year. Warner Bros and HBO have said nothing, and cast member Asha Soetan has posted from set since then, so the delay claim is not stood up.",
+      "source": "UNILAD",
+      "url": "https://www.unilad.com/film-and-tv/news/harry-potter-hbo-season-two-problems-597276-20260904"
+    },
     {
       "id": "caldeirao-furado-trailer-breakdown-2026-09-03",
       "date": "2026-09-03",
@@ -1899,28 +1933,6 @@
       "source": "Potterish",
       "url": "https://potterish.com/new-harry-potter-hbo-series-trailer/?lang=en",
       "image": "assets/thumbs/potterish-trailer-hedwig-2026-09-02.jpg"
-    },
-    {
-      "id": "waterloo-station-paparazzi-2026-05-04",
-      "date": "2026-05-04",
-      "status": "paparazzi",
-      "category": "HBO series",
-      "headline": "Fotos de paparazzi poem os Dursley e os Weasley na estacao de Waterloo",
-      "summary": "A estacao de Waterloo, em Londres, foi usada como Kings Cross para gravar a Plataforma nove e tres quartos. As imagens mostram os atores de Valter Dursley e Molly Weasley juntos, mais figurantes fantasiados e os gemeos Weasley. As fotos sairam pelo Daily Mail e circularam a partir de um post do perfil Luka4152 no X.",
-      "source": "Notebookcheck",
-      "url": "https://www.notebookcheck.net/Harry-Potter-series-New-set-photos-spark-plenty-of-fan-speculation.1288829.0.html",
-      "image": "assets/thumbs/waterloo-station-paparazzi-2026-05-04.jpg"
-    },
-    {
-      "id": "asha-soetan-season-2-leavesden-2026-08-17",
-      "date": "2026-08-17",
-      "status": "confirmed",
-      "category": "HBO series",
-      "headline": "Atriz de Angelina Johnson deixa escapar que a segunda temporada ja grava em Leavesden",
-      "summary": "Asha Soetan, que vive a estudante Angelina Johnson, postou nas redes que estava de volta ao set com cenas empolgantes mas jurada de segredo. Foi assim que se soube que a segunda temporada comecou a rodar em Leavesden, antes de qualquer anuncio do estudio.",
-      "source": "Watford Observer",
-      "url": "https://uk.news.yahoo.com/hbo-harry-potter-actor-reveals-161500213.html",
-      "image": "assets/thumbs/asha-soetan-season-2-leavesden-2026-08-17.jpg"
     },
     {
       "id": "full-trailer-arrives-2026-09-02",
@@ -2198,6 +2210,17 @@
       "image": "assets/thumbs/cast-reference-rotten-tomatoes.jpg"
     },
     {
+      "id": "asha-soetan-season-2-leavesden-2026-08-17",
+      "date": "2026-08-17",
+      "status": "confirmed",
+      "category": "HBO series",
+      "headline": "Atriz de Angelina Johnson deixa escapar que a segunda temporada ja grava em Leavesden",
+      "summary": "Asha Soetan, que vive a estudante Angelina Johnson, postou nas redes que estava de volta ao set com cenas empolgantes mas jurada de segredo. Foi assim que se soube que a segunda temporada comecou a rodar em Leavesden, antes de qualquer anuncio do estudio.",
+      "source": "Watford Observer",
+      "url": "https://uk.news.yahoo.com/hbo-harry-potter-actor-reveals-161500213.html",
+      "image": "assets/thumbs/asha-soetan-season-2-leavesden-2026-08-17.jpg"
+    },
+    {
       "id": "hogwarts-legacy-2-development-2026-08-17",
       "date": "2026-08-17",
       "status": "confirmed",
@@ -2207,6 +2230,17 @@
       "source": "Game Informer",
       "url": "https://gameinformer.com/2026/08/17/a-hogwarts-legacy-sequel-is-officially-in-development",
       "image": "assets/thumbs/hogwarts-legacy-2-development-2026-08-17.jpg"
+    },
+    {
+      "id": "waterloo-station-paparazzi-2026-05-04",
+      "date": "2026-05-04",
+      "status": "paparazzi",
+      "category": "HBO series",
+      "headline": "Fotos de paparazzi poem os Dursley e os Weasley na estacao de Waterloo",
+      "summary": "A estacao de Waterloo, em Londres, foi usada como Kings Cross para gravar a Plataforma nove e tres quartos. As imagens mostram os atores de Valter Dursley e Molly Weasley juntos, mais figurantes fantasiados e os gemeos Weasley. As fotos sairam pelo Daily Mail e circularam a partir de um post do perfil Luka4152 no X.",
+      "source": "Notebookcheck",
+      "url": "https://www.notebookcheck.net/Harry-Potter-series-New-set-photos-spark-plenty-of-fan-speculation.1288829.0.html",
+      "image": "assets/thumbs/waterloo-station-paparazzi-2026-05-04.jpg"
     }
   ]
 }
@@ -2574,7 +2608,8 @@
           "</div>" +
           '<h2 class="headline"><a href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer">' +
             esc(s.headline) + "</a></h2>" +
-          '<p class="summary">' + esc(s.summary) + "</p>" +
+          '<p class="summary"><span class="drop">' + esc(s.summary.charAt(0)) + "</span>" +
+            esc(s.summary.slice(1)) + "</p>" +
           '<div class="card-foot">' +
             '<a class="src" href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer">' +
               esc(s.source) + "</a>" +
@@ -2584,6 +2619,7 @@
       listEl.appendChild(art);
     });
     wakeReels();
+    compose();
   }
 
   listEl.addEventListener("click", function (ev) {
@@ -2949,6 +2985,197 @@
       document.documentElement.classList.toggle("on-secret", !!(hot && !hot.found));
     };
   })();
+
+  /* ===================================================================
+     O COMPOSITOR
+     A pagina nao tem gabarito fixo. Cada materia e medida e recebe uma
+     largura propria, depois a altura sai da medicao do navegador. O
+     encaixe e denso, entao um modulo pequeno sobe e tapa o vao que um
+     grande deixou. Roda de novo quando a janela muda, quando um filtro
+     muda e quando uma foto termina de carregar.
+     =================================================================== */
+  var UNIT = 4;      /* a linha fina da grade, em pixels */
+  var ROWGAP = 0;
+
+  /* recebe a largura util da folha, nao a da janela */
+  function gradeOf(w) {
+    if (w >= 1280) return { cols: 10 };
+    if (w >= 1020) return { cols: 8 };
+    if (w >= 760)  return { cols: 6 };
+    if (w >= 500)  return { cols: 4 };
+    return { cols: 1 };
+  }
+
+  /* o peso da materia decide a largura. Texto longo e foto pedem espaco */
+  function weigh(card) {
+    var sum = card.querySelector(".summary");
+    var words = sum ? sum.textContent.split(/\s+/).length : 0;
+    var hasShot = !!card.querySelector("figure.cut");
+    var head = card.querySelector("h2.headline");
+    var hw = head ? head.textContent.length : 0;
+    return words + (hasShot ? 26 : 0) + Math.round(hw / 6);
+  }
+
+  /* altura real do modulo, margem incluida */
+  function rowsOf(el) {
+    var cs = getComputedStyle(el);
+    var h = el.getBoundingClientRect().height +
+            (parseFloat(cs.marginTop) || 0) + (parseFloat(cs.marginBottom) || 0);
+    return Math.max(1, Math.ceil(h / UNIT));
+  }
+
+  /* as familias do jornal. Manchete e inicial mudam de modulo para modulo,
+     e e isso que da a mistura de letras da primeira pagina impressa */
+  var CARAS = [
+    { f: '"Anton", "Oswald", Georgia, serif',            w: 400 },
+    { f: '"Oswald", "Anton", Georgia, serif',            w: 700 },
+    { f: '"Playfair Display", Georgia, serif',           w: 900 },
+    { f: '"Cinzel Decorative", Georgia, serif',          w: 700 }
+  ];
+  var INICIAIS = [
+    '"UnifrakturMaguntia", "Grenze Gotisch", Georgia, serif',
+    '"Cinzel Decorative", Georgia, serif',
+    '"Grenze Gotisch", Georgia, serif',
+    '"Playfair Display", Georgia, serif'
+  ];
+
+  /* a manchete tem que caber. Comeca grande, proporcional a largura do
+     modulo, e encolhe ate ocupar no maximo o numero de linhas pedido.
+     Mede a altura real, entao vale mesmo com foto flutuando ao lado */
+  function ajustaManchete(h, largura, linhasAlvo) {
+    if (!h) return;
+    var t = Math.max(15, Math.min(largura * 0.11, 42));
+    h.style.fontSize = t.toFixed(1) + "px";
+    var lh = 1.02;
+    for (var i = 0; i < 24; i++) {
+      var limite = linhasAlvo * t * lh + 3;
+      if (h.getBoundingClientRect().height <= limite) break;
+      t *= 0.92;
+      if (t < 13.5) { t = 13.5; h.style.fontSize = "13.5px"; break; }
+      h.style.fontSize = t.toFixed(1) + "px";
+    }
+  }
+
+  var composeTimer = null;
+
+  /* quantos modulos entram na faixa. Varia para a pagina nao virar gabarito */
+  var RITMO = [4, 3, 5, 3, 4, 2];
+
+  function compose() {
+    var list = document.getElementById("list");
+    if (!list) return;
+    var box = list.clientWidth;
+    if (!box) return;
+    var g = gradeOf(box);
+    var cols = g.cols;
+    list.style.setProperty("--cols", cols);
+
+    /* separa a folha em blocos de dia, cada um com as suas materias */
+    var blocos = [];
+    var atual = null;
+    var kids = list.children;
+    for (var i = 0; i < kids.length; i++) {
+      var k = kids[i];
+      k.style.gridRow = "";
+      k.style.alignSelf = "start";
+      if (k.classList.contains("card")) {
+        if (!atual) { atual = []; blocos.push(atual); }
+        atual.push(k);
+      } else {
+        atual = null;                       /* bancada do dia, ou a abertura */
+      }
+    }
+
+    /* as faixas. Cada faixa fecha a largura inteira, sem sobra */
+    var faixas = [];
+    var passo = 0;
+    for (var bl = 0; bl < blocos.length; bl++) {
+      var grupo = blocos[bl];
+      var pos = 0;
+      while (pos < grupo.length) {
+        var resto = grupo.length - pos;
+        var maxNaFaixa = Math.max(1, Math.floor(cols / 2));
+        var quantos = Math.min(resto, RITMO[passo++ % RITMO.length], maxNaFaixa);
+        /* nao deixa uma materia sozinha sobrando no fim do bloco */
+        if (resto - quantos === 1 && quantos < maxNaFaixa) quantos += 1;
+        if (quantos < 1) quantos = 1;
+        faixas.push(grupo.slice(pos, pos + quantos));
+        pos += quantos;
+      }
+    }
+
+    /* reparte as colunas dentro da faixa. Quem tem mais texto fica mais largo */
+    for (var f = 0; f < faixas.length; f++) {
+      var linha = faixas[f];
+      var base = Math.floor(cols / linha.length);
+      var sobra = cols - base * linha.length;
+      var pesos = linha.map(weigh);
+      var ordem = linha.map(function (c, n) { return n; }).sort(function (x, y) { return pesos[y] - pesos[x]; });
+      var spans = linha.map(function () { return base; });
+      for (var e = 0; e < sobra; e++) spans[ordem[e % linha.length]] += 1;
+
+      for (var t = 0; t < linha.length; t++) {
+        var c = linha[t];
+        c.style.gridColumn = "span " + spans[t];
+        c.setAttribute("data-w", String(spans[t]));
+        /* modulo largo ganha a foto torta com o texto contornando */
+        var largo = spans[t] >= 4 && cols >= 4;
+        /* modulo muito largo nao pode carregar foto gigante */
+        c.style.setProperty("--figw", (spans[t] >= 7 ? 24 : spans[t] >= 5 ? 32 : 44) + "%");
+        c.classList.toggle("figured", largo && !!c.querySelector("figure.cut"));
+        c.classList.toggle("tall", spans[t] <= 2 && cols > 4 && t % 3 === 1);
+        c.classList.toggle("flush", t === linha.length - 1);
+        /* a mistura de letras, sempre a mesma para a mesma posicao */
+        var cara = CARAS[(f * 3 + t) % CARAS.length];
+        c.style.setProperty("--head-face", cara.f);
+        c.style.setProperty("--head-weight", String(cara.w));
+        c.style.setProperty("--drop-face", INICIAIS[(f + t * 2) % INICIAIS.length]);
+      }
+    }
+
+    /* com a largura ja definida, cada manchete recebe o corpo que cabe */
+    for (var fa = 0; fa < faixas.length; fa++) {
+      var lin = faixas[fa];
+      for (var z = 0; z < lin.length; z++) {
+        var el2 = lin[z];
+        var larg = el2.getBoundingClientRect().width - 22;
+        var span2 = parseInt(el2.getAttribute("data-w"), 10) || 2;
+        var alvo = span2 >= 5 ? 2 : span2 >= 4 ? 3 : span2 >= 3 ? 3 : 4;
+        ajustaManchete(el2.querySelector("h2.headline"), larg, alvo);
+      }
+    }
+
+    /* mede depois de desenhado e iguala a altura da faixa */
+    for (var f2 = 0; f2 < faixas.length; f2++) {
+      var linha2 = faixas[f2];
+      var alto = 1;
+      for (var m = 0; m < linha2.length; m++) alto = Math.max(alto, rowsOf(linha2[m]));
+      for (var m2 = 0; m2 < linha2.length; m2++) {
+        linha2[m2].style.gridRow = "span " + alto;
+        linha2[m2].style.alignSelf = "stretch";
+      }
+    }
+
+    /* as bancadas do dia e a abertura ocupam a folha toda */
+    for (var d = 0; d < kids.length; d++) {
+      var kk = kids[d];
+      if (kk.classList.contains("card")) continue;
+      kk.style.gridRow = "span " + rowsOf(kk);
+    }
+  }
+
+  function recompose() {
+    clearTimeout(composeTimer);
+    composeTimer = setTimeout(compose, 90);
+  }
+  window.addEventListener("resize", recompose);
+  /* foto que chega depois muda a altura do modulo, entao mede de novo */
+  document.addEventListener("load", function (e) {
+    if (e.target && e.target.tagName === "IMG") recompose();
+  }, true);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(recompose).catch(function () {});
+  }
 
   /* mostrar todas as bancadas */
   (function () {
