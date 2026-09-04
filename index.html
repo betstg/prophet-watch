@@ -1436,16 +1436,15 @@
   #list .card:not(.lead) .shot { aspect-ratio: 4 / 3 !important; }
   #list .card.brief .shot { aspect-ratio: 3 / 2 !important; }
 
-  /* ---- a manchete de abertura, atravessando a folha ---- */
-  .frontline {
+  /* ---- a primeira pagina, diagramada a mao ---- */
+  .frontpage {
     column-span: all;
-    text-align: center;
-    border-bottom: 1px solid var(--rule-strong);
-    padding: 2px 0 12px;
-    margin: 0 0 14px;
+    border-bottom: 4px double var(--rule-strong);
+    padding: 2px 0 16px;
+    margin: 0 0 16px;
   }
-  .frontline .kicker { justify-content: center; gap: 6px; margin: 0 0 6px; }
-  .frontline .tag {
+  .frontpage .kicker { display: flex; justify-content: center; gap: 6px; margin: 0 0 6px; }
+  .frontpage .tag {
     background: none !important;
     border: 1px solid currentColor !important;
     border-radius: 0 !important;
@@ -1453,36 +1452,109 @@
     font-weight: 600;
     padding: 1px 6px !important;
   }
-  .frontline .desk { font-size: 9px; letter-spacing: .14em; }
-  .frontline h2.headline {
+  .frontpage .desk { font-size: 9px; letter-spacing: .14em; }
+  .frontpage > h2.headline {
     font-family: var(--font-head) !important;
     font-weight: 400 !important;
     text-transform: uppercase;
     font-size: clamp(30px, 5vw, 72px) !important;
     line-height: .92;
     letter-spacing: -.012em;
-    margin: 0;
+    text-align: center;
+    margin: 0 0 14px !important;
   }
-  .frontline h2.headline a { color: var(--ink) !important; text-decoration: none; }
-  :root[data-theme="light"] .frontline h2.headline a { color: #100B04 !important; }
+  .frontpage h2.headline a { color: var(--ink) !important; text-decoration: none; }
+  :root[data-theme="light"] .frontpage h2.headline a { color: #100B04 !important; }
 
-  /* a materia de abertura e a primeira do rio, so que com mais corpo */
-  #list .card.opener .summary { font-size: 13.5px !important; line-height: 1.46; }
-  #list .card.opener h2.headline { display: none; }
-  #list .card.opener .kicker { display: none; }
-  #list .card.opener .shot { aspect-ratio: 4 / 3 !important; }
-  /* a inicial vai numa moldura. Nada de flutuar, dentro de coluna quebrada
-     o navegador estica o flutuante e a letra sai do lugar */
-  .drop {
-    display: inline-block;
+  .well { overflow: hidden; max-width: 1120px; margin: 0 auto; }
+
+  /* a foto entra torta e o texto contorna o recorte dela, nao a caixa */
+  .frontpage figure.cut {
+    float: left;
+    width: 30%;
+    margin: 4px 0 10px 0 !important;
+    max-width: none !important;
+    transform: rotate(-1.4deg);
+    shape-outside: polygon(0% 0%, 92% 0%, 100% 46%, 96% 100%, 0% 100%);
+    shape-margin: 20px;
+    -webkit-shape-outside: polygon(0% 0%, 92% 0%, 100% 46%, 96% 100%, 0% 100%);
+  }
+  .frontpage figure.cut .shot { aspect-ratio: 16 / 9 !important; }
+  .frontpage figure.cut figcaption { font-size: 9.5px; }
+
+  /* a chamada que sobe de lado, como no jornal impresso */
+  .frontpage .pull {
+    float: right;
+    width: 11%;
+    min-width: 78px;
+    margin: 2px 0 8px 22px;
+    shape-outside: polygon(14% 0%, 100% 0%, 100% 100%, 0% 92%);
+    shape-margin: 12px;
+    -webkit-shape-outside: polygon(14% 0%, 100% 0%, 100% 100%, 0% 92%);
+  }
+  .frontpage .pull span {
+    display: block;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
     font-family: var(--font-black);
-    font-size: 26px;
-    line-height: 1;
+    font-size: clamp(18px, 1.7vw, 27px);
+    line-height: 1.02;
+    color: var(--rule-strong);
+    letter-spacing: .01em;
+    max-height: 200px;
+    overflow: hidden;
+  }
+
+  .frontpage .summary {
+    font-family: var(--font-read) !important;
+    font-size: 15px !important;
+    line-height: 1.52 !important;
+    text-align: justify;
+    hyphens: auto;
+    display: block !important;
+    -webkit-line-clamp: unset !important;
+    overflow: visible !important;
+    margin: 0 !important;
     color: var(--ink);
+  }
+  .frontpage .card-foot {
+    clear: none;
+    margin-top: 14px;
+    padding-top: 6px;
+    border-top: 1px solid var(--rule);
+    font-size: 10px;
+  }
+
+  /* ---- a capitular iluminada, com moldura de gravura ---- */
+  .drop {
+    float: left;
+    font-family: var(--font-black);
+    font-size: 58px;
+    line-height: .82;
+    color: var(--ink);
+    margin: 5px 12px 2px 0;
+    padding: 14px 16px 12px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cg fill='none' stroke='%236E5C34' stroke-width='1.6'%3E%3Crect x='1' y='1' width='98' height='98'/%3E%3Crect x='6' y='6' width='88' height='88' stroke-width='.9'/%3E%3Cpath d='M6 20 C 14 14, 14 14, 20 6' /%3E%3Cpath d='M94 20 C 86 14, 86 14, 80 6'/%3E%3Cpath d='M6 80 C 14 86, 14 86, 20 94'/%3E%3Cpath d='M94 80 C 86 86, 86 86, 80 94'/%3E%3Ccircle cx='13' cy='13' r='2.4'/%3E%3Ccircle cx='87' cy='13' r='2.4'/%3E%3Ccircle cx='13' cy='87' r='2.4'/%3E%3Ccircle cx='87' cy='87' r='2.4'/%3E%3C/g%3E%3C/svg%3E");
+  }
+  /* dentro da coluna estreita ela nao cabe, entao encolhe */
+  #list .card .drop {
+    float: none;
+    display: inline-block;
+    font-size: 24px;
+    padding: 5px 7px 4px;
     margin: 0 6px 2px 0;
-    padding: 4px 7px 3px;
-    border: 1px solid var(--rule-strong);
     vertical-align: -6px;
+  }
+
+  @media (max-width: 900px) {
+    .frontpage .pull { display: none; }
+    .frontpage figure.cut { width: 44%; }
+  }
+  @media (max-width: 560px) {
+    .frontpage figure.cut { float: none; width: 100%; transform: none; shape-outside: none; }
+    .drop { font-size: 42px; padding: 10px 12px 8px; }
   }
 
   /* ---- tinta mais preta no papel, como impresso de verdade ---- */
@@ -2465,11 +2537,11 @@
       art.className = "card " + (idx === 0 ? "big opener" : RANK[(idx - 1) % RANK.length]);
       art.style.animationDelay = Math.min(idx, 10) * 45 + "ms";
       if (idx === 0) {
-        /* a manchete de abertura atravessa a folha inteira, como a primeira
-           pagina do jornal. A materia em si desce para o rio de colunas,
-           assim nao sobra coluna vazia em lugar nenhum */
-        var band = document.createElement("div");
-        band.className = "frontline";
+        /* a primeira pagina e diagramada a mao. A foto entra torta, o texto
+           contorna o recorte dela e uma chamada sobe de lado na margem */
+        var band = document.createElement("section");
+        band.className = "frontpage";
+        var flourish = String(s.headline).split(/\s+/).slice(0, 3).join(" ");
         band.innerHTML =
           '<div class="kicker">' +
             '<button type="button" class="tag ' + s.status + '" data-status="' + s.status + '">' +
@@ -2477,11 +2549,10 @@
             '<span class="desk">' + icon(s.category, "deskmark") + esc(s.category) + "</span>" +
           "</div>" +
           '<h2 class="headline"><a href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer">' +
-            esc(s.headline) + "</a></h2>";
-        listEl.appendChild(band);
-        art.innerHTML =
-          shot(s) +
-          '<div class="card-body">' +
+            esc(s.headline) + "</a></h2>" +
+          '<div class="well">' +
+            shot(s) +
+            '<aside class="pull" aria-hidden="true"><span>' + esc(flourish) + "</span></aside>" +
             '<p class="summary"><span class="drop">' + esc(s.summary.charAt(0)) + "</span>" +
               esc(s.summary.slice(1)) + "</p>" +
             '<div class="card-foot">' +
@@ -2490,7 +2561,7 @@
               "<span>" + fmtDate(s.date) + "</span>" +
             "</div>" +
           "</div>";
-        listEl.appendChild(art);
+        listEl.appendChild(band);
         return;
       }
       art.innerHTML =
