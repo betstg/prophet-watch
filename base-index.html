@@ -1,0 +1,1053 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A filtered feed of Harry Potter news, tagged official, confirmed, rumor, leak or paparazzi, with a source link on every story.">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="assets/owl.svg">
+<style>
+  html { color-scheme: dark; }
+  :root[data-theme="light"] { color-scheme: light; }
+  body { margin: 0; }
+  img { max-width: 100%; }
+  [hidden] { display: none !important; }
+</style>
+<!-- SHARED-HEAD-START -->
+<title>Prophet Watch</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  /* ===== Wizarding World, midnight and gold ===== */
+  :root {
+    --bg: #070A1C;
+    --bg-2: #0C1130;
+    --veil: #050713;
+    --surface: #111737;
+    --surface-2: #182047;
+    --ink: #F4F1E8;
+    --ink-soft: #B4BBD6;
+    --ink-faint: #7B85A8;
+    --rule: #202a55;
+    --rule-strong: #35407A;
+    --gold: #D2A64B;
+    --gold-bright: #F2D48E;
+    --gold-dim: rgba(210, 166, 75, .30);
+    --focus: #8FB6F5;
+
+    --s-official: #5FCB9A;
+    --s-confirmed: #7FB0F0;
+    --s-rumor: #E5B25C;
+    --s-leak: #B79CF0;
+    --s-paparazzi: #F08FA0;
+
+    --shadow: 0 18px 40px -28px rgba(0,0,0,.95);
+    --font-plate: "Cinzel Decorative", "Cinzel", Georgia, serif;
+    --font-label: "Cinzel", Georgia, serif;
+    --font-read: "Newsreader", Georgia, "Times New Roman", serif;
+    --font-ui: "IBM Plex Sans", ui-sans-serif, system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+
+  /* Lumos, the same world with the lamps up */
+  :root[data-theme="light"] {
+    --bg: #E9E9F2;
+    --bg-2: #F4F4FA;
+    --veil: #C9CBDD;
+    --surface: #FFFFFF;
+    --surface-2: #F1F1F8;
+    --ink: #10142E;
+    --ink-soft: #3E4666;
+    --ink-faint: #6E7699;
+    --rule: #D6D8E6;
+    --rule-strong: #B6BACE;
+    --gold: #8A6A15;
+    --gold-bright: #A9861F;
+    --gold-dim: rgba(138, 106, 21, .28);
+
+    --s-official: #1C6B48;
+    --s-confirmed: #24508E;
+    --s-rumor: #7E5507;
+    --s-leak: #533494;
+    --s-paparazzi: #922C3E;
+    --shadow: 0 14px 34px -26px rgba(16, 20, 46, .5);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-ui);
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: var(--gold); }
+  :focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 4px; }
+
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 22px 100px; }
+
+  /* ================= Hero ================= */
+  .hero { position: relative; isolation: isolate; }
+  .hero-img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center 38%;
+    z-index: -2;
+    filter: saturate(.85) contrast(1.05) brightness(var(--hero-b, .85));
+  }
+  .hero::after {
+    content: "";
+    position: absolute; inset: 0; z-index: -1;
+    background:
+      radial-gradient(120% 90% at 50% 0%, rgba(210,166,75,.16), transparent 62%),
+      linear-gradient(180deg, rgba(5,7,19,.55) 0%, rgba(5,7,19,.62) 45%, var(--bg) 100%);
+  }
+  :root[data-theme="light"] .hero::after {
+    background:
+      radial-gradient(120% 90% at 50% 0%, rgba(210,166,75,.22), transparent 62%),
+      linear-gradient(180deg, rgba(233,233,242,.42) 0%, rgba(233,233,242,.6) 45%, var(--bg) 100%);
+  }
+  :root[data-theme="light"] .hero-img { --hero-b: 1.05; }
+
+  .hero-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 52px 22px 26px;
+    text-align: center;
+  }
+
+  h1.wordmark {
+    font-family: var(--font-plate);
+    font-weight: 700;
+    font-size: clamp(38px, 8vw, 76px);
+    line-height: 1.02;
+    margin: 0;
+    letter-spacing: .01em;
+    background: linear-gradient(180deg, var(--gold-bright) 6%, var(--gold) 48%, #8A6A15 96%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 10px rgba(210,166,75,.28));
+  }
+  .tagline {
+    font-family: var(--font-label);
+    font-size: clamp(11px, 2.4vw, 13.5px);
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 14px 0 0;
+  }
+  .stamp {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 18px;
+    font-family: var(--font-ui);
+    font-size: 12px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .stamp b { color: var(--gold); font-weight: 600; }
+  .lumos {
+    font-family: var(--font-ui);
+    font-size: 11.5px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: rgba(210,166,75,.06);
+    border: 1px solid var(--gold-dim);
+    border-radius: 999px;
+    padding: 6px 14px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background .2s, border-color .2s, color .2s;
+  }
+  .lumos:hover { background: rgba(210,166,75,.14); border-color: var(--gold); color: var(--gold-bright); }
+  .lumos .spark { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 8px var(--gold); }
+
+  /* ================= Desk rail, like the official chips ================= */
+  .rail {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    padding: 26px 0 4px;
+  }
+  .pill {
+    font-family: var(--font-read);
+    font-size: 15.5px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0));
+    border: 1px solid var(--rule-strong);
+    border-radius: 999px;
+    padding: 9px 18px 9px 14px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    transition: border-color .2s, color .2s, background .2s, transform .2s;
+  }
+  :root[data-theme="light"] .pill { background: var(--surface); }
+  .pill svg { width: 19px; height: 19px; flex: 0 0 auto; opacity: .85; }
+  .pill .n {
+    font-family: var(--font-ui);
+    font-size: 10.5px;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-faint);
+  }
+  .pill:hover { color: var(--ink); border-color: var(--gold-dim); transform: translateY(-1px); }
+  .pill[aria-pressed="true"] {
+    color: var(--ink);
+    border-color: var(--gold);
+    background: rgba(210,166,75,.10);
+    box-shadow: 0 0 0 1px var(--gold-dim), 0 6px 18px -12px var(--gold);
+  }
+  .pill[aria-pressed="true"] .n { color: var(--gold); }
+
+  /* ================= Toolbar ================= */
+  .toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 14px 0 13px;
+    background: linear-gradient(180deg, var(--bg) 72%, transparent);
+    backdrop-filter: blur(6px);
+  }
+  .search-field { position: relative; flex: 1 1 260px; min-width: 0; }
+  .search {
+    width: 100%;
+    font-family: var(--font-read);
+    font-size: 16px;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--rule-strong);
+    border-radius: 999px;
+    padding: 10px 16px 10px 42px;
+  }
+  .search::placeholder { color: var(--ink-faint); font-style: italic; }
+  .search:focus { border-color: var(--gold); outline: none; }
+  .wand { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--ink-faint); pointer-events: none; }
+  .search:focus + .wand { color: var(--gold); }
+
+  .marks { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .mark {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    background: none;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 6px 12px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    transition: border-color .2s, color .2s, background .2s;
+  }
+  .mark .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .mark.official { --c: var(--s-official); }
+  .mark.confirmed { --c: var(--s-confirmed); }
+  .mark.rumor { --c: var(--s-rumor); }
+  .mark.leak { --c: var(--s-leak); }
+  .mark.paparazzi { --c: var(--s-paparazzi); }
+  .mark .dot { color: var(--c); }
+  .mark:hover { color: var(--ink); border-color: var(--c); }
+  .mark[aria-pressed="true"] { color: var(--c); border-color: var(--c); background: color-mix(in srgb, var(--c) 12%, transparent); }
+  .mark .n { font-size: 10px; color: var(--ink-faint); }
+
+  .sort {
+    font-family: var(--font-ui);
+    font-size: 11.5px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    background: none;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 7px 14px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .sort:hover { color: var(--ink); border-color: var(--gold-dim); }
+
+  .resultline {
+    font-family: var(--font-ui);
+    font-size: 12px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    padding: 18px 0 14px;
+  }
+
+  /* ================= Day sections ================= */
+  .day-head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 22px 0 16px;
+  }
+  .day-date {
+    font-family: var(--font-label);
+    font-size: 15px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+  .day-line { flex: 1 1 auto; height: 1px; background: linear-gradient(90deg, var(--gold-dim), transparent); }
+  .day-count { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); white-space: nowrap; }
+
+  .stories { display: grid; grid-template-columns: repeat(auto-fill, minmax(268px, 1fr)); gap: 22px; }
+
+  /* ================= Cards ================= */
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: transform .3s cubic-bezier(.2,.7,.3,1), border-color .3s, box-shadow .3s;
+    animation: rise .5s cubic-bezier(.2,.8,.3,1) both;
+  }
+  @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: var(--gold-dim);
+    box-shadow: var(--shadow), 0 0 0 1px var(--gold-dim);
+  }
+  .card::before {
+    content: "";
+    position: absolute; inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .4s;
+    background: radial-gradient(340px circle at var(--mx, 50%) var(--my, 50%), rgba(210,166,75,.10), transparent 62%);
+    z-index: 2;
+  }
+  @media (hover: hover) and (pointer: fine) { .card:hover::before { opacity: 1; } }
+
+  .shot { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: var(--surface-2); }
+  .shot img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1.06);
+    animation: drift var(--pan, 26s) ease-in-out infinite alternate;
+  }
+  @keyframes drift {
+    from { transform: scale(1.06) translate(0, 0); }
+    to   { transform: scale(1.15) translate(var(--panx, -2%), var(--pany, 1.5%)); }
+  }
+  .shot::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(7,10,28,0) 40%, rgba(7,10,28,.55) 100%);
+  }
+  :root[data-theme="light"] .shot::after { background: linear-gradient(180deg, rgba(16,20,46,0) 45%, rgba(16,20,46,.22) 100%); }
+  .shot .fallback { display: none; }
+  .shot.failed img, .shot.failed::after { display: none; }
+  .shot.failed {
+    display: grid;
+    place-items: center;
+    gap: 10px;
+    background:
+      radial-gradient(120% 100% at 50% 0%, rgba(210,166,75,.14), transparent 62%),
+      linear-gradient(160deg, var(--surface-2), var(--surface));
+    box-shadow: inset 0 0 0 1px var(--gold-dim);
+  }
+  .shot.failed::before {
+    content: "";
+    position: absolute; inset: 12px;
+    border: 1px solid var(--gold-dim);
+    border-radius: 6px;
+    opacity: .55;
+  }
+  .shot.failed .fallback {
+    display: block;
+    width: 40px; height: 40px;
+    color: var(--gold);
+    opacity: .9;
+    animation: hover 5.5s ease-in-out infinite;
+  }
+  @keyframes hover {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-5px) rotate(-2deg); }
+  }
+  .card.lead .shot { aspect-ratio: 16 / 10; }
+
+  .card-body { padding: 15px 17px 17px; display: flex; flex-direction: column; gap: 9px; flex: 1 1 auto; }
+  .kicker { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .tag {
+    font-family: var(--font-ui);
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--c, var(--ink-faint));
+    border: 1px solid;
+    border-color: color-mix(in srgb, var(--c, var(--rule)) 45%, transparent);
+    background: color-mix(in srgb, var(--c, var(--rule)) 12%, transparent);
+    border-radius: 999px;
+    padding: 3px 9px;
+    cursor: pointer;
+  }
+  .tag.official { --c: var(--s-official); }
+  .tag.confirmed { --c: var(--s-confirmed); }
+  .tag.rumor { --c: var(--s-rumor); }
+  .tag.leak { --c: var(--s-leak); }
+  .tag.paparazzi { --c: var(--s-paparazzi); }
+  .desk { font-family: var(--font-ui); font-size: 9.5px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-faint); }
+
+  h2.headline {
+    font-family: var(--font-read);
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.22;
+    margin: 0;
+    text-wrap: balance;
+  }
+  .card.lead h2.headline { font-size: clamp(24px, 3.4vw, 32px); font-weight: 400; }
+  h2.headline a { color: var(--ink); text-decoration: none; }
+  .card:hover h2.headline a { color: var(--gold-bright); }
+
+  .summary {
+    font-family: var(--font-read);
+    font-size: 15.5px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .card.lead .summary { -webkit-line-clamp: 7; font-size: 16.5px; }
+
+  .card-foot {
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+    font-family: var(--font-ui);
+    font-size: 11px;
+    letter-spacing: .06em;
+    color: var(--ink-faint);
+  }
+  .card-foot .src { color: var(--gold); font-weight: 600; text-decoration: none; }
+
+  /* lead spans two columns on wide screens */
+  @media (min-width: 900px) {
+    .card.lead { grid-column: span 2; flex-direction: row; }
+    .card.lead .shot { width: 52%; aspect-ratio: auto; }
+    .card.lead .card-body { width: 48%; padding: 26px 28px 24px; gap: 12px; justify-content: center; }
+  }
+
+  .empty {
+    text-align: center;
+    padding: 70px 10px;
+    color: var(--ink-soft);
+    font-family: var(--font-read);
+    font-size: 19px;
+    font-style: italic;
+  }
+  .empty button {
+    display: block; margin: 18px auto 0;
+    font-family: var(--font-ui); font-style: normal;
+    font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--gold); background: none;
+    border: 1px solid var(--gold-dim); border-radius: 999px;
+    padding: 8px 18px; cursor: pointer;
+  }
+
+  footer.foot {
+    margin-top: 56px;
+    padding-top: 26px;
+    border-top: 1px solid var(--rule);
+    text-align: center;
+    font-family: var(--font-read);
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink-faint);
+    max-width: 62ch;
+    margin-left: auto; margin-right: auto;
+  }
+  footer .seal { display: block; margin: 0 auto 16px; color: var(--gold); }
+
+  @media (max-width: 620px) {
+    .hero-inner { padding: 34px 20px 20px; }
+    .rail { gap: 8px; }
+    .pill { font-size: 14px; padding: 7px 14px 7px 11px; }
+    .pill svg { width: 16px; height: 16px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+<!-- SHARED-HEAD-END -->
+</head>
+<body>
+<!-- SHARED-BODY-START -->
+<header class="hero">
+  <img class="hero-img" src="hogwarts-night.jpg" alt="" aria-hidden="true">
+  <div class="hero-inner">
+    <h1 class="wordmark">Prophet Watch</h1>
+    <p class="tagline">Harry Potter news, sorted by how well it is sourced</p>
+    <div class="stamp">
+      <span>Updated <b id="stamp-date">2 September 2026</b></span>
+      <span id="stamp-count">22 stories</span>
+      <button class="lumos" id="themeBtn" type="button"><span class="spark"></span><span id="themeLabel">Lumos</span></button>
+    </div>
+    <div class="rail" id="catRail" role="group" aria-label="Filter by desk"></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="toolbar">
+    <div class="search-field">
+      <input class="search" id="q" type="search" placeholder="Revelio, search the archive" aria-label="Search the news">
+      <svg class="wand" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor"
+           stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
+        <path d="M2.5 13.5 10 6"/><path d="M11.6 4.4 13.5 2.5"/>
+        <path d="M9.4 2.2v2M12.8 6.4h1.9M9.9 6.9l1.3 1.3"/>
+      </svg>
+    </div>
+    <div class="marks" id="markRow" role="group" aria-label="Filter by sourcing"></div>
+    <button class="sort" id="sortBtn" type="button" aria-live="polite">Newest first</button>
+  </div>
+
+  <p class="resultline" id="resultline"></p>
+  <main id="list"></main>
+
+  <footer class="foot">
+    <svg class="seal" width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor"
+         stroke-width="1.2" aria-hidden="true">
+      <circle cx="20" cy="20" r="17"/><circle cx="20" cy="20" r="13" stroke-dasharray="2 4"/>
+      <path d="M20 11 22.4 17.6 29 20 22.4 22.4 20 29 17.6 22.4 11 20 17.6 17.6z" fill="currentColor" stroke="none"/>
+    </svg>
+    Prophet Watch gathers Harry Potter news twice a day, morning and dusk, Rome time. Every entry keeps the link to where it came from, so nothing has to be taken on trust. The sourcing mark says how well stood up a story was when it was filed, not how likely it is to be true.
+  </footer>
+</div>
+
+<script type="application/json" id="news-data">
+{
+  "updated": "2026-09-02",
+  "stories": [
+    {
+      "id": "full-trailer-date-2026-09-01",
+      "date": "2026-09-01",
+      "status": "official",
+      "category": "HBO series",
+      "headline": "Quidditch teaser sets the first full trailer for 2 September",
+      "summary": "The Back to Hogwarts livestream closed with a short teaser built around Harry's first Quidditch match, with Ron and Hermione cheering from the stands. HBO Max confirmed that the first full trailer for Harry Potter and the Philosopher's Stone arrives the next day. The series still premieres at Christmas 2026.",
+      "source": "MuggleNet",
+      "url": "https://mugglenet.com/2026/09/hbo-harry-potter-full-trailer-september-2/",
+      "image": "https://mugglenet.com/wp-content/uploads/2026/09/cropped-trailer-feature.png"
+    },
+    {
+      "id": "lego-hbo-series-sets-2026-09-01",
+      "date": "2026-09-01",
+      "status": "official",
+      "category": "Shops and experiences",
+      "headline": "LEGO sets drawn from the HBO series are on the way",
+      "summary": "Warner Bros confirmed a new LEGO range based on the HBO series rather than the films. No sets, characters or release dates have been named yet. It would be the first time the long running LEGO partnership follows the television version of Hogwarts.",
+      "source": "MuggleNet",
+      "url": "https://mugglenet.com/2026/09/hbo-harry-potter-lego-sets-coming/",
+      "image": "https://mugglenet.com/wp-content/uploads/2026/09/cropped-hbo-lego-sets-feature.png"
+    },
+    {
+      "id": "house-crests-ravenclaw-eagle-2026-09-01",
+      "date": "2026-09-01",
+      "status": "official",
+      "category": "HBO series",
+      "headline": "New Hogwarts house crests revealed, and the Ravenclaw eagle divides fans",
+      "summary": "The Back to Hogwarts event in London unveiled simplified house crests for the HBO series, with more focus on the house animals and closer wording to the books. Ravenclaw's crest uses an eagle rather than a raven, which is book accurate and still set off a long argument online.",
+      "source": "Soap Central",
+      "url": "https://www.soapcentral.com/shows/harry-potter-back-hogwarts-event-every-reveal-new-house-crests-wand-replicas",
+      "image": "https://statico.soapcentral.com/editor/2026/09/fcbdc-17882987102634.jpg"
+    },
+    {
+      "id": "sorting-ceremony-reimagined-2026-09-01",
+      "date": "2026-09-01",
+      "status": "official",
+      "category": "Fandom",
+      "headline": "The online Sorting Ceremony is rebuilt with new animation, music and crests",
+      "summary": "Wizarding World relaunched its Sorting Ceremony at HarryPotter.com using the new house heraldry from the series. Anyone already sorted can go through it again.",
+      "source": "Wizarding World",
+      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
+      "image": "https://contentful.harrypotter.com/usf1vwtuqyxm/57wSLj0bB2oMxI8sKLcFz0/6206da0e0eab7c6911b186bec459ff45/Article_Hero__Showcase_Wrap_-_Article_Homepage_Hero.png?w=1200&fit=fill&f=top"
+    },
+    {
+      "id": "free-audiobooks-philosophers-stone-2026-09-01",
+      "date": "2026-09-01",
+      "status": "official",
+      "category": "Books and audio",
+      "headline": "Stephen Fry and Jim Dale audiobooks of the first book go free until Halloween",
+      "summary": "Both narrated editions of Philosopher's Stone are free on Audible, Amazon Music, Spotify and the Harry Potter YouTube channel from 1 September through Halloween.",
+      "source": "Wizarding World",
+      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026"
+    },
+    {
+      "id": "cinema-run-closes-2026-09-01",
+      "date": "2026-09-01",
+      "status": "official",
+      "category": "Films",
+      "headline": "The eight film cinema run closes with Deathly Hallows Part 2",
+      "summary": "All eight films returned to cinemas for the 25th anniversary of Philosopher's Stone. Regal ran one film a day from 25 August to 1 September, inside a wider Warner Bros window of 27 August to 3 September, with AMC, Cinemark, Megaplex, Harkins and Marcus also taking part.",
+      "source": "Attractions Magazine",
+      "url": "https://attractionsmagazine.com/harry-potter-movie-theaters-2026-sorcerers-stone-25th-anniversary/",
+      "image": "https://attractionsmagazine.com/wp-content/uploads/2026/01/Harry-Potter-and-the-Sorcerers-Stone-25-Years-of-Magic.jpeg"
+    },
+    {
+      "id": "back-to-hogwarts-showcase-2026-08-31",
+      "date": "2026-08-31",
+      "status": "official",
+      "category": "Fandom",
+      "headline": "Back to Hogwarts showcase lands 18 announcements in one sitting",
+      "summary": "The annual 1 September showcase covered the HBO series, a returning podcast, LEGO sets tied to the show, a Snapchat lens set, a Macy's Thanksgiving Parade debut, new shops, park lands and games. It is the single densest source of the week.",
+      "source": "Wizarding World",
+      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
+      "image": "https://contentful.harrypotter.com/usf1vwtuqyxm/57wSLj0bB2oMxI8sKLcFz0/6206da0e0eab7c6911b186bec459ff45/Article_Hero__Showcase_Wrap_-_Article_Homepage_Hero.png?w=1200&fit=fill&f=top"
+    },
+    {
+      "id": "teaser-christmas-2026-08-31",
+      "date": "2026-08-31",
+      "status": "official",
+      "category": "HBO series",
+      "headline": "Season one is titled Philosopher's Stone and arrives Christmas 2026",
+      "summary": "A new teaser was set for 1 September, with the first season confirmed as Harry Potter and the Philosopher's Stone, premiering on HBO and streaming on HBO Max at Christmas. The trailer earlier this year drew 277 million views in its first 48 hours, a record for HBO.",
+      "source": "Wizarding World",
+      "url": "https://www.harrypotter.com/news/watch-the-first-teaser-for-hbo-original-harry-potter-series-premiering-christmas-2026",
+      "image": "https://contentful.harrypotter.com/usf1vwtuqyxm/4WpyqmCI7d7XOc3NaPrmQX/9399b0bff79c4082d1a4886e44f9552f/hbo-teaser-homepage-hero.jpg?w=1200&fit=fill&f=top"
+    },
+    {
+      "id": "official-podcast-heyman-2026-08-31",
+      "date": "2026-08-31",
+      "status": "official",
+      "category": "HBO series",
+      "headline": "Official podcast returns weekly, with David Heyman in a bonus episode",
+      "summary": "Rhianna Dhillon and Law Sharma are back to cover the series week by week. A bonus episode with executive producer David Heyman went up on 31 August.",
+      "source": "Wizarding World",
+      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026"
+    },
+    {
+      "id": "oxford-street-flagship-2026-08-31",
+      "date": "2026-08-31",
+      "status": "official",
+      "category": "Shops and experiences",
+      "headline": "London gets a 21,000 square foot flagship shop on Oxford Street on 4 November",
+      "summary": "The store is built around a Diagon Alley look, with a Knight Bus and a Ukrainian Ironbelly dragon installed inside. A greenscreen broomstick flight also arrives at the New York shop this autumn.",
+      "source": "Soap Central",
+      "url": "https://www.soapcentral.com/shows/harry-potter-back-hogwarts-event-every-reveal-new-house-crests-wand-replicas",
+      "image": "https://statico.soapcentral.com/editor/2026/09/fcbdc-17882987102634.jpg"
+    },
+    {
+      "id": "illustrated-half-blood-prince-2026-08-31",
+      "date": "2026-08-31",
+      "status": "official",
+      "category": "Books and audio",
+      "headline": "Levi Pinfold's illustrated Half-Blood Prince arrives 6 October",
+      "summary": "Bloomsbury publishes the sixth illustrated edition, continuing the series Pinfold took over from Jim Kay.",
+      "source": "Wizarding World",
+      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026"
+    },
+    {
+      "id": "lego-remastered-switch-2-2026-08-31",
+      "date": "2026-08-31",
+      "status": "official",
+      "category": "Games",
+      "headline": "LEGO Harry Potter Remastered hits Nintendo Switch 2 on 16 October",
+      "summary": "Pre-orders opened alongside the announcement. Hogwarts Mystery also starts a Castle Chronicles event in September built on the Lily and James Potter story, and Puzzles and Spells adds an Epic Quidditch mode with multi day club competitions.",
+      "source": "Wizarding World",
+      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026"
+    },
+    {
+      "id": "abu-dhabi-lands-reveal-2026-08-31",
+      "date": "2026-08-31",
+      "status": "official",
+      "category": "Shops and experiences",
+      "headline": "Warner Bros World Abu Dhabi reveals new Harry Potter lands on 7 September",
+      "summary": "Three new themed lands were trailed at the showcase, with the full reveal set for 7 September. Worth watching if you want the first concept art.",
+      "source": "Soap Central",
+      "url": "https://www.soapcentral.com/shows/harry-potter-back-hogwarts-event-every-reveal-new-house-crests-wand-replicas"
+    },
+    {
+      "id": "ice-gaylord-texan-2026-08-31",
+      "date": "2026-08-31",
+      "status": "official",
+      "category": "Shops and experiences",
+      "headline": "An ice carved Harry Potter walkthrough opens in Texas on 13 November",
+      "summary": "ICE! at the Gaylord Texan near Dallas turns roughly two million pounds of ice into ten scenes from the films. It runs to early January.",
+      "source": "Wizarding World",
+      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026"
+    },
+    {
+      "id": "macys-parade-debut-2026-08-31",
+      "date": "2026-08-31",
+      "status": "official",
+      "category": "Shops and experiences",
+      "headline": "Harry Potter joins the Macy's Thanksgiving parade for the first time",
+      "summary": "The debut lands on the parade's 100th anniversary this November in the United States.",
+      "source": "Wizarding World",
+      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026"
+    },
+    {
+      "id": "wizards-of-baking-s3-2026-08-31",
+      "date": "2026-08-31",
+      "status": "official",
+      "category": "Television",
+      "headline": "Wizards of Baking returns for a third season in a tournament format",
+      "summary": "The four houses compete this festive season, with bakes themed around all eight films.",
+      "source": "Wizarding World",
+      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026"
+    },
+    {
+      "id": "rupert-grint-cursed-child-2026-08-27",
+      "date": "2026-08-27",
+      "status": "official",
+      "category": "Stage",
+      "headline": "Rupert Grint will play Ron Weasley again, this time on Broadway",
+      "summary": "Grint joins Harry Potter and the Cursed Child in New York, returning to the role 15 years after the last film. Tom Felton played Draco in the same production earlier this year.",
+      "source": "Variety",
+      "url": "https://variety.com/2026/legit/global/rupert-grint-ron-weasley-harry-potter-and-the-cursed-child-1236843779/"
+    },
+    {
+      "id": "season-2-filming-fall-2026",
+      "date": "2026-08-26",
+      "status": "confirmed",
+      "category": "HBO series",
+      "headline": "Season two starts filming this autumn on Chamber of Secrets",
+      "summary": "HBO renewed the show back in May and the second season goes into production in late 2026, before the first has even aired. Francesca Gardiner runs the show with Jon Brown promoted to co showrunner.",
+      "source": "Variety",
+      "url": "https://variety.com/2026/tv/news/harry-potter-renewed-season-2-hbo-chamber-of-secrets-1236739605/"
+    },
+    {
+      "id": "hogwarts-legacy-2-development-2026-08-17",
+      "date": "2026-08-17",
+      "status": "confirmed",
+      "category": "Games",
+      "headline": "A Hogwarts Legacy sequel is officially in development",
+      "summary": "Warner Bros confirmed the follow up in August. No release window and no platforms yet, and a first look is widely expected to be timed near the series launch.",
+      "source": "Game Informer",
+      "url": "https://gameinformer.com/2026/08/17/a-hogwarts-legacy-sequel-is-officially-in-development",
+      "image": "https://gameinformer.com/sites/default/files/styles/og_image/public/2023/02/06/61585f08/darklegacy_spell.jpg.webp"
+    },
+    {
+      "id": "voldemort-casting-secret-2026",
+      "date": "2026-08-28",
+      "status": "rumor",
+      "category": "HBO series",
+      "headline": "Voldemort casting is still unannounced, and the viral cast lists are wrong",
+      "summary": "HBO has kept the role quiet on purpose. A widely shared list naming Jamie Campbell Bower and Peter Capaldi has no studio backing, and one popular claim about a Marvel actor traces back to the German language audiobook cast rather than the series. Treat every Voldemort name as unproven until HBO says otherwise.",
+      "source": "Sportskeeda",
+      "url": "https://www.sportskeeda.com/pop-culture/news-from-jamie-campbell-bower-peter-capaldi-post-alleged-harry-potter-new-series-cast-list-goes-viral-online"
+    },
+    {
+      "id": "leaked-prologue-dedalus-diggle",
+      "date": "2026-08-26",
+      "status": "leak",
+      "category": "HBO series",
+      "headline": "Leaked set images point to a prologue scene the films never had",
+      "summary": "Images from location filming show Dedalus Diggle and the Dursleys in what looks like an opening sequence drawn from the first chapter of the book. Nothing here is studio released, so details can still change in the edit.",
+      "source": "Collider",
+      "url": "https://collider.com/hbo-harry-potter-series-set-images-dedalus-diggle-vernon-dursley-prologue-scene/"
+    },
+    {
+      "id": "cast-reference-rotten-tomatoes",
+      "date": "2026-08-26",
+      "status": "confirmed",
+      "category": "HBO series",
+      "headline": "Where the full cast list stands going into the premiere",
+      "summary": "Dominic McLaughlin, Arabella Stanton and Alastair Stout lead as Harry, Hermione and Ron, with John Lithgow as Dumbledore, Paapa Essiedu as Snape, Janet McTeer as McGonagall, Nick Frost as Hagrid and Nicholas Hoult added in August as Gilderoy Lockhart. Peter Serafinowicz plays Peeves, a character the films cut.",
+      "source": "Rotten Tomatoes",
+      "url": "https://editorial.rottentomatoes.com/article/everything-we-know-about-hbos-harry-potter-series/",
+      "image": "https://editorial.rottentomatoes.com/wp-content/uploads/2025/07/EWKA_HBO_Harry_Potter-Rep.jpg?w=600"
+    }
+  ]
+}
+</script>
+
+<script>
+(function () {
+  var STATUS_ORDER = ["official", "confirmed", "rumor", "leak", "paparazzi"];
+  var STATUS_LABEL = {
+    official: "Official", confirmed: "Confirmed", rumor: "Rumor",
+    leak: "Leak", paparazzi: "Paparazzi"
+  };
+
+  /* one drawn mark per desk, used on the rail and when a photograph will not load */
+  var ICONS = {
+    "HBO series": '<path d="M13.6 2.6 6 13.9h4.3L9.7 21.4 18.2 10h-4.6z" fill="currentColor" stroke="none"/>',
+    "Films": '<rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><path d="M7.6 5.2v13.6M16.4 5.2v13.6M3.2 12h17.6"/>',
+    "Books and audio": '<path d="M12 6.4C9.4 4.9 6.6 4.9 3.8 6v12.4c2.8-1.1 5.6-1.1 8.2.4 2.6-1.5 5.4-1.5 8.2-.4V6c-2.8-1.1-5.6-1.1-8.2.4z"/><path d="M12 6.4v12.4"/>',
+    "Games": '<circle cx="12" cy="13.8" r="3.9"/><path d="M8.4 11.8C6.2 8.1 3.9 7.3 2.4 8.8c-.9 2.3 1.2 4.2 5.4 4.6"/><path d="M15.6 11.8c2.2-3.7 4.5-4.5 6-3 .9 2.3-1.2 4.2-5.4 4.6"/>',
+    "Stage": '<path d="M3 4h18"/><path d="M6 4v16c3.4-.6 4.6-3.4 4.6-8V4"/><path d="M18 4v16c-3.4-.6-4.6-3.4-4.6-8V4"/>',
+    "Television": '<rect x="3.2" y="8" width="17.6" height="12" rx="2.2"/><path d="M8.8 8 5.6 3.4M15.2 8l3.2-4.6"/>',
+    "Shops and experiences": '<path d="M4 9.6h16V20H4z"/><path d="M4 9.6 6.2 4h11.6L20 9.6"/><path d="M9.6 20v-5.2h4.8V20"/>',
+    "Fandom": '<path d="M12 2.4 7.4 16.6h9.2z"/><path d="M4 19.6h16"/><path d="M9.2 12.4h5.6"/>',
+    "_default": '<path d="M12 3.2 14.5 9l6.3.5-4.8 4.2 1.5 6.2L12 16.6 6.5 19.9 8 13.7 3.2 9.5 9.5 9z"/>'
+  };
+  function icon(cat, cls) {
+    return '<svg class="' + (cls || '') + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+      'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      (ICONS[cat] || ICONS._default) + '</svg>';
+  }
+
+  var data = JSON.parse(document.getElementById("news-data").textContent);
+  var stories = data.stories.slice();
+  var state = { q: "", statuses: [], cats: [], newestFirst: true };
+
+  var listEl = document.getElementById("list");
+  var resultEl = document.getElementById("resultline");
+  var qEl = document.getElementById("q");
+  var sortEl = document.getElementById("sortBtn");
+
+  function fmtDate(iso) {
+    var p = iso.split("-");
+    var months = ["January", "February", "March", "April", "May", "June",
+                  "July", "August", "September", "October", "November", "December"];
+    return Number(p[2]) + " " + months[Number(p[1]) - 1] + " " + p[0];
+  }
+  function esc(t) {
+    return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+  function countBy(key, v) {
+    return stories.filter(function (s) { return s[key] === v; }).length;
+  }
+
+  var cats = [];
+  stories.forEach(function (s) { if (cats.indexOf(s.category) === -1) cats.push(s.category); });
+  cats.sort();
+
+  var markButtons = {};
+
+  function toggle(key, v, btn) {
+    var arr = key === "status" ? state.statuses : state.cats;
+    var i = arr.indexOf(v);
+    if (i === -1) { arr.push(v); } else { arr.splice(i, 1); }
+    btn.setAttribute("aria-pressed", i === -1 ? "true" : "false");
+    render();
+  }
+
+  var rail = document.getElementById("catRail");
+  cats.forEach(function (c, i) {
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "pill";
+    b.setAttribute("aria-pressed", "false");
+    b.innerHTML = icon(c) + "<span>" + esc(c) + '</span><span class="n">' + countBy("category", c) + "</span>";
+    b.style.animation = "rise .5s cubic-bezier(.2,.8,.3,1) " + (60 + i * 40) + "ms both";
+    b.addEventListener("click", function () { toggle("category", c, b); });
+    rail.appendChild(b);
+  });
+
+  var markRow = document.getElementById("markRow");
+  STATUS_ORDER.forEach(function (st) {
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "mark " + st;
+    b.setAttribute("aria-pressed", "false");
+    b.innerHTML = '<span class="dot"></span>' + STATUS_LABEL[st] +
+                  '<span class="n">' + countBy("status", st) + "</span>";
+    b.addEventListener("click", function () { toggle("status", st, b); });
+    markRow.appendChild(b);
+    markButtons[st] = b;
+  });
+
+  function matches(s) {
+    if (state.statuses.length && state.statuses.indexOf(s.status) === -1) return false;
+    if (state.cats.length && state.cats.indexOf(s.category) === -1) return false;
+    if (state.q) {
+      var hay = (s.headline + " " + s.summary + " " + s.source + " " + s.category).toLowerCase();
+      var terms = state.q.toLowerCase().split(/\s+/).filter(Boolean);
+      for (var i = 0; i < terms.length; i++) if (hay.indexOf(terms[i]) === -1) return false;
+    }
+    return true;
+  }
+
+  function clearAll() {
+    state.q = ""; state.statuses = []; state.cats = [];
+    qEl.value = "";
+    Array.prototype.forEach.call(document.querySelectorAll('[aria-pressed]'), function (c) {
+      c.setAttribute("aria-pressed", "false");
+    });
+    render();
+  }
+
+  function shot(s) {
+    var fb = icon(s.category, "fallback");
+    if (!s.image) return '<div class="shot failed">' + fb + "</div>";
+    var seed = s.id.length;
+    var style = "--pan:" + (22 + (seed % 9) * 2.4).toFixed(1) + "s;" +
+                "--panx:" + (((seed % 5) - 2) * 1.8).toFixed(1) + "%;" +
+                "--pany:" + (((seed % 4) - 1) * 1.6).toFixed(1) + "%;";
+    return '<div class="shot" style="' + style + '">' +
+      '<img src="' + esc(s.image) + '" alt="" loading="lazy" decoding="async">' + fb + "</div>";
+  }
+
+  function markFailed(img) { if (img && img.parentNode) img.parentNode.classList.add("failed"); }
+  listEl.addEventListener("error", function (e) {
+    if (e.target && e.target.tagName === "IMG") markFailed(e.target);
+  }, true);
+  listEl.addEventListener("load", function (e) {
+    if (e.target && e.target.tagName === "IMG" && !e.target.naturalWidth) markFailed(e.target);
+  }, true);
+  function sweep() {
+    Array.prototype.forEach.call(listEl.querySelectorAll(".shot img"), function (img) {
+      if (!img.complete || !img.naturalWidth) markFailed(img);
+    });
+  }
+
+  function render() {
+    var rows = stories.filter(matches);
+    rows.sort(function (a, b) {
+      if (a.date === b.date) return 0;
+      return state.newestFirst ? (a.date < b.date ? 1 : -1) : (a.date > b.date ? 1 : -1);
+    });
+
+    var filtered = state.q || state.statuses.length || state.cats.length;
+    resultEl.textContent = filtered
+      ? rows.length + " of " + stories.length + " stories"
+      : stories.length + " stories on file";
+
+    listEl.innerHTML = "";
+    if (!rows.length) {
+      var e = document.createElement("div");
+      e.className = "empty";
+      e.textContent = "Nothing in the archive matches that.";
+      var b = document.createElement("button");
+      b.type = "button"; b.textContent = "Clear the filters";
+      b.addEventListener("click", clearAll);
+      e.appendChild(b);
+      listEl.appendChild(e);
+      return;
+    }
+
+    var currentDate = null, grid = null;
+    rows.forEach(function (s, idx) {
+      if (s.date !== currentDate) {
+        currentDate = s.date;
+        var n = rows.filter(function (r) { return r.date === s.date; }).length;
+        var head = document.createElement("div");
+        head.className = "day-head";
+        head.innerHTML = '<span class="day-date">' + fmtDate(s.date) + "</span>" +
+                         '<span class="day-line"></span>' +
+                         '<span class="day-count">' + n + (n === 1 ? " story" : " stories") + "</span>";
+        listEl.appendChild(head);
+        grid = document.createElement("div");
+        grid.className = "stories";
+        listEl.appendChild(grid);
+      }
+
+      var art = document.createElement("article");
+      art.className = "card" + (idx === 0 ? " lead" : "");
+      art.style.animationDelay = Math.min(idx, 10) * 45 + "ms";
+      art.innerHTML =
+        shot(s) +
+        '<div class="card-body">' +
+          '<div class="kicker">' +
+            '<button type="button" class="tag ' + s.status + '" data-status="' + s.status + '">' +
+              STATUS_LABEL[s.status] + "</button>" +
+            '<span class="desk">' + esc(s.category) + "</span>" +
+          "</div>" +
+          '<h2 class="headline"><a href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer">' +
+            esc(s.headline) + "</a></h2>" +
+          '<p class="summary">' + esc(s.summary) + "</p>" +
+          '<div class="card-foot">' +
+            '<a class="src" href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer">' +
+              esc(s.source) + "</a>" +
+            "<span>" + fmtDate(s.date) + "</span>" +
+          "</div>" +
+        "</div>";
+      grid.appendChild(art);
+    });
+    setTimeout(sweep, 5000);
+  }
+
+  listEl.addEventListener("click", function (ev) {
+    var b = ev.target.closest && ev.target.closest("button.tag");
+    if (!b) return;
+    var v = b.dataset.status;
+    if (state.statuses.length === 1 && state.statuses[0] === v) {
+      state.statuses = [];
+      markButtons[v].setAttribute("aria-pressed", "false");
+    } else {
+      Object.keys(markButtons).forEach(function (k) {
+        markButtons[k].setAttribute("aria-pressed", k === v ? "true" : "false");
+      });
+      state.statuses = [v];
+    }
+    render();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  /* the gold light follows the cursor across a card */
+  (function () {
+    if (!window.matchMedia || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    var raf = 0, pending = null;
+    listEl.addEventListener("mousemove", function (ev) {
+      var c = ev.target.closest && ev.target.closest(".card");
+      if (!c) return;
+      pending = { c: c, x: ev.clientX, y: ev.clientY };
+      if (raf) return;
+      raf = requestAnimationFrame(function () {
+        raf = 0;
+        var r = pending.c.getBoundingClientRect();
+        pending.c.style.setProperty("--mx", (pending.x - r.left).toFixed(0) + "px");
+        pending.c.style.setProperty("--my", (pending.y - r.top).toFixed(0) + "px");
+      });
+    }, { passive: true });
+  })();
+
+  qEl.addEventListener("input", function () { state.q = qEl.value.trim(); render(); });
+  sortEl.addEventListener("click", function () {
+    state.newestFirst = !state.newestFirst;
+    sortEl.textContent = state.newestFirst ? "Newest first" : "Oldest first";
+    render();
+  });
+
+  document.getElementById("stamp-date").textContent = fmtDate(data.updated);
+  document.getElementById("stamp-count").textContent = stories.length + " stories";
+
+  function isDark() {
+    var t = document.documentElement.getAttribute("data-theme");
+    return t !== "light";
+  }
+  var themeLabel = document.getElementById("themeLabel");
+  function sync() { themeLabel.textContent = isDark() ? "Lumos" : "Nox"; }
+  sync();
+  document.getElementById("themeBtn").addEventListener("click", function () {
+    document.documentElement.setAttribute("data-theme", isDark() ? "light" : "dark");
+    sync();
+  });
+
+  render();
+})();
+</script>
+<!-- SHARED-BODY-END -->
+</body>
+</html>

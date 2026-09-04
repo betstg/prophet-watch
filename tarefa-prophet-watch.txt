@@ -1,0 +1,124 @@
+Update Betty's Harry Potter news site, Prophet Watch. It lives in two places that must stay identical. The source of truth is the git repo on her Mac. The Claude Artifact is generated from it.
+
+Repo, reached with device_bash, at $HOME/mnt/Developer/prophet-watch
+Artifact url https://claude.ai/code/artifact/aca66c09-e689-4095-94eb-3eeb97ad1b9b
+
+If the remote-devices tools are missing or report no device connected, her Mac is offline. Send her one line saying the run was skipped because the Mac was not reachable, and stop. Do not update the artifact on its own, because the two copies would drift apart.
+
+STEP 1, see what is already filed. In device_bash run this.
+
+cd $HOME/mnt/Developer/prophet-watch && python3 -c "
+import json,re
+p=open('index.html',encoding='utf-8').read()
+d=json.loads(re.search(r'id=\"news-data\">(.*?)</script>',p,re.S).group(1))
+print('updated',d['updated'])
+for s in d['stories'][:40]: print(s['date'],s['id'])
+print('total',len(d['stories']))"
+
+Keep that id list. Nothing already on it may be added again.
+
+STEP 2, search for what is new. Use WebSearch and WebFetch to find Harry Potter news published since the newest date above. Cover the HBO Max series (cast, filming, trailers, air dates, season two on Chamber of Secrets), the films and re-releases, the books and audiobooks, the games including Hogwarts Legacy 2 and the mobile titles, the Cursed Child stage productions, theme parks, shops and experiences, and anything Warner Bros or the Wizarding World channels announce. Verify every claim against a real article before filing it. Never write a story from a search snippet alone and never invent a URL.
+
+Read these bancadas every run, not only the trade press. They are the ones Betty cares about. Forty one sources, all checked live on 4 September 2026.
+
+OFFICIAL
+harrypotter.com/news
+youtube.com/@harrypotter/videos, the official channel, 2.95 million subscribers, this is where the trailers come from
+press.wbd.com
+
+PRESS
+variety.com/t/harry-potter, deadline.com/tag/harry-potter, tvline.com/tag/harry-potter, hollywoodreporter.com/t/harry-potter, screenrant.com/tag/harry-potter
+
+FAN IN PORTUGUESE, check every run, this is the layer Betty asked for
+youtube.com/channel/UCkhfuyQUD5GNulpQRJOqrGg/videos, Caldeirao Furado, Caco Cardassi, 1.67 million subscribers, the largest Harry Potter channel in the world, carries analysis that appears nowhere else
+youtube.com/@observpotter/videos, Observatorio Potter, Thiego Novais, 1.01 million subscribers, long detailed breakdowns
+potterish.com, Brazilian site since 2002, publishes in Portuguese and English
+youtube.com/@WizardingBruno/videos, 148 thousand subscribers, about five videos a week plus a chapter by chapter book club
+ordemdafenixbrasileira.com, running 18 years, posts several times a day, much of it short reposts
+mundobruxo.com.br/categoria/harry-potter, original analysis, publishes in bursts
+youtube.com/@OExpressodeHogwarts/videos, 329 thousand subscribers, came back in August 2026 after four years dormant, treat the revival as unproven
+
+FAN IN ENGLISH
+the-leaky-cauldron.org
+youtube.com/@HarryPotterTheory/videos, 755 thousand subscribers
+wizardingworlddirect.com/category/harry-potter, small and independent, occasionally has its own reporting
+snitchseeker.com/harry-potter-news, theatre and parks, publishes rarely
+mugglenet.com/news, use with care. Topix Media Lab fired the whole volunteer staff in September 2025 and deleted most of the archive in April 2026, and former staff filed a class action in February 2026. Read it as a promotional outlet, not as an independent fan site. Never cite it as the only source for a claim.
+
+BOOK STUDY AND THEORY, file a piece when it makes a real argument from the text, never a listicle
+hogwartsprofessor.com, John Granger, alchemy and ring composition
+hp-lexicon.org/essays
+therowlinglibrary.com/category/news, editions and bibliography, slower cadence than it used to be
+criticalmagictheory.com, Professor Julian Wamble, race, class and power in the wizarding world
+mugglecast.com, weekly since 2005, past 860 episodes
+podcasts.apple.com/us/podcast/through-the-griffin-door/id1708293199, slow chapter by chapter reading
+youtube.com/@SuperCarlinBrothers/videos, 2.2 million subscribers
+
+LEAKS AND SET PHOTOGRAPHY, London and Leavesden
+reddit.com/r/HarryPotteronHBO/new, 107 thousand members, set photos land here first
+collider.com/tag/harry-potter
+watfordobserver.co.uk, the local paper beside Leavesden Studios
+soapcentral.com/shows/harry-potter
+reddit.com/r/harrypotter/new, 3.8 million members, use it to read fandom reaction
+
+GAMES
+gamingbible.com/games/hogwarts-legacy
+gamesradar.com/hogwarts-legacy
+reddit.com/r/HarryPotterGame/new
+
+PARKS, STAGE AND BOOKS
+blooloop.com/theme-park/news
+attractionsmagazine.com/news
+whatsonstage.com/news
+playbill.com/production/harry-potter-and-the-cursed-child-touring
+youtube.com/@thepottercollector/videos, rare editions and first printings
+harrypotterexhibition.com/press
+
+Two known gaps, do not waste time hunting for them. There is no living Harry Potter fan site based in Portugal, they all died between 2009 and 2011. There is no active Harry Potter podcast in Portuguese, the last three stopped between 2021 and 2025.
+
+Give each new story exactly one status.
+official, announced by Warner Bros, HBO, Bloomsbury or the Wizarding World channels themselves.
+confirmed, not an official announcement but reported and stood up by the trade press.
+analysis, a fan channel, podcast or book scholar reading the material rather than reporting new facts. Use this for Caldeirao Furado breakdowns and for Hogwarts Professor and Lexicon essays.
+rumor, circulating without a named reliable source.
+leak, material that escaped before release such as set images, scripts or unlisted footage.
+paparazzi, photos taken off set or in public by press photographers rather than published by the studio.
+
+Give each a category, reusing the existing set where one fits. That set is HBO series, Films, Books and audio, Games, Stage, Television, Shops and experiences, Fandom, Analise e teoria.
+
+Give each an id made of a short slug plus the article date, for example teaser-trailer-2026-09-14. The date field is the article's publication date in YYYY-MM-DD form.
+
+Every story must carry a photograph. Nothing is filed without one.
+For a story that has an official video on YouTube, add a video field with the eleven character video id. The page then plays it muted and looping in place of the still.
+For the picture itself, read the og:image of the article, or use https://i.ytimg.com/vi/VIDEOID/maxresdefault.jpg when there is a video. Download it into the repo, never hotlink it, using device_bash.
+
+cd $HOME/mnt/Developer/prophet-watch && curl -sSL --max-time 25 -A 'Mozilla/5.0' -o assets/thumbs/THEID.jpg 'THEURL' && python3 -c "
+from PIL import Image
+p='assets/thumbs/THEID.jpg'
+im=Image.open(p).convert('RGB'); w,h=im.size
+if w>900: im=im.resize((900,round(h*900/w)))
+im.save(p,'JPEG',quality=76,optimize=True,progressive=True)
+im=Image.open(p); w,h=im.size
+im.resize((440,round(h*440/w))).save('assets/thumbs/small/THEID.jpg','JPEG',quality=62,optimize=True)"
+
+Then set the story's image field to assets/thumbs/THEID.jpg. The small copy is what gets baked into the artifact, so it must exist or the published page gets heavy. If PIL is not there, run pip3 install --break-system-packages pillow first. If the picture cannot be fetched at all, set image to assets/hogwarts-night.jpg so the card still looks right.
+
+If nothing new turned up, send Betty one line saying so and stop. Do not run any of the steps below.
+
+STEP 3, file the new stories on her Mac. Write only the new ones to $HOME/new-stories.json in the device_bash VM, as a JSON array, newest first, each with id, date, status, category, headline, summary, source, url, image and video where there is one. Then run this, using today's date.
+
+cd $HOME/mnt/Developer/prophet-watch && python3 add-news.py index.html $HOME/new-stories.json YYYY-MM-DD && python3 build-artifact.py index.html artifact.html
+
+add-news.py validates every field, skips any id already filed and trims to the newest 120. If it prints NOTHING ADDED, everything you found was already there, so tell Betty that and stop.
+
+STEP 4, publish the artifact. Stage $HOME/mnt/Developer/prophet-watch/artifact.html into the container with device_stage_files, then publish that staged file with the Artifact tool passing url https://claude.ai/code/artifact/aca66c09-e689-4095-94eb-3eeb97ad1b9b so it updates in place. Do not create a new artifact and do not hand write the HTML.
+
+STEP 5, commit and push. The sandbox on her Mac cannot delete files, so git leaves stale lock files behind and the next commit fails unless they are moved aside first. Always run the whole thing as one command.
+
+cd $HOME/mnt/Developer/prophet-watch && find .git -name '*.lock' | while read f; do mv "$f" "$f.stale.$$"; done; git add -A && git commit -q -m "News update" && git -c credential.helper="store --file=$HOME/mnt/Developer/.git-credentials-prophet" push origin main
+
+Push reads a token Betty saved in that credentials file herself. Never print, echo, cat or otherwise read that file, and never put a token in a command. If the push fails because the file is empty, missing or the token expired, say exactly that to Betty and tell her the commit is sitting locally waiting to be pushed, and that she can fix it by running ~/Developer/setup-prophet-token.sh in the Terminal. Do not try another way in.
+
+STEP 6, report. Send Betty a short message listing the new headlines with their status, one per line, then the total number of stories on the page, then one line confirming the artifact was republished and the push succeeded. Mention any step that failed.
+
+Writing rules for everything you write, the site and the message both. Never use a colon, a semicolon, an em dash or an en dash. Short plain sentences. No emoji.
