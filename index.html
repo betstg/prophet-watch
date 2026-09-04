@@ -1325,7 +1325,6 @@
 
   /* a folha, com a moldura por fora e um fio fino por dentro */
   .press { position: relative; }
-  @media (min-width: 1240px) { .album-seal { right: -40px; top: -30px; } }
   .press > main {
     border: 2px solid var(--frame);
     padding: 16px 18px 6px;
@@ -1354,6 +1353,9 @@
   .ear-l { left: -22px; transform: rotate(180deg); }
   .ear-r { right: -22px; }
   @media (min-width: 1240px) { .wrap { padding-left: 48px; padding-right: 48px; } }
+  /* a partir daqui sobra uma margem so para o adesivo, entao ele nunca
+     fica por cima de materia nenhuma */
+  @media (min-width: 1180px) { .wrap { padding-right: 186px; } }
   @media (max-width: 1239px) { .ear { display: none; } }
 
   /* ---- o cabecalho do jornal ---- */
@@ -1597,48 +1599,64 @@
      outras holograficas, e so se juntam colecionando.
      ===================================================================== */
 
-  /* ---- o adesivo, colado no canto depois de impresso ---- */
+  /* ---- o adesivo, colado no canto da folha ----
+     Ele mora no canto de baixo, ao lado do jornal, entao nao cobre
+     materia nenhuma. A roda de letras gira bem devagar, num anel largo
+     o bastante para caber a frase inteira. Ele boia parado e, quando o
+     ponteiro chega perto, escorrega devagar para o lado, como quem nao
+     quer ser pego. ---- */
   .album-seal {
-    position: absolute;
-    top: -22px;
-    right: 10px;
-    z-index: 40;
-    width: 118px; height: 118px;
-    transform: rotate(9deg);
-    transition: transform .3s cubic-bezier(.2,.8,.3,1);
+    position: fixed;
+    right: 24px;
+    bottom: 34px;
+    z-index: 45;
+    width: 132px; height: 132px;
     border: none;
     background: none;
     padding: 0;
     cursor: pointer;
     color: var(--ink);
-    filter: drop-shadow(0 7px 12px rgba(30,22,8,.34));
+    transition: transform 1.2s cubic-bezier(.22,.9,.3,1);
+    will-change: transform;
   }
-  .album-seal::before {
+  .seal-bob {
+    position: absolute;
+    inset: 0;
+    display: block;
+    animation: selaBoia 5.4s ease-in-out infinite;
+    filter: drop-shadow(0 8px 14px rgba(30,22,8,.36));
+    transition: scale .35s cubic-bezier(.2,.8,.3,1);
+  }
+  @keyframes selaBoia {
+    0%, 100% { translate: 0 0; rotate: -5deg; }
+    50%      { translate: 0 -8px; rotate: 3deg; }
+  }
+  .album-seal:hover .seal-bob, .album-seal:focus-visible .seal-bob { scale: 1.06; }
+  .seal-bob::before {
     content: "";
     position: absolute;
-    inset: 6px;
+    inset: 2px;
     border-radius: 50%;
     background: #F4ECD6;
-    box-shadow: 0 3px 7px rgba(30,22,8,.3);
+    box-shadow: 0 3px 7px rgba(30,22,8,.28), inset 0 0 0 1px rgba(110,92,52,.4);
   }
-  .album-seal:hover { transform: rotate(4deg) scale(1.05); }
-  @media (max-width: 700px) {
-    .album-seal { width: 84px; height: 84px; top: -14px; right: 6px; }
-    .seal-core { inset: 15px !important; }
-    .seal-core b { font-size: 19px !important; }
+  /* a roda de letras, uma volta a cada setenta e cinco segundos */
+  .album-seal svg {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    animation: selaGira 75s linear infinite;
   }
-  .album-seal svg { position: absolute; inset: 0; width: 100%; height: 100%; animation: selaGira 18s linear infinite; }
-  @keyframes selaGira { to { transform: rotate(360deg); } }
+  @keyframes selaGira { to { rotate: 360deg; } }
   .seal-text {
     font-family: var(--font-label);
-    font-size: 11px;
-    letter-spacing: .2em;
+    font-size: 11.5px;
+    letter-spacing: .14em;
     text-transform: uppercase;
     fill: currentColor;
   }
   .seal-core {
     position: absolute;
-    inset: 21px;
+    inset: 25px;
     border-radius: 50%;
     display: grid;
     place-content: center;
@@ -1659,7 +1677,7 @@
   }
   .seal-core b {
     font-family: var(--font-head);
-    font-size: 26px;
+    font-size: 25px;
     line-height: 1;
     color: #100B04;
   }
@@ -1670,7 +1688,15 @@
     text-transform: uppercase;
     color: #3A2E12;
   }
-  .album-seal:hover svg { animation-duration: 7s; }
+  @media (min-width: 1180px) {
+    .album-seal { right: max(24px, calc((100vw - 1520px) / 2 + 26px)); bottom: 42px; }
+  }
+  @media (max-width: 700px) {
+    .album-seal { width: 96px; height: 96px; right: 12px; bottom: 14px; }
+    .seal-core { inset: 18px; }
+    .seal-core b { font-size: 18px; }
+    .seal-core small { font-size: 7px; }
+  }
 
   /* ---- o album aberto ---- */
   .album {
@@ -2007,7 +2033,8 @@
     .album-page { padding: 18px 14px 28px; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .album-seal svg, .seal-core::before { animation: none !important; }
+    .album-seal svg, .seal-core::before, .seal-bob { animation: none !important; }
+    .album-seal { transition: none !important; }
   }
 
   /* =====================================================================
@@ -2196,13 +2223,15 @@
   <p class="resultline" id="resultline"></p>
   <div class="press">
     <button class="album-seal" id="albumSeal" type="button" aria-label="Abrir o Album de Quotes">
-      <svg viewBox="0 0 140 140" aria-hidden="true">
-        <defs><path id="sealRing" d="M70,70 m-53,0 a53,53 0 1,1 106,0 a53,53 0 1,1 -106,0"/></defs>
-        <text class="seal-text">
-          <textPath href="#sealRing" startOffset="0">ADQUIRA SEU ALBUM DE QUOTES &#183; &#183; &#183;</textPath>
-        </text>
-      </svg>
-      <span class="seal-core"><b id="sealCount">0</b><small id="sealTotal">de 44</small></span>
+      <span class="seal-bob">
+        <svg viewBox="0 0 140 140" aria-hidden="true">
+          <defs><path id="sealRing" d="M70,70 m-51,0 a51,51 0 1,1 102,0 a51,51 0 1,1 -102,0"/></defs>
+          <text class="seal-text">
+            <textPath href="#sealRing" startOffset="0">ADQUIRA SEU ALBUM DE QUOTES &#183;&nbsp;</textPath>
+          </text>
+        </svg>
+        <span class="seal-core"><b id="sealCount">0</b><small id="sealTotal">de 44</small></span>
+      </span>
     </button>
     <span class="ear ear-l" aria-hidden="true">Que ninguem diga que o Profeta nao avisou</span>
     <span class="ear ear-r" aria-hidden="true">Toda noticia aqui carrega a bancada de onde saiu</span>
@@ -4418,6 +4447,61 @@ function retrato(nome) {
     var ds = r.querySelectorAll(".fig-desc");
     for (var j = 0; j < ds.length; j++) cfcEncolher(ds[j], 0.72);
   }
+
+  /* =====================================================================
+     O ADESIVO QUE FOGE
+     Ele fica parado boiando no canto. Quando o ponteiro chega perto,
+     escorrega devagar na direcao contraria, e volta sozinho quando o
+     ponteiro se afasta. Nunca sai muito, entao da para pegar.
+     ===================================================================== */
+  (function () {
+    var selo = document.getElementById("albumSeal");
+    if (!selo) return;
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (window.matchMedia && window.matchMedia("(hover: none)").matches) return;
+
+    var ALCANCE = 200;   /* de onde ele ja sente o ponteiro */
+    var FUGA = 46;       /* o quanto ele chega a escorregar */
+    var x = 0, y = 0, alvoX = 0, alvoY = 0, correndo = false;
+
+    function sentir(e) {
+      var r = selo.getBoundingClientRect();
+      var dx = (r.left + r.width / 2) - e.clientX;
+      var dy = (r.top + r.height / 2) - e.clientY;
+      var d = Math.sqrt(dx * dx + dy * dy) || 1;
+      if (d > ALCANCE) {
+        alvoX = 0; alvoY = 0;
+      } else {
+        var forca = 1 - d / ALCANCE;
+        forca *= forca;                 /* so foge de verdade quando esta perto */
+        alvoX = (dx / d) * FUGA * forca;
+        alvoY = (dy / d) * FUGA * forca;
+        /* ele nao pode escapar da tela */
+        var folgaX = window.innerWidth - r.right - 6;
+        var folgaY = window.innerHeight - r.bottom - 6;
+        if (alvoX > folgaX + x) alvoX = folgaX + x;
+        if (alvoY > folgaY + y) alvoY = folgaY + y;
+      }
+      if (!correndo) { correndo = true; requestAnimationFrame(passo); }
+    }
+
+    function passo() {
+      x += (alvoX - x) * 0.06;          /* devagar, ele nao corre */
+      y += (alvoY - y) * 0.06;
+      selo.style.transform = "translate(" + x.toFixed(1) + "px, " + y.toFixed(1) + "px)";
+      if (Math.abs(alvoX - x) > 0.25 || Math.abs(alvoY - y) > 0.25) {
+        requestAnimationFrame(passo);
+      } else {
+        correndo = false;
+      }
+    }
+
+    window.addEventListener("mousemove", sentir, { passive: true });
+    window.addEventListener("mouseleave", function () {
+      alvoX = 0; alvoY = 0;
+      if (!correndo) { correndo = true; requestAnimationFrame(passo); }
+    });
+  })();
 
   var ALBUM = (function () {
     var CHAVE = "profeta-album-v1";
