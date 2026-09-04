@@ -125,6 +125,7 @@
 
   body {
     margin: 0;
+    position: relative;
     background: var(--bg);
     color: var(--ink);
     font-family: var(--font-ui);
@@ -184,7 +185,7 @@
   .lumos-orb.on { opacity: 1; }
   :focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 4px; }
 
-  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 22px 100px; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 22px 100px; position: relative; z-index: 3; }
 
   /* ================= Hero ================= */
   .hero { position: relative; isolation: isolate; }
@@ -890,7 +891,7 @@
   .wand svg { display: block; overflow: visible; }
   .wand-tip {
     fill: #FFF6DC;
-    filter: drop-shadow(0 0 6px #FFE7A6) drop-shadow(0 0 16px rgba(255,206,110,.9));
+    filter: drop-shadow(0 0 4px #FFE7A6) drop-shadow(0 0 10px rgba(255,206,110,.55));
     animation: tipBreath 2.4s ease-in-out infinite;
   }
   @keyframes tipBreath {
@@ -903,8 +904,8 @@
   .wand-glow {
     position: fixed;
     top: 0; left: 0;
-    width: 1200px; height: 1200px;
-    margin: -600px 0 0 -600px;
+    width: 1000px; height: 1000px;
+    margin: -500px 0 0 -500px;
     pointer-events: none;
     z-index: 1;
     opacity: 0;
@@ -912,7 +913,7 @@
     will-change: transform;
     mix-blend-mode: screen;
     background:
-      radial-gradient(closest-side, rgba(255,240,198,.62) 0%, rgba(255,214,124,.42) 14%, rgba(226,176,80,.22) 32%, rgba(150,112,40,.08) 52%, transparent 72%);
+      radial-gradient(closest-side, rgba(255,240,198,.30) 0%, rgba(255,214,124,.19) 14%, rgba(226,176,80,.10) 32%, rgba(150,112,40,.04) 52%, transparent 72%);
   }
   .wand-glow.lit { opacity: 1; }
   /* no Lumos o papel ja e claro, entao a luz vira sombra quente e discreta */
@@ -925,15 +926,15 @@
   .wand-core {
     position: fixed;
     top: 0; left: 0;
-    width: 420px; height: 420px;
-    margin: -210px 0 0 -210px;
+    width: 340px; height: 340px;
+    margin: -170px 0 0 -170px;
     pointer-events: none;
     z-index: 9998;
     opacity: 0;
     transition: opacity .35s ease;
     will-change: transform;
     mix-blend-mode: screen;
-    background: radial-gradient(closest-side, rgba(255,253,245,.95) 0%, rgba(255,244,206,.62) 12%, rgba(255,220,140,.34) 30%, rgba(255,198,92,.14) 52%, transparent 76%);
+    background: radial-gradient(closest-side, rgba(255,253,245,.42) 0%, rgba(255,244,206,.26) 12%, rgba(255,220,140,.14) 30%, rgba(255,198,92,.06) 52%, transparent 76%);
   }
   .wand-core.lit { opacity: 1; }
   :root[data-theme="light"] .wand-core { opacity: 0 !important; }
@@ -947,7 +948,7 @@
     opacity: 0;
     transition: opacity .5s ease;
     background: radial-gradient(760px circle at var(--wx, 50%) var(--wy, 50%),
-      rgba(3,5,18,0) 0%, rgba(3,5,18,.16) 34%, rgba(3,5,18,.44) 62%, rgba(3,5,18,.6) 100%);
+      rgba(3,5,18,0) 0%, rgba(3,5,18,.10) 36%, rgba(3,5,18,.30) 64%, rgba(3,5,18,.44) 100%);
   }
   .wand-dark.lit { opacity: 1; }
   :root[data-theme="light"] .wand-dark { opacity: 0 !important; }
@@ -1101,6 +1102,108 @@
     .desks { margin-top: 44px; }
     .desks-grid { gap: 22px; }
   }
+
+  /* botao e contagem no mapa das bancadas */
+  .desks-toggle {
+    margin-top: 14px;
+    font-family: var(--font-label);
+    font-size: 10.5px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: none;
+    border: 1px solid var(--gold-dim);
+    border-radius: 999px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background .25s, border-color .25s, color .25s;
+  }
+  .desks-toggle:hover { background: rgba(210,166,75,.12); border-color: var(--gold); color: var(--gold-bright); }
+  :root[data-theme="light"] .desks-toggle { border-radius: 0; }
+  .desk-col h3 { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+  .deskn {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    letter-spacing: 0;
+    color: var(--ink-faint);
+    flex: none;
+  }
+  .deskwhy {
+    font-family: var(--font-body);
+    font-size: 12.5px;
+    line-height: 1.45;
+    color: var(--ink-faint);
+    margin: 0 0 12px;
+    font-style: italic;
+  }
+  .desk-col li.more { display: none; }
+  .desks.open .desk-col li.more { display: block; animation: deskIn .4s ease both; }
+  @keyframes deskIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+
+  /* ===== tinta invisivel, so aparece sob a luz da varinha ===== */
+  .secrets {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity .4s ease;
+    -webkit-mask-image: radial-gradient(circle 210px at var(--sx, -999px) var(--sy, -999px),
+      #000 0%, rgba(0,0,0,.85) 34%, rgba(0,0,0,.35) 62%, transparent 82%);
+    mask-image: radial-gradient(circle 210px at var(--sx, -999px) var(--sy, -999px),
+      #000 0%, rgba(0,0,0,.85) 34%, rgba(0,0,0,.35) 62%, transparent 82%);
+  }
+  .secrets.lit { opacity: 1; }
+  .secret {
+    position: absolute;
+    color: var(--gold-bright);
+    font-family: var(--font-title);
+    font-size: 17px;
+    font-style: italic;
+    line-height: 1.35;
+    letter-spacing: .02em;
+    white-space: nowrap;
+    text-shadow: 0 0 10px rgba(255,214,124,.45), 0 1px 3px rgba(0,0,0,.85), 0 0 18px rgba(0,0,0,.6);
+    transform: rotate(var(--rot, -3deg));
+    transform-origin: left center;
+  }
+  .secret.found { color: var(--gold-bright); }
+  .secret svg { display: block; color: var(--gold-bright); filter: drop-shadow(0 0 8px rgba(255,214,124,.5)); }
+  :root[data-theme="light"] .secret {
+    color: #6B4E10;
+    text-shadow: 0 0 8px rgba(160,126,44,.28), 0 1px 2px rgba(255,252,240,.9);
+  }
+  :root[data-theme="light"] .secret svg { color: #6B4E10; filter: none; }
+
+  /* o placar dos achados, so aparece depois do primeiro */
+  .found-tally {
+    position: fixed;
+    left: 18px;
+    bottom: 18px;
+    z-index: 9995;
+    font-family: var(--font-label);
+    font-size: 11px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    border: 1px solid var(--gold-dim);
+    border-radius: 999px;
+    padding: 8px 15px;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity .45s ease, transform .45s ease;
+    pointer-events: none;
+  }
+  .found-tally.on { opacity: 1; transform: none; }
+  :root[data-theme="light"] .found-tally { border-radius: 0; }
+  .found-tally b { color: var(--gold-bright); font-weight: 700; }
+
+  @media (prefers-reduced-motion: reduce) { .secrets, .found-tally { display: none !important; } }
+  @media (hover: none), (pointer: coarse) { .secrets, .found-tally { display: none !important; } }
 </style>
 <!-- SHARED-HEAD-END -->
 </head>
@@ -1143,6 +1246,7 @@
     <circle class="wand-tip" cx="9" cy="9" r="3.4"/>
   </svg>
 </div>
+<div class="secrets" id="secrets" aria-hidden="true"></div>
 <div class="wrap">
   <div class="toolbar">
     <span class="count" id="count">22 histórias</span>
@@ -1178,53 +1282,97 @@
   <section class="desks" id="desks">
     <div class="desks-head">
       <h2>De onde vem a noticia</h2>
-      <p>Estas sao as bancadas que o Prophet Watch le todo dia, de manha e no fim da tarde. Oficiais primeiro, depois imprensa, depois fa, depois quem estuda os livros. Clique para abrir a fonte.</p>
+      <p>Estas sao as 41 bancadas que o Prophet Watch le, de manha e no fim da tarde. Oficiais primeiro, depois imprensa, depois fa, depois quem estuda os livros. Clique para abrir a fonte.</p>
+      <button type="button" class="desks-toggle" id="desksToggle" aria-expanded="false">Mostrar todas as 41 fontes</button>
     </div>
     <div class="desks-grid">
       <div class="desk-col">
-        <h3>Oficial</h3>
+        <h3>Oficial <span class="deskn">3</span></h3>
+        <p class="deskwhy">Quem anuncia. Se saiu aqui, e fato.</p>
         <ul>
-          <li><a href="https://www.harrypotter.com/news" target="_blank" rel="noopener noreferrer">Wizarding World</a><span>O site oficial. Anuncio de produto, evento e serie.</span></li>
-          <li><a href="https://www.youtube.com/@harrypotter/videos" target="_blank" rel="noopener noreferrer">Canal oficial Harry Potter</a><span>Trailers, teasers e transmissoes. E daqui que saem os videos que se mexem no site.</span></li>
-          <li><a href="https://press.wbd.com/us" target="_blank" rel="noopener noreferrer">Warner Bros Discovery Pressroom</a><span>Comunicado de imprensa cru, sem intermediario.</span></li>
+          <li><a href="https://www.harrypotter.com/news" target="_blank" rel="noopener noreferrer">Wizarding World</a><span>O site oficial. Produto, evento e serie.</span></li>
+          <li><a href="https://www.youtube.com/@harrypotter/videos" target="_blank" rel="noopener noreferrer">Canal oficial no YouTube</a><span>Trailers e transmissoes. Daqui saem os videos que se mexem no site. 2,95 milhoes de inscritos.</span></li>
+          <li><a href="https://press.wbd.com/us" target="_blank" rel="noopener noreferrer">WBD Pressroom</a><span>Comunicado de imprensa cru, sem intermediario.</span></li>
         </ul>
       </div>
       <div class="desk-col">
-        <h3>Imprensa</h3>
+        <h3>Imprensa <span class="deskn">5</span></h3>
+        <p class="deskwhy">Fura com fonte nomeada e costuma confirmar rapido.</p>
         <ul>
-          <li><a href="https://variety.com/t/harry-potter/" target="_blank" rel="noopener noreferrer">Variety</a><span>Escalacao, producao e negocio. Fura com fonte nomeada.</span></li>
-          <li><a href="https://deadline.com/tag/harry-potter/" target="_blank" rel="noopener noreferrer">Deadline</a><span>O mesmo terreno da Variety, costuma confirmar rapido.</span></li>
-          <li><a href="https://www.tvline.com/tag/harry-potter/" target="_blank" rel="noopener noreferrer">TVLine</a><span>Cobertura de serie, datas e episodios.</span></li>
+          <li><a href="https://variety.com/t/harry-potter/" target="_blank" rel="noopener noreferrer">Variety</a><span>Escalacao, producao e negocio.</span></li>
+          <li><a href="https://deadline.com/tag/harry-potter/" target="_blank" rel="noopener noreferrer">Deadline</a><span>Mesmo terreno da Variety.</span></li>
+          <li><a href="https://www.tvline.com/tag/harry-potter/" target="_blank" rel="noopener noreferrer">TVLine</a><span>Serie, datas e episodios.</span></li>
+          <li class="more"><a href="https://www.hollywoodreporter.com/t/harry-potter/" target="_blank" rel="noopener noreferrer">The Hollywood Reporter</a><span>Bastidor de estudio e contrato.</span></li>
+          <li class="more"><a href="https://screenrant.com/tag/harry-potter/" target="_blank" rel="noopener noreferrer">Screen Rant</a><span>Volume alto, bom para nao perder nada.</span></li>
         </ul>
       </div>
       <div class="desk-col">
-        <h3>Fa, em ingles</h3>
+        <h3>Fa em portugues <span class="deskn">7</span></h3>
+        <p class="deskwhy">O que voce pediu. Analise que nao aparece em portal de noticia.</p>
         <ul>
-          <li><a href="https://mugglenet.com/news/" target="_blank" rel="noopener noreferrer">MuggleNet</a><span>No ar desde 1999. Noticia diaria e cobertura de evento.</span></li>
-          <li><a href="https://www.the-leaky-cauldron.org/" target="_blank" rel="noopener noreferrer">The Leaky Cauldron</a><span>Fa site historico, ja foi convidado ao set da serie.</span></li>
-          <li><a href="https://www.hp-lexicon.org/" target="_blank" rel="noopener noreferrer">The Harry Potter Lexicon</a><span>Enciclopedia de canon. Serve para checar antes de acreditar.</span></li>
-        </ul>
-      </div>
-      <div class="desk-col">
-        <h3>Fa, em portugues</h3>
-        <ul>
-          <li><a href="https://www.youtube.com/channel/UCkhfuyQUD5GNulpQRJOqrGg/videos" target="_blank" rel="noopener noreferrer">Caldeirao Furado</a><span>Caco Cardassi, 1,67 milhao de inscritos, o maior canal de Harry Potter do mundo. Faz analise de noticia que nao aparece em outro lugar.</span></li>
+          <li><a href="https://www.youtube.com/channel/UCkhfuyQUD5GNulpQRJOqrGg/videos" target="_blank" rel="noopener noreferrer">Caldeirao Furado</a><span>Caco Cardassi. Maior canal de Harry Potter do mundo, 1,67 milhao de inscritos. Analise de trailer e de noticia quadro a quadro.</span></li>
+          <li><a href="https://www.youtube.com/@observpotter/videos" target="_blank" rel="noopener noreferrer">Observatorio Potter</a><span>Thiego Novais, 1,01 milhao de inscritos. Analise longa, pega detalhe que passa batido.</span></li>
           <li><a href="https://potterish.com/?lang=en" target="_blank" rel="noopener noreferrer">Potterish</a><span>Site brasileiro no ar desde 2002. Publica em portugues e em ingles.</span></li>
+          <li class="more"><a href="https://www.youtube.com/@WizardingBruno/videos" target="_blank" rel="noopener noreferrer">Wizarding Bruno</a><span>148 mil inscritos. A melhor cadencia que achei, cinco videos por semana, mais um clube do livro capitulo a capitulo.</span></li>
+          <li class="more"><a href="https://www.ordemdafenixbrasileira.com/" target="_blank" rel="noopener noreferrer">Ordem da Fenix Brasileira</a><span>No ar ha 18 anos. Publica varias vezes por dia, muita coisa e repasse curto.</span></li>
+          <li class="more"><a href="https://mundobruxo.com.br/categoria/harry-potter/" target="_blank" rel="noopener noreferrer">Mundo Bruxo</a><span>Texto proprio sobre a serie e sobre o mundo bruxo. Publica em rajadas.</span></li>
+          <li class="more"><a href="https://www.youtube.com/@OExpressodeHogwarts/videos" target="_blank" rel="noopener noreferrer">O Expresso de Hogwarts</a><span>329 mil inscritos. Voltou ha duas semanas depois de quatro anos parado, entao ainda esta em teste.</span></li>
         </ul>
       </div>
       <div class="desk-col">
-        <h3>Estudo dos livros</h3>
+        <h3>Fa em ingles <span class="deskn">5</span></h3>
+        <p class="deskwhy">Cobertura diaria de quem acompanha ha vinte anos.</p>
         <ul>
-          <li><a href="https://www.hogwartsprofessor.com/" target="_blank" rel="noopener noreferrer">Hogwarts Professor</a><span>John Granger. Leitura literaria da serie, alquimia e composicao em anel. Teoria com base no texto, nao no palpite.</span></li>
+          <li><a href="https://www.the-leaky-cauldron.org/" target="_blank" rel="noopener noreferrer">The Leaky Cauldron</a><span>Fa site historico, ja foi convidado ao set da serie.</span></li>
+          <li><a href="https://www.youtube.com/@HarryPotterTheory/videos" target="_blank" rel="noopener noreferrer">Harry Potter Theory</a><span>755 mil inscritos. Reage rapido a trailer e a rumor.</span></li>
+          <li class="more"><a href="https://wizardingworlddirect.com/category/harry-potter/" target="_blank" rel="noopener noreferrer">Wizarding World Direct</a><span>Pequeno e independente. Pega cada anuncio de elenco, e as vezes tem materia propria.</span></li>
+          <li class="more"><a href="https://www.snitchseeker.com/harry-potter-news/" target="_blank" rel="noopener noreferrer">SnitchSeeker</a><span>Teatro e parques, mais um forum antigo ainda de pe. Publica pouco.</span></li>
+          <li class="more"><a href="https://mugglenet.com/news/" target="_blank" rel="noopener noreferrer">MuggleNet</a><span>Cuidado com este. A dona Topix Media Lab demitiu a equipe toda em setembro de 2025 e apagou quase todo o acervo em abril de 2026. Vale ler como vitrine de divulgacao, nao como fa site independente.</span></li>
+        </ul>
+      </div>
+      <div class="desk-col">
+        <h3>Estudo dos livros e teoria <span class="deskn">7</span></h3>
+        <p class="deskwhy">Argumento tirado do texto, nao palpite.</p>
+        <ul>
+          <li><a href="https://www.hogwartsprofessor.com/" target="_blank" rel="noopener noreferrer">Hogwarts Professor</a><span>John Granger. Leitura literaria da serie, alquimia e composicao em anel.</span></li>
           <li><a href="https://www.hp-lexicon.org/essays/" target="_blank" rel="noopener noreferrer">Ensaios do Lexicon</a><span>Artigos longos sobre canon, cronologia e contradicao entre livros.</span></li>
+          <li><a href="https://www.therowlinglibrary.com/category/news/" target="_blank" rel="noopener noreferrer">The Rowling Library</a><span>Edicoes, bibliografia e uma revista mensal gratuita sobre a Rowling.</span></li>
+          <li class="more"><a href="https://www.criticalmagictheory.com/" target="_blank" rel="noopener noreferrer">Critical Magic Theory</a><span>Podcast do professor Julian Wamble. Analise academica de raca, classe e poder no mundo bruxo.</span></li>
+          <li class="more"><a href="https://www.mugglecast.com/" target="_blank" rel="noopener noreferrer">MuggleCast</a><span>Semanal desde 2005, ja passou de 860 episodios. Noticia da semana mais releitura capitulo a capitulo.</span></li>
+          <li class="more"><a href="https://podcasts.apple.com/us/podcast/through-the-griffin-door/id1708293199" target="_blank" rel="noopener noreferrer">Through the Griffin Door</a><span>Leitura lenta e detalhada de cada capitulo dos livros.</span></li>
+          <li class="more"><a href="https://www.youtube.com/@SuperCarlinBrothers/videos" target="_blank" rel="noopener noreferrer">SuperCarlinBrothers</a><span>2,2 milhoes de inscritos. Teoria longa e bem argumentada.</span></li>
         </ul>
       </div>
       <div class="desk-col">
-        <h3>Vazamento e set</h3>
+        <h3>Vazamento e set <span class="deskn">5</span></h3>
+        <p class="deskwhy">Onde a foto de Londres aparece antes de virar materia.</p>
         <ul>
-          <li><a href="https://collider.com/tag/harry-potter/" target="_blank" rel="noopener noreferrer">Collider</a><span>Costuma ser o primeiro a publicar foto de set que vazou.</span></li>
-          <li><a href="https://www.soapcentral.com/shows/harry-potter" target="_blank" rel="noopener noreferrer">Soap Central</a><span>Junta o que aparece em rede social e forum sobre gravacao.</span></li>
-          <li><a href="https://www.reddit.com/r/HarryPotterOnHBO/" target="_blank" rel="noopener noreferrer">r/HarryPotterOnHBO</a><span>Onde a foto de paparazzi de Londres circula antes de virar materia.</span></li>
+          <li><a href="https://www.reddit.com/r/HarryPotteronHBO/new/" target="_blank" rel="noopener noreferrer">r/HarryPotteronHBO</a><span>107 mil membros. Foto de set e vazamento em primeira mao.</span></li>
+          <li><a href="https://collider.com/tag/harry-potter/" target="_blank" rel="noopener noreferrer">Collider</a><span>Costuma ser o primeiro veiculo a publicar o que vazou.</span></li>
+          <li><a href="https://www.watfordobserver.co.uk/" target="_blank" rel="noopener noreferrer">Watford Observer</a><span>Jornal local de Watford, ao lado do estudio de Leavesden. Publica o que os moradores veem.</span></li>
+          <li class="more"><a href="https://www.soapcentral.com/shows/harry-potter" target="_blank" rel="noopener noreferrer">Soap Central</a><span>Junta o que aparece em rede social e forum sobre gravacao.</span></li>
+          <li class="more"><a href="https://www.reddit.com/r/harrypotter/new/" target="_blank" rel="noopener noreferrer">r/harrypotter</a><span>3,8 milhoes de membros. Serve para medir a reacao do fandom.</span></li>
+        </ul>
+      </div>
+      <div class="desk-col">
+        <h3>Jogos <span class="deskn">3</span></h3>
+        <p class="deskwhy">Hogwarts Legacy 2 e os titulos de celular.</p>
+        <ul>
+          <li><a href="https://www.gamingbible.com/games/hogwarts-legacy" target="_blank" rel="noopener noreferrer">GAMINGbible</a><span>Cada rumor e cada confirmacao sobre a sequencia.</span></li>
+          <li class="more"><a href="https://www.gamesradar.com/hogwarts-legacy/" target="_blank" rel="noopener noreferrer">GamesRadar</a><span>Cobertura mais checada e guias.</span></li>
+          <li class="more"><a href="https://www.reddit.com/r/HarryPotterGame/new/" target="_blank" rel="noopener noreferrer">r/HarryPotterGame</a><span>403 mil membros. Reacao de jogador e os jogos menores.</span></li>
+        </ul>
+      </div>
+      <div class="desk-col">
+        <h3>Parques, teatro e livros <span class="deskn">6</span></h3>
+        <p class="deskwhy">O resto do imperio.</p>
+        <ul>
+          <li><a href="https://blooloop.com/theme-park/news/" target="_blank" rel="noopener noreferrer">Blooloop</a><span>Lado de negocio dos parques, no mundo todo.</span></li>
+          <li><a href="https://attractionsmagazine.com/news/" target="_blank" rel="noopener noreferrer">Attractions Magazine</a><span>Dia a dia da Universal Orlando e do Epic Universe.</span></li>
+          <li class="more"><a href="https://www.whatsonstage.com/news/" target="_blank" rel="noopener noreferrer">WhatsOnStage</a><span>Elenco e temporada do Cursed Child em Londres.</span></li>
+          <li class="more"><a href="https://playbill.com/production/harry-potter-and-the-cursed-child-touring" target="_blank" rel="noopener noreferrer">Playbill</a><span>Lado americano, Broadway e turne.</span></li>
+          <li class="more"><a href="https://www.youtube.com/@thepottercollector/videos" target="_blank" rel="noopener noreferrer">The Potter Collector</a><span>596 mil inscritos. Edicoes raras e primeiras tiragens.</span></li>
+          <li class="more"><a href="https://harrypotterexhibition.com/press/" target="_blank" rel="noopener noreferrer">Harry Potter The Exhibition</a><span>Em que cidade a exposicao itinerante abre e fecha.</span></li>
         </ul>
       </div>
     </div>
@@ -2039,6 +2187,8 @@
       room.style.setProperty("--wx", wx.toFixed(0) + "px");
       room.style.setProperty("--wy", wy.toFixed(0) + "px");
 
+      try { revealSecrets(wx, wy, live); } catch (e) {}
+
       /* faisca de vez em quando, so quando a varinha esta se mexendo */
       var speed = Math.abs(vx) + Math.abs(vy);
       if (live && speed > 2.4 && now - sparkClock > 70) {
@@ -2074,6 +2224,7 @@
       glow.classList.remove("lit");
       core.classList.remove("lit");
       room.classList.remove("lit");
+      try { revealSecrets(-999, -999, false); } catch (e) {}
     }
 
     document.addEventListener("mousemove", function (e) {
@@ -2138,9 +2289,123 @@
     };
   })();
 
+
+  /* ===== tinta invisivel, os segredos que so a varinha revela ===== */
+  var revealSecrets = function () {};
+  (function () {
+    if (!window.matchMedia) return;
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    var layer = document.getElementById("secrets");
+    var tally = null;
+    function board() { return tally || (tally = document.getElementById("tally")); }
+    if (!layer) return;
+
+    var HALLOWS = '<svg width="46" height="46" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.6">' +
+      '<path d="M22 4 40 38H4z"/><circle cx="22" cy="27" r="8"/><path d="M22 4v34"/></svg>';
+    var SNITCH = '<svg width="60" height="34" viewBox="0 0 60 34" fill="none" stroke="currentColor" stroke-width="1.5">' +
+      '<circle cx="30" cy="17" r="7"/>' +
+      '<path d="M23 15C17 7 9 4 2 6c3 7 10 11 20 11"/>' +
+      '<path d="M37 15c6-8 14-11 21-9-3 7-10 11-20 11"/></svg>';
+    var STEPS = '<svg width="76" height="30" viewBox="0 0 76 30" fill="currentColor">' +
+      '<ellipse cx="8" cy="8" rx="4" ry="6"/><ellipse cx="22" cy="20" rx="4" ry="6"/>' +
+      '<ellipse cx="38" cy="7" rx="4" ry="6"/><ellipse cx="52" cy="20" rx="4" ry="6"/>' +
+      '<ellipse cx="68" cy="8" rx="4" ry="6"/></svg>';
+    var BOLT = '<svg width="26" height="42" viewBox="0 0 26 42" fill="currentColor">' +
+      '<path d="M15 0 2 24h8L9 42 24 16h-9z"/></svg>';
+
+    /* x e y sao porcentagens da largura e da altura do jornal */
+    var EGGS = [
+      { x: 3,  y: 3,  r: -4, t: "Juro solenemente nao fazer nada de bom" },
+      { x: 90, y: 7,  r: 3,  h: BOLT },
+      { x: 4,  y: 12, r: -2, t: "Alohomora" },
+      { x: 89, y: 17, r: 4,  h: SNITCH },
+      { x: 2,  y: 22, r: -3, t: "Draco dormiens nunquam titillandus" },
+      { x: 88, y: 27, r: -5, t: "Plataforma 9 3/4" },
+      { x: 3,  y: 33, r: 2,  h: STEPS },
+      { x: 86, y: 38, r: -3, t: "Nitwit. Blubber. Oddment. Tweak." },
+      { x: 4,  y: 44, r: 4,  h: HALLOWS },
+      { x: 89, y: 49, r: -2, t: "Expecto Patronum" },
+      { x: 2,  y: 55, r: -4, t: "Nao cutuque o dragao adormecido" },
+      { x: 90, y: 61, r: 3,  t: "Lumos Maxima" },
+      { x: 4,  y: 67, r: -3, h: SNITCH },
+      { x: 84, y: 73, r: 2,  t: "O ultimo a sair apaga a varinha" },
+      { x: 3,  y: 79, r: -2, h: STEPS },
+      { x: 82, y: 85, r: -4, t: "Travessa do Trombo, a direita do bar" },
+      { x: 4,  y: 91, r: 3,  t: "Malfeito feito" },
+      { x: 90, y: 96, r: -3, h: HALLOWS }
+    ];
+
+    var nodes = [];
+    var frag = document.createDocumentFragment();
+    EGGS.forEach(function (e, i) {
+      var el = document.createElement("span");
+      el.className = "secret";
+      el.style.left = e.x + "%";
+      el.style.top = e.y + "%";
+      el.style.setProperty("--rot", e.r + "deg");
+      el.innerHTML = e.h || "";
+      if (e.t) el.textContent = e.t;
+      frag.appendChild(el);
+      nodes.push({ el: el, found: false, i: i });
+    });
+    layer.appendChild(frag);
+
+    var total = nodes.length;
+    var found = 0;
+    var REACH = 150;
+
+    function paint() {
+      var t = board();
+      if (!t) return;
+      t.innerHTML = found === total
+        ? "Voce achou todos os " + total + " segredos"
+        : "Segredos achados <b>" + found + "</b> de " + total;
+      t.classList.add("on");
+    }
+
+    revealSecrets = function (wx, wy, live) {
+      layer.classList.toggle("lit", !!live);
+      if (!live) return;
+      var box = layer.getBoundingClientRect();
+      layer.style.setProperty("--sx", (wx - box.left).toFixed(0) + "px");
+      layer.style.setProperty("--sy", (wy - box.top).toFixed(0) + "px");
+
+      for (var n = 0; n < nodes.length; n++) {
+        var s = nodes[n];
+        if (s.found) continue;
+        var r = s.el.getBoundingClientRect();
+        var cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+        if (Math.abs(cx - wx) < REACH && Math.abs(cy - wy) < REACH) {
+          s.found = true;
+          s.el.classList.add("found");
+          found++;
+          paint();
+        }
+      }
+    };
+  })();
+
+  /* mostrar todas as bancadas */
+  (function () {
+    var box = document.getElementById("desks");
+    var btn = document.getElementById("desksToggle");
+    if (!box || !btn) return;
+    var total = box.querySelectorAll(".desk-col li").length;
+    var few = box.querySelectorAll(".desk-col li:not(.more)").length;
+    btn.addEventListener("click", function () {
+      var open = box.classList.toggle("open");
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+      btn.textContent = open ? ("Mostrar so as principais, " + few) : ("Mostrar todas as " + total + " fontes");
+    });
+  })();
+
   render();
 })();
 </script>
+<div class="found-tally" id="tally" aria-hidden="true"></div>
+
 <!-- SHARED-BODY-END -->
 </body>
 </html>
