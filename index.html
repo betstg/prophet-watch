@@ -1325,6 +1325,7 @@
 
   /* a folha, com a moldura por fora e um fio fino por dentro */
   .press { position: relative; }
+  @media (min-width: 1240px) { .album-seal { right: -40px; top: -30px; } }
   .press > main {
     border: 2px solid var(--frame);
     padding: 16px 18px 6px;
@@ -1596,18 +1597,35 @@
      outras holograficas, e so se juntam colecionando.
      ===================================================================== */
 
-  /* ---- o selo que gira no alto ---- */
-  .seal-wrap { display: inline-flex; align-items: center; gap: 12px; vertical-align: middle; }
+  /* ---- o adesivo, colado no canto depois de impresso ---- */
   .album-seal {
-    position: relative;
+    position: absolute;
+    top: -22px;
+    right: 10px;
+    z-index: 40;
     width: 118px; height: 118px;
-    flex: none;
+    transform: rotate(9deg);
+    transition: transform .3s cubic-bezier(.2,.8,.3,1);
     border: none;
     background: none;
     padding: 0;
     cursor: pointer;
     color: var(--ink);
-    filter: drop-shadow(0 6px 14px rgba(30,22,8,.28));
+    filter: drop-shadow(0 7px 12px rgba(30,22,8,.34));
+  }
+  .album-seal::before {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    border-radius: 50%;
+    background: #F4ECD6;
+    box-shadow: 0 3px 7px rgba(30,22,8,.3);
+  }
+  .album-seal:hover { transform: rotate(4deg) scale(1.05); }
+  @media (max-width: 700px) {
+    .album-seal { width: 84px; height: 84px; top: -14px; right: 6px; }
+    .seal-core { inset: 15px !important; }
+    .seal-core b { font-size: 19px !important; }
   }
   .album-seal svg { position: absolute; inset: 0; width: 100%; height: 100%; animation: selaGira 18s linear infinite; }
   @keyframes selaGira { to { transform: rotate(360deg); } }
@@ -1652,19 +1670,7 @@
     text-transform: uppercase;
     color: #3A2E12;
   }
-  .album-seal:hover { filter: drop-shadow(0 8px 18px rgba(30,22,8,.4)) brightness(1.06); }
   .album-seal:hover svg { animation-duration: 7s; }
-  .seal-say {
-    font-family: var(--font-label);
-    font-size: 10.5px;
-    letter-spacing: .16em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
-    max-width: 16ch;
-    text-align: left;
-    line-height: 1.4;
-  }
-  @media (max-width: 620px) { .seal-say { display: none; } }
 
   /* ---- o album aberto ---- */
   .album {
@@ -2093,20 +2099,6 @@
       <button class="lumos" id="themeBtn" type="button"><span class="spark"></span><span id="themeLabel">Lumos</span></button>
     </div>
 
-    <div class="seal-wrap">
-      <button class="album-seal" id="albumSeal" type="button" aria-label="Abrir o Album de Quotes">
-        <svg viewBox="0 0 140 140" aria-hidden="true">
-          <defs>
-            <path id="sealRing" d="M70,70 m-53,0 a53,53 0 1,1 106,0 a53,53 0 1,1 -106,0"/>
-          </defs>
-          <text class="seal-text">
-            <textPath href="#sealRing" startOffset="0">ADQUIRA SEU ALBUM DE QUOTES &#183; &#183; &#183;</textPath>
-          </text>
-        </svg>
-        <span class="seal-core"><b id="sealCount">0</b><small id="sealTotal">de 44</small></span>
-      </button>
-      <span class="seal-say">Figurinhas das frases dos livros. Douradas e holograficas.</span>
-    </div>
 
   </div>
 </header>
@@ -2165,6 +2157,15 @@
 
   <p class="resultline" id="resultline"></p>
   <div class="press">
+    <button class="album-seal" id="albumSeal" type="button" aria-label="Abrir o Album de Quotes">
+      <svg viewBox="0 0 140 140" aria-hidden="true">
+        <defs><path id="sealRing" d="M70,70 m-53,0 a53,53 0 1,1 106,0 a53,53 0 1,1 -106,0"/></defs>
+        <text class="seal-text">
+          <textPath href="#sealRing" startOffset="0">ADQUIRA SEU ALBUM DE QUOTES &#183; &#183; &#183;</textPath>
+        </text>
+      </svg>
+      <span class="seal-core"><b id="sealCount">0</b><small id="sealTotal">de 44</small></span>
+    </button>
     <span class="ear ear-l" aria-hidden="true">Que ninguem diga que o Profeta nao avisou</span>
     <span class="ear ear-r" aria-hidden="true">Toda noticia aqui carrega a bancada de onde saiu</span>
     <main id="list"></main>
@@ -3703,420 +3704,294 @@
 
 /* =====================================================================
    OS RETRATOS
-   Camafeu gravado, desenhado aqui em SVG. Personagem, nao ator, e nada
-   de fotograma de filme nem de ilustracao dos livros.
-   O que faz parecer buril e a hachura. A forma do rosto nao vem de um
-   contorno chapado, vem de linhas paralelas que seguem o volume, mais
-   densas na sombra. Cada personagem tem cranio proprio, alem de cabelo,
-   barba, oculos e chapeu.
+   Silhueta recortada dentro do camafeu, que e o retrato que um jornal
+   daquela epoca imprimiria. Perfil preto, virado para a esquerda, sem
+   rosto desenhado. O personagem se reconhece pelo contorno, entao o que
+   muda de um para o outro e o cabelo, a barba, o nariz e o que ele usa.
+   Personagem, nao ator. Desenho original, nada de fotograma nem de
+   ilustracao de livro.
    ===================================================================== */
-var FACES_ART = {
-  "Albus Dumbledore":   { cara:"longa",  idade:"velho", hair:"flow",     hairC:"#C0B9A4", beard:"huge",    glasses:"halfmoon", hat:"wizard", collar:"robe", brow:"soft" },
-  "Harry Potter":       { cara:"jovem",  idade:"jovem", hair:"messy",    hairC:"#241B12", beard:"none",    glasses:"round",    hat:"none",   collar:"shirt", scar:true },
-  "Hermione Granger":   { cara:"suave",  idade:"jovem", hair:"bushy",    hairC:"#4E3619", beard:"none",    glasses:"none",     hat:"none",   collar:"shirt" },
-  "Ron Weasley":        { cara:"longa",  idade:"jovem", hair:"scruff",   hairC:"#A6420F", beard:"none",    glasses:"none",     hat:"none",   collar:"shirt", sardas:true },
-  "Severus Snape":      { cara:"magra",  idade:"adulto",hair:"curtain",  hairC:"#14110F", beard:"none",    glasses:"none",     hat:"none",   collar:"alto", brow:"pesada", nariz:"adunco" },
-  "Sirius Black":       { cara:"magra",  idade:"adulto",hair:"mane",     hairC:"#1C1815", beard:"cavanhaque", glasses:"none",  hat:"none",   collar:"robe", brow:"pesada" },
-  "Minerva McGonagall": { cara:"quadrada",idade:"velho",hair:"bun",      hairC:"#3E382F", beard:"none",    glasses:"square",   hat:"witch",  collar:"alto", brow:"arqueada" },
-  "Rubeus Hagrid":      { cara:"larga",  idade:"adulto",hair:"mop",      hairC:"#3E2C1C", beard:"huge",    glasses:"none",     hat:"none",   collar:"casaco", grande:true },
-  "Luna Lovegood":      { cara:"suave",  idade:"jovem", hair:"wispy",    hairC:"#DFD3A2", beard:"none",    glasses:"none",     hat:"none",   collar:"shirt", ear:"rabanete", olhar:"largo" },
-  "Neville Longbottom": { cara:"redonda",idade:"jovem", hair:"round",    hairC:"#6F4E24", beard:"none",    glasses:"none",     hat:"none",   collar:"shirt" },
-  "Molly Weasley":      { cara:"redonda",idade:"adulto",hair:"curls",    hairC:"#B4520F", beard:"none",    glasses:"none",     hat:"none",   collar:"robe" },
-  "Fred Weasley":       { cara:"longa",  idade:"jovem", hair:"crop",     hairC:"#B04A0E", beard:"none",    glasses:"none",     hat:"none",   collar:"shirt", sardas:true, ear:"argola" },
-  "Ginny Weasley":      { cara:"suave",  idade:"jovem", hair:"long",     hairC:"#B04A0E", beard:"none",    glasses:"none",     hat:"none",   collar:"shirt", sardas:true },
-  "Remus Lupin":        { cara:"magra",  idade:"adulto",hair:"short",    hairC:"#8E8478", beard:"barbicha",glasses:"none",     hat:"none",   collar:"casaco", cicatrizes:true },
-  "Lord Voldemort":     { cara:"cranio", idade:"adulto",hair:"none",     hairC:"#000000", beard:"none",    glasses:"none",     hat:"none",   collar:"robe", serpente:true },
-  "Bellatrix Lestrange":{ cara:"magra",  idade:"adulto",hair:"wild",     hairC:"#171310", beard:"none",    glasses:"none",     hat:"none",   collar:"robe", brow:"pesada", olhar:"largo" },
-  "Garrick Ollivander": { cara:"magra",  idade:"velho", hair:"wisp",     hairC:"#DED8C9", beard:"none",    glasses:"none",     hat:"none",   collar:"alto", brow:"soft", olhar:"largo" },
-  "Dobby":              { cara:"elfo",   idade:"adulto",hair:"none",     hairC:"#000000", beard:"none",    glasses:"none",     hat:"none",   collar:"trapo", elfo:true },
-  "Arthur Weasley":     { cara:"longa",  idade:"adulto",hair:"thin",     hairC:"#A6522A", beard:"none",    glasses:"round",    hat:"none",   collar:"shirt", sardas:true },
-  "Draco Malfoy":       { cara:"magra",  idade:"jovem", hair:"slick",    hairC:"#E6DEC4", beard:"none",    glasses:"none",     hat:"none",   collar:"alto", brow:"arqueada" },
-  "Horace Slughorn":    { cara:"larga",  idade:"velho", hair:"combover", hairC:"#D2CAB8", beard:"bigode",  glasses:"none",     hat:"none",   collar:"alto", grande:true },
-  "Alastor Moody":      { cara:"quadrada",idade:"velho",hair:"grizzle",  hairC:"#5E5648", beard:"barbicha",glasses:"none",     hat:"none",   collar:"casaco", olho:"magico", cicatrizes:true },
-  "Quirinus Quirrell":  { cara:"magra",  idade:"adulto",hair:"none",     hairC:"#000000", beard:"none",    glasses:"none",     hat:"turbante", collar:"robe" }
-};
 
-/* o cranio de cada um. maca e a largura na maca do rosto, mandibula a
-   largura embaixo, queixo onde termina, topo onde comeca a testa */
-var CRANIOS = {
-  longa:    { maca:23, mand:17, queixo:101, topo:33 },
-  magra:    { maca:21, mand:14, queixo:102, topo:33 },
-  redonda:  { maca:25, mand:22, queixo:95,  topo:35 },
-  larga:    { maca:28, mand:25, queixo:97,  topo:34 },
-  quadrada: { maca:24, mand:22, queixo:99,  topo:34 },
-  suave:    { maca:23, mand:18, queixo:97,  topo:34 },
-  jovem:    { maca:23, mand:18, queixo:98,  topo:34 },
-  cranio:   { maca:24, mand:15, queixo:100, topo:30 },
-  elfo:     { maca:26, mand:16, queixo:97,  topo:34 }
+/* Cada perfil e montado por partes.
+   testa    quanto a testa avanca
+   nariz    reto, adunco, arrebitado, chato
+   queixo   fino, forte, duplo, recuado
+   cabelo   a massa por tras e por cima
+   barba    o que desce do queixo
+   extra    chapeu, oculos, orelha, turbante */
+var PERFIS = {
+  "Albus Dumbledore":   { alt:1.00, nariz:"adunco",     queixo:"fino",    cabelo:"longo",    barba:"longa",    chapeu:"bruxo",  oculos:"meialua" },
+  "Harry Potter":       { alt:0.94, nariz:"reto",       queixo:"fino",    cabelo:"revolto",  barba:"nao",      oculos:"redondo", cicatriz:true },
+  "Hermione Granger":   { alt:0.95, nariz:"arrebitado", queixo:"fino",    cabelo:"volumoso", barba:"nao" },
+  "Ron Weasley":        { alt:0.97, nariz:"comprido",   queixo:"fino",    cabelo:"bagunca",  barba:"nao" },
+  "Severus Snape":      { alt:0.99, nariz:"adunco",     queixo:"forte",   cabelo:"cortina",  barba:"nao" },
+  "Sirius Black":       { alt:0.99, nariz:"reto",       queixo:"forte",   cabelo:"juba",     barba:"cavanhaque" },
+  "Minerva McGonagall": { alt:0.96, nariz:"reto",       queixo:"fino",    cabelo:"coque",    barba:"nao",      chapeu:"bruxa",  oculos:"quadrado" },
+  "Rubeus Hagrid":      { alt:1.04, nariz:"chato",      queixo:"forte",   cabelo:"jubarona", barba:"enorme",   largo:true },
+  "Luna Lovegood":      { alt:0.94, nariz:"arrebitado", queixo:"fino",    cabelo:"solto",    barba:"nao",      brinco:"rabanete" },
+  "Neville Longbottom": { alt:0.95, nariz:"redondo",    queixo:"duplo",   cabelo:"tigela",   barba:"nao" },
+  "Molly Weasley":      { alt:0.95, nariz:"redondo",    queixo:"duplo",   cabelo:"cachos",   barba:"nao" },
+  "Fred Weasley":       { alt:0.97, nariz:"comprido",   queixo:"fino",    cabelo:"curto",    barba:"nao",      brinco:"argola" },
+  "Ginny Weasley":      { alt:0.94, nariz:"arrebitado", queixo:"fino",    cabelo:"comprido", barba:"nao" },
+  "Remus Lupin":        { alt:0.98, nariz:"reto",       queixo:"fino",    cabelo:"aparado",  barba:"rala" },
+  "Lord Voldemort":     { alt:1.03, nariz:"fenda",      queixo:"recuado", cabelo:"careca",   barba:"nao" },
+  "Bellatrix Lestrange":{ alt:0.97, nariz:"adunco",     queixo:"fino",    cabelo:"selvagem", barba:"nao" },
+  "Garrick Ollivander": { alt:0.98, nariz:"adunco",     queixo:"recuado", cabelo:"esvoacado",barba:"nao" },
+  "Dobby":              { alt:0.90, nariz:"comprido",   queixo:"fino",    cabelo:"careca",   barba:"nao",      orelha:"elfo" },
+  "Arthur Weasley":     { alt:0.97, nariz:"comprido",   queixo:"fino",    cabelo:"ralo",     barba:"nao",      oculos:"redondo" },
+  "Draco Malfoy":       { alt:0.96, nariz:"reto",       queixo:"fino",    cabelo:"colado",   barba:"nao" },
+  "Horace Slughorn":    { alt:0.97, nariz:"batata",     queixo:"duplo",   cabelo:"calvo",    barba:"bigode",   largo:true },
+  "Alastor Moody":      { alt:0.99, nariz:"quebrado",   queixo:"forte",   cabelo:"grisalho", barba:"rala",     olho:"magico" },
+  "Quirinus Quirrell":  { alt:0.97, nariz:"reto",       queixo:"recuado", cabelo:"careca",   barba:"nao",      turbante:true }
 };
 
 var RETRATO_N = 0;
 function retrato(nome) {
-  var a = FACES_ART[nome] || { cara:"suave", idade:"adulto", hair:"short", hairC:"#3E382F", collar:"robe" };
-  var C = CRANIOS[a.cara] || CRANIOS.suave;
-  var pele  = a.serpente ? "#EDE8DA" : a.elfo ? "#E2D8BC" : "#EFE4CC";
-  var tinta = "#17100A";
-  var uid = "r" + (++RETRATO_N);
+  var a = PERFIS[nome] || { alt:0.97, nariz:"reto", queixo:"fino", cabelo:"curto", barba:"nao" };
+  var uid = "s" + (++RETRATO_N);
+  var tinta = "#141009";
+  var papel = "#F6EFDC";
   var p = [];
   function el(s) { p.push(s); }
 
-  var CX = 60, OLHO = 64, QUEIXO = C.queixo, TOPO = C.topo;
+  /* medidas do perfil, virado para a esquerda */
+  var k = a.alt;
+  var TOPO = 30 / k;              /* alto do cranio */
+  var OLHO = 62;
+  var NARIZ = 74;                 /* ponta do nariz */
+  var BOCA = 84;
+  var QUEIXO = 96 + (1 - k) * -8;
+  var FRENTE = a.largo ? 40 : 43; /* linha da testa e do rosto */
+  var TRAS = a.largo ? 84 : 80;   /* nuca */
 
-  /* o contorno do cranio, simetrico, montado a partir das medidas */
-  var rosto =
-    "M " + CX + " " + (TOPO - 4) +
-    " C " + (CX - C.maca * 0.86) + " " + (TOPO - 4) + ", " +
-            (CX - C.maca) + " " + (TOPO + 12) + ", " +
-            (CX - C.maca) + " " + (OLHO + 2) +
-    " C " + (CX - C.maca) + " " + (OLHO + 18) + ", " +
-            (CX - C.mand) + " " + (QUEIXO - 10) + ", " +
-            CX + " " + QUEIXO +
-    " C " + (CX + C.mand) + " " + (QUEIXO - 10) + ", " +
-            (CX + C.maca) + " " + (OLHO + 18) + ", " +
-            (CX + C.maca) + " " + (OLHO + 2) +
-    " C " + (CX + C.maca) + " " + (TOPO + 12) + ", " +
-            (CX + C.maca * 0.86) + " " + (TOPO - 4) + ", " +
-            CX + " " + (TOPO - 4) + " Z";
+  /* quanto o nariz avanca, por tipo */
+  var NZ = { reto:11, comprido:14, adunco:13, arrebitado:11, redondo:10,
+             batata:12, chato:7, quebrado:12, fenda:1 }[a.nariz] || 11;
+  /* o queixo, quanto avanca e quanto desce */
+  var QZ = { fino:{x:2,y:0,papada:0}, forte:{x:5,y:2,papada:0},
+             duplo:{x:1,y:-2,papada:7}, recuado:{x:-4,y:-3,papada:2} }[a.queixo] || {x:2,y:0,papada:0};
+
+  /* O perfil de frente, ponto por ponto. E a sequencia de saliencia e
+     reentrancia que faz a silhueta parecer gente, nao mancha. */
+  var F = FRENTE;
+  var frente =
+    " C " + (F - 3) + " " + (TOPO + 14) + ", " + (F - 4) + " " + (OLHO - 16) + ", " + (F - 2) + " " + (OLHO - 9) +
+    " Q " + (F - 6) + " " + (OLHO - 6) + " " + (F - 1) + " " + (OLHO - 2) +   /* sobrancelha e cava do olho */
+    " Q " + (F - 2) + " " + (OLHO + 4) + " " + (F - 4) + " " + (OLHO + 9) +   /* ponte do nariz */
+    " L " + (F - NZ) + " " + (NARIZ + (a.nariz === "adunco" ? 4 : 0)) +       /* ponta */
+    " L " + (F - NZ * 0.42) + " " + (NARIZ + 5) +                             /* asa, sobe forte */
+    " L " + (F + 1) + " " + (NARIZ + 7) +                                     /* base, entra */
+    " Q " + (F - 3) + " " + (NARIZ + 10) + " " + (F - 2) + " " + (BOCA - 3) +  /* labio de cima */
+    " Q " + (F + 2) + " " + BOCA + " " + (F - 1) + " " + (BOCA + 3) +          /* boca */
+    " Q " + (F - 3) + " " + (BOCA + 6) + " " + (F + 2) + " " + (BOCA + 9) +    /* labio de baixo e sulco */
+    " Q " + (F + QZ.x - 4) + " " + (QUEIXO + QZ.y - 6) + " " +
+            (F + QZ.x + 3) + " " + (QUEIXO + QZ.y) +                           /* queixo */
+    (QZ.papada
+      ? " Q " + (F + QZ.x + 2) + " " + (QUEIXO + QZ.y + QZ.papada) + " " +
+        (F + QZ.x + 14) + " " + (QUEIXO + QZ.y + QZ.papada + 1)
+      : "") +
+    " Q " + (F + 18) + " " + (QUEIXO + QZ.y + QZ.papada + 3) + " " +
+            (F + 26) + " " + (QUEIXO + QZ.y - 2);                              /* mandibula ate a orelha */
+
+  var perfil =
+    "M " + TRAS + " " + (TOPO + 30) +
+    " C " + TRAS + " " + (TOPO + 2) + ", " + (F + 26) + " " + (TOPO - 7) + ", " + (F + 6) + " " + (TOPO + 5) +
+    frente +
+    " Q " + (F + 21) + " " + (QUEIXO + 9) + " " + (F + 16) + " " + (QUEIXO + 17) +
+    " L " + (F + 15) + " 124" +
+    " L " + (TRAS + 4) + " 124" +
+    " L " + (TRAS + 2) + " " + (TOPO + 40) + " Z";
 
   el('<defs>' +
        '<clipPath id="cam' + uid + '"><ellipse cx="60" cy="66" rx="50" ry="58"/></clipPath>' +
-       '<clipPath id="face' + uid + '"><path d="' + rosto + '"/></clipPath>' +
-       '<pattern id="fundo' + uid + '" width="3" height="3" patternUnits="userSpaceOnUse" patternTransform="rotate(40)">' +
-         '<line x1="0" y1="0" x2="0" y2="3" stroke="' + tinta + '" stroke-width="0.6" opacity="0.3"/>' +
+       '<pattern id="fio' + uid + '" width="3" height="3" patternUnits="userSpaceOnUse" patternTransform="rotate(42)">' +
+         '<line x1="0" y1="0" x2="0" y2="3" stroke="' + tinta + '" stroke-width="0.55" opacity="0.26"/>' +
        '</pattern>' +
      '</defs>');
-
   el('<g clip-path="url(#cam' + uid + ')">');
-  el('<rect x="0" y="0" width="120" height="132" fill="#F4ECD6"/>');
-  el('<rect x="0" y="0" width="120" height="132" fill="url(#fundo' + uid + ')"/>');
-  /* clareira atras da cabeca, o vinheteado do camafeu */
-  el('<ellipse cx="60" cy="56" rx="38" ry="42" fill="#FAF4E2" opacity=".92"/>');
+  el('<rect x="0" y="0" width="120" height="132" fill="' + papel + '"/>');
+  el('<rect x="0" y="0" width="120" height="132" fill="url(#fio' + uid + ')"/>');
+  el('<ellipse cx="60" cy="60" rx="41" ry="45" fill="#FCF7E7"/>');
 
-  /* ombros e gola */
-  var ombro = a.grande ? "M 4 132 Q 60 90 116 132 Z" : "M 14 132 Q 60 96 106 132 Z";
-  el('<path d="' + ombro + '" fill="' + tinta + '"/>');
-  el('<g clip-path="url(#cam' + uid + ')" opacity=".28"><path d="' + ombro + '" fill="url(#fundo' + uid + ')"/></g>');
-  if (a.collar === "alto")   el('<path d="M 45 132 Q 60 110 75 132 Z" fill="#F4ECD6" opacity=".2"/>');
-  if (a.collar === "robe")   el('<path d="M 43 132 L 60 108 L 77 132 Z" fill="#F4ECD6" opacity=".18"/>');
-  if (a.collar === "shirt")  el('<path d="M 47 116 L 60 131 L 73 116 L 73 132 L 47 132 Z" fill="#FAF4E2"/>');
-  if (a.collar === "casaco") el('<path d="M 39 132 L 52 106 L 60 119 L 68 106 L 81 132 Z" fill="#F4ECD6" opacity=".16"/>');
-  if (a.collar === "trapo")  el('<path d="M 43 132 L 52 112 L 60 121 L 69 110 L 79 132 Z" fill="#EFE4CC" opacity=".55"/>');
+  /* a figura ocupa so o miolo do camafeu, senao encosta na moldura */
+  el('<g transform="translate(9,7) scale(0.85)">');
 
-  /* pescoco */
-  el('<path d="M 51 ' + (QUEIXO - 6) + ' h 18 v 18 h -18 z" fill="' + pele + '"/>');
-  el('<g stroke="' + tinta + '" stroke-width=".8" opacity=".5" fill="none">' +
-     '<path d="M 51 ' + (QUEIXO + 2) + ' q 9 6 18 0"/>' +
-     '<path d="M 51 ' + (QUEIXO + 6) + ' q 9 6 18 0"/>' +
-     '<path d="M 51 ' + (QUEIXO + 10) + ' q 9 6 18 0"/></g>');
+  /* ombros, a base do busto */
+  el('<path d="' + (a.largo ? "M -10 146 Q 60 104 130 146 Z" : "M 0 146 Q 60 110 120 146 Z") +
+     '" fill="' + tinta + '"/>');
 
-  /* orelhas de elfo, antes do rosto */
-  if (a.elfo) {
-    el('<g fill="' + pele + '" stroke="' + tinta + '" stroke-width="1.3">' +
-       '<path d="M 36 54 Q 6 32 13 62 Q 19 80 38 74 Z"/>' +
-       '<path d="M 84 54 Q 114 32 107 62 Q 101 80 82 74 Z"/></g>');
-    el('<g stroke="' + tinta + '" stroke-width=".7" opacity=".45" fill="none">' +
-       '<path d="M 32 58 q -10 -6 -13 2"/><path d="M 33 64 q -11 -3 -14 5"/>' +
-       '<path d="M 88 58 q 10 -6 13 2"/><path d="M 87 64 q 11 -3 14 5"/></g>');
-  }
+  /* orelhas de elfo, atras da silhueta */
+  if (a.orelha === "elfo")
+    el('<path d="M ' + (FRENTE + 26) + ' ' + (OLHO - 6) + ' Q ' + (TRAS + 26) + ' ' + (OLHO - 34) +
+       ' ' + (TRAS + 20) + ' ' + (OLHO + 8) + ' Q ' + (TRAS + 12) + ' ' + (OLHO + 26) + ' ' +
+       (FRENTE + 30) + ' ' + (OLHO + 16) + ' Z" fill="' + tinta + '"/>');
 
-  /* o rosto */
-  el('<path d="' + rosto + '" fill="' + pele + '" stroke="' + tinta + '" stroke-width="1.4"/>');
+  /* a silhueta */
+  el('<path d="' + perfil + '" fill="' + tinta + '"/>');
 
-  /* ===== o buril =====
-     So a beirada. A sombra mora na borda do rosto e embaixo do queixo,
-     nunca no meio da cara, senao vira mancha e some o desenho. */
-  el('<g clip-path="url(#face' + uid + ')" fill="none" stroke="' + tinta + '" stroke-linecap="round">');
-  /* fio de sombra colado no contorno direito */
-  var rim = [];
-  for (var i = 0; i < 6; i++) {
-    var x0 = CX + C.maca - 8 + i * 1.5;
-    rim.push('<path d="M ' + x0 + ' ' + (TOPO + 16 + i * 2) +
-             ' q ' + (2.5 - i * .2) + ' ' + (20 - i * 1.5) + ' ' +
-             (-3 - i * .5) + ' ' + (36 - i * 3.5) + '"/>');
-  }
-  el('<g stroke-width=".72" opacity=".32">' + rim.join("") + "</g>");
-  /* e um fio mais fraco do lado esquerdo, so para a forma nao ficar chapada */
-  el('<g stroke-width=".65" opacity=".16">' +
-     '<path d="M ' + (CX - C.maca + 3) + ' ' + (TOPO + 20) + ' q -2 18 2 30"/>' +
-     '<path d="M ' + (CX - C.maca + 6) + ' ' + (TOPO + 24) + ' q -2 15 2 24"/></g>');
-  /* debaixo do queixo, rente a mandibula */
-  el('<g stroke-width=".8" opacity=".3">' +
-     '<path d="M ' + (CX - C.mand + 2) + ' ' + (QUEIXO - 6) + ' q ' + (C.mand - 2) + ' 9 ' + ((C.mand - 2) * 2) + ' 0"/>' +
-     '<path d="M ' + (CX - C.mand + 5) + ' ' + (QUEIXO - 3) + ' q ' + (C.mand - 5) + ' 8 ' + ((C.mand - 5) * 2) + ' 0"/></g>');
-  /* uma sombra curta sob cada olho, e o que da profundidade */
-  el('<g stroke-width=".7" opacity=".26">' +
-     '<path d="M 45 ' + (OLHO + 5) + ' q 6 3 12 1"/>' +
-     '<path d="M 63 ' + (OLHO + 6) + ' q 6 2 12 -1"/></g>');
-  el("</g>");
-
-  /* ===== os olhos ===== */
-  var ab = a.olhar === "largo" ? 5.2 : 4.2;
-  function olho(cx, esp) {
-    var g = '<path d="M ' + (cx - 7) + ' ' + OLHO + ' q 7 ' + (-ab) + ' 14 0 q -7 ' + (ab * .92) + ' -14 0 z" ' +
-            'fill="#FCF7EA" stroke="' + tinta + '" stroke-width="1.15"/>';
-    g += '<circle cx="' + cx + '" cy="' + (OLHO - .3) + '" r="' + (a.serpente ? 2.9 : 2.7) + '" fill="' + tinta + '"/>';
-    g += '<circle cx="' + (cx + 1) + '" cy="' + (OLHO - 1.4) + '" r=".75" fill="#FCF7EA"/>';
-    /* palpebra superior, o traco mais grosso do olho */
-    g += '<path d="M ' + (cx - 7.4) + ' ' + (OLHO - .4) + ' q 7.4 ' + (-ab - 1.4) + ' 14.8 0" ' +
-         'fill="none" stroke="' + tinta + '" stroke-width="' + esp + '" stroke-linecap="round"/>';
-    return g;
-  }
-  if (a.serpente) {
-    /* Voldemort, a fenda no lugar da pupila */
-    el(olho(51, 1.9).replace(/<circle cx="51" cy="[\d.]+" r="[\d.]+" fill="#17100A"\/>/,
-        '<ellipse cx="51" cy="' + (OLHO - .3) + '" rx="1.1" ry="3" fill="' + tinta + '"/>'));
-    el(olho(69, 1.9).replace(/<circle cx="69" cy="[\d.]+" r="[\d.]+" fill="#17100A"\/>/,
-        '<ellipse cx="69" cy="' + (OLHO - .3) + '" rx="1.1" ry="3" fill="' + tinta + '"/>'));
-  } else if (a.elfo) {
-    el('<ellipse cx="49" cy="' + OLHO + '" rx="9.5" ry="11" fill="#FCF7EA" stroke="' + tinta + '" stroke-width="1.3"/>');
-    el('<ellipse cx="71" cy="' + OLHO + '" rx="9.5" ry="11" fill="#FCF7EA" stroke="' + tinta + '" stroke-width="1.3"/>');
-    el('<circle cx="49" cy="' + (OLHO + 1) + '" r="5" fill="' + tinta + '"/><circle cx="71" cy="' + (OLHO + 1) + '" r="5" fill="' + tinta + '"/>');
-    el('<circle cx="50.8" cy="' + (OLHO - 1) + '" r="1.4" fill="#FCF7EA"/><circle cx="72.8" cy="' + (OLHO - 1) + '" r="1.4" fill="#FCF7EA"/>');
-  } else {
-    el(olho(51, 1.8)); el(olho(69, 1.8));
-  }
-
-  /* sobrancelhas */
-  if (!a.elfo) {
-    var pesoS = a.brow === "pesada" ? 2.9 : a.brow === "arqueada" ? 1.4 : 2;
-    var ys = a.brow === "arqueada" ? OLHO - 11 : OLHO - 9;
-    if (a.serpente) {
-      el('<g stroke="' + tinta + '" stroke-width="1" opacity=".5" fill="none">' +
-         '<path d="M 43 ' + ys + ' q 8 -2 15 1"/><path d="M 62 ' + (ys + 1) + ' q 8 -3 15 -1"/></g>');
-    } else {
-      el('<path d="M 42 ' + (ys + 1) + ' q 9 ' + (a.brow === "arqueada" ? -5 : -3) + ' 17 0" stroke="' + tinta +
-         '" stroke-width="' + pesoS + '" fill="none" stroke-linecap="round"/>');
-      el('<path d="M 61 ' + ys + ' q 9 ' + (a.brow === "arqueada" ? -4 : -2) + ' 17 2" stroke="' + tinta +
-         '" stroke-width="' + pesoS + '" fill="none" stroke-linecap="round"/>');
-    }
-  }
-
-  /* nariz */
-  var yn = OLHO + 16;
-  if (a.serpente) {
-    el('<g stroke="' + tinta + '" stroke-width="1.7" fill="none" stroke-linecap="round">' +
-       '<path d="M 56 ' + (yn - 3) + ' q 1 4 0 5"/><path d="M 64 ' + (yn - 3) + ' q -1 4 0 5"/></g>');
-  } else if (a.nariz === "adunco") {
-    el('<path d="M 59 ' + (OLHO - 4) + ' q 7 12 3 20 q -3 3 -7 1" stroke="' + tinta +
-       '" stroke-width="1.5" fill="none" stroke-linecap="round"/>');
-    el('<path d="M 55 ' + (yn + 1) + ' q 4 2 8 -1" stroke="' + tinta + '" stroke-width="1" fill="none" opacity=".7"/>');
-  } else {
-    el('<path d="M 59 ' + (OLHO - 2) + ' q 4 12 1 16 q -2 2 -5 1" stroke="' + tinta +
-       '" stroke-width="1.3" fill="none" stroke-linecap="round"/>');
-    el('<path d="M 55 ' + yn + ' q 5 3 10 0" stroke="' + tinta + '" stroke-width=".9" fill="none" opacity=".6"/>');
-  }
-
-  /* boca */
-  var yb = (QUEIXO + OLHO + 16) / 2;
-  if (!a.elfo) {
-    el('<path d="M 52 ' + yb + ' q 4 -1.6 8 0 q 4 1.6 8 0" stroke="' + tinta +
-       '" stroke-width="1.7" fill="none" stroke-linecap="round"/>');
-    el('<path d="M 54 ' + (yb + 3.4) + ' q 6 2.4 12 0" stroke="' + tinta +
-       '" stroke-width=".85" fill="none" opacity=".45"/>');
-  } else {
-    el('<path d="M 52 ' + (yb + 2) + ' q 8 5 16 0" stroke="' + tinta + '" stroke-width="1.5" fill="none" stroke-linecap="round"/>');
-  }
-
-  /* marcas da idade */
-  if (a.idade === "velho") {
-    el('<g stroke="' + tinta + '" stroke-width=".9" fill="none" opacity=".55" stroke-linecap="round">' +
-       '<path d="M 50 ' + (yb - 8) + ' q -4 6 -3 12"/><path d="M 70 ' + (yb - 8) + ' q 4 6 3 12"/>' +
-       '<path d="M 41 ' + (OLHO + 3) + ' l -4 3 M 41 ' + (OLHO + 6) + ' l -4 2"/>' +
-       '<path d="M 79 ' + (OLHO + 3) + ' l 4 3 M 79 ' + (OLHO + 6) + ' l 4 2"/>' +
-       '<path d="M 45 ' + (TOPO + 7) + ' q 15 -5 30 0"/></g>');
-  } else if (a.idade === "adulto") {
-    el('<g stroke="' + tinta + '" stroke-width=".8" fill="none" opacity=".4" stroke-linecap="round">' +
-       '<path d="M 51 ' + (yb - 7) + ' q -3 5 -2 9"/><path d="M 69 ' + (yb - 7) + ' q 3 5 2 9"/></g>');
-  }
-  if (a.sardas) {
-    el('<g fill="' + tinta + '" opacity=".5">' +
-       '<circle cx="47" cy="' + (yn - 4) + '" r=".9"/><circle cx="51" cy="' + (yn - 1) + '" r=".9"/>' +
-       '<circle cx="44" cy="' + (yn + 1) + '" r=".9"/><circle cx="73" cy="' + (yn - 4) + '" r=".9"/>' +
-       '<circle cx="69" cy="' + (yn - 1) + '" r=".9"/><circle cx="76" cy="' + (yn + 1) + '" r=".9"/></g>');
-  }
-  if (a.scar) el('<path d="M 52 ' + (TOPO + 6) + ' l 4 6 l -4 5 l 5 5" stroke="#8B2739" stroke-width="2" fill="none"/>');
-  if (a.cicatrizes) {
-    el('<g stroke="' + tinta + '" stroke-width="1.1" opacity=".5" fill="none">' +
-       '<path d="M 44 ' + (TOPO + 10) + ' l 11 16"/><path d="M 76 ' + (OLHO - 2) + ' l -7 11"/></g>');
-  }
-
-  /* ===== cabelo ===== */
-  var H = a.hairC;
-  function massa(d, hach) {
-    el('<path d="' + d + '" fill="' + H + '" stroke="' + tinta + '" stroke-width="1.25"/>');
-    if (hach) el('<g stroke="' + tinta + '" stroke-width=".7" opacity=".38" fill="none">' + hach + "</g>");
-  }
-  var T = TOPO;
-  switch (a.hair) {
-    case "flow":
-      massa("M 60 " + (T - 8) + " q -36 2 -34 40 q -2 28 6 50 q -14 -32 -8 -60 q 6 -34 36 -36 q 30 2 36 36 q 6 28 -8 60 q 8 -22 6 -50 q 2 -38 -34 -40 z",
-        '<path d="M 30 44 q -4 30 2 54"/><path d="M 26 50 q -3 26 3 46"/><path d="M 90 44 q 4 30 -2 54"/><path d="M 94 50 q 3 26 -3 46"/>');
-      break;
-    case "messy":
-      massa("M 60 " + (T - 4) + " q -27 0 -28 24 q -1 9 1 13 q 3 -15 11 -17 q 6 8 15 4 q 10 6 18 -2 q 8 3 11 15 q 3 -6 1 -15 q -2 -22 -29 -22 z",
-        '<path d="M 38 30 q 8 6 14 4"/><path d="M 66 28 q 9 5 14 10"/>');
-      el('<g stroke="' + H + '" stroke-width="2.6" stroke-linecap="round">' +
-         '<path d="M 45 30 l -5 -9"/><path d="M 58 26 l 1 -10"/><path d="M 71 30 l 6 -9"/></g>');
-      break;
-    case "bushy":
-      massa("M 60 " + (T - 8) + " q -34 0 -35 33 q -2 24 6 37 q -3 -24 4 -33 q -4 -23 25 -25 q 29 2 25 25 q 7 9 4 33 q 8 -13 6 -37 q -1 -33 -35 -33 z",
-        '<path d="M 30 44 q 6 22 0 38"/><path d="M 36 40 q 5 20 1 34"/><path d="M 90 44 q -6 22 0 38"/><path d="M 84 40 q -5 20 -1 34"/>');
-      break;
-    case "scruff":
-      massa("M 60 " + (T - 3) + " q -26 0 -27 23 q 0 8 2 12 q 2 -14 9 -16 q 8 7 16 3 q 10 5 17 -1 q 7 3 8 14 q 2 -5 1 -12 q -1 -23 -26 -23 z",
-        '<path d="M 40 32 q 8 6 13 5"/><path d="M 68 30 q 8 5 12 9"/>');
-      break;
-    case "curtain":
-      massa("M 60 " + (T - 7) + " q -29 0 -31 27 q -2 32 0 51 q 7 -28 5 -47 q 12 9 26 9 q 14 0 26 -9 q -2 19 5 47 q 2 -19 0 -51 q -2 -27 -31 -27 z",
-        '<path d="M 33 40 q -3 30 1 48"/><path d="M 39 38 q -3 28 0 44"/><path d="M 87 40 q 3 30 -1 48"/><path d="M 81 38 q 3 28 0 44"/>');
-      break;
-    case "mane":
-      massa("M 60 " + (T - 7) + " q -31 0 -33 29 q -2 27 2 44 q 3 -23 7 -34 q 10 9 24 9 q 14 0 24 -9 q 4 11 7 34 q 4 -17 2 -44 q -2 -29 -33 -29 z",
-        '<path d="M 32 44 q 0 26 3 40"/><path d="M 88 44 q 0 26 -3 40"/><path d="M 42 30 q 8 5 18 5"/>');
-      break;
-    case "bun":
-      massa("M 60 " + (T - 5) + " q -27 0 -28 24 q 12 -13 28 -13 q 16 0 28 13 q -1 -24 -28 -24 z",
-        '<path d="M 38 32 q 12 -5 22 -4"/><path d="M 82 32 q -12 -5 -22 -4"/>');
-      el('<ellipse cx="60" cy="' + (T - 11) + '" rx="10" ry="8.5" fill="' + H + '" stroke="' + tinta + '" stroke-width="1.25"/>');
-      break;
-    case "mop":
-      massa("M 60 " + (T - 12) + " q -36 0 -38 34 q -2 26 5 43 q 0 -28 6 -38 q 13 11 27 11 q 14 0 27 -11 q 6 10 6 38 q 7 -17 5 -43 q -2 -34 -38 -34 z",
-        '<path d="M 28 40 q -2 28 3 44"/><path d="M 92 40 q 2 28 -3 44"/><path d="M 40 24 q 10 8 20 8"/>');
-      break;
-    case "wispy":
-      massa("M 60 " + (T - 6) + " q -29 0 -30 27 q -2 36 2 55 q 5 -32 4 -51 q 11 8 24 8 q 13 0 24 -8 q -1 19 4 51 q 4 -19 2 -55 q -1 -27 -30 -27 z",
-        '<path d="M 32 42 q -2 32 2 50"/><path d="M 38 40 q -2 28 1 44"/><path d="M 88 42 q 2 32 -2 50"/><path d="M 82 40 q 2 28 -1 44"/>');
-      break;
-    case "round":
-      massa("M 60 " + (T - 4) + " q -25 0 -26 21 q 0 6 2 9 q 4 -13 24 -13 q 20 0 24 13 q 2 -3 2 -9 q -1 -21 -26 -21 z",
-        '<path d="M 40 34 q 12 -5 20 -4"/><path d="M 80 34 q -12 -5 -20 -4"/>');
-      break;
-    case "curls":
-      massa("M 60 " + (T - 10) + " q -31 0 -32 29 q -1 15 3 23 q -2 -17 3 -23 q 11 9 26 9 q 15 0 26 -9 q 5 6 3 23 q 4 -8 3 -23 q -1 -29 -32 -29 z", "");
-      el('<path d="M 60 ' + (T - 16) + ' q -33 0 -34 30 q -1 12 2 19 q 1 -14 5 -19 q 12 9 27 9 q 15 0 27 -9 q 4 5 5 19 ' +
-         'q 3 -7 2 -19 q -1 -30 -34 -30 z" fill="' + H + '" stroke="' + tinta + '" stroke-width="1.3"/>');
-      el('<g stroke="' + tinta + '" stroke-width=".8" opacity=".45" fill="none">' +
-         '<path d="M 32 ' + (T + 4) + ' q 8 -12 20 -14"/><path d="M 36 ' + (T + 12) + ' q 8 -14 20 -17"/>' +
-         '<path d="M 88 ' + (T + 4) + ' q -8 -12 -20 -14"/><path d="M 84 ' + (T + 12) + ' q -8 -14 -20 -17"/></g>');
-      break;
-    case "crop":
-      massa("M 60 " + (T - 4) + " q -25 0 -26 19 q 7 -10 26 -10 q 19 0 26 10 q -1 -19 -26 -19 z",
-        '<path d="M 42 30 q 10 -4 18 -4"/><path d="M 78 30 q -10 -4 -18 -4"/>');
-      break;
-    case "long":
-      massa("M 60 " + (T - 6) + " q -28 0 -29 26 q -2 33 1 52 q 6 -29 4 -48 q 11 8 24 8 q 13 0 24 -8 q -2 19 4 48 q 3 -19 1 -52 q -1 -26 -29 -26 z",
-        '<path d="M 33 42 q -2 30 2 46"/><path d="M 87 42 q 2 30 -2 46"/>');
-      break;
-    case "short":
-      massa("M 60 " + (T - 4) + " q -26 0 -27 21 q 6 -12 27 -12 q 21 0 27 12 q -1 -21 -27 -21 z",
-        '<path d="M 42 30 q 10 -4 18 -3"/><path d="M 78 30 q -10 -4 -18 -3"/>');
-      break;
-    case "wild":
-      massa("M 60 " + (T - 12) + " q -35 0 -35 31 q -4 31 2 52 q 0 -31 8 -42 q -6 -25 25 -27 q 31 2 25 27 q 8 11 8 42 q 6 -21 2 -52 q 0 -31 -35 -31 z",
-        '<path d="M 28 40 q -3 30 3 46"/><path d="M 92 40 q 3 30 -3 46"/>');
-      el('<g stroke="' + H + '" stroke-width="3" stroke-linecap="round">' +
-         '<path d="M 29 26 l -9 -9"/><path d="M 91 26 l 9 -9"/>' +
-         '<path d="M 24 46 l -11 -4"/><path d="M 96 46 l 11 -4"/></g>');
-      break;
-    case "wisp":
-      massa("M 60 " + (T - 4) + " q -27 0 -28 23 q 0 12 3 21 q -2 -19 4 -25 q 10 7 21 7 q 11 0 21 -7 q 6 6 4 25 q 3 -9 3 -21 q -1 -23 -28 -23 z",
-        '<path d="M 34 34 q -2 16 1 26"/><path d="M 86 34 q 2 16 -1 26"/>');
-      break;
-    case "thin":
-      el('<path d="M 60 ' + (T - 2) + ' q -25 0 -26 17 q 9 -9 26 -9 q 17 0 26 9 q -1 -17 -26 -17 z" fill="' + H +
-         '" stroke="' + tinta + '" stroke-width="1.1" opacity=".9"/>');
-      break;
-    case "slick":
-      massa("M 60 " + (T - 4) + " q -26 0 -27 19 q 11 -8 27 -8 q 16 0 27 8 q -1 -19 -27 -19 z", "");
-      el('<g stroke="' + tinta + '" stroke-width=".8" opacity=".5" fill="none">' +
-         '<path d="M 37 ' + (T + 10) + ' q 23 -7 46 0"/><path d="M 39 ' + (T + 6) + ' q 21 -6 42 0"/></g>');
-      break;
-    case "combover":
-      el('<path d="M 35 ' + (T + 12) + ' q 13 -14 50 -5 q -11 -11 -31 -9 q -15 2 -19 14 z" fill="' + H +
-         '" stroke="' + tinta + '" stroke-width="1.1"/>');
-      el('<g stroke="' + H + '" stroke-width="6" fill="none" stroke-linecap="round">' +
-         '<path d="M 33 ' + (OLHO - 2) + ' q -4 -16 6 -22"/><path d="M 87 ' + (OLHO - 2) + ' q 4 -16 -6 -22"/></g>');
-      break;
-    case "grizzle":
-      massa("M 60 " + (T - 6) + " q -28 0 -29 23 q 0 10 3 15 q 0 -17 6 -19 q 11 7 20 7 q 9 0 20 -7 q 6 2 6 19 q 3 -5 3 -15 q -1 -23 -29 -23 z",
-        '<path d="M 36 30 q 12 -4 24 -3"/><path d="M 84 30 q -12 -4 -24 -3"/>');
-      break;
-  }
+  /* ===== cabelo, por cima da silhueta ===== */
+  var C = {
+    longo:     "M " + (FRENTE + 6) + " " + (TOPO + 2) + " C " + (FRENTE - 4) + " " + (TOPO + 20) + ", " +
+               (TRAS - 30) + " " + (TOPO - 12) + ", " + (TRAS + 4) + " " + (TOPO + 10) +
+               " C " + (TRAS + 16) + " " + (TOPO + 40) + ", " + (TRAS + 12) + " " + (QUEIXO + 16) + ", " +
+               (TRAS - 4) + " " + (QUEIXO + 28) + " L " + (TRAS - 2) + " " + (TOPO + 30) + " Z",
+    revolto:   "M " + (FRENTE + 5) + " " + (TOPO + 6) + " C " + (FRENTE + 2) + " " + (TOPO - 12) + ", " +
+               (TRAS + 4) + " " + (TOPO - 14) + ", " + (TRAS + 4) + " " + (TOPO + 16) +
+               " C " + (TRAS + 6) + " " + (TOPO + 30) + ", " + (TRAS - 6) + " " + (TOPO + 26) + ", " +
+               (TRAS - 14) + " " + (TOPO + 20) + " C " + (TRAS - 26) + " " + (TOPO + 10) + ", " +
+               (FRENTE + 12) + " " + (TOPO + 20) + ", " + (FRENTE + 5) + " " + (TOPO + 6) + " Z",
+    volumoso:  "M " + (FRENTE + 4) + " " + (TOPO + 8) + " C " + (FRENTE - 10) + " " + (TOPO - 14) + ", " +
+               (TRAS + 22) + " " + (TOPO - 14) + ", " + (TRAS + 16) + " " + (TOPO + 24) +
+               " C " + (TRAS + 22) + " " + (OLHO + 20) + ", " + (TRAS + 8) + " " + (QUEIXO - 2) + ", " +
+               (TRAS - 6) + " " + (QUEIXO + 4) + " L " + (TRAS - 4) + " " + (TOPO + 24) + " Z",
+    bagunca:   "M " + (FRENTE + 6) + " " + (TOPO + 6) + " C " + (FRENTE) + " " + (TOPO - 10) + ", " +
+               (TRAS + 6) + " " + (TOPO - 10) + ", " + (TRAS + 5) + " " + (TOPO + 20) +
+               " C " + (TRAS - 4) + " " + (TOPO + 14) + ", " + (FRENTE + 16) + " " + (TOPO + 18) + ", " +
+               (FRENTE + 6) + " " + (TOPO + 6) + " Z",
+    cortina:   "M " + (FRENTE + 4) + " " + (TOPO + 6) + " C " + (FRENTE - 2) + " " + (TOPO - 10) + ", " +
+               (TRAS + 10) + " " + (TOPO - 10) + ", " + (TRAS + 8) + " " + (TOPO + 22) +
+               " C " + (TRAS + 12) + " " + (OLHO + 18) + ", " + (TRAS + 6) + " " + (QUEIXO + 6) + ", " +
+               (TRAS - 8) + " " + (QUEIXO + 12) + " L " + (TRAS - 6) + " " + (TOPO + 22) + " Z",
+    juba:      "M " + (FRENTE + 6) + " " + (TOPO + 4) + " C " + (FRENTE - 2) + " " + (TOPO - 12) + ", " +
+               (TRAS + 14) + " " + (TOPO - 12) + ", " + (TRAS + 12) + " " + (TOPO + 22) +
+               " C " + (TRAS + 18) + " " + (OLHO + 14) + ", " + (TRAS + 8) + " " + (QUEIXO + 2) + ", " +
+               (TRAS - 6) + " " + (QUEIXO + 8) + " L " + (TRAS - 4) + " " + (TOPO + 22) + " Z",
+    coque:     "M " + (FRENTE + 6) + " " + (TOPO + 6) + " C " + (FRENTE) + " " + (TOPO - 8) + ", " +
+               (TRAS + 6) + " " + (TOPO - 8) + ", " + (TRAS + 4) + " " + (TOPO + 24) +
+               " L " + (TRAS - 4) + " " + (TOPO + 24) + " Z",
+    jubarona:  "M " + (FRENTE + 8) + " " + (TOPO + 2) + " C " + (FRENTE) + " " + (TOPO - 16) + ", " +
+               (TRAS + 14) + " " + (TOPO - 12) + ", " + (TRAS + 11) + " " + (TOPO + 24) +
+               " C " + (TRAS + 20) + " " + (OLHO + 18) + ", " + (TRAS + 8) + " " + (QUEIXO + 10) + ", " +
+               (TRAS - 8) + " " + (QUEIXO + 16) + " L " + (TRAS - 6) + " " + (TOPO + 24) + " Z",
+    solto:     "M " + (FRENTE + 4) + " " + (TOPO + 8) + " C " + (FRENTE - 4) + " " + (TOPO - 10) + ", " +
+               (TRAS + 10) + " " + (TOPO - 10) + ", " + (TRAS + 9) + " " + (TOPO + 24) +
+               " C " + (TRAS + 14) + " " + (OLHO + 26) + ", " + (TRAS + 4) + " " + (QUEIXO + 18) + ", " +
+               (TRAS - 8) + " " + (QUEIXO + 24) + " L " + (TRAS - 6) + " " + (TOPO + 24) + " Z",
+    tigela:    "M " + (FRENTE + 3) + " " + (TOPO + 12) + " C " + (FRENTE - 2) + " " + (TOPO - 8) + ", " +
+               (TRAS + 8) + " " + (TOPO - 8) + ", " + (TRAS + 6) + " " + (TOPO + 20) +
+               " L " + (TRAS + 4) + " " + (TOPO + 24) + " L " + (FRENTE + 2) + " " + (TOPO + 22) + " Z",
+    cachos:    "M " + (FRENTE + 4) + " " + (TOPO + 8) + " C " + (FRENTE - 8) + " " + (TOPO - 14) + ", " +
+               (TRAS + 16) + " " + (TOPO - 14) + ", " + (TRAS + 13) + " " + (TOPO + 22) +
+               " C " + (TRAS + 16) + " " + (OLHO + 8) + ", " + (TRAS + 4) + " " + (OLHO + 20) + ", " +
+               (TRAS - 6) + " " + (OLHO + 18) + " L " + (TRAS - 4) + " " + (TOPO + 22) + " Z",
+    curto:     "M " + (FRENTE + 5) + " " + (TOPO + 8) + " C " + (FRENTE) + " " + (TOPO - 8) + ", " +
+               (TRAS + 6) + " " + (TOPO - 8) + ", " + (TRAS + 5) + " " + (TOPO + 22) +
+               " L " + (TRAS - 4) + " " + (TOPO + 22) + " Z",
+    comprido:  "M " + (FRENTE + 4) + " " + (TOPO + 8) + " C " + (FRENTE - 2) + " " + (TOPO - 10) + ", " +
+               (TRAS + 8) + " " + (TOPO - 10) + ", " + (TRAS + 7) + " " + (TOPO + 24) +
+               " C " + (TRAS + 12) + " " + (OLHO + 30) + ", " + (TRAS + 2) + " " + (QUEIXO + 22) + ", " +
+               (TRAS - 8) + " " + (QUEIXO + 26) + " L " + (TRAS - 6) + " " + (TOPO + 24) + " Z",
+    aparado:   "M " + (FRENTE + 5) + " " + (TOPO + 10) + " C " + (FRENTE) + " " + (TOPO - 6) + ", " +
+               (TRAS + 5) + " " + (TOPO - 6) + ", " + (TRAS + 4) + " " + (TOPO + 20) +
+               " L " + (TRAS - 4) + " " + (TOPO + 20) + " Z",
+    selvagem:  "M " + (FRENTE + 4) + " " + (TOPO + 6) + " C " + (FRENTE - 14) + " " + (TOPO - 20) + ", " +
+               (TRAS + 24) + " " + (TOPO - 20) + ", " + (TRAS + 18) + " " + (TOPO + 20) +
+               " C " + (TRAS + 26) + " " + (OLHO + 12) + ", " + (TRAS + 10) + " " + (QUEIXO) + ", " +
+               (TRAS - 6) + " " + (QUEIXO + 10) + " L " + (TRAS - 4) + " " + (TOPO + 20) + " Z",
+    esvoacado: "M " + (FRENTE + 6) + " " + (TOPO + 12) + " C " + (FRENTE - 6) + " " + (TOPO - 4) + ", " +
+               (TRAS + 14) + " " + (TOPO - 6) + ", " + (TRAS + 10) + " " + (TOPO + 26) +
+               " C " + (TRAS + 6) + " " + (OLHO + 4) + ", " + (TRAS - 2) + " " + (OLHO + 2) + ", " +
+               (TRAS - 4) + " " + (TOPO + 26) + " Z",
+    ralo:      "M " + (FRENTE + 7) + " " + (TOPO + 14) + " C " + (FRENTE + 4) + " " + (TOPO + 2) + ", " +
+               (TRAS + 2) + " " + (TOPO) + ", " + (TRAS + 3) + " " + (TOPO + 22) +
+               " L " + (TRAS - 4) + " " + (TOPO + 22) + " Z",
+    colado:    "M " + (FRENTE + 5) + " " + (TOPO + 9) + " C " + (FRENTE + 1) + " " + (TOPO - 4) + ", " +
+               (TRAS + 4) + " " + (TOPO - 4) + ", " + (TRAS + 3) + " " + (TOPO + 20) +
+               " L " + (TRAS - 4) + " " + (TOPO + 20) + " Z",
+    calvo:     "M " + (TRAS + 2) + " " + (OLHO - 16) + " C " + (TRAS + 8) + " " + (OLHO - 2) + ", " +
+               (TRAS + 4) + " " + (OLHO + 8) + ", " + (TRAS - 4) + " " + (OLHO + 6) +
+               " L " + (TRAS - 2) + " " + (OLHO - 14) + " Z",
+    grisalho:  "M " + (FRENTE + 5) + " " + (TOPO + 8) + " C " + (FRENTE - 2) + " " + (TOPO - 8) + ", " +
+               (TRAS + 8) + " " + (TOPO - 8) + ", " + (TRAS + 6) + " " + (TOPO + 24) +
+               " L " + (TRAS - 4) + " " + (TOPO + 24) + " Z",
+    careca:    ""
+  }[a.cabelo];
+  if (C) el('<path d="' + C + '" fill="' + tinta + '"/>');
 
   /* ===== barba ===== */
-  if (a.beard === "huge") {
-    el('<path d="M 44 ' + (OLHO + 14) + ' q -4 44 16 56 q 20 -12 16 -56 q -5 22 -16 22 q -11 0 -16 -22 z" fill="' + H +
-       '" stroke="' + tinta + '" stroke-width="1.6"/>');
-    el('<g stroke="' + tinta + '" stroke-width=".9" opacity=".62" fill="none" stroke-linecap="round">' +
-       '<path d="M 47 ' + (OLHO + 24) + ' q 2 26 13 36"/><path d="M 52 ' + (OLHO + 26) + ' q 2 24 8 34"/>' +
-       '<path d="M 73 ' + (OLHO + 24) + ' q -2 26 -13 36"/><path d="M 68 ' + (OLHO + 26) + ' q -2 24 -8 34"/>' +
-       '<path d="M 60 ' + (OLHO + 30) + ' v 30"/>' +
-       '<path d="M 45 ' + (OLHO + 20) + ' q 15 8 30 0"/><path d="M 46 ' + (OLHO + 26) + ' q 14 7 28 0"/></g>');
-  }
-  if (a.beard === "barbicha")
-    el('<path d="M 42 ' + (yb - 2) + ' q 18 22 36 0 q -4 20 -18 22 q -14 -2 -18 -22 z" fill="' + tinta + '" opacity=".26"/>');
-  if (a.beard === "cavanhaque") {
-    el('<path d="M 51 ' + (yb + 4) + ' q 9 12 18 0 q -2 14 -9 15 q -7 -1 -9 -15 z" fill="' + H + '" stroke="' + tinta + '" stroke-width="1"/>');
-    el('<path d="M 48 ' + (yb - 3) + ' q 12 -6 24 0 q -6 5 -12 4 q -6 1 -12 -4 z" fill="' + H + '" stroke="' + tinta + '" stroke-width=".9"/>');
-  }
-  if (a.beard === "bigode")
-    el('<path d="M 45 ' + (yb - 3) + ' q 15 -8 30 0 q -7 7 -15 6 q -8 1 -15 -6 z" fill="' + H + '" stroke="' + tinta + '" stroke-width="1"/>');
+  if (a.barba === "longa")
+    el('<path d="M ' + (FRENTE + 1) + ' ' + (BOCA - 4) + ' Q ' + (FRENTE - 10) + ' ' + (BOCA + 18) + ' ' +
+       (FRENTE - 2) + ' ' + 126 + ' Q ' + (FRENTE + 18) + ' ' + 134 + ' ' + (FRENTE + 34) + ' ' + 124 +
+       ' Q ' + (TRAS + 2) + ' ' + (QUEIXO + 6) + ' ' + (TRAS - 2) + ' ' + (BOCA - 8) +
+       ' Z" fill="' + tinta + '"/>');
+  if (a.barba === "enorme")
+    el('<path d="M ' + (FRENTE + 1) + ' ' + (BOCA - 2) + ' Q ' + (FRENTE - 8) + ' ' + (BOCA + 20) + ' ' +
+       (FRENTE + 4) + ' ' + 124 + ' Q ' + (FRENTE + 26) + ' ' + 132 + ' ' + (TRAS + 6) + ' ' + 118 +
+       ' Q ' + (TRAS + 10) + ' ' + (QUEIXO - 6) + ' ' + (TRAS + 2) + ' ' + (BOCA - 6) +
+       ' Z" fill="' + tinta + '"/>');
+  if (a.barba === "cavanhaque")
+    el('<path d="M ' + (FRENTE + 4) + ' ' + (BOCA + 2) + ' Q ' + (FRENTE + 1) + ' ' + (QUEIXO + 8) + ' ' +
+       (FRENTE + 14) + ' ' + (QUEIXO + 12) + ' Q ' + (FRENTE + 22) + ' ' + (QUEIXO + 6) + ' ' +
+       (FRENTE + 18) + ' ' + (BOCA + 2) + ' Z" fill="' + tinta + '"/>');
+  if (a.barba === "rala")
+    el('<path d="M ' + (FRENTE + 3) + ' ' + (BOCA + 1) + ' Q ' + (FRENTE + 2) + ' ' + (QUEIXO + 6) + ' ' +
+       (FRENTE + 16) + ' ' + (QUEIXO + 8) + ' L ' + (TRAS - 6) + ' ' + (QUEIXO - 2) + ' L ' +
+       (TRAS - 8) + ' ' + (BOCA) + ' Z" fill="' + tinta + '" opacity=".55"/>');
+  if (a.barba === "bigode")
+    el('<path d="M ' + (FRENTE + 1) + ' ' + (BOCA - 2) + ' Q ' + (FRENTE - 4) + ' ' + (BOCA + 3) + ' ' +
+       (FRENTE + 6) + ' ' + (BOCA + 4) + ' L ' + (FRENTE + 20) + ' ' + (BOCA + 2) + ' L ' +
+       (FRENTE + 18) + ' ' + (BOCA - 3) + ' Z" fill="' + tinta + '"/>');
 
-  /* ===== oculos ===== */
-  if (a.glasses === "round")
-    el('<g fill="none" stroke="' + tinta + '" stroke-width="1.9">' +
-       '<circle cx="51" cy="' + OLHO + '" r="9.5"/><circle cx="69" cy="' + OLHO + '" r="9.5"/>' +
-       '<path d="M 60.5 ' + OLHO + ' h -1 M 41.5 ' + (OLHO - 2) + ' l -8 -3 M 78.5 ' + (OLHO - 2) + ' l 8 -3"/></g>');
-  if (a.glasses === "halfmoon")
-    el('<g fill="none" stroke="' + tinta + '" stroke-width="1.7">' +
-       '<path d="M 42 ' + OLHO + ' a 9 7.5 0 0 0 18 0"/><path d="M 60 ' + OLHO + ' a 9 7.5 0 0 0 18 0"/>' +
-       '<path d="M 42 ' + OLHO + ' h 36 M 42 ' + (OLHO - 1) + ' l -8 -2 M 78 ' + (OLHO - 1) + ' l 8 -2"/></g>');
-  if (a.glasses === "square")
-    el('<g fill="none" stroke="' + tinta + '" stroke-width="1.7">' +
-       '<rect x="42" y="' + (OLHO - 6) + '" width="17" height="12.5" rx="1"/>' +
-       '<rect x="61" y="' + (OLHO - 6) + '" width="17" height="12.5" rx="1"/>' +
-       '<path d="M 59 ' + (OLHO - 1) + ' h 2 M 42 ' + (OLHO - 3) + ' l -8 -2 M 78 ' + (OLHO - 3) + ' l 8 -2"/></g>');
-
-  /* ===== chapeu e turbante ===== */
-  if (a.hat === "wizard") {
-    el('<path d="M 60 -20 q 18 34 33 50 q -33 11 -66 0 q 15 -16 33 -50 z" fill="' + tinta + '"/>');
-    el('<g stroke="#F4ECD6" stroke-width=".7" opacity=".3" fill="none">' +
-       '<path d="M 40 22 q 20 -8 40 0"/><path d="M 34 34 q 26 -9 52 0"/></g>');
+  /* ===== o que ele usa ===== */
+  if (a.chapeu === "bruxo") {
+    el('<path d="M ' + (FRENTE + 20) + ' ' + (TOPO - 44) + ' Q ' + (FRENTE + 34) + ' ' + (TOPO - 18) + ' ' +
+       (TRAS + 12) + ' ' + (TOPO + 6) + ' L ' + (FRENTE + 2) + ' ' + (TOPO + 8) + ' Q ' +
+       (FRENTE + 10) + ' ' + (TOPO - 20) + ' ' + (FRENTE + 20) + ' ' + (TOPO - 44) + ' Z" fill="' + tinta + '"/>');
+    el('<path d="M ' + (FRENTE - 14) + ' ' + (TOPO + 10) + ' Q ' + (FRENTE + 28) + ' ' + (TOPO + 24) + ' ' +
+       (TRAS + 22) + ' ' + (TOPO + 4) + ' Q ' + (FRENTE + 28) + ' ' + (TOPO + 16) + ' ' +
+       (FRENTE - 14) + ' ' + (TOPO + 10) + ' Z" fill="' + tinta + '"/>');
   }
-  if (a.hat === "witch") {
-    el('<path d="M 60 -12 q 14 30 28 43 q -28 11 -56 0 q 14 -13 28 -43 z" fill="' + tinta + '"/>');
-    el('<path d="M 24 33 q 36 13 72 0 q -36 17 -72 0 z" fill="' + tinta + '"/>');
+  if (a.chapeu === "bruxa") {
+    el('<path d="M ' + (FRENTE + 26) + ' ' + (TOPO - 36) + ' Q ' + (FRENTE + 16) + ' ' + (TOPO - 6) + ' ' +
+       (FRENTE + 2) + ' ' + (TOPO + 6) + ' L ' + (TRAS + 12) + ' ' + (TOPO + 4) + ' Q ' +
+       (FRENTE + 32) + ' ' + (TOPO - 16) + ' ' + (FRENTE + 26) + ' ' + (TOPO - 36) + ' Z" fill="' + tinta + '"/>');
+    el('<path d="M ' + (FRENTE - 12) + ' ' + (TOPO + 8) + ' Q ' + (FRENTE + 26) + ' ' + (TOPO + 20) + ' ' +
+       (TRAS + 24) + ' ' + (TOPO + 4) + ' Q ' + (FRENTE + 26) + ' ' + (TOPO + 14) + ' ' +
+       (FRENTE - 12) + ' ' + (TOPO + 8) + ' Z" fill="' + tinta + '"/>');
   }
-  if (a.hat === "turbante") {
-    el('<path d="M 60 ' + (T - 12) + ' q -31 0 -31 25 q 0 9 4 11 q 9 -9 27 -9 q 18 0 27 9 q 4 -2 4 -11 q 0 -25 -31 -25 z" ' +
-       'fill="#8A7852" stroke="' + tinta + '" stroke-width="1.2"/>');
-    el('<g stroke="' + tinta + '" stroke-width=".9" fill="none" opacity=".6">' +
-       '<path d="M 31 ' + (T + 8) + ' q 29 -11 58 0"/><path d="M 32 ' + (T + 1) + ' q 28 -10 56 0"/>' +
-       '<path d="M 34 ' + (T - 5) + ' q 26 -8 52 0"/></g>');
+  if (a.turbante) {
+    el('<path d="M ' + (FRENTE + 2) + ' ' + (TOPO + 14) + ' C ' + (FRENTE - 6) + ' ' + (TOPO - 14) + ', ' +
+       (TRAS + 14) + ' ' + (TOPO - 14) + ', ' + (TRAS + 10) + ' ' + (TOPO + 22) +
+       ' L ' + (TRAS - 4) + ' ' + (TOPO + 22) + ' Z" fill="#6E5C34"/>');
+    el('<g stroke="' + papel + '" stroke-width=".9" opacity=".55" fill="none">' +
+       '<path d="M ' + (FRENTE - 1) + ' ' + (TOPO + 10) + ' Q ' + (FRENTE + 24) + ' ' + (TOPO - 2) + ' ' + (TRAS + 9) + ' ' + (TOPO + 12) + '"/>' +
+       '<path d="M ' + (FRENTE + 1) + ' ' + (TOPO + 3) + ' Q ' + (FRENTE + 24) + ' ' + (TOPO - 8) + ' ' + (TRAS + 8) + ' ' + (TOPO + 5) + '"/></g>');
   }
 
-  /* ===== brincos ===== */
-  if (a.ear === "rabanete")
-    el('<g stroke="' + tinta + '" stroke-width="1.1"><path d="M 33 ' + (OLHO + 6) + ' v 5" fill="none"/>' +
-       '<ellipse cx="33" cy="' + (OLHO + 16) + '" rx="4" ry="6" fill="#C8556A"/>' +
-       '<path d="M 87 ' + (OLHO + 6) + ' v 5" fill="none"/>' +
-       '<ellipse cx="87" cy="' + (OLHO + 16) + '" rx="4" ry="6" fill="#C8556A"/></g>');
-  if (a.ear === "argola")
-    el('<circle cx="34" cy="' + (OLHO + 10) + '" r="4.5" fill="none" stroke="' + tinta + '" stroke-width="1.6"/>');
-
-  /* olho magico do Moody, por cima de tudo */
+  /* oculos, o unico detalhe que atravessa a silhueta */
+  if (a.oculos === "redondo") {
+    el('<circle cx="' + (FRENTE + 9) + '" cy="' + (OLHO + 1) + '" r="7.5" fill="' + papel + '" opacity=".92"/>');
+    el('<circle cx="' + (FRENTE + 9) + '" cy="' + (OLHO + 1) + '" r="7.5" fill="none" stroke="' + tinta + '" stroke-width="2"/>');
+    el('<path d="M ' + (FRENTE + 16) + ' ' + (OLHO) + ' L ' + (TRAS - 8) + ' ' + (OLHO - 3) +
+       '" stroke="' + tinta + '" stroke-width="1.6" fill="none"/>');
+  }
+  if (a.oculos === "meialua") {
+    el('<path d="M ' + (FRENTE + 1) + ' ' + (OLHO + 1) + ' a 8 6 0 0 0 16 0 z" fill="' + papel + '" opacity=".92" stroke="' + tinta + '" stroke-width="1.7"/>');
+    el('<path d="M ' + (FRENTE + 17) + ' ' + (OLHO) + ' L ' + (TRAS - 6) + ' ' + (OLHO - 4) +
+       '" stroke="' + tinta + '" stroke-width="1.5" fill="none"/>');
+  }
+  if (a.oculos === "quadrado") {
+    el('<rect x="' + (FRENTE + 2) + '" y="' + (OLHO - 5) + '" width="15" height="11" fill="' + papel + '" opacity=".92" stroke="' + tinta + '" stroke-width="1.7"/>');
+    el('<path d="M ' + (FRENTE + 17) + ' ' + (OLHO - 2) + ' L ' + (TRAS - 6) + ' ' + (OLHO - 5) +
+       '" stroke="' + tinta + '" stroke-width="1.5" fill="none"/>');
+  }
   if (a.olho === "magico") {
-    el('<circle cx="51" cy="' + OLHO + '" r="8" fill="#D8E6E2" stroke="' + tinta + '" stroke-width="1.9"/>');
-    el('<circle cx="49" cy="' + (OLHO - 2) + '" r="3.6" fill="#2C5B6B"/>');
-    el('<circle cx="50" cy="' + (OLHO - 3) + '" r="1" fill="#FCF7EA"/>');
-    el('<path d="M 42 ' + (OLHO - 8) + ' q 9 -7 18 1" stroke="' + tinta + '" stroke-width="1.7" fill="none"/>');
+    el('<circle cx="' + (FRENTE + 8) + '" cy="' + (OLHO - 1) + '" r="6.5" fill="' + papel + '" stroke="' + tinta + '" stroke-width="2"/>');
+    el('<circle cx="' + (FRENTE + 6) + '" cy="' + (OLHO - 2) + '" r="2.8" fill="' + tinta + '"/>');
   }
+  if (a.cicatriz)
+    el('<path d="M ' + (FRENTE + 10) + ' ' + (TOPO + 18) + ' l 4 5 l -4 4 l 5 5" stroke="#B4384C" stroke-width="2" fill="none"/>');
+  if (a.brinco === "rabanete")
+    el('<ellipse cx="' + (FRENTE + 30) + '" cy="' + (QUEIXO - 6) + '" rx="4" ry="6" fill="#B4384C" stroke="' + tinta + '" stroke-width="1"/>');
+  if (a.brinco === "argola")
+    el('<circle cx="' + (FRENTE + 30) + '" cy="' + (QUEIXO - 10) + '" r="4.5" fill="none" stroke="' + papel + '" stroke-width="1.8"/>');
 
   el("</g>");
+  el("</g>");
   el('<ellipse cx="60" cy="66" rx="50" ry="58" fill="none" stroke="' + tinta + '" stroke-width="2.6"/>');
-  el('<ellipse cx="60" cy="66" rx="45" ry="53" fill="none" stroke="' + tinta + '" stroke-width=".9" opacity=".55"/>');
+  el('<ellipse cx="60" cy="66" rx="45" ry="53" fill="none" stroke="' + tinta + '" stroke-width=".9" opacity=".5"/>');
 
-  return '<svg class="cameo" viewBox="0 0 120 132" role="img" aria-label="Retrato gravado de ' +
+  return '<svg class="cameo" viewBox="0 0 120 132" role="img" aria-label="Silhueta de ' +
          nome + '">' + p.join("") + "</svg>";
 }
 
