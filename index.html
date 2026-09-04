@@ -1589,6 +1589,384 @@
   .desks { margin-top: 34px !important; }
 
   /* =====================================================================
+     O ALBUM DE QUOTES
+     Um selo holografico gira no alto do jornal. Clicou, abre o album.
+     Cada figurinha tem a frase de um lado e o retrato gravado do outro,
+     com o livro e o capitulo em que a frase aparece. Umas sao douradas,
+     outras holograficas, e so se juntam colecionando.
+     ===================================================================== */
+
+  /* ---- o selo que gira no alto ---- */
+  .seal-wrap { display: inline-flex; align-items: center; gap: 12px; vertical-align: middle; }
+  .album-seal {
+    position: relative;
+    width: 118px; height: 118px;
+    flex: none;
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    color: var(--ink);
+    filter: drop-shadow(0 6px 14px rgba(30,22,8,.28));
+  }
+  .album-seal svg { position: absolute; inset: 0; width: 100%; height: 100%; animation: selaGira 18s linear infinite; }
+  @keyframes selaGira { to { transform: rotate(360deg); } }
+  .seal-text {
+    font-family: var(--font-label);
+    font-size: 11px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    fill: currentColor;
+  }
+  .seal-core {
+    position: absolute;
+    inset: 21px;
+    border-radius: 50%;
+    display: grid;
+    place-content: center;
+    gap: 1px;
+    text-align: center;
+    overflow: hidden;
+    isolation: isolate;
+    background: #F6EAC6;
+    box-shadow: inset 0 0 0 2px var(--ink), inset 0 0 18px rgba(255,255,255,.75);
+  }
+  .seal-core::before {
+    content: "";
+    position: absolute;
+    left: -50%; top: -50%; width: 200%; height: 200%;
+    z-index: -1;
+    background: conic-gradient(#F4D07A, #C8E7D2, #BFD4F2, #E4C4F0, #F2C0C8, #F6E3A6, #F4D07A);
+    animation: holoRoda 8s linear infinite;
+  }
+  .seal-core b {
+    font-family: var(--font-head);
+    font-size: 26px;
+    line-height: 1;
+    color: #100B04;
+  }
+  .seal-core small {
+    font-family: var(--font-label);
+    font-size: 8.5px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #3A2E12;
+  }
+  .album-seal:hover { filter: drop-shadow(0 8px 18px rgba(30,22,8,.4)) brightness(1.06); }
+  .album-seal:hover svg { animation-duration: 7s; }
+  .seal-say {
+    font-family: var(--font-label);
+    font-size: 10.5px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    max-width: 16ch;
+    text-align: left;
+    line-height: 1.4;
+  }
+  @media (max-width: 620px) { .seal-say { display: none; } }
+
+  /* ---- o album aberto ---- */
+  .album {
+    position: fixed;
+    inset: 0;
+    z-index: 10050;
+    background: rgba(12, 9, 4, .72);
+    backdrop-filter: blur(3px);
+    overflow-y: auto;
+    padding: 26px 16px 60px;
+  }
+  .album[hidden] { display: none !important; }
+  .album-page {
+    max-width: 1180px;
+    margin: 0 auto;
+    background: #EFE6CB;
+    color: #100B04;
+    padding: 26px 26px 40px;
+    box-shadow: 0 30px 80px -30px rgba(0,0,0,.8);
+    position: relative;
+  }
+  .album-page::before {
+    content: "";
+    position: absolute; inset: 8px;
+    border: 1px solid rgba(74,54,12,.4);
+    pointer-events: none;
+  }
+  .album-top { text-align: center; padding: 6px 0 18px; border-bottom: 4px double rgba(110,92,52,.8); }
+  .album-top h2 {
+    font-family: var(--font-black);
+    font-size: clamp(30px, 5vw, 54px);
+    margin: 0;
+    line-height: 1;
+    color: #100B04;
+  }
+  .album-sub {
+    font-family: var(--font-label);
+    font-size: 11px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: #5A4A22;
+    margin: 8px 0 0;
+  }
+  .album-meta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+  .album-meta .conta {
+    font-family: var(--font-deck);
+    font-size: 13px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #3A2E12;
+  }
+  .album-btn {
+    font-family: var(--font-deck);
+    font-size: 12px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: #100B04;
+    background: none;
+    border: 1px solid #6E5C34;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+  .album-btn:hover { background: rgba(110,92,52,.14); }
+  .album-btn[disabled] { opacity: .4; cursor: default; }
+  .album-btn.forte { background: #100B04; color: #F3EAD2; border-color: #100B04; }
+  .album-btn.forte:hover { background: #2E2515; }
+
+  .album-book { margin-top: 30px; }
+  .album-book h3 {
+    font-family: var(--font-head);
+    text-transform: uppercase;
+    font-size: clamp(18px, 2.6vw, 27px);
+    letter-spacing: -.01em;
+    margin: 0 0 3px;
+    color: #100B04;
+  }
+  .album-book .livro-n {
+    font-family: var(--font-label);
+    font-size: 10px;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    color: #6E5C34;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .album-book .livro-conta {
+    font-family: var(--font-label);
+    font-size: 10px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: #6E5C34;
+  }
+  .album-book .livro-linha { border-top: 1px solid rgba(110,92,52,.55); margin: 8px 0 16px; }
+
+  .figs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(178px, 1fr));
+    gap: 16px;
+  }
+
+  /* ---- a figurinha ---- */
+  .fig {
+    all: unset;
+    display: block;
+    cursor: pointer;
+    perspective: 900px;
+    aspect-ratio: 3 / 4;
+  }
+  .fig-in {
+    position: relative;
+    display: block;
+    width: 100%; height: 100%;
+    transition: transform .62s cubic-bezier(.2,.8,.25,1);
+    transform-style: preserve-3d;
+  }
+  .fig.flip .fig-in { transform: rotateY(180deg); }
+  .fig-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 13px 13px 11px;
+    border: 1px solid #6E5C34;
+    background: #F7F0DC;
+    overflow: hidden;
+  }
+  .fig-back { transform: rotateY(180deg); }
+
+  .fig-q {
+    font-family: var(--font-read);
+    font-size: 14px;
+    line-height: 1.32;
+    color: #100B04;
+    margin: 0;
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+  }
+  .fig-q span { display: block; }
+  .fig-who {
+    font-family: var(--font-deck);
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #3A2E12;
+    text-align: center;
+    padding-top: 8px;
+    border-top: 1px solid rgba(110,92,52,.45);
+  }
+  .fig-num {
+    font-family: var(--font-label);
+    font-size: 9px;
+    letter-spacing: .18em;
+    color: #6E5C34;
+    text-align: center;
+    margin-bottom: 6px;
+  }
+
+  .fig-back .cameo { width: 100%; flex: 1 1 auto; min-height: 0; }
+  .fig-back .fig-who { border-top: none; padding-top: 4px; }
+  .fig-onde {
+    font-family: var(--font-label);
+    font-size: 9.5px;
+    line-height: 1.42;
+    letter-spacing: .04em;
+    color: #4A3D22;
+    text-align: center;
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px solid rgba(110,92,52,.45);
+  }
+  .fig-onde b { font-weight: 700; color: #100B04; }
+
+  /* ---- as raridades ---- */
+  .fig.gold .fig-face {
+    border-width: 2px;
+    border-color: #A47C1E;
+    background:
+      linear-gradient(148deg, #FBF0CC 0%, #F5DFA0 34%, #FFF8E2 52%, #EFCE84 72%, #FAEFC8 100%);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.75);
+  }
+  .fig.holo .fig-face {
+    border-width: 2px;
+    border-color: #4A3D6E;
+    background: #FFFDF6;
+  }
+  .fig.holo .fig-face::before {
+    content: "";
+    position: absolute;
+    left: -60%; top: -60%; width: 220%; height: 220%;
+    pointer-events: none;
+    background:
+      conic-gradient(rgba(255,110,160,.85), rgba(255,206,110,.85), rgba(140,240,190,.85),
+        rgba(130,185,255,.85), rgba(205,145,255,.85), rgba(255,110,160,.85));
+    opacity: .44;
+    animation: holoRoda 9s linear infinite;
+  }
+  @keyframes holoRoda { to { transform: rotate(360deg); } }
+  .fig.holo .fig-face::after {
+    content: "";
+    position: absolute; inset: 0;
+    pointer-events: none;
+    background: linear-gradient(115deg, transparent 34%, rgba(255,255,255,.72) 50%, transparent 64%);
+    background-size: 260% 100%;
+    animation: holoBrilho 4.6s ease-in-out infinite;
+  }
+  @keyframes holoBrilho {
+    0%, 100% { background-position: 140% 0; }
+    50% { background-position: -40% 0; }
+  }
+  .fig.holo .fig-q, .fig.holo .fig-who, .fig.holo .fig-onde, .fig.holo .fig-num { position: relative; z-index: 2; }
+  .fig.holo .fig-back .cameo { position: relative; z-index: 2; }
+
+  .fig-selo {
+    position: absolute;
+    top: 7px; right: 7px;
+    z-index: 3;
+    font-family: var(--font-label);
+    font-size: 8px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: #5A4A22;
+  }
+  .fig.holo .fig-selo { color: #37305A; }
+
+  /* ---- o vazio, a figurinha que falta ---- */
+  .fig.falta { cursor: default; }
+  .fig.falta .fig-face {
+    background: repeating-linear-gradient(45deg, #E6DCC0 0 6px, #E1D6B6 6px 12px);
+    border-style: dashed;
+    border-color: rgba(110,92,52,.6);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 8px;
+  }
+  .fig.falta .vulto { width: 52%; opacity: .3; }
+  .fig.falta .falta-txt {
+    font-family: var(--font-label);
+    font-size: 9px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #6E5C34;
+    line-height: 1.5;
+  }
+
+  /* ---- a figurinha nova entra girando ---- */
+  @keyframes figNova {
+    0%   { transform: rotateY(180deg) scale(.7); opacity: 0; }
+    60%  { transform: rotateY(0deg) scale(1.06); opacity: 1; }
+    100% { transform: rotateY(0deg) scale(1); opacity: 1; }
+  }
+  .fig.nova .fig-in { animation: figNova .9s cubic-bezier(.2,.8,.25,1) both; }
+
+  /* ---- o aviso de figurinha ganha ---- */
+  .ganhou {
+    position: fixed;
+    left: 50%;
+    bottom: 26px;
+    transform: translateX(-50%) translateY(14px);
+    z-index: 10060;
+    background: #100B04;
+    color: #F6E3A6;
+    font-family: var(--font-deck);
+    font-size: 12px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    padding: 11px 20px;
+    border: 1px solid #A47C1E;
+    opacity: 0;
+    transition: opacity .4s ease, transform .4s ease;
+    pointer-events: none;
+    text-align: center;
+    max-width: min(88vw, 460px);
+  }
+  .ganhou.on { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .ganhou b { color: #FFF3CE; }
+
+  @media (max-width: 620px) {
+    .album { padding: 12px 8px 40px; }
+    .album-page { padding: 18px 14px 28px; }
+    .figs { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
+    .fig-q { font-size: 12.5px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .album-seal svg, .seal-core::before, .fig.holo .fig-face::before, .fig.holo .fig-face::after { animation: none !important; }
+    .fig-in { transition: none !important; }
+  }
+
+  /* =====================================================================
      IMPRESSO
      O papel e o padrao. Sem foto atras do cabecalho, sem canto redondo,
      sem pilula. Tudo quadrado, com fio e tinta, como sai da grafica.
@@ -1713,6 +2091,21 @@
       <span>Updated <b id="stamp-date">2 September 2026</b></span>
       <span id="stamp-count">22 stories</span>
       <button class="lumos" id="themeBtn" type="button"><span class="spark"></span><span id="themeLabel">Lumos</span></button>
+    </div>
+
+    <div class="seal-wrap">
+      <button class="album-seal" id="albumSeal" type="button" aria-label="Abrir o Album de Quotes">
+        <svg viewBox="0 0 140 140" aria-hidden="true">
+          <defs>
+            <path id="sealRing" d="M70,70 m-53,0 a53,53 0 1,1 106,0 a53,53 0 1,1 -106,0"/>
+          </defs>
+          <text class="seal-text">
+            <textPath href="#sealRing" startOffset="0">ADQUIRA SEU ALBUM DE QUOTES &#183; &#183; &#183;</textPath>
+          </text>
+        </svg>
+        <span class="seal-core"><b id="sealCount">0</b><small id="sealTotal">de 44</small></span>
+      </button>
+      <span class="seal-say">Figurinhas das frases dos livros. Douradas e holograficas.</span>
     </div>
 
   </div>
@@ -1887,6 +2280,451 @@
   </footer>
 </div>
 
+<script type="application/json" id="album-data">
+[
+ {
+  "quote": "Harry — yer a wizard.",
+  "who": "Rubeus Hagrid",
+  "book": 1,
+  "bookTitle": "Philosopher's Stone",
+  "chapter": 4,
+  "chapterTitle": "The Keeper of the Keys",
+  "moment": "Hagrid conta a verdade na cabana",
+  "tier": "iconic"
+ },
+ {
+  "quote": "Ah, yes. Harry Potter. Our new — celebrity.",
+  "who": "Severus Snape",
+  "book": 1,
+  "bookTitle": "Philosopher's Stone",
+  "chapter": 8,
+  "chapterTitle": "The Potions Master",
+  "moment": "a chamada da primeira aula de Poções",
+  "tier": "iconic"
+ },
+ {
+  "quote": "We could all have been killed — or worse, expelled.",
+  "who": "Hermione Granger",
+  "book": 1,
+  "bookTitle": "Philosopher's Stone",
+  "chapter": 9,
+  "chapterTitle": "The Midnight Duel",
+  "moment": "depois da fuga da meia-noite",
+  "tier": "iconic"
+ },
+ {
+  "quote": "It's Wing-gar-dium Levi-o-sa, make the 'gar' nice and long.",
+  "who": "Hermione Granger",
+  "book": 1,
+  "bookTitle": "Philosopher's Stone",
+  "chapter": 10,
+  "chapterTitle": "Hallowe'en",
+  "moment": "corrigindo Rony na aula de Feitiços",
+  "tier": "iconic"
+ },
+ {
+  "quote": "It does not do to dwell on dreams and forget to live, remember that.",
+  "who": "Albus Dumbledore",
+  "book": 1,
+  "bookTitle": "Philosopher's Stone",
+  "chapter": 12,
+  "chapterTitle": "The Mirror of Erised",
+  "moment": "tirando Harry do Espelho de Ojesed",
+  "tier": "iconic"
+ },
+ {
+  "quote": "I'm worth twelve of you, Malfoy.",
+  "who": "Neville Longbottom",
+  "book": 1,
+  "bookTitle": "Philosopher's Stone",
+  "chapter": 13,
+  "chapterTitle": "Nicolas Flamel",
+  "moment": "Neville responde no jogo de Quadribol",
+  "tier": "well known"
+ },
+ {
+  "quote": "Books! And cleverness! There are more important things — friendship and bravery.",
+  "who": "Hermione Granger",
+  "book": 1,
+  "bookTitle": "Philosopher's Stone",
+  "chapter": 16,
+  "chapterTitle": "Through the Trapdoor",
+  "moment": "antes de Harry seguir sozinho",
+  "tier": "iconic"
+ },
+ {
+  "quote": "There is no good and evil, there is only power, and those too weak to seek it.",
+  "who": "Quirinus Quirrell",
+  "book": 1,
+  "bookTitle": "Philosopher's Stone",
+  "chapter": 17,
+  "chapterTitle": "The Man with Two Faces",
+  "moment": "repetindo o credo de Voldemort",
+  "tier": "well known"
+ },
+ {
+  "quote": "It takes a great deal of bravery to stand up to our enemies, but just as much to stand up to our friends.",
+  "who": "Albus Dumbledore",
+  "book": 1,
+  "bookTitle": "Philosopher's Stone",
+  "chapter": 17,
+  "chapterTitle": "The Man with Two Faces",
+  "moment": "os últimos pontos para Neville, no banquete",
+  "tier": "iconic"
+ },
+ {
+  "quote": "Of all the trees we could've hit, we had to get one that hits back.",
+  "who": "Ron Weasley",
+  "book": 2,
+  "bookTitle": "Chamber of Secrets",
+  "chapter": 5,
+  "chapterTitle": "The Whomping Willow",
+  "moment": "depois de bater o Ford Anglia no salgueiro",
+  "tier": "well known"
+ },
+ {
+  "quote": "Dobby is used to death threats, sir. Dobby gets them five times a day at home.",
+  "who": "Dobby",
+  "book": 2,
+  "bookTitle": "Chamber of Secrets",
+  "chapter": 10,
+  "chapterTitle": "The Rogue Bludger",
+  "moment": "na ala hospitalar, visitando Harry",
+  "tier": "well known"
+ },
+ {
+  "quote": "When in doubt, go to the library.",
+  "who": "Ron Weasley",
+  "book": 2,
+  "bookTitle": "Chamber of Secrets",
+  "chapter": 14,
+  "chapterTitle": "Cornelius Fudge",
+  "moment": "Rony resumindo o método de Hermione",
+  "tier": "well known"
+ },
+ {
+  "quote": "It is our choices, Harry, that show what we truly are, far more than our abilities.",
+  "who": "Albus Dumbledore",
+  "book": 2,
+  "bookTitle": "Chamber of Secrets",
+  "chapter": 18,
+  "chapterTitle": "Dobby's Reward",
+  "moment": "respondendo o medo de Harry da Sonserina",
+  "tier": "iconic"
+ },
+ {
+  "quote": "Never trust anything that can think for itself if you can't see where it keeps its brain.",
+  "who": "Arthur Weasley",
+  "book": 2,
+  "bookTitle": "Chamber of Secrets",
+  "chapter": 18,
+  "chapterTitle": "Dobby's Reward",
+  "moment": "Arthur repreendendo Gina pelo diário",
+  "tier": "well known"
+ },
+ {
+  "quote": "Don't let the Muggles get you down!",
+  "who": "Ron Weasley",
+  "book": 3,
+  "bookTitle": "Prisoner of Azkaban",
+  "chapter": 1,
+  "chapterTitle": "Owl Post",
+  "moment": "o bilhete de aniversário para Harry",
+  "tier": "well known"
+ },
+ {
+  "quote": "I don't go looking for trouble. Trouble usually finds me.",
+  "who": "Harry Potter",
+  "book": 3,
+  "bookTitle": "Prisoner of Azkaban",
+  "chapter": 5,
+  "chapterTitle": "The Dementor",
+  "moment": "ao sr. Weasley, que o avisa sobre Sirius",
+  "tier": "iconic"
+ },
+ {
+  "quote": "That suggests that what you fear most of all is fear. Very wise, Harry.",
+  "who": "Remus Lupin",
+  "book": 3,
+  "bookTitle": "Prisoner of Azkaban",
+  "chapter": 8,
+  "chapterTitle": "Flight of the Fat Lady",
+  "moment": "depois de Harry dizer que teme os dementadores",
+  "tier": "well known"
+ },
+ {
+  "quote": "Then you should have died! Died rather than betray your friends, as we would have done for you!",
+  "who": "Sirius Black",
+  "book": 3,
+  "bookTitle": "Prisoner of Azkaban",
+  "chapter": 19,
+  "chapterTitle": "The Servant of Lord Voldemort",
+  "moment": "contra Pettigrew, na Casa dos Gritos",
+  "tier": "iconic"
+ },
+ {
+  "quote": "You think the dead we have loved ever truly leave us?",
+  "who": "Albus Dumbledore",
+  "book": 3,
+  "bookTitle": "Prisoner of Azkaban",
+  "chapter": 22,
+  "chapterTitle": "Owl Post Again",
+  "moment": "depois de Harry ver o pai conjurar o Patrono",
+  "tier": "iconic"
+ },
+ {
+  "quote": "CONSTANT VIGILANCE!",
+  "who": "Alastor Moody",
+  "book": 4,
+  "bookTitle": "Goblet of Fire",
+  "chapter": 14,
+  "chapterTitle": "The Unforgivable Curses",
+  "moment": "a primeira aula de Defesa do ano",
+  "tier": "iconic",
+  "note": "quem grita é Barty Crouch Jr disfarçado de Moody"
+ },
+ {
+  "quote": "If you want to know what a man's like, take a good look at how he treats his inferiors, not his equals.",
+  "who": "Sirius Black",
+  "book": 4,
+  "bookTitle": "Goblet of Fire",
+  "chapter": 27,
+  "chapterTitle": "Padfoot Returns",
+  "moment": "sobre Barty Crouch, na caverna de Hogsmeade",
+  "tier": "iconic"
+ },
+ {
+  "quote": "Kill the spare.",
+  "who": "Lord Voldemort",
+  "book": 4,
+  "bookTitle": "Goblet of Fire",
+  "chapter": 32,
+  "chapterTitle": "Flesh, Blood and Bone",
+  "moment": "a ordem no cemitério",
+  "tier": "iconic"
+ },
+ {
+  "quote": "What's comin' will come, an' we'll meet it when it does.",
+  "who": "Rubeus Hagrid",
+  "book": 4,
+  "bookTitle": "Goblet of Fire",
+  "chapter": 37,
+  "chapterTitle": "The Beginning",
+  "moment": "consolando o trio depois de Cedrico",
+  "tier": "well known"
+ },
+ {
+  "quote": "We are only as strong as we are united, as weak as we are divided.",
+  "who": "Albus Dumbledore",
+  "book": 4,
+  "bookTitle": "Goblet of Fire",
+  "chapter": 37,
+  "chapterTitle": "The Beginning",
+  "moment": "o discurso do banquete de despedida",
+  "tier": "iconic"
+ },
+ {
+  "quote": "Don't worry. You're just as sane as I am.",
+  "who": "Luna Lovegood",
+  "book": 5,
+  "bookTitle": "Order of the Phoenix",
+  "chapter": 10,
+  "chapterTitle": "Luna Lovegood",
+  "moment": "o primeiro encontro com Harry no trem",
+  "tier": "iconic"
+ },
+ {
+  "quote": "Have a biscuit, Potter.",
+  "who": "Minerva McGonagall",
+  "book": 5,
+  "bookTitle": "Order of the Phoenix",
+  "chapter": 12,
+  "chapterTitle": "Professor Umbridge",
+  "moment": "no meio do sermão sobre Umbridge",
+  "tier": "iconic"
+ },
+ {
+  "quote": "Yes, but the world isn't split into good people and Death Eaters.",
+  "who": "Sirius Black",
+  "book": 5,
+  "bookTitle": "Order of the Phoenix",
+  "chapter": 14,
+  "chapterTitle": "Percy and Padfoot",
+  "moment": "sobre Snape e Crouch, no Largo Grimmauld",
+  "tier": "iconic"
+ },
+ {
+  "quote": "Just because you've got the emotional range of a teaspoon doesn't mean we all have.",
+  "who": "Hermione Granger",
+  "book": 5,
+  "bookTitle": "Order of the Phoenix",
+  "chapter": 21,
+  "chapterTitle": "The Eye of the Snake",
+  "moment": "Hermione com Rony, sobre Cho",
+  "tier": "iconic"
+ },
+ {
+  "quote": "You sort of start thinking anything's possible if you've got enough nerve.",
+  "who": "Ginny Weasley",
+  "book": 5,
+  "bookTitle": "Order of the Phoenix",
+  "chapter": 29,
+  "chapterTitle": "Careers Advice",
+  "moment": "sobre crescer perto de Fred e Jorge",
+  "tier": "well known"
+ },
+ {
+  "quote": "Who blackened your eye, Granger? I want to send them flowers.",
+  "who": "Draco Malfoy",
+  "book": 6,
+  "bookTitle": "Half-Blood Prince",
+  "chapter": 6,
+  "chapterTitle": "Draco's Detour",
+  "moment": "provocando Hermione na Madame Malkin",
+  "tier": "well known"
+ },
+ {
+  "quote": "I enjoyed the meetings too. It was like having friends.",
+  "who": "Luna Lovegood",
+  "book": 6,
+  "bookTitle": "Half-Blood Prince",
+  "chapter": 7,
+  "chapterTitle": "The Slug Club",
+  "moment": "sobre a Armada de Dumbledore, no trem",
+  "tier": "well known"
+ },
+ {
+  "quote": "There's no need to call me 'sir', Professor.",
+  "who": "Harry Potter",
+  "book": 6,
+  "bookTitle": "Half-Blood Prince",
+  "chapter": 9,
+  "chapterTitle": "The Half-Blood Prince",
+  "moment": "Harry responde a Snape na aula de Defesa",
+  "tier": "iconic"
+ },
+ {
+  "quote": "Seven! Isn't it bad enough to think of killing one person?",
+  "who": "Horace Slughorn",
+  "book": 6,
+  "bookTitle": "Half-Blood Prince",
+  "chapter": 23,
+  "chapterTitle": "Horcruxes",
+  "moment": "recuando diante de Riddle, na memória verdadeira",
+  "tier": "well known"
+ },
+ {
+  "quote": "You dare use my own spells against me, Potter? It was I who invented them — I, the Half-Blood Prince!",
+  "who": "Severus Snape",
+  "book": 6,
+  "bookTitle": "Half-Blood Prince",
+  "chapter": 28,
+  "chapterTitle": "Flight of the Prince",
+  "moment": "Snape se revela ao fugir de Hogwarts",
+  "tier": "iconic"
+ },
+ {
+  "quote": "It's time you earned it.",
+  "who": "Harry Potter",
+  "book": 7,
+  "bookTitle": "Deathly Hallows",
+  "chapter": 7,
+  "chapterTitle": "The Will of Albus Dumbledore",
+  "moment": "a Scrimgeour, que exigiu respeito",
+  "tier": "well known"
+ },
+ {
+  "quote": "Dobby has no master! Dobby is a free elf, and Dobby has come to save Harry Potter and his friends!",
+  "who": "Dobby",
+  "book": 7,
+  "bookTitle": "Deathly Hallows",
+  "chapter": 23,
+  "chapterTitle": "Malfoy Manor",
+  "moment": "Dobby aparece no porão da Mansão Malfoy",
+  "tier": "iconic"
+ },
+ {
+  "quote": "Blood traitor is next to Mudblood in my book.",
+  "who": "Bellatrix Lestrange",
+  "book": 7,
+  "bookTitle": "Deathly Hallows",
+  "chapter": 23,
+  "chapterTitle": "Malfoy Manor",
+  "moment": "ameaçando Harry enquanto tortura Hermione",
+  "tier": "known"
+ },
+ {
+  "quote": "The wand chooses the wizard. That much has always been clear to those of us who have studied wandlore.",
+  "who": "Garrick Ollivander",
+  "book": 7,
+  "bookTitle": "Deathly Hallows",
+  "chapter": 24,
+  "chapterTitle": "The Wandmaker",
+  "moment": "no Chalé das Conchas, sobre varinhas",
+  "tier": "iconic"
+ },
+ {
+  "quote": "We teachers are rather good at magic, you know.",
+  "who": "Minerva McGonagall",
+  "book": 7,
+  "bookTitle": "Deathly Hallows",
+  "chapter": 30,
+  "chapterTitle": "The Sacking of Severus Snape",
+  "moment": "acalmando os alunos antes da batalha",
+  "tier": "well known"
+ },
+ {
+  "quote": "You're joking, Perce!",
+  "who": "Fred Weasley",
+  "book": 7,
+  "bookTitle": "Deathly Hallows",
+  "chapter": 31,
+  "chapterTitle": "The Battle of Hogwarts",
+  "moment": "as últimas palavras de Fred",
+  "tier": "iconic"
+ },
+ {
+  "quote": "Always.",
+  "who": "Severus Snape",
+  "book": 7,
+  "bookTitle": "Deathly Hallows",
+  "chapter": 33,
+  "chapterTitle": "The Prince's Tale",
+  "moment": "a resposta sobre ainda amar Lílian",
+  "tier": "iconic"
+ },
+ {
+  "quote": "Of course it is happening inside your head, Harry, but why on earth should that mean that it is not real?",
+  "who": "Albus Dumbledore",
+  "book": 7,
+  "bookTitle": "Deathly Hallows",
+  "chapter": 35,
+  "chapterTitle": "King's Cross",
+  "moment": "na visão da estação de King's Cross",
+  "tier": "iconic"
+ },
+ {
+  "quote": "I'll join you when hell freezes over.",
+  "who": "Neville Longbottom",
+  "book": 7,
+  "bookTitle": "Deathly Hallows",
+  "chapter": 36,
+  "chapterTitle": "The Flaw in the Plan",
+  "moment": "Neville recusa Voldemort na última hora",
+  "tier": "iconic"
+ },
+ {
+  "quote": "Not my daughter, you bitch!",
+  "who": "Molly Weasley",
+  "book": 7,
+  "bookTitle": "Deathly Hallows",
+  "chapter": 36,
+  "chapterTitle": "The Flaw in the Plan",
+  "moment": "Molly enfrenta Belatriz no Salão Principal",
+  "tier": "iconic"
+ }
+]
+</script>
 <script type="application/json" id="news-data">
 {
   "updated": "2026-09-04",
@@ -2863,6 +3701,503 @@
   })();
 
 
+/* =====================================================================
+   OS RETRATOS
+   Cada personagem ganha um camafeu gravado, desenhado aqui em SVG.
+   Nada de arte de filme, nada de foto. E buril, como o Profeta usaria.
+   O que faz um personagem ser reconhecido no tamanho de uma figurinha
+   e a silhueta, entao cada um tem cabelo, barba, oculos ou chapeu
+   proprios, e o resto e o mesmo desenho de base.
+   ===================================================================== */
+var FACES_ART = {
+  "Albus Dumbledore":   { hair: "flow", hairC: "#C9C4B4", beard: "huge",   glasses: "halfmoon", hat: "wizard", collar: "robe", brow: "soft" },
+  "Harry Potter":       { hair: "messy", hairC: "#221A12", beard: "none",  glasses: "round",    hat: "none",   collar: "shirt", scar: true },
+  "Hermione Granger":   { hair: "bushy", hairC: "#4A3319", beard: "none",  glasses: "none",     hat: "none",   collar: "shirt" },
+  "Ron Weasley":        { hair: "scruff", hairC: "#A6420F", beard: "none", glasses: "none",     hat: "none",   collar: "shirt", freckles: true },
+  "Severus Snape":      { hair: "curtain", hairC: "#12100E", beard: "none", glasses: "none",    hat: "none",   collar: "high", brow: "heavy", nose: "long" },
+  "Sirius Black":       { hair: "mane", hairC: "#1A1614", beard: "stubble", glasses: "none",    hat: "none",   collar: "robe", brow: "heavy" },
+  "Minerva McGonagall": { hair: "bun", hairC: "#3A342C", beard: "none",    glasses: "square",   hat: "witch",  collar: "high", brow: "arch" },
+  "Rubeus Hagrid":      { hair: "mop", hairC: "#241A12", beard: "huge",    glasses: "none",     hat: "none",   collar: "coat", big: true },
+  "Luna Lovegood":      { hair: "wispy", hairC: "#DCCF9A", beard: "none",  glasses: "specs",    hat: "none",   collar: "shirt", ear: "radish" },
+  "Neville Longbottom": { hair: "round", hairC: "#6B4A22", beard: "none",  glasses: "none",     hat: "none",   collar: "shirt" },
+  "Molly Weasley":      { hair: "curls", hairC: "#B4520F", beard: "none",  glasses: "none",     hat: "none",   collar: "robe" },
+  "Fred Weasley":       { hair: "crop", hairC: "#B04A0E", beard: "none",   glasses: "none",     hat: "none",   collar: "shirt", freckles: true, ear: "hoop" },
+  "Ginny Weasley":      { hair: "long", hairC: "#B04A0E", beard: "none",   glasses: "none",     hat: "none",   collar: "shirt", freckles: true },
+  "Remus Lupin":        { hair: "short", hairC: "#8C8378", beard: "stubble", glasses: "none",   hat: "none",   collar: "coat", scars: true },
+  "Lord Voldemort":     { hair: "none", hairC: "#000000", beard: "none",   glasses: "none",     hat: "none",   collar: "robe", snake: true },
+  "Bellatrix Lestrange":{ hair: "wild", hairC: "#14100E", beard: "none",   glasses: "none",     hat: "none",   collar: "robe", brow: "heavy" },
+  "Garrick Ollivander": { hair: "wisp", hairC: "#DAD5C6", beard: "none",   glasses: "none",     hat: "none",   collar: "high", brow: "soft" },
+  "Dobby":              { hair: "none", hairC: "#000000", beard: "none",   glasses: "none",     hat: "none",   collar: "rag", elf: true },
+  "Arthur Weasley":     { hair: "thin", hairC: "#A6522A", beard: "none",   glasses: "round",    hat: "none",   collar: "shirt" },
+  "Draco Malfoy":       { hair: "slick", hairC: "#E4DCC0", beard: "none",  glasses: "none",     hat: "none",   collar: "high", brow: "arch" },
+  "Horace Slughorn":    { hair: "combover", hairC: "#CFC7B6", beard: "tache", glasses: "none",  hat: "none",   collar: "high", big: true },
+  "Alastor Moody":      { hair: "grizzle", hairC: "#5A5248", beard: "stubble", glasses: "none", hat: "none",   collar: "coat", eye: "magic", scars: true },
+  "Quirinus Quirrell":  { hair: "none", hairC: "#000000", beard: "none",   glasses: "none",     hat: "turban", collar: "robe" }
+};
+
+/* o camafeu. Devolve uma string de SVG pronta para o verso da figurinha */
+var RETRATO_N = 0;
+function retrato(nome) {
+  var a = FACES_ART[nome] || { hair: "short", hairC: "#3A342C", collar: "robe" };
+  var pele = a.snake ? "#E9E4D6" : a.elf ? "#DED3B4" : "#E8DCC2";
+  var tinta = "#1A1206";
+  var uid = "r" + (++RETRATO_N);       /* id proprio, senao um camafeu recorta o outro */
+  var p = [];
+
+  function el(s) { p.push(s); }
+
+  /* o fundo gravado, hachura fina dentro do oval */
+  el('<defs>' +
+       '<clipPath id="cam' + uid + '"><ellipse cx="60" cy="66" rx="50" ry="58"/></clipPath>' +
+       '<pattern id="hatch' + uid + '" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(38)">' +
+         '<line x1="0" y1="0" x2="0" y2="4" stroke="' + tinta + '" stroke-width="0.7" opacity="0.28"/>' +
+       '</pattern>' +
+     '</defs>');
+  el('<g clip-path="url(#cam' + uid + ')">');
+  el('<ellipse cx="60" cy="66" rx="50" ry="58" fill="#F3EAD2"/>');
+  el('<ellipse cx="60" cy="66" rx="50" ry="58" fill="url(#hatch' + uid + ')"/>');
+  el('<ellipse cx="60" cy="52" rx="34" ry="34" fill="#F7F0DC"/>');
+
+  /* ombros */
+  var ombro = a.big ? 'M 8 132 Q 60 92 112 132 L 112 132 L 8 132 Z'
+                    : 'M 16 132 Q 60 98 104 132 L 104 132 L 16 132 Z';
+  el('<path d="' + ombro + '" fill="' + tinta + '" opacity="0.9"/>');
+  if (a.collar === "high")  el('<path d="M 44 132 Q 60 108 76 132 Z" fill="#F3EAD2" opacity="0.16"/>');
+  if (a.collar === "robe")  el('<path d="M 42 132 L 60 106 L 78 132 Z" fill="#F3EAD2" opacity="0.14"/>');
+  if (a.collar === "shirt") el('<path d="M 48 118 L 60 130 L 72 118 L 72 132 L 48 132 Z" fill="#F7F0DC"/>');
+  if (a.collar === "coat")  el('<path d="M 38 132 L 52 104 L 60 118 L 68 104 L 82 132 Z" fill="#F3EAD2" opacity="0.12"/>');
+  if (a.collar === "rag")   el('<path d="M 42 132 L 52 110 L 60 120 L 70 108 L 80 132 Z" fill="#EDE2C4" opacity="0.5"/>');
+
+  /* pescoco e cabeca */
+  var ry = a.elf ? 30 : 32, rx = a.big ? 27 : 24;
+  el('<path d="M 52 100 h 16 v 16 h -16 z" fill="' + pele + '"/>');
+  if (a.elf) {
+    /* orelhas de elfo, o que faz Dobby ser Dobby */
+    el('<path d="M 36 52 Q 8 34 14 62 Q 20 78 38 72 Z" fill="' + pele + '" stroke="' + tinta + '" stroke-width="1.4"/>');
+    el('<path d="M 84 52 Q 112 34 106 62 Q 100 78 82 72 Z" fill="' + pele + '" stroke="' + tinta + '" stroke-width="1.4"/>');
+  }
+  el('<ellipse cx="60" cy="64" rx="' + rx + '" ry="' + ry + '" fill="' + pele + '" stroke="' + tinta + '" stroke-width="1.5"/>');
+
+  /* sobrancelhas */
+  var bw = a.brow === "heavy" ? 2.6 : a.brow === "arch" ? 1.5 : 1.9;
+  var by = a.brow === "arch" ? 55 : 57;
+  if (!a.elf) {
+    el('<path d="M 47 ' + by + ' q 6 -3 12 -1" stroke="' + tinta + '" stroke-width="' + bw + '" fill="none" stroke-linecap="round"/>');
+    el('<path d="M 61 ' + (by - 1) + ' q 6 -2 12 1" stroke="' + tinta + '" stroke-width="' + bw + '" fill="none" stroke-linecap="round"/>');
+  }
+
+  /* olhos */
+  if (a.elf) {
+    el('<ellipse cx="50" cy="64" rx="9" ry="11" fill="#FBF6E6" stroke="' + tinta + '" stroke-width="1.3"/>');
+    el('<ellipse cx="70" cy="64" rx="9" ry="11" fill="#FBF6E6" stroke="' + tinta + '" stroke-width="1.3"/>');
+    el('<circle cx="50" cy="65" r="4.6" fill="' + tinta + '"/><circle cx="70" cy="65" r="4.6" fill="' + tinta + '"/>');
+  } else if (a.snake) {
+    el('<path d="M 45 64 l 10 -3 l -10 -3" stroke="' + tinta + '" stroke-width="2" fill="none"/>');
+    el('<path d="M 75 64 l -10 -3 l 10 -3" stroke="' + tinta + '" stroke-width="2" fill="none"/>');
+    el('<circle cx="52" cy="63" r="2.4" fill="' + tinta + '"/><circle cx="68" cy="63" r="2.4" fill="' + tinta + '"/>');
+  } else {
+    el('<circle cx="52" cy="64" r="2.6" fill="' + tinta + '"/><circle cx="68" cy="64" r="2.6" fill="' + tinta + '"/>');
+  }
+  if (a.snake) {
+    el('<g fill="' + tinta + '" opacity=".2"><ellipse cx="52" cy="63" rx="9" ry="7"/><ellipse cx="68" cy="63" rx="9" ry="7"/></g>');
+  }
+  if (a.eye === "magic") {
+    el('<circle cx="52" cy="64" r="7.5" fill="#DCE8E4" stroke="' + tinta + '" stroke-width="1.8"/>');
+    el('<circle cx="50" cy="62" r="3.4" fill="#2C5B6B"/>');
+    el('<path d="M 44 58 q 8 -8 16 0" stroke="' + tinta + '" stroke-width="1.6" fill="none"/>');
+  }
+
+  /* nariz e boca */
+  if (a.snake) el('<path d="M 56 72 l 4 0 M 58 70 l 0 3" stroke="' + tinta + '" stroke-width="1.6"/>');
+  else if (a.nose === "long") el('<path d="M 60 60 q 5 12 -2 18" stroke="' + tinta + '" stroke-width="1.6" fill="none"/>');
+  else el('<path d="M 60 63 q 3 10 -2 13" stroke="' + tinta + '" stroke-width="1.4" fill="none"/>');
+  var by2 = a.elf ? 86 : 84;
+  el('<path d="M 54 ' + by2 + ' q 6 ' + (a.snake ? "0.5" : "1.6") + ' 12 0" stroke="' + tinta + '" stroke-width="1.7" fill="none" stroke-linecap="round"/>');
+  /* o buril. Hachura de um lado do rosto e por baixo do queixo */
+  el('<g stroke="' + tinta + '" stroke-width="0.85" opacity=".42" fill="none">' +
+     '<path d="M 76 54 q 7 14 1 26"/><path d="M 79 58 q 6 12 1 22"/><path d="M 73 50 q 8 15 2 30"/>' +
+     '<path d="M 50 90 q 10 6 20 0"/><path d="M 52 94 q 8 5 16 0"/></g>');
+
+  if (a.freckles) {
+    el('<g fill="' + tinta + '" opacity=".55">' +
+       '<circle cx="46" cy="74" r="1"/><circle cx="51" cy="77" r="1"/><circle cx="43" cy="79" r="1"/>' +
+       '<circle cx="74" cy="74" r="1"/><circle cx="69" cy="77" r="1"/><circle cx="77" cy="79" r="1"/></g>');
+  }
+  if (a.scar) el('<path d="M 51 44 l 4 6 l -4 5 l 5 5" stroke="#8B2739" stroke-width="1.9" fill="none" stroke-linejoin="miter"/>');
+  if (a.scars) {
+    el('<path d="M 42 50 l 12 16" stroke="' + tinta + '" stroke-width="1.2" opacity=".55"/>');
+    el('<path d="M 74 56 l -8 12" stroke="' + tinta + '" stroke-width="1.2" opacity=".45"/>');
+  }
+
+  /* cabelo */
+  var H = a.hairC;
+  switch (a.hair) {
+    case "flow":
+      el('<path d="M 60 26 q -34 2 -32 40 q -2 26 6 46 q -14 -30 -8 -56 q 6 -32 34 -34 q 28 2 34 34 q 6 26 -8 56 q 8 -20 6 -46 q 2 -38 -32 -40 z" fill="' + H + '" stroke="' + tinta + '" stroke-width="1.2"/>');
+      break;
+    case "messy":
+      el('<path d="M 60 30 q -26 0 -28 24 q -1 8 1 12 q 2 -14 10 -16 q 6 8 14 4 q 10 6 18 -2 q 8 2 11 14 q 3 -6 1 -14 q -3 -22 -27 -22 z" fill="' + H + '" stroke="' + tinta + '" stroke-width="1.2"/>');
+      el('<path d="M 46 32 l -4 -8 M 58 28 l 1 -9 M 70 31 l 5 -8" stroke="' + H + '" stroke-width="2.6" stroke-linecap="round"/>');
+      break;
+    case "bushy":
+      el('<path d="M 60 26 q -32 0 -34 32 q -2 22 6 34 q -2 -22 4 -30 q -4 -22 24 -24 q 28 2 24 24 q 6 8 4 30 q 8 -12 6 -34 q -2 -32 -34 -32 z" fill="' + H + '" stroke="' + tinta + '" stroke-width="1.2"/>');
+      break;
+    case "scruff":
+      el('<path d="M 60 30 q -25 0 -26 22 q 0 8 2 12 q 1 -13 8 -15 q 8 6 16 2 q 10 5 16 -1 q 7 3 8 14 q 2 -5 1 -12 q -1 -22 -25 -22 z" fill="' + H + '" stroke="' + tinta + '" stroke-width="1.2"/>');
+      break;
+    case "curtain":
+      el('<path d="M 60 26 q -28 0 -30 26 q -2 30 0 48 q 6 -26 4 -44 q 12 8 26 8 q 14 0 26 -8 q -2 18 4 44 q 2 -18 0 -48 q -2 -26 -30 -26 z" fill="' + H + '" stroke="' + tinta + '" stroke-width="1.2"/>');
+      break;
+    case "mane":
+      el('<path d="M 60 26 q -30 0 -32 28 q -2 26 2 42 q 2 -22 6 -32 q 10 8 24 8 q 14 0 24 -8 q 4 10 6 32 q 4 -16 2 -42 q -2 -28 -32 -28 z" fill="' + H + '" stroke="' + tinta + '" stroke-width="1.2"/>');
+      break;
+    case "bun":
+      el('<path d="M 60 28 q -26 0 -27 24 q 12 -12 27 -12 q 15 0 27 12 q -1 -24 -27 -24 z" fill="' + H + '" stroke="' + tinta + '" stroke-width="1.2"/>');
+      el('<circle cx="60" cy="22" r="9" fill="' + H + '" stroke="' + tinta + '" stroke-width="1.2"/>');
+      break;
+    case "mop":
+      el('<path d="M 60 22 q -34 0 -36 32 q -2 24 4 40 q 0 -26 6 -36 q 12 10 26 10 q 14 0 26 -10 q 6 10 6 36 q 6 -16 4 -40 q -2 -32 -36 -32 z" fill="' + H + '" stroke="' + tinta + '" stroke-width="1.2"/>');
+      break;
+    case "wispy":
+      el('<path d="M 60 28 q -28 0 -29 26 q -2 34 2 52 q 4 -30 3 -48 q 11 7 24 7 q 13 0 24 -7 q -1 18 3 48 q 4 -18 2 -52 q -1 -26 -29 -26 z" fill="' + H + '" stroke="' + tinta + '" stroke-width="1.1"/>');
+      break;
+    case "round":
+      el('<path d="M 60 30 q -24 0 -25 20 q 0 6 2 9 q 3 -12 23 -12 q 20 0 23 12 q 2 -3 2 -9 q -1 -20 -25 -20 z" fill="' + H + '" stroke="' + tinta + '" stroke-width="1.2"/>');
+      break;
+    case "curls":
+      el('<path d="M 60 24 q -30 0 -31 28 q -1 14 3 22 q -2 -16 3 -22 q 11 8 25 8 q 14 0 25 -8 q 5 6 3 22 q 4 -8 3 -22 q -1 -28 -31 -28 z" fill="' + H + '" stroke="' + tinta + '" stroke-width="1.3"/>');
+      el('<g fill="' + H + '" stroke="' + tinta + '" stroke-width="1">' +
+         '<circle cx="38" cy="34" r="7"/><circle cx="50" cy="26" r="8"/><circle cx="64" cy="25" r="8"/>' +
+         '<circle cx="77" cy="33" r="7"/><circle cx="31" cy="48" r="6"/><circle cx="89" cy="48" r="6"/></g>');
+      break;
+    case "crop":
+      el('<path d="M 60 30 q -24 0 -25 18 q 6 -9 25 -9 q 19 0 25 9 q -1 -18 -25 -18 z" fill="' + H + '" stroke="' + tinta + '" stroke-width="1.2"/>');
+      break;
+    case "long":
+      el('<path d="M 60 28 q -27 0 -28 25 q -2 32 1 50 q 5 -28 3 -46 q 11 7 24 7 q 13 0 24 -7 q -2 18 3 46 q 3 -18 1 -50 q -1 -25 -28 -25 z" fill="' + H + '" stroke="' + tinta + '" stroke-width="1.1"/>');
+      break;
+    case "short":
+      el('<path d="M 60 30 q -25 0 -26 20 q 5 -11 26 -11 q 21 0 26 11 q -1 -20 -26 -20 z" fill="' + H + '" stroke="' + tinta + '" stroke-width="1.2"/>');
+      break;
+    case "wild":
+      el('<path d="M 60 24 q -34 0 -34 30 q -4 30 2 50 q 0 -30 8 -40 q -6 -24 24 -26 q 30 2 24 26 q 8 10 8 40 q 6 -20 2 -50 q 0 -30 -34 -30 z" fill="' + H + '" stroke="' + tinta + '" stroke-width="1.2"/>');
+      el('<path d="M 30 34 l -8 -8 M 90 34 l 8 -8 M 26 52 l -10 -3 M 94 52 l 10 -3" stroke="' + H + '" stroke-width="3" stroke-linecap="round"/>');
+      break;
+    case "wisp":
+      el('<path d="M 60 30 q -26 0 -27 22 q 0 12 3 20 q -2 -18 4 -24 q 10 6 20 6 q 10 0 20 -6 q 6 6 4 24 q 3 -8 3 -20 q -1 -22 -27 -22 z" fill="' + H + '" stroke="' + tinta + '" stroke-width="1"/>');
+      break;
+    case "thin":
+      el('<path d="M 60 32 q -24 0 -25 16 q 8 -8 25 -8 q 17 0 25 8 q -1 -16 -25 -16 z" fill="' + H + '" stroke="' + tinta + '" stroke-width="1.1" opacity=".85"/>');
+      break;
+    case "slick":
+      el('<path d="M 60 30 q -25 0 -26 18 q 10 -7 26 -7 q 16 0 26 7 q -1 -18 -26 -18 z" fill="' + H + '" stroke="' + tinta + '" stroke-width="1.2"/>');
+      el('<path d="M 38 44 q 22 -6 44 0" stroke="' + tinta + '" stroke-width=".9" fill="none" opacity=".5"/>');
+      break;
+    case "combover":
+      el('<path d="M 36 46 q 12 -12 48 -4 q -10 -10 -30 -8 q -14 2 -18 12 z" fill="' + H + '" stroke="' + tinta + '" stroke-width="1.1"/>');
+      el('<path d="M 34 56 q -4 -14 6 -20 M 86 56 q 4 -14 -6 -20" stroke="' + H + '" stroke-width="6" fill="none" stroke-linecap="round"/>');
+      break;
+    case "grizzle":
+      el('<path d="M 60 28 q -27 0 -28 22 q 0 10 3 14 q 0 -16 6 -18 q 10 6 19 6 q 9 0 19 -6 q 6 2 6 18 q 3 -4 3 -14 q -1 -22 -28 -22 z" fill="' + H + '" stroke="' + tinta + '" stroke-width="1.2"/>');
+      break;
+  }
+
+  /* barba */
+  if (a.beard === "huge") {
+    el('<path d="M 40 78 q -2 42 20 52 q 22 -10 20 -52 q -6 22 -20 22 q -14 0 -20 -22 z" fill="' + H + '" stroke="' + tinta + '" stroke-width="1.7"/>');
+    el('<path d="M 60 100 v 28" stroke="' + tinta + '" stroke-width="1" opacity=".45"/>');
+    el('<g stroke="' + tinta + '" stroke-width="0.9" opacity=".5" fill="none">' +
+       '<path d="M 42 88 q 4 22 18 32"/><path d="M 52 92 q 2 20 8 28"/><path d="M 78 88 q -4 22 -18 32"/>' +
+       '<path d="M 68 92 q -2 20 -8 28"/></g>');
+  }
+  if (a.beard === "stubble")
+    el('<path d="M 40 78 q 20 24 40 0 q -4 20 -20 22 q -16 -2 -20 -22 z" fill="' + tinta + '" opacity=".22"/>');
+  if (a.beard === "tache")
+    el('<path d="M 46 84 q 14 -8 28 0 q -6 6 -14 5 q -8 1 -14 -5 z" fill="' + H + '" stroke="' + tinta + '" stroke-width="1"/>');
+
+  /* oculos */
+  if (a.glasses === "round")
+    el('<g fill="none" stroke="' + tinta + '" stroke-width="1.9"><circle cx="52" cy="64" r="9"/><circle cx="68" cy="64" r="9"/><path d="M 61 64 h -2 M 43 62 l -8 -3 M 77 62 l 8 -3"/></g>');
+  if (a.glasses === "halfmoon")
+    el('<g fill="none" stroke="' + tinta + '" stroke-width="1.8"><path d="M 43 64 a 9 7 0 0 0 18 0"/><path d="M 59 64 a 9 7 0 0 0 18 0"/><path d="M 43 64 h 34 M 43 63 l -8 -2 M 77 63 l 8 -2"/></g>');
+  if (a.glasses === "square")
+    el('<g fill="none" stroke="' + tinta + '" stroke-width="1.8"><rect x="43" y="58" width="17" height="12"/><rect x="60" y="58" width="17" height="12"/><path d="M 43 62 l -8 -2 M 77 62 l 8 -2"/></g>');
+  if (a.glasses === "specs")
+    el('<g fill="none" stroke="' + tinta + '" stroke-width="1.4" opacity=".8"><circle cx="52" cy="64" r="10"/><circle cx="68" cy="64" r="10"/></g>');
+
+  /* chapeu e turbante */
+  if (a.hat === "wizard")
+    el('<path d="M 60 -14 q 16 30 30 46 q -30 10 -60 0 q 14 -16 30 -46 z" fill="' + tinta + '" stroke="' + tinta + '" stroke-width="1.5"/>');
+  if (a.hat === "witch")
+    el('<path d="M 60 -8 q 12 28 26 40 q -26 10 -52 0 q 14 -12 26 -40 z" fill="' + tinta + '"/>' +
+       '<path d="M 26 34 q 34 12 68 0 q -34 16 -68 0 z" fill="' + tinta + '"/>');
+  if (a.hat === "turban")
+    el('<path d="M 60 22 q -30 0 -30 24 q 0 8 4 10 q 8 -8 26 -8 q 18 0 26 8 q 4 -2 4 -10 q 0 -24 -30 -24 z" fill="#7A6A47" stroke="' + tinta + '" stroke-width="1.2"/>' +
+       '<path d="M 32 40 q 28 -10 56 0 M 33 32 q 27 -9 54 0" stroke="' + tinta + '" stroke-width="1" fill="none" opacity=".6"/>');
+
+  /* brincos */
+  if (a.ear === "radish") {
+    el('<g stroke="' + tinta + '" stroke-width="1.1" fill="#C8556A"><path d="M 33 70 v 5" stroke="' + tinta + '"/><ellipse cx="33" cy="80" rx="4" ry="6"/></g>');
+    el('<g stroke="' + tinta + '" stroke-width="1.1" fill="#C8556A"><path d="M 87 70 v 5" stroke="' + tinta + '"/><ellipse cx="87" cy="80" rx="4" ry="6"/></g>');
+  }
+  if (a.ear === "hoop")
+    el('<circle cx="34" cy="74" r="4.5" fill="none" stroke="' + tinta + '" stroke-width="1.6"/>');
+
+  el('</g>');
+  /* a moldura oval do camafeu */
+  el('<ellipse cx="60" cy="66" rx="50" ry="58" fill="none" stroke="' + tinta + '" stroke-width="2.4"/>');
+  el('<ellipse cx="60" cy="66" rx="45.5" ry="53.5" fill="none" stroke="' + tinta + '" stroke-width="0.9" opacity=".55"/>');
+
+  return '<svg class="cameo" viewBox="0 0 120 132" role="img" aria-label="Retrato gravado de ' +
+         nome + '">' + p.join("") + "</svg>";
+}
+
+  /* =====================================================================
+     O ALBUM DE QUOTES
+     44 figurinhas, cada uma com uma frase conferida nos livros. Elas
+     chegam de duas maneiras, no pacote do selo e na cacada com a
+     varinha. O que ja foi juntado fica guardado no proprio navegador.
+     ===================================================================== */
+  var ALBUM = (function () {
+    var CHAVE = "profeta-album-v1";
+    var dados = [];
+    var tenho = {};
+    var pacoteUsado = false;
+    var caixa = null, folhas = null, contaSelo = null, contaAlbum = null, botaoPacote = null;
+
+    try {
+      dados = JSON.parse(document.getElementById("album-data").textContent);
+    } catch (e) { dados = []; }
+
+    /* a raridade. Holografica e rara de proposito, senao nao vale nada */
+    var HOLO = [
+      "Always.",
+      "Harry — yer a wizard.",
+      "It is our choices",
+      "Not my daughter",
+      "Of course it is happening inside your head",
+      "You're joking, Perce!",
+      "CONSTANT VIGILANCE!",
+      "Kill the spare."
+    ];
+    var OURO = [
+      "Ah, yes. Harry Potter",
+      "We could all have been killed",
+      "It's Wing-gar-dium",
+      "It does not do to dwell",
+      "It takes a great deal of bravery",
+      "Then you should have died",
+      "If you want to know what a man's like",
+      "Yes, but the world isn't split",
+      "Just because you've got the emotional range",
+      "Don't worry. You're just as sane",
+      "Have a biscuit, Potter.",
+      "You dare use my own spells",
+      "Dobby has no master!",
+      "The wand chooses the wizard"
+    ];
+    function raro(q) {
+      for (var i = 0; i < HOLO.length; i++) if (q.indexOf(HOLO[i]) === 0) return "holo";
+      for (var j = 0; j < OURO.length; j++) if (q.indexOf(OURO[j]) === 0) return "gold";
+      return "comum";
+    }
+    dados.forEach(function (d, i) { d.i = i; d.raro = raro(d.quote); });
+
+    /* ordem do album, livro por livro e capitulo por capitulo */
+    var ordem = dados.slice().sort(function (a, b) {
+      return a.book - b.book || a.chapter - b.chapter;
+    });
+
+    function ler() {
+      try {
+        var v = JSON.parse(localStorage.getItem(CHAVE) || "{}");
+        if (v && typeof v === "object") tenho = v;
+      } catch (e) { tenho = {}; }
+    }
+    function gravar() {
+      try { localStorage.setItem(CHAVE, JSON.stringify(tenho)); } catch (e) {}
+    }
+    function quantas() { var n = 0; for (var k in tenho) if (tenho[k]) n++; return n; }
+    function faltam() { return dados.filter(function (d) { return !tenho[d.i]; }); }
+
+    /* ---- o aviso de baixo ---- */
+    var avisoEl = null, avisoT = null;
+    function avisar(html) {
+      if (!avisoEl) {
+        avisoEl = document.createElement("div");
+        avisoEl.className = "ganhou";
+        avisoEl.setAttribute("role", "status");
+        document.body.appendChild(avisoEl);
+      }
+      avisoEl.innerHTML = html;
+      avisoEl.classList.add("on");
+      clearTimeout(avisoT);
+      avisoT = setTimeout(function () { avisoEl.classList.remove("on"); }, 3600);
+    }
+
+    /* ---- ganhar uma figurinha ---- */
+    function ganhar(i, calado) {
+      if (tenho[i]) return false;
+      tenho[i] = 1;
+      gravar();
+      var d = dados[i];
+      pintar();
+      var el = folhas && folhas.querySelector('.fig[data-i="' + i + '"]');
+      if (el) el.classList.add("nova");
+      if (!calado && d) {
+        var nome = d.raro === "holo" ? "Holográfica" : d.raro === "gold" ? "Dourada" : "Nova";
+        avisar("<b>" + nome + "</b> · " + esc(d.who) + " · " + quantas() + " de " + dados.length);
+      }
+      return true;
+    }
+
+    /* ---- o pacote ---- */
+    function abrirPacote() {
+      var resto = faltam();
+      if (!resto.length) { avisar("Album completo. Nao falta nenhuma."); return; }
+      /* as comuns saem primeiro, as holograficas ficam para o fim */
+      var peso = { comum: 12, gold: 4, holo: 1 };
+      var sorteadas = [], copia = resto.slice();
+      for (var n = 0; n < 3 && copia.length; n++) {
+        var soma = 0, k;
+        for (k = 0; k < copia.length; k++) soma += peso[copia[k].raro];
+        var alvo = Math.random() * soma, acc = 0, pego = 0;
+        for (k = 0; k < copia.length; k++) {
+          acc += peso[copia[k].raro];
+          if (acc >= alvo) { pego = k; break; }
+        }
+        sorteadas.push(copia[pego]);
+        copia.splice(pego, 1);
+      }
+      sorteadas.forEach(function (d) { ganhar(d.i, true); });
+      pacoteUsado = true;
+      if (botaoPacote) { botaoPacote.disabled = true; botaoPacote.textContent = "Volte amanha para outro pacote"; }
+      var nomes = sorteadas.map(function (d) { return esc(d.who); }).join(", ");
+      avisar("Pacote aberto · <b>" + sorteadas.length + "</b> figurinha" +
+             (sorteadas.length > 1 ? "s" : "") + " · " + nomes);
+      /* rola ate a primeira que chegou */
+      var alvoEl = folhas && folhas.querySelector('.fig[data-i="' + sorteadas[0].i + '"]');
+      if (alvoEl && alvoEl.scrollIntoView) alvoEl.scrollIntoView({ block: "center", behavior: "smooth" });
+    }
+
+    /* ---- desenhar o album ---- */
+    var VULTO = '<svg class="vulto" viewBox="0 0 120 132" aria-hidden="true">' +
+      '<ellipse cx="60" cy="66" rx="50" ry="58" fill="none" stroke="#6E5C34" stroke-width="2"/>' +
+      '<path d="M 16 132 Q 60 98 104 132 Z" fill="#6E5C34"/>' +
+      '<ellipse cx="60" cy="64" rx="24" ry="32" fill="#6E5C34"/></svg>';
+
+    function figurinha(d) {
+      var meu = !!tenho[d.i];
+      if (!meu) {
+        return '<div class="fig falta" data-i="' + d.i + '">' +
+          '<span class="fig-in"><span class="fig-face">' + VULTO +
+          '<span class="falta-txt">Capítulo ' + d.chapter + "<br>por juntar</span>" +
+          "</span></span></div>";
+      }
+      var selo = d.raro === "holo" ? "Holográfica" : d.raro === "gold" ? "Dourada" : "";
+      return '<button type="button" class="fig ' + d.raro + '" data-i="' + d.i +
+        '" aria-label="Figurinha de ' + esc(d.who) + ', clique para virar">' +
+        '<span class="fig-in">' +
+          '<span class="fig-face fig-front">' +
+            (selo ? '<span class="fig-selo">' + selo + "</span>" : "") +
+            '<span class="fig-num">' + d.bookTitle + " · cap. " + d.chapter + "</span>" +
+            '<span class="fig-q"><span>“' + esc(d.quote) + '”</span></span>' +
+            '<span class="fig-who">' + esc(d.who) + "</span>" +
+          "</span>" +
+          '<span class="fig-face fig-back">' +
+            (selo ? '<span class="fig-selo">' + selo + "</span>" : "") +
+            retrato(d.who) +
+            '<span class="fig-who">' + esc(d.who) + "</span>" +
+            '<span class="fig-onde"><b>' + esc(d.bookTitle) + "</b><br>" +
+              "Capítulo " + d.chapter + ", " + esc(d.chapterTitle) + "<br>" +
+              esc(d.moment) + (d.note ? "<br>" + esc(d.note) : "") +
+            "</span>" +
+          "</span>" +
+        "</span></button>";
+    }
+
+    function pintar() {
+      if (contaSelo) contaSelo.textContent = quantas();
+      if (contaAlbum) contaAlbum.textContent = quantas() + " de " + dados.length + " figurinhas";
+      if (!folhas) return;
+      var livros = [], atual = null;
+      ordem.forEach(function (d) {
+        if (!atual || atual.book !== d.book) { atual = { book: d.book, title: d.bookTitle, itens: [] }; livros.push(atual); }
+        atual.itens.push(d);
+      });
+      var ROMANO = ["", "Livro I", "Livro II", "Livro III", "Livro IV", "Livro V", "Livro VI", "Livro VII"];
+      folhas.innerHTML = livros.map(function (L) {
+        var meus = L.itens.filter(function (d) { return tenho[d.i]; }).length;
+        return '<section class="album-book">' +
+          '<span class="livro-n">' + ROMANO[L.book] + "</span>" +
+          "<h3>" + esc(L.title) + "</h3>" +
+          '<span class="livro-conta">' + meus + " de " + L.itens.length + " nesta pagina</span>" +
+          '<div class="livro-linha"></div>' +
+          '<div class="figs">' + L.itens.map(figurinha).join("") + "</div>" +
+          "</section>";
+      }).join("");
+    }
+
+    /* ---- abrir e fechar ---- */
+    function abrir() {
+      if (!caixa) return;
+      caixa.hidden = false;
+      document.documentElement.style.overflow = "hidden";
+      pintar();
+      var f = caixa.querySelector(".album-btn");
+      if (f) f.focus();
+    }
+    function fechar() {
+      if (!caixa) return;
+      caixa.hidden = true;
+      document.documentElement.style.overflow = "";
+    }
+
+    function iniciar() {
+      ler();
+      caixa = document.getElementById("album");
+      folhas = document.getElementById("albumBooks");
+      contaSelo = document.getElementById("sealCount");
+      contaAlbum = document.getElementById("albumProgress");
+      botaoPacote = document.getElementById("albumPack");
+      var selo = document.getElementById("albumSeal");
+      var fechaBt = document.getElementById("albumClose");
+      var total = document.getElementById("sealTotal");
+      if (total) total.textContent = "de " + dados.length;
+
+      if (selo) selo.addEventListener("click", abrir);
+      if (fechaBt) fechaBt.addEventListener("click", fechar);
+      if (botaoPacote) botaoPacote.addEventListener("click", abrirPacote);
+      if (caixa) caixa.addEventListener("click", function (e) { if (e.target === caixa) fechar(); });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && caixa && !caixa.hidden) fechar();
+      });
+      /* virar a figurinha */
+      if (folhas) folhas.addEventListener("click", function (e) {
+        var f = e.target.closest && e.target.closest(".fig");
+        if (f && !f.classList.contains("falta")) f.classList.toggle("flip");
+      });
+
+      /* um pacote por visita. Quem ainda nao tem nada comeca com um */
+      if (!quantas() && botaoPacote) botaoPacote.classList.add("forte");
+      pintar();
+    }
+
+    return {
+      iniciar: iniciar,
+      ganhar: ganhar,
+      tenho: function (i) { return !!tenho[i]; },
+      dados: function () { return dados; },
+      faltam: faltam,
+      abrir: abrir
+    };
+  })();
+  window.ALBUM = ALBUM;
+
+  /* a caixa do album fica depois deste script, entao espera o corpo fechar */
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", ALBUM.iniciar);
+  else ALBUM.iniciar();
+
   /* ===== tinta invisivel, os segredos que so a varinha revela ===== */
   var revealSecrets = function () {};
   (function () {
@@ -2875,28 +4210,13 @@
     function board() { return tally || (tally = document.getElementById("tally")); }
     if (!layer) return;
 
-    /* frases dos livros, conferidas uma a uma no Harry Potter Lexicon.
-       Nada de fala de filme aqui. Cinco aparecem por visita, sorteadas. */
-    var LINES = [
-      ["It does not do to dwell on dreams and forget to live.", "Dumbledore, Philosopher's Stone"],
-      ["It is our choices, Harry, that show what we truly are, far more than our abilities.", "Dumbledore, Chamber of Secrets"],
-      ["It takes a great deal of bravery to stand up to our enemies, but just as much to stand up to our friends.", "Dumbledore, Philosopher's Stone"],
-      ["Fear of a name increases fear of the thing itself.", "Dumbledore, Philosopher's Stone"],
-      ["To the well-organized mind, death is but the next great adventure.", "Dumbledore, Philosopher's Stone"],
-      ["Nitwit! Blubber! Oddment! Tweak!", "Dumbledore, Philosopher's Stone"],
-      ["Help will always be given at Hogwarts to those who ask for it.", "Dumbledore, Chamber of Secrets"],
-      ["I solemnly swear that I am up to no good.", "The Marauder's Map, Prisoner of Azkaban"],
-      ["Mischief managed.", "The Marauder's Map, Prisoner of Azkaban"],
-      ["Curiosity is not a sin, but we should exercise caution with our curiosity.", "Dumbledore, Goblet of Fire"],
-      ["Understanding is the first step to acceptance, and only with acceptance can there be recovery.", "Dumbledore, Goblet of Fire"],
-      ["Numbing the pain for a while will make it worse when you finally feel it.", "Dumbledore, Goblet of Fire"],
-      ["Indifference and neglect often do much more damage than outright dislike.", "Dumbledore, Order of the Phoenix"],
-      ["You are protected, in short, by your ability to love.", "Dumbledore, Half-Blood Prince"],
-      ["It is the unknown we fear when we look upon death and darkness, nothing more.", "Dumbledore, Half-Blood Prince"],
-      ["After all this time? Always.", "Dumbledore and Snape, Deathly Hallows"],
-      ["Of course it is happening inside your head, Harry, but why on earth should that mean that it is not real?", "Dumbledore, Deathly Hallows"],
-      ["Do not pity the dead, Harry. Pity the living, and, above all, those who live without love.", "Dumbledore, Deathly Hallows"]
-    ];
+    /* as frases escondidas saem do proprio album, e as que ainda faltam
+       vem primeiro. Achar uma com a varinha e clicar ganha a figurinha */
+    var BAU = (function () {
+      try { return JSON.parse(document.getElementById("album-data").textContent); }
+      catch (e) { return []; }
+    })();
+    if (!BAU.length) return;
 
     /* cinco lugares fixos, espalhados pela pagina, tres a esquerda e dois a direita */
     var SLOTS = [
@@ -2907,14 +4227,24 @@
       { x: 3,  y: 86, r: -3 }
     ];
 
-    /* sorteia sem repetir, muda a cada vez que a pagina abre */
-    var pool = LINES.slice();
-    for (var k = pool.length - 1; k > 0; k--) {
-      var r = Math.floor(Math.random() * (k + 1));
-      var tmp = pool[k]; pool[k] = pool[r]; pool[r] = tmp;
+    /* sorteia sem repetir. Quem ainda falta no album entra na frente */
+    function baralhar(v) {
+      for (var k = v.length - 1; k > 0; k--) {
+        var r = Math.floor(Math.random() * (k + 1));
+        var t = v[k]; v[k] = v[r]; v[r] = t;
+      }
+      return v;
     }
+    var faltando = [], tendo = [];
+    BAU.forEach(function (d, i) {
+      d.i = i;
+      (window.ALBUM && ALBUM.tenho(i) ? tendo : faltando).push(d);
+    });
+    var pool = baralhar(faltando).concat(baralhar(tendo));
     var EGGS = SLOTS.map(function (slot, n) {
-      return { x: slot.x, y: slot.y, r: slot.r, q: pool[n][0], who: pool[n][1] };
+      var d = pool[n % pool.length];
+      return { x: slot.x, y: slot.y, r: slot.r, q: d.quote, who: d.who,
+               onde: d.bookTitle + ", cap. " + d.chapter, i: d.i };
     });
 
     var nodes = [];
@@ -2928,15 +4258,15 @@
       var q = document.createElement("blockquote");
       q.textContent = "\u201C" + e.q + "\u201D";
       var c = document.createElement("figcaption");
-      c.textContent = e.who;
+      c.textContent = e.who + " · " + e.onde;
       var h = document.createElement("p");
       h.className = "hint";
-      h.textContent = "Clique para guardar";
+      h.textContent = "Clique para colar no album";
       el.appendChild(q);
       el.appendChild(c);
       el.appendChild(h);
       frag.appendChild(el);
-      nodes.push({ el: el, hint: h, found: false, i: i });
+      nodes.push({ el: el, hint: h, found: false, i: i, fig: e.i });
     });
     layer.appendChild(frag);
 
@@ -2949,8 +4279,8 @@
       var t = board();
       if (!t) return;
       t.innerHTML = found === total
-        ? "Voce guardou as " + total + " frases desta edicao"
-        : "Frases guardadas <b>" + found + "</b> de " + total;
+        ? "Voce achou as " + total + " frases desta edicao"
+        : "Frases achadas <b>" + found + "</b> de " + total;
       t.classList.add("on");
     }
 
@@ -2960,7 +4290,8 @@
       if (ev.target && ev.target.closest && ev.target.closest("a, button, input, select, textarea, label")) return;
       hot.found = true;
       hot.el.classList.add("found");
-      hot.hint.textContent = "Guardada";
+      var nova = window.ALBUM ? ALBUM.ganhar(hot.fig) : false;
+      hot.hint.textContent = nova ? "Colada no album" : "Ja estava no album";
       found++;
       paint();
     });
@@ -3191,9 +4522,24 @@
     });
   })();
 
+
   render();
 })();
 </script>
+<div class="album" id="album" hidden>
+  <div class="album-page" role="dialog" aria-modal="true" aria-label="Album de Quotes">
+    <div class="album-top">
+      <h2>Album de Quotes</h2>
+      <p class="album-sub">As frases dos sete livros, na ordem em que aparecem</p>
+      <div class="album-meta">
+        <span class="conta" id="albumProgress"></span>
+        <button type="button" class="album-btn" id="albumPack">Abrir um pacote</button>
+        <button type="button" class="album-btn" id="albumClose">Fechar</button>
+      </div>
+    </div>
+    <div id="albumBooks"></div>
+  </div>
+</div>
 <div class="found-tally" id="tally" aria-hidden="true"></div>
 
 <!-- SHARED-BODY-END -->
