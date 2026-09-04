@@ -1841,7 +1841,37 @@
     margin-bottom: 6px;
   }
 
-  .fig-back .cameo { width: 100%; flex: 1 1 auto; min-height: 0; }
+  /* a imagem do verso, com a reticula do jornal por cima */
+  .fig-foto {
+    position: relative; display: block; flex: 1 1 auto; min-height: 0;
+    overflow: hidden; border: 1px solid #3A2E12; background: #E4DAC0;
+  }
+  .fig-foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .fig-foto::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .32;
+    background-image: radial-gradient(circle at center, rgba(0,0,0,.9) 34%, transparent 36%);
+    background-size: 3px 3px; mix-blend-mode: multiply;
+  }
+  .fig-vulto { display: none; }
+  .fig-foto.sem-foto img { display: none; }
+  .fig-foto.sem-foto .fig-vulto { display: block; }
+  .fig-back .cameo { width: 100%; display: block; }
+  .fig-credito {
+    font-family: var(--font-label); font-size: 8px; line-height: 1.4;
+    letter-spacing: .06em; color: #6E5C34; text-align: center; margin-top: 4px;
+  }
+  .fig.holo .fig-foto, .fig.holo .fig-credito { position: relative; z-index: 2; }
+  .album-creditos h3 { font-family: var(--font-head); }
+  .album-creditos p {
+    font-family: var(--font-read); font-size: 13px; line-height: 1.5;
+    max-width: 70ch; margin: 0 0 12px; color: #2E2515;
+  }
+  .album-creditos ul {
+    list-style: none; padding: 0; margin: 0; columns: 26ch auto; column-gap: 30px;
+    font-family: var(--font-label); font-size: 10.5px; line-height: 1.6; color: #4A3D22;
+  }
+  .album-creditos li { break-inside: avoid; }
+  .album-creditos a { color: #6E5C34; }
   .fig-back .fig-who { border-top: none; padding-top: 4px; }
   .fig-onde {
     font-family: var(--font-label);
@@ -3702,7 +3732,127 @@
   })();
 
 
-/* =====================================================================
+  /* a imagem de cada personagem, com a fonte que vai impressa na carta.
+     Site de fa sem fins lucrativos, cada carta cita livro, capitulo e fonte. */
+  var FOTOS = {
+    "Albus Dumbledore": {
+      "src": "assets/figuras/albus-dumbledore.jpg",
+      "fonte": "Harry Potter Wiki",
+      "pagina": "https://harrypotter.fandom.com/wiki/Albus_Dumbledore"
+    },
+    "Harry Potter": {
+      "src": "assets/figuras/harry-potter.jpg",
+      "fonte": "Harry Potter Wiki",
+      "pagina": "https://harrypotter.fandom.com/wiki/Harry_Potter"
+    },
+    "Hermione Granger": {
+      "src": "assets/figuras/hermione-granger.jpg",
+      "fonte": "Harry Potter Wiki",
+      "pagina": "https://harrypotter.fandom.com/wiki/Hermione_Granger"
+    },
+    "Ron Weasley": {
+      "src": "assets/figuras/ron-weasley.jpg",
+      "fonte": "Harry Potter Wiki",
+      "pagina": "https://harrypotter.fandom.com/wiki/Ronald_Weasley"
+    },
+    "Severus Snape": {
+      "src": "assets/figuras/severus-snape.jpg",
+      "fonte": "Harry Potter Wiki",
+      "pagina": "https://harrypotter.fandom.com/wiki/Severus_Snape"
+    },
+    "Sirius Black": {
+      "src": "assets/figuras/sirius-black.jpg",
+      "fonte": "Harry Potter Wiki",
+      "pagina": "https://harrypotter.fandom.com/wiki/Sirius_Black"
+    },
+    "Minerva McGonagall": {
+      "src": "assets/figuras/minerva-mcgonagall.jpg",
+      "fonte": "Harry Potter Wiki",
+      "pagina": "https://harrypotter.fandom.com/wiki/Minerva_McGonagall"
+    },
+    "Rubeus Hagrid": {
+      "src": "assets/figuras/rubeus-hagrid.jpg",
+      "fonte": "Harry Potter Wiki",
+      "pagina": "https://harrypotter.fandom.com/wiki/Rubeus_Hagrid"
+    },
+    "Luna Lovegood": {
+      "src": "assets/figuras/luna-lovegood.jpg",
+      "fonte": "Harry Potter Wiki",
+      "pagina": "https://harrypotter.fandom.com/wiki/Luna_Lovegood"
+    },
+    "Neville Longbottom": {
+      "src": "assets/figuras/neville-longbottom.jpg",
+      "fonte": "Harry Potter Wiki",
+      "pagina": "https://harrypotter.fandom.com/wiki/Neville_Longbottom"
+    },
+    "Molly Weasley": {
+      "src": "assets/figuras/molly-weasley.jpg",
+      "fonte": "Harry Potter Wiki",
+      "pagina": "https://harrypotter.fandom.com/wiki/Molly_Weasley"
+    },
+    "Fred Weasley": {
+      "src": "assets/figuras/fred-weasley.jpg",
+      "fonte": "Harry Potter Wiki",
+      "pagina": "https://harrypotter.fandom.com/wiki/Fred_Weasley"
+    },
+    "Ginny Weasley": {
+      "src": "assets/figuras/ginny-weasley.jpg",
+      "fonte": "Harry Potter Wiki",
+      "pagina": "https://harrypotter.fandom.com/wiki/Ginevra_Weasley"
+    },
+    "Remus Lupin": {
+      "src": "assets/figuras/remus-lupin.jpg",
+      "fonte": "Harry Potter Wiki",
+      "pagina": "https://harrypotter.fandom.com/wiki/Remus_Lupin"
+    },
+    "Lord Voldemort": {
+      "src": "assets/figuras/lord-voldemort.jpg",
+      "fonte": "Harry Potter Wiki",
+      "pagina": "https://harrypotter.fandom.com/wiki/Tom_Riddle"
+    },
+    "Bellatrix Lestrange": {
+      "src": "assets/figuras/bellatrix-lestrange.jpg",
+      "fonte": "Harry Potter Wiki",
+      "pagina": "https://harrypotter.fandom.com/wiki/Bellatrix_Lestrange"
+    },
+    "Garrick Ollivander": {
+      "src": "assets/figuras/garrick-ollivander.jpg",
+      "fonte": "Harry Potter Wiki",
+      "pagina": "https://harrypotter.fandom.com/wiki/Garrick_Ollivander"
+    },
+    "Dobby": {
+      "src": "assets/figuras/dobby.jpg",
+      "fonte": "Harry Potter Wiki",
+      "pagina": "https://harrypotter.fandom.com/wiki/Dobby"
+    },
+    "Arthur Weasley": {
+      "src": "assets/figuras/arthur-weasley.jpg",
+      "fonte": "Harry Potter Wiki",
+      "pagina": "https://harrypotter.fandom.com/wiki/Arthur_Weasley"
+    },
+    "Draco Malfoy": {
+      "src": "assets/figuras/draco-malfoy.jpg",
+      "fonte": "Harry Potter Wiki",
+      "pagina": "https://harrypotter.fandom.com/wiki/Draco_Malfoy"
+    },
+    "Horace Slughorn": {
+      "src": "assets/figuras/horace-slughorn.jpg",
+      "fonte": "Harry Potter Wiki",
+      "pagina": "https://harrypotter.fandom.com/wiki/Horace_Slughorn"
+    },
+    "Alastor Moody": {
+      "src": "assets/figuras/alastor-moody.jpg",
+      "fonte": "Harry Potter Wiki",
+      "pagina": "https://harrypotter.fandom.com/wiki/Alastor_Moody"
+    },
+    "Quirinus Quirrell": {
+      "src": "assets/figuras/quirinus-quirrell.jpg",
+      "fonte": "Harry Potter Wiki",
+      "pagina": "https://harrypotter.fandom.com/wiki/Quirinus_Quirrell"
+    }
+  };
+
+  /* =====================================================================
    OS RETRATOS
    Silhueta recortada dentro do camafeu, que e o retrato que um jornal
    daquela epoca imprimiria. Perfil preto, virado para a esquerda, sem
@@ -4123,6 +4273,22 @@ function retrato(nome) {
       '<path d="M 16 132 Q 60 98 104 132 Z" fill="#6E5C34"/>' +
       '<ellipse cx="60" cy="64" rx="24" ry="32" fill="#6E5C34"/></svg>';
 
+    /* a imagem do personagem, com a silhueta gravada de reserva */
+    function verso(quem) {
+      var f = FOTOS[quem];
+      if (!f) return '<span class="fig-foto">' + retrato(quem) + "</span>";
+      return '<span class="fig-foto">' +
+        '<img src="' + esc(f.src) + '" alt="" loading="lazy" decoding="async" ' +
+        'onerror="this.parentNode.classList.add(\'sem-foto\')">' +
+        '<span class="fig-vulto">' + retrato(quem) + "</span></span>";
+    }
+    /* a fonte, impressa em toda carta */
+    function fonte(quem) {
+      var f = FOTOS[quem];
+      if (!f) return '<span class="fig-credito">Silhueta gravada para o Profeta</span>';
+      return '<span class="fig-credito">Imagem ' + esc(f.fonte) + "</span>";
+    }
+
     function figurinha(d) {
       var meu = !!tenho[d.i];
       if (!meu) {
@@ -4143,12 +4309,13 @@ function retrato(nome) {
           "</span>" +
           '<span class="fig-face fig-back">' +
             (selo ? '<span class="fig-selo">' + selo + "</span>" : "") +
-            retrato(d.who) +
+            verso(d.who) +
             '<span class="fig-who">' + esc(d.who) + "</span>" +
             '<span class="fig-onde"><b>' + esc(d.bookTitle) + "</b><br>" +
               "Capítulo " + d.chapter + ", " + esc(d.chapterTitle) + "<br>" +
               esc(d.moment) + (d.note ? "<br>" + esc(d.note) : "") +
             "</span>" +
+            fonte(d.who) +
           "</span>" +
         "</span></button>";
     }
