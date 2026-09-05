@@ -1790,7 +1790,7 @@
   .album-fundo {
     position: absolute;
     left: 8px; right: 8px; top: 8px;
-    height: 720px;
+    height: 660px;
     z-index: 0;
     pointer-events: none;
     overflow: hidden;
@@ -1798,10 +1798,11 @@
   .album-fundo svg {
     position: absolute;
     left: 50%; bottom: 0;
-    width: min(1020px, 96%);
+    width: min(700px, 72%);
+    aspect-ratio: 194 / 162;
     transform: translateX(-50%);
     display: block;
-    opacity: .085;
+    opacity: .055;
   }
   .album-top, .album-book { position: relative; z-index: 1; }
 
@@ -4444,7 +4445,7 @@ function retrato(nome) {
         rebites(banda, 14, 1.5) +
         '<path d="' + tracado(dentro) + '" fill="url(#' + CAMPO[raro] + ')" stroke="#6E5116" stroke-width="1.1"/>' +
         '<path d="' + CARTELA + '" fill="rgba(255,246,214,.06)" stroke="url(#cfcOuro)" stroke-width="2.6"/>' +
-        '<g fill="url(#cfcOuro)" opacity=".2" transform="translate(28,22) scale(0.72)">' + CASTELO + "</g>" +
+        '<g fill="url(#cfcOuro)" opacity=".2" transform="translate(31,24) scale(0.72)">' + CASTELO + "</g>" +
         estrela(26, 70, 4.6) + estrela(174, 70, 4.6) +
         estrela(30, 150, 4.2) + estrela(170, 150, 4.2) +
         "</svg>";
@@ -4458,13 +4459,14 @@ function retrato(nome) {
         '<path d="' + tracado(banda) + '" fill="none" stroke="#A8946A" stroke-width="1.6" ' +
         'stroke-dasharray="5 4" stroke-linejoin="round"/>' +
         '<path d="' + tracado(dentro) + '" fill="none" stroke="#C2B08A" stroke-width="1"/>' +
+        '<g fill="#6E5C34" opacity=".17" transform="translate(31,24) scale(0.72)">' + CASTELO + "</g>" +
         "</svg>";
     }
 
     /* ---- o castelo grande, o fundo da pagina do album ---- */
   function paisagem() {
-    return '<svg viewBox="0 0 200 130" preserveAspectRatio="xMidYMax meet" aria-hidden="true">' +
-      '<g fill="#4A3D22" transform="translate(0,-62)">' + CASTELO + "</g></svg>";
+    return '<svg viewBox="2 36 194 162" preserveAspectRatio="xMidYMax meet" aria-hidden="true">' +
+      '<g fill="#4A3D22">' + CASTELO + "</g></svg>";
   }
 
   return { tintas: tintas, frente: frente, verso: verso, vazia: vazia, paisagem: paisagem, ARCO: ARCO };
