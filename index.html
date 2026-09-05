@@ -1355,7 +1355,7 @@
   @media (min-width: 1240px) { .wrap { padding-left: 48px; padding-right: 48px; } }
   /* a partir daqui sobra uma margem so para o adesivo, entao ele nunca
      fica por cima de materia nenhuma */
-  @media (min-width: 1180px) { .wrap { padding-left: 186px; } }
+  @media (min-width: 1180px) { .wrap { padding-right: 186px; } }
   @media (max-width: 1239px) { .ear { display: none; } }
 
   /* ---- o cabecalho do jornal ---- */
@@ -1606,7 +1606,7 @@
      parado e escorrega devagar quando o ponteiro chega perto. ---- */
   .album-seal {
     position: fixed;
-    left: 24px;
+    right: 24px;
     top: 96px;
     z-index: 45;
     width: 132px; height: 132px;
@@ -1704,10 +1704,10 @@
     margin-top: 2px;
   }
   @media (min-width: 1180px) {
-    .album-seal { left: max(24px, calc((100vw - 1520px) / 2 + 26px)); top: 108px; }
+    .album-seal { right: max(24px, calc((100vw - 1520px) / 2 + 26px)); top: 108px; }
   }
   @media (max-width: 700px) {
-    .album-seal { width: 84px; height: 84px; left: 8px; top: 8px; }
+    .album-seal { width: 84px; height: 84px; right: 8px; top: 8px; }
     .seal-core { inset: 16px; }
     .seal-core b { font-size: 17px; }
     .seal-core small { font-size: 6px; margin-top: 1px; }
@@ -1785,6 +1785,25 @@
   .album-btn[disabled] { opacity: .4; cursor: default; }
   .album-btn.forte { background: #100B04; color: #F3EAD2; border-color: #100B04; }
   .album-btn.forte:hover { background: #2E2515; }
+
+  /* o castelo atras da pagina, quase transparente sobre o papel */
+  .album-fundo {
+    position: absolute;
+    left: 8px; right: 8px; top: 8px;
+    height: 720px;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .album-fundo svg {
+    position: absolute;
+    left: 50%; bottom: 0;
+    width: min(1020px, 96%);
+    transform: translateX(-50%);
+    display: block;
+    opacity: .085;
+  }
+  .album-top, .album-book { position: relative; z-index: 1; }
 
   .album-book { margin-top: 30px; }
   .album-book h3 {
@@ -2258,7 +2277,7 @@
             </text>
           </g>
         </svg>
-        <span class="seal-core"><b id="sealCount">0</b><small>figurinhas</small></span>
+        <span class="seal-core"><b id="sealCount">0</b><small id="sealWord">figurinhas</small></span>
       </span>
     </button>
     <span class="ear ear-l" aria-hidden="true">Que ninguem diga que o Profeta nao avisou</span>
@@ -4425,7 +4444,7 @@ function retrato(nome) {
         rebites(banda, 14, 1.5) +
         '<path d="' + tracado(dentro) + '" fill="url(#' + CAMPO[raro] + ')" stroke="#6E5116" stroke-width="1.1"/>' +
         '<path d="' + CARTELA + '" fill="rgba(255,246,214,.06)" stroke="url(#cfcOuro)" stroke-width="2.6"/>' +
-        '<g fill="url(#cfcOuro)" opacity=".2">' + CASTELO + "</g>" +
+        '<g fill="url(#cfcOuro)" opacity=".2" transform="translate(28,22) scale(0.72)">' + CASTELO + "</g>" +
         estrela(26, 70, 4.6) + estrela(174, 70, 4.6) +
         estrela(30, 150, 4.2) + estrela(170, 150, 4.2) +
         "</svg>";
@@ -4439,11 +4458,16 @@ function retrato(nome) {
         '<path d="' + tracado(banda) + '" fill="none" stroke="#A8946A" stroke-width="1.6" ' +
         'stroke-dasharray="5 4" stroke-linejoin="round"/>' +
         '<path d="' + tracado(dentro) + '" fill="none" stroke="#C2B08A" stroke-width="1"/>' +
-        '<g fill="#6E5C34" opacity=".22">' + CASTELO + "</g>" +
         "</svg>";
     }
 
-    return { tintas: tintas, frente: frente, verso: verso, vazia: vazia, ARCO: ARCO };
+    /* ---- o castelo grande, o fundo da pagina do album ---- */
+  function paisagem() {
+    return '<svg viewBox="0 0 200 130" preserveAspectRatio="xMidYMax meet" aria-hidden="true">' +
+      '<g fill="#4A3D22" transform="translate(0,-62)">' + CASTELO + "</g></svg>";
+  }
+
+  return { tintas: tintas, frente: frente, verso: verso, vazia: vazia, paisagem: paisagem, ARCO: ARCO };
   })();
 
 
@@ -4491,7 +4515,7 @@ function retrato(nome) {
   function cfcFalta(d) {
     return '<div class="fig falta" data-i="' + d.i + '">' +
       '<span class="fig-in"><span class="fig-face">' + CFC.vazia() +
-      '<span class="falta-txt">Capítulo ' + d.chapter + "<br>por juntar</span>" +
+      '<span class="falta-txt">Capítulo ' + d.chapter + "<br>ainda não tenho</span>" +
       "</span></span></div>";
   }
 
@@ -4705,7 +4729,10 @@ function retrato(nome) {
     }
 
     function pintar() {
-      if (contaSelo) contaSelo.textContent = quantas();
+      var n = quantas();
+      if (contaSelo) contaSelo.textContent = n;
+      var palavra = document.getElementById("sealWord");
+      if (palavra) palavra.textContent = n === 1 ? "figurinha" : "figurinhas";
       if (contaAlbum) contaAlbum.textContent = quantas() + " de " + dados.length + " figurinhas";
       if (!folhas) return;
       var livros = [], atual = null;
@@ -4753,6 +4780,8 @@ function retrato(nome) {
       var fechaBt = document.getElementById("albumClose");
       var tintas = document.getElementById("cfcTintas");
       if (tintas && !tintas.firstChild) tintas.innerHTML = CFC.tintas();
+      var fundo = document.getElementById("albumFundo");
+      if (fundo && !fundo.firstChild) fundo.innerHTML = CFC.paisagem();
 
       if (selo) selo.addEventListener("click", abrir);
       if (fechaBt) fechaBt.addEventListener("click", fechar);
@@ -5133,6 +5162,7 @@ function retrato(nome) {
         <button type="button" class="album-btn" id="albumClose">Fechar</button>
       </div>
     </div>
+    <div class="album-fundo" id="albumFundo" aria-hidden="true"></div>
     <div id="cfcTintas"></div>
     <div id="albumBooks"></div>
   </div>
