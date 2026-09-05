@@ -917,7 +917,8 @@
     width: 96px; height: 96px;
     margin: -9px 0 0 -9px;      /* a ponta desenhada fica em 9,9 */
     pointer-events: none;
-    z-index: 9999;
+    /* acima do album, senao o ponteiro some quando a caderneta abre */
+    z-index: 10080;
     opacity: 0;
     transition: opacity .35s ease;
     will-change: transform;
@@ -999,7 +1000,7 @@
     background: #FFE9B4;
     box-shadow: 0 0 8px #FFCE6E, 0 0 16px rgba(255,206,110,.7);
     pointer-events: none;
-    z-index: 9997;
+    z-index: 10070;
     animation: sparkFall 1.1s ease-out forwards;
   }
   :root[data-theme="light"] .spark-bit { background: #A97F26; box-shadow: 0 0 6px rgba(169,127,38,.6); }
@@ -1015,7 +1016,7 @@
     width: 150px; height: 150px;
     margin: -14px 0 0 -14px;
     pointer-events: none;
-    z-index: 10000;
+    z-index: 10090;
     transform-origin: 14px 14px;
     animation: castFlick .85s cubic-bezier(.2,.8,.25,1) forwards;
   }
@@ -1034,7 +1035,7 @@
     border-radius: 50%;
     border: 2px solid rgba(255,226,150,.9);
     pointer-events: none;
-    z-index: 9999;
+    z-index: 10085;
     animation: castRing .95s cubic-bezier(.16,.9,.3,1) forwards;
   }
   :root[data-theme="light"] .cast-ring { border-color: rgba(140,105,30,.8); }
@@ -1859,7 +1860,7 @@
 
   .figs {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(178px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(214px, 1fr));
     gap: 16px;
   }
 
@@ -1957,8 +1958,8 @@
   /* a descricao, na faixa entre o retrato e a plaquinha */
   .fig-desc {
     position: absolute;
-    left: 18%; right: 18%;
-    top: 67%; height: 16%;
+    left: 15%; right: 15%;
+    top: 61.5%; height: 20.5%;
     z-index: 2;
     display: flex;
     flex-direction: column;
@@ -1966,18 +1967,19 @@
     text-align: center;
     overflow: hidden;
     font-family: var(--font-label);
-    font-size: 3.1cqw;
-    line-height: 1.3;
-    color: #D6C298;
+    font-size: 4.2cqw;
+    line-height: 1.24;
+    color: #F2E5C4;
+    text-shadow: 0 1px 2px rgba(12, 7, 22, .9);
   }
-  .fig-desc b { color: #F0D9A4; font-weight: 700; }
+  .fig-desc b { color: #FFF3D0; font-weight: 700; }
   .fig-credito {
     display: block;
-    margin-top: .2em;
-    font-size: 2.25cqw;
-    letter-spacing: .08em;
+    margin-top: .28em;
+    font-size: 3.05cqw;
+    letter-spacing: .06em;
     text-transform: uppercase;
-    color: #9C875B;
+    color: #C9B181;
   }
 
   /* o nome na plaquinha de ouro */
@@ -2056,7 +2058,7 @@
   .fig.nova .fig-in { animation: figNova .9s cubic-bezier(.2,.8,.25,1) both; }
 
   @media (max-width: 620px) {
-    .figs { grid-template-columns: repeat(auto-fill, minmax(152px, 1fr)); gap: 12px 10px; }
+    .figs { grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 14px 10px; }
   }
   @media (prefers-reduced-motion: reduce) {
     .fig.holo .fig-face::before, .fig.holo .fig-face::after, .fig.gold .fig-face::after { animation: none !important; }
@@ -2429,7 +2431,7 @@
   "bookTitle": "Philosopher's Stone",
   "chapter": 2,
   "chapterTitle": "The Vanishing Glass",
-  "moment": "No carro a caminho do zoologico, Harry conta que sonhou com uma moto voadora."
+  "moment": "No carro a caminho do zoologico"
  },
  {
   "quote": "I was the only one who saw her for what she was — a freak!",
@@ -2598,7 +2600,7 @@
   "bookTitle": "Chamber of Secrets",
   "chapter": 4,
   "chapterTitle": "At Flourish and Blotts",
-  "moment": "Na livraria Floreios e Borroes, Lockhart puxa Harry para uma foto do Profeta Diario."
+  "moment": "Lockhart puxa Harry para a foto do Profeta"
  },
  {
   "quote": "Of all the trees we could've hit, we had to get one that hits back.",
@@ -2637,7 +2639,7 @@
   "bookTitle": "Chamber of Secrets",
   "chapter": 8,
   "chapterTitle": "The Deathday Party",
-  "moment": "Na festa de aniversario de morte do Nick Quase Sem Cabeca, Myrtle reclama dos apelidos que recebe."
+  "moment": "Na festa de aniversario de morte do Nick"
  },
  {
   "quote": "Half an inch of skin and sinew holding my neck on, Harry!",
@@ -2666,7 +2668,7 @@
   "bookTitle": "Chamber of Secrets",
   "chapter": 10,
   "chapterTitle": "The Rogue Bludger",
-  "moment": "No vestiario, pouco antes da partida da Grifinoria contra a Sonserina."
+  "moment": "No vestiario, antes do jogo contra a Sonserina"
  },
  {
   "quote": "This boy needs rest, he's got thirty-three bones to regrow! Out! OUT!",
@@ -2675,7 +2677,7 @@
   "bookTitle": "Chamber of Secrets",
   "chapter": 10,
   "chapterTitle": "The Rogue Bludger",
-  "moment": "Na ala hospitalar, depois que Lockhart faz sumir os ossos do braco de Harry, ela expulsa o time da Grifinoria."
+  "moment": "Na ala hospitalar, com o braco sem osso"
  },
  {
   "quote": "Oh, Potter, you rotter, oh, what have you done, You're killing off students, you think it's good fun —",
@@ -2684,7 +2686,7 @@
   "bookTitle": "Chamber of Secrets",
   "chapter": 11,
   "chapterTitle": "The Duelling Club",
-  "moment": "Peeves canta pelos corredores depois que Harry e encontrado ao lado de Justino e do Nick petrificados."
+  "moment": "Peeves canta pelos corredores do castelo"
  },
  {
   "quote": "When in doubt, go to the library.",
@@ -2773,7 +2775,7 @@
   "bookTitle": "Prisoner of Azkaban",
   "chapter": 6,
   "chapterTitle": "Talons and Tea Leaves",
-  "moment": "Na primeira aula de Adivinhacao, ao ler as folhas de cha na xicara de Harry."
+  "moment": "Na primeira aula de Adivinhacao, lendo a xicara"
  },
  {
   "quote": "That suggests that what you fear most of all is fear. Very wise, Harry.",
@@ -2963,7 +2965,7 @@
   "bookTitle": "Order of the Phoenix",
   "chapter": 13,
   "chapterTitle": "Detention with Dolores",
-  "moment": "Na primeira detencao de Harry no escritorio de Umbridge, quando ela lhe entrega a pena preta."
+  "moment": "Na primeira detencao, com a pena preta"
  },
  {
   "quote": "Why would anyone want to look like they've got worms coming out of their head?",
@@ -3002,7 +3004,7 @@
   "bookTitle": "Order of the Phoenix",
   "chapter": 27,
   "chapterTitle": "The Centaur and the Sneak",
-  "moment": "No escritorio do diretor, logo depois que Dumbledore escapa de Fudge e dos aurores."
+  "moment": "No escritorio, apos Dumbledore fugir de Fudge"
  },
  {
   "quote": "Give her hell from us, Peeves.",
@@ -3111,7 +3113,7 @@
   "bookTitle": "Half-Blood Prince",
   "chapter": 29,
   "chapterTitle": "The Phoenix Lament",
-  "moment": "Na reuniao dos professores depois da morte de Dumbledore, ao discutirem se Hogwarts deve continuar aberta."
+  "moment": "Os professores decidem o futuro de Hogwarts"
  },
  {
   "quote": "It's for some stupid, noble reason, isn't it?",
@@ -3250,7 +3252,7 @@
   "bookTitle": "Deathly Hallows",
   "chapter": 30,
   "chapterTitle": "The Sacking of Severus Snape",
-  "moment": "Durante o duelo de Snape com Minerva McGonagall, quando Flitwick chega correndo em socorro."
+  "moment": "Flitwick socorre McGonagall no duelo com Snape"
  },
  {
   "quote": "We teachers are rather good at magic, you know.",
@@ -3329,7 +3331,7 @@
   "bookTitle": "Deathly Hallows",
   "chapter": 36,
   "chapterTitle": "The Flaw in the Plan",
-  "moment": "Na Floresta Proibida, quando Narcissa mente para Voldemort depois de perguntar a Harry se Draco esta vivo."
+  "moment": "Narcissa mente para Voldemort na Floresta"
  },
  {
   "quote": "I'll join you when hell freezes over.",
@@ -5649,7 +5651,7 @@ function retrato(nome) {
     var qs = r.querySelectorAll(".fig-q");
     for (var i = 0; i < qs.length; i++) cfcEncolher(qs[i], 0.56);
     var ds = r.querySelectorAll(".fig-desc");
-    for (var j = 0; j < ds.length; j++) cfcEncolher(ds[j], 0.62);
+    for (var j = 0; j < ds.length; j++) cfcEncolher(ds[j], 0.78);
   }
 
   var EMBLEMAS = {
