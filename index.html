@@ -3853,6 +3853,139 @@
 
   /* a imagem de cada personagem, com a fonte que vai impressa na carta.
      Site de fa sem fins lucrativos, cada carta cita livro, capitulo e fonte. */
+  /* quando um personagem tem mais de uma carta, cada uma usa uma
+     ilustracao diferente, para nao haver duas figurinhas iguais */
+  var VARIANTES = {
+      "Albus Dumbledore": [
+          {
+              "src": "assets/figuras/albus-dumbledore.jpg",
+              "fonte": "Harry Potter Trading Card Game"
+          },
+          {
+              "src": "assets/figuras/albus-dumbledore-2.jpg",
+              "fonte": "Jim Kay, edicao ilustrada"
+          },
+          {
+              "src": "assets/figuras/albus-dumbledore-3.jpg",
+              "fonte": "Carta do Sapo de Chocolate, Wizarding World"
+          },
+          {
+              "src": "assets/figuras/albus-dumbledore-4.jpg",
+              "fonte": "Ilustracao oficial, Wizarding World"
+          }
+      ],
+      "Harry Potter": [
+          {
+              "src": "assets/figuras/harry-potter.jpg",
+              "fonte": "Harry Potter Trading Card Game"
+          },
+          {
+              "src": "assets/figuras/harry-potter-2.jpg",
+              "fonte": "Harry Potter Trading Card Game"
+          },
+          {
+              "src": "assets/figuras/harry-potter-3.jpg",
+              "fonte": "Harry Potter Trading Card Game"
+          }
+      ],
+      "Hermione Granger": [
+          {
+              "src": "assets/figuras/hermione-granger.jpg",
+              "fonte": "Harry Potter Trading Card Game"
+          },
+          {
+              "src": "assets/figuras/hermione-granger-2.jpg",
+              "fonte": "Jim Kay, edicao ilustrada"
+          },
+          {
+              "src": "assets/figuras/hermione-granger-3.jpg",
+              "fonte": "Harry Potter Trading Card Game"
+          },
+          {
+              "src": "assets/figuras/hermione-granger-4.jpg",
+              "fonte": "Carta do Sapo de Chocolate, Wizarding World"
+          }
+      ],
+      "Ron Weasley": [
+          {
+              "src": "assets/figuras/ron-weasley.jpg",
+              "fonte": "Harry Potter Trading Card Game"
+          },
+          {
+              "src": "assets/figuras/ron-weasley-2.jpg",
+              "fonte": "Jim Kay, edicao ilustrada"
+          },
+          {
+              "src": "assets/figuras/ron-weasley-3.jpg",
+              "fonte": "Harry Potter Trading Card Game"
+          }
+      ],
+      "Severus Snape": [
+          {
+              "src": "assets/figuras/severus-snape.jpg",
+              "fonte": "Harry Potter Trading Card Game"
+          },
+          {
+              "src": "assets/figuras/severus-snape-2.jpg",
+              "fonte": "Jim Kay, edicao ilustrada"
+          },
+          {
+              "src": "assets/figuras/severus-snape-3.jpg",
+              "fonte": "Harry Potter Trading Card Game"
+          }
+      ],
+      "Sirius Black": [
+          {
+              "src": "assets/figuras/sirius-black.jpg",
+              "fonte": "Wizarding World, Young Marauders"
+          },
+          {
+              "src": "assets/figuras/sirius-black-2.jpg",
+              "fonte": "Cartaz de Azkaban, Warner Bros"
+          }
+      ],
+      "Minerva McGonagall": [
+          {
+              "src": "assets/figuras/minerva-mcgonagall.jpg",
+              "fonte": "Harry Potter Trading Card Game"
+          },
+          {
+              "src": "assets/figuras/minerva-mcgonagall-2.jpg",
+              "fonte": "Jim Kay, edicao ilustrada"
+          }
+      ],
+      "Rubeus Hagrid": [
+          {
+              "src": "assets/figuras/rubeus-hagrid.jpg",
+              "fonte": "Harry Potter Trading Card Game"
+          },
+          {
+              "src": "assets/figuras/rubeus-hagrid-2.jpg",
+              "fonte": "Jim Kay, edicao ilustrada"
+          }
+      ],
+      "Luna Lovegood": [
+          {
+              "src": "assets/figuras/luna-lovegood.jpg",
+              "fonte": "Jessica Roux para o Wizarding World"
+          },
+          {
+              "src": "assets/figuras/luna-lovegood-2.jpg",
+              "fonte": "Wizarding World, ilustracao de personagem"
+          }
+      ],
+      "Neville Longbottom": [
+          {
+              "src": "assets/figuras/neville-longbottom.jpg",
+              "fonte": "Harry Potter Trading Card Game"
+          },
+          {
+              "src": "assets/figuras/neville-longbottom-2.jpg",
+              "fonte": "Edicao ilustrada da Ordem da Fenix"
+          }
+      ]
+  };
+
   var FOTOS = {
       "Albus Dumbledore": {
           "src": "assets/figuras/albus-dumbledore.jpg",
@@ -4509,6 +4642,9 @@ function retrato(nome) {
     var raro = d.raro || "comum";
     var selo = raro === "holo" ? "Holográfica" : raro === "gold" ? "Dourada" : "Coleção";
     var f = FOTOS[d.who];
+    /* a carta numero N do personagem usa a ilustracao numero N */
+    var vs = (typeof VARIANTES !== "undefined") && VARIANTES[d.who];
+    if (vs && vs.length > 1 && typeof d.vez === "number") f = vs[d.vez % vs.length];
 
     var retratoSVG = CFC.frente(raro).replace('<g class="cfc-slot"></g>',
       '<path d="' + CFC.ARCO + '" fill="#1B1026"/>' +
@@ -4810,6 +4946,12 @@ function retrato(nome) {
     /* ordem do album, livro por livro e capitulo por capitulo */
     var ordem = dados.slice().sort(function (a, b) {
       return a.book - b.book || a.chapter - b.chapter;
+    });
+    /* numera as cartas de cada personagem, para cada uma pegar uma arte */
+    var quantas_de = {};
+    ordem.forEach(function (d) {
+      quantas_de[d.who] = (quantas_de[d.who] || 0);
+      d.vez = quantas_de[d.who]++;
     });
 
     function ler() {
