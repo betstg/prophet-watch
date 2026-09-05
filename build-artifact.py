@@ -11,10 +11,24 @@ shared sections marked in index.html and writes just those, in order.
 """
 
 import base64
+import json
 import mimetypes
 import os
 import re
 import sys
+
+
+def carregar(base, rel):
+    """the data URI for one asset, preferring the lighter copy when there is one"""
+    path = os.path.join(base, rel)
+    small = os.path.join(base, 'assets', 'thumbs', 'small', os.path.basename(rel))
+    if os.path.isfile(small):
+        path = small
+    if not os.path.isfile(path):
+        sys.exit('referenced asset is missing, ' + rel)
+    kind = mimetypes.guess_type(path)[0] or 'application/octet-stream'
+    with open(path, 'rb') as fh:
+        return 'data:' + kind + ';base64,' + base64.b64encode(fh.read()).decode('ascii')
 
 HEAD = ('<!-- SHARED-HEAD-START -->', '<!-- SHARED-HEAD-END -->')
 BODY = ('<!-- SHARED-BODY-START -->', '<!-- SHARED-BODY-END -->')
@@ -57,9 +71,21 @@ def main():
         print('inlined {} ({} KB)'.format(rel, len(blob) // 1024))
         return match.group(1) + 'data:' + kind + ';base64,' + blob + match.group(3)
 
+    # The album illustrations repeat across cards, so they travel once each in a
+    # lookup table the page reads through FONTE(). Everything else is baked in
+    # at the point of use.
+    figuras = sorted(set(re.findall(r'"(assets/figuras/[\w./-]+\.(?:jpg|jpeg|png|webp))"', out)))
+    if figuras:
+        pares = []
+        for rel in figuras:
+            pares.append('{}:{}'.format(json.dumps(rel), json.dumps(carregar(base, rel))))
+        mapa = '<script>window.IMGMAP={' + ','.join(pares) + '};</script>\n'
+        print('mapa com {} ilustracoes, {} KB'.format(len(figuras), len(mapa) // 1024))
+        out = mapa + out
+
     out = re.sub(r'(src=")((?:assets/)?[\w./-]+\.(?:jpg|jpeg|png|svg|webp))(")', inline, out)
     # the same for local paths that live in the script rather than in an attribute
-    out = re.sub(r'(")(assets/[\w./-]+\.(?:jpg|jpeg|png|svg|webp))(")', inline, out)
+    out = re.sub(r'(")(assets/(?!figuras/)[\w./-]+\.(?:jpg|jpeg|png|svg|webp))(")', inline, out)
 
     for bad in ('<!doctype', '<html', '<head>', '<body>'):
         if bad in out.lower():
