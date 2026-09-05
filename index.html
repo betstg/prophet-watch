@@ -1958,8 +1958,8 @@
   /* a descricao, na faixa entre o retrato e a plaquinha */
   .fig-desc {
     position: absolute;
-    left: 15%; right: 15%;
-    top: 61.5%; height: 20.5%;
+    left: 12.5%; right: 12.5%;
+    top: 59.5%; height: 22%;
     z-index: 2;
     display: flex;
     flex-direction: column;
@@ -1967,16 +1967,21 @@
     text-align: center;
     overflow: hidden;
     font-family: var(--font-label);
-    font-size: 4.2cqw;
-    line-height: 1.24;
+    font-size: max(8.6px, 4.2cqw);
+    line-height: 1.22;
     color: #F2E5C4;
     text-shadow: 0 1px 2px rgba(12, 7, 22, .9);
   }
   .fig-desc b { color: #FFF3D0; font-weight: 700; }
+  /* na carta pequena o credito vira ruido, entao ele sai e sobra espaco
+     para o que interessa ler */
+  @container (max-width: 205px) {
+    .fig-credito { display: none; }
+  }
   .fig-credito {
     display: block;
-    margin-top: .28em;
-    font-size: 3.05cqw;
+    margin-top: .26em;
+    font-size: max(6.9px, 3.05cqw);
     letter-spacing: .06em;
     text-transform: uppercase;
     color: #C9B181;
@@ -2058,7 +2063,7 @@
   .fig.nova .fig-in { animation: figNova .9s cubic-bezier(.2,.8,.25,1) both; }
 
   @media (max-width: 620px) {
-    .figs { grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 14px 10px; }
+    .figs { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px 12px; }
   }
   @media (prefers-reduced-motion: reduce) {
     .fig.holo .fig-face::before, .fig.holo .fig-face::after, .fig.gold .fig-face::after { animation: none !important; }
@@ -5651,7 +5656,7 @@ function retrato(nome) {
     var qs = r.querySelectorAll(".fig-q");
     for (var i = 0; i < qs.length; i++) cfcEncolher(qs[i], 0.56);
     var ds = r.querySelectorAll(".fig-desc");
-    for (var j = 0; j < ds.length; j++) cfcEncolher(ds[j], 0.78);
+    for (var j = 0; j < ds.length; j++) cfcEncolher(ds[j], 0.88);
   }
 
   var EMBLEMAS = {
