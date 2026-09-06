@@ -88,9 +88,13 @@ Give each a category, reusing the existing set where one fits. That set is HBO s
 
 Give each an id made of a short slug plus the article date, for example teaser-trailer-2026-09-14. The date field is the article's publication date in YYYY-MM-DD form.
 
-Every story must carry a photograph. Nothing is filed without one.
+Every story should carry a picture, but a wrong or repeated picture is worse than none. If nothing suitable turns up, file the story with no image field and let the page draw its plate.
 For a story that has an official video on YouTube, add a video field with the eleven character video id. The page then plays it muted and looping in place of the still.
-For the picture itself, read the og:image of the article, or use https://i.ytimg.com/vi/VIDEOID/maxresdefault.jpg when there is a video. Download it into the repo, never hotlink it, using device_bash.
+For the picture itself, try three sources in this order and stop at the first that works.
+1. The og:image of the article.
+2. https://i.ytimg.com/vi/VIDEOID/maxresdefault.jpg when the story has a video.
+3. The largest real photograph inside the article body. Many sites carry no og:image but do illustrate the piece. Read the page with WebFetch and ask it for every image URL on the page with a note of what each one shows, then pick the biggest one that is actual editorial content. Skip logos, author avatars, share icons, advertisements and tracking pixels.
+Download it into the repo, never hotlink it, using device_bash.
 
 cd $HOME/mnt/Developer/prophet-watch && curl -sSL --max-time 25 -A 'Mozilla/5.0' -o assets/thumbs/THEID.jpg 'THEURL' && python3 -c "
 from PIL import Image
@@ -101,7 +105,9 @@ im.save(p,'JPEG',quality=76,optimize=True,progressive=True)
 im=Image.open(p); w,h=im.size
 im.resize((440,round(h*440/w))).save('assets/thumbs/small/THEID.jpg','JPEG',quality=62,optimize=True)"
 
-Then set the story's image field to assets/thumbs/THEID.jpg. The small copy is what gets baked into the artifact, so it must exist or the published page gets heavy. If PIL is not there, run pip3 install --break-system-packages pillow first. If the picture cannot be fetched at all, set image to assets/hogwarts-night.jpg so the card still looks right.
+Then set the story's image field to assets/thumbs/THEID.jpg. The small copy is what gets baked into the artifact, so it must exist or the published page gets heavy. If PIL is not there, run pip3 install --break-system-packages pillow first. If none of the three sources gives a picture, do NOT reach for assets/hogwarts-night.jpg. That used to be the fallback and it ended with eight stories showing the same castle photo. Leave the image field out entirely and the page draws its own engraved plate, with the category object and the name of the source, which is different for every story.
+
+Only if you want to illustrate a story with an image of the subject rather than of the event, for example a still of Dobby on a story about who will play Dobby, add an imagemIlustrativa field whose value is a short line in Portuguese saying what the image shows, such as "Dobby no quarto de Harry, na Camara Secreta". The page then prints that line and marks it as imagem ilustrativa, so the paper never suggests it photographed the news itself. Never use an imagemIlustrativa line to describe a photo that really is of the event.
 
 If nothing new turned up, send Betty one line saying so and stop. Do not run any of the steps below.
 
