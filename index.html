@@ -599,8 +599,9 @@
   }
   :root[data-theme="light"] .shot::after { background: linear-gradient(180deg, rgba(16,20,46,0) 45%, rgba(16,20,46,.22) 100%); }
   .shot .fallback { display: none; }
-  .shot.failed img, .shot.failed::after { display: none; }
-  .shot.failed {
+  .shot.failed img, .shot.failed::after,
+  .shot.sem-foto img, .shot.sem-foto::after { display: none; }
+  .shot.failed, .shot.sem-foto {
     display: grid;
     place-items: center;
     gap: 10px;
@@ -609,14 +610,14 @@
       linear-gradient(160deg, var(--surface-2), var(--surface));
     box-shadow: inset 0 0 0 1px var(--gold-dim);
   }
-  .shot.failed::before {
+  .shot.failed::before, .shot.sem-foto::before {
     content: "";
     position: absolute; inset: 12px;
     border: 1px solid var(--gold-dim);
     border-radius: 6px;
     opacity: .55;
   }
-  .shot.failed .fallback {
+  .shot.failed .fallback, .shot.sem-foto .fallback {
     display: block;
     width: 40px; height: 40px;
     color: var(--gold);
@@ -840,12 +841,14 @@
     box-shadow: inset 0 0 0 1px var(--frame-in) !important;
     background-clip: padding-box;
   }
-  .shot.failed,
-  :root[data-theme="light"] .shot.failed {
+  .shot.failed, .shot.sem-foto,
+  :root[data-theme="light"] .shot.failed,
+  :root[data-theme="light"] .shot.sem-foto {
     box-shadow: inset 0 0 0 1px var(--frame-in) !important;
   }
-  .shot.failed::before,
-  :root[data-theme="light"] .shot.failed::before {
+  .shot.failed::before, .shot.sem-foto::before,
+  :root[data-theme="light"] .shot.failed::before,
+  :root[data-theme="light"] .shot.sem-foto::before {
     border: 1px solid var(--frame-in) !important;
     border-radius: 0 !important;
   }
@@ -855,6 +858,26 @@
   }
   .card.lead .shot { aspect-ratio: 21 / 9 !important; width: 100% !important; }
   .card .shot { aspect-ratio: 3 / 2 !important; }
+
+
+  /* a chapa de quem nao tem foto, com o nome da fonte gravado */
+  .shot.sem-foto .fallback { width: 34px; height: 40px; }
+  .chapa-fonte {
+    position: relative;
+    z-index: 1;
+    max-width: 82%;
+    text-align: center;
+    font-family: var(--font-label);
+    font-size: 11px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: .95;
+    line-height: 1.35;
+  }
+  .card.brief .chapa-fonte { font-size: 9.5px; letter-spacing: .16em; }
+  .card.lead .chapa-fonte { font-size: 13px; }
+  :root[data-theme="light"] .chapa-fonte { color: #6B4E10; }
 
   /* ===== retratos que se mexem, videos oficiais em loop mudo ===== */
   .shot.moving iframe {
@@ -3352,402 +3375,399 @@
     </script>
 <script type="application/json" id="news-data">
 {
-  "updated": "2026-09-05",
-  "stories": [
-    {
-      "id": "invisibility-cloak-design-2026-09-05",
-      "date": "2026-09-05",
-      "status": "analysis",
-      "category": "Fandom",
-      "headline": "The Leaky Cauldron reads the new invisibility cloak in the full trailer",
-      "summary": "Amanda Kirk compares the film cloak, a velvety and gossamer fabric carrying Celtic knotwork, against the version glimpsed in the 2 September trailer. The new one looks lighter and much longer, closer to a curtain of fabric, which would hide three children far better but could also trip Harry or snag on things or be grabbed. She also notes the dormitory scene seems to follow the book, with presents waiting at the foot of the bed rather than down in the common room.",
-      "source": "The Leaky Cauldron",
-      "url": "https://www.the-leaky-cauldron.org/2026/09/05/harrys-invisibility-cloaks/"
-    },
-    {
-      "id": "dobby-portrayal-question-2026-09-04",
-      "date": "2026-09-04",
-      "status": "rumor",
-      "category": "Fandom",
-      "headline": "Nobody knows yet how HBO will actually put Dobby on screen",
-      "summary": "Casting a living actor as Dobby left readers asking what the house elf will look like. The films used a fully computer generated Dobby with Toby Jones providing the voice. Hiring Lenny Rush could mean motion capture, prosthetics, a puppet or simply a voice role with the visual built separately. Comments on the announcement ran from Not a CGI creature to Live action Dobby. HBO has said nothing about the method, so every answer going round is guesswork.",
-      "source": "SuperHeroHype",
-      "url": "https://www.superherohype.com/movies/691216-hbo-max-harry-potter-tv-show-dobby-casting-question"
-    },
-    {
-      "id": "lenny-rush-dobby-reaction-2026-09-04",
-      "date": "2026-09-04",
-      "status": "confirmed",
-      "category": "HBO series",
-      "headline": "Lenny Rush says he is over the moon to be cast as Dobby",
-      "summary": "The Doctor Who actor posted on Instagram the day after HBO named him as Dobby for season two. He wrote that he is over the moon to be joining the magical world of the HBO Harry Potter series, added that even littler me, a massive Harry Potter fan, would not believe it, and said he is very excited to join the franchise. He paired the post with a childhood photo of himself as a fan.",
-      "source": "ComingSoon",
-      "url": "https://www.comingsoon.net/tv/news/2186736-harry-potter-hbo-series-new-dobby-actor-instagram-post"
-    },
-    {
-      "id": "season-2-cast-riddle-dobby-ginny-2026-09-04",
-      "date": "2026-09-04",
-      "status": "official",
-      "category": "HBO series",
-      "headline": "HBO names its new Ginny and casts Tom Riddle and Dobby for season two",
-      "summary": "HBO announced the three on 4 September and captioned the reveal \"The Chamber of Secrets has been opened\". Bonnie Hill takes over as Ginny Weasley from Gracie Cochrane, whose family said in May that she had made the challenging decision to step away from the part after the first season. Billy Barratt plays Tom Riddle, the memory in the diary that drives the second book, which is the first time the show has cast the role. Lenny Rush plays Dobby. They join Kit Harington as Gilderoy Lockhart in the second season, which adapts Chamber of Secrets and goes into production this autumn.",
-      "source": "TVLine",
-      "url": "https://www.tvline.com/2251090/harry-potter-season-2-cast-dobby-tom-riddle-ginny-weasley/"
-    },
-    {
-      "id": "season-2-production-problems-2026-09-04",
-      "date": "2026-09-04",
-      "status": "rumor",
-      "category": "HBO series",
-      "headline": "Fresh reports say season two has hit recasting and script trouble",
-      "summary": "UNILAD and The Tab both published roundups saying the second season of the HBO series has been slowed down. Gracie Cochrane left the part of Ginny Weasley in May and Kit Harington took over from Nicholas Hoult as Gilderoy Lockhart in August. Tabloid sources also claim the scripts were not finished and that a planned August start slipped to later in the year. Warner Bros and HBO have said nothing, and cast member Asha Soetan has posted from set since then, so the delay claim is not stood up.",
-      "source": "UNILAD",
-      "url": "https://www.unilad.com/film-and-tv/news/harry-potter-hbo-season-two-problems-597276-20260904"
-    },
-    {
-      "id": "caldeirao-furado-trailer-breakdown-2026-09-03",
-      "date": "2026-09-03",
-      "status": "analysis",
-      "category": "Analise e teoria",
-      "headline": "Caldeirao Furado destrincha o trailer quadro a quadro",
-      "summary": "Caco Cardassi publicou as primeiras impressoes do trailer completo em um video de cinquenta e dois minutos, que passou de cem mil visualizacoes em oito horas. O Caldeirao Furado tem 1,67 milhao de inscritos e e o maior canal de Harry Potter do mundo. No mesmo dia o canal ja tinha subido a analise do anuncio do trailer e a reacao ao vivo.",
-      "source": "Caldeirao Furado",
-      "url": "https://www.youtube.com/watch?v=RcY7feIAzSY",
-      "image": "assets/thumbs/caldeirao-furado-trailer-breakdown-2026-09-03.jpg"
-    },
-    {
-      "id": "hogwarts-professor-emoji-symbols-2026-09-03",
-      "date": "2026-09-03",
-      "status": "analysis",
-      "category": "Analise e teoria",
-      "headline": "Um estudioso dos livros le os tres emojis que Rowling postou com o trailer",
-      "summary": "John Granger, do Hogwarts Professor, argumenta que o coracao, a coruja e o raio que Rowling usou ao divulgar o trailer nao sao enfeite. No sistema simbolico dos livros o coracao e o centro espiritual, a coruja e a percepcao do que nao se ve e o raio e a transformacao. O site faz leitura literaria da serie ha anos, com alquimia e composicao em anel, e e o tipo de analise que nao aparece nos portais de noticia.",
-      "source": "Hogwarts Professor",
-      "url": "https://www.hogwartsprofessor.com/the-hbo-potter-trailer-the-meaning-of-rowlings-heart-owl-and-lightning-bolt/",
-      "image": "assets/hogwarts-night.jpg"
-    },
-    {
-      "id": "potterish-trailer-hedwig-2026-09-02",
-      "date": "2026-09-02",
-      "status": "confirmed",
-      "category": "HBO series",
-      "headline": "Potterish destaca a Cerimonia de Selecao, o Quadribol e a primeira Edwiges",
-      "summary": "O Potterish, site brasileiro de Harry Potter no ar desde 2002, publicou sua leitura do trailer completo em portugues e em ingles. O texto separa a Cerimonia de Selecao, a primeira partida de Quadribol e o primeiro vislumbre de Edwiges, e sai junto com um guia de estreia com data, numero de episodios e onde assistir.",
-      "source": "Potterish",
-      "url": "https://potterish.com/new-harry-potter-hbo-series-trailer/?lang=en",
-      "image": "assets/thumbs/potterish-trailer-hedwig-2026-09-02.jpg"
-    },
-    {
-      "id": "full-trailer-arrives-2026-09-02",
-      "date": "2026-09-02",
-      "status": "official",
-      "category": "HBO series",
-      "headline": "The first full trailer for Philosopher's Stone arrives and locks Christmas Day",
-      "summary": "HBO Max put out the full trailer on 2 September, a day after the Back to Hogwarts teaser promised it. It walks through Harry's first year, taking in the Hogwarts Express, the Sorting Hat with Harry whispering not Slytherin, a Herbology lesson, the Great Hall feast, a first run at Quidditch, the troll in the bathroom and the Stone itself. Dominic McLaughlin, Arabella Stanton and Alastair Stout lead, with John Lithgow as Dumbledore, Paapa Essiedu as Snape, Janet McTeer as McGonagall and Nick Frost as Hagrid. The eight episode season lands 25 December on HBO and HBO Max.",
-      "source": "TVLine",
-      "url": "https://www.tvline.com/2249543/harry-potter-tv-series-full-trailer-hbo/",
-      "image": "assets/thumbs/full-trailer-arrives-2026-09-02.jpg",
-      "video": "SJVmeJaS44s"
-    },
-    {
-      "id": "snapchat-ar-lenses-2026-09-01",
-      "date": "2026-09-01",
-      "status": "official",
-      "category": "Fandom",
-      "headline": "Snapchat and HBO Max open a wizarding world season on the app",
-      "summary": "Snap and HBO Max announced a tie in that runs all the way to the series launch. AR lenses went live on the Harry Potter account on 1 September along with a custom app icon. Twelve lenses roll out across the season, among them a Hogwarts letter, a Hogwarts Express journey and a Sorting Hat. Chat wallpapers and Bitmoji fashion drawn from each house wardrobe follow, and Snapchat AR mirrors travel to fan events in the United States and the United Kingdom.",
-      "source": "Snap Newsroom",
-      "url": "https://newsroom.snap.com/snapchat-hbo-max-harry-potter-philosophers-stone",
-      "image": "assets/hogwarts-night.jpg"
-    },
-    {
-      "id": "studio-tour-house-spirit-2026-09-01",
-      "date": "2026-09-01",
-      "status": "official",
-      "category": "Shops and experiences",
-      "headline": "Warner Bros Studio Tour London sets a Hogwarts House Spirit season for early 2027",
-      "summary": "The feature runs from 23 January to 19 April 2027 and celebrates Gryffindor, Hufflepuff, Ravenclaw and Slytherin across the original sets, costumes and props. It was one of the eighteen items in the Back to Hogwarts showcase. Ticket information and the rest of the detail come later.",
-      "source": "Attractions Magazine",
-      "url": "https://attractionsmagazine.com/back-to-hogwarts-harry-potter-announcements-2026/",
-      "image": "assets/thumbs/studio-tour-house-spirit-2026-09-01.jpg",
-      "video": "rgKBEQzB01A"
-    },
-    {
-      "id": "full-trailer-date-2026-09-01",
-      "date": "2026-09-01",
-      "status": "official",
-      "category": "HBO series",
-      "headline": "Quidditch teaser sets the first full trailer for 2 September",
-      "summary": "The Back to Hogwarts livestream closed with a short teaser built around Harry's first Quidditch match, with Ron and Hermione cheering from the stands. HBO Max confirmed that the first full trailer for Harry Potter and the Philosopher's Stone arrives the next day. The series still premieres at Christmas 2026.",
-      "source": "MuggleNet",
-      "url": "https://mugglenet.com/2026/09/hbo-harry-potter-full-trailer-september-2/",
-      "image": "assets/thumbs/full-trailer-date-2026-09-01.jpg",
-      "video": "tqqhFtRpnWw"
-    },
-    {
-      "id": "lego-hbo-series-sets-2026-09-01",
-      "date": "2026-09-01",
-      "status": "official",
-      "category": "Shops and experiences",
-      "headline": "LEGO sets drawn from the HBO series are on the way",
-      "summary": "Warner Bros confirmed a new LEGO range based on the HBO series rather than the films. No sets, characters or release dates have been named yet. It would be the first time the long running LEGO partnership follows the television version of Hogwarts.",
-      "source": "MuggleNet",
-      "url": "https://mugglenet.com/2026/09/hbo-harry-potter-lego-sets-coming/",
-      "image": "assets/thumbs/lego-hbo-series-sets-2026-09-01.jpg"
-    },
-    {
-      "id": "house-crests-ravenclaw-eagle-2026-09-01",
-      "date": "2026-09-01",
-      "status": "official",
-      "category": "HBO series",
-      "headline": "New Hogwarts house crests revealed, and the Ravenclaw eagle divides fans",
-      "summary": "The Back to Hogwarts event in London unveiled simplified house crests for the HBO series, with more focus on the house animals and closer wording to the books. Ravenclaw's crest uses an eagle rather than a raven, which is book accurate and still set off a long argument online.",
-      "source": "Soap Central",
-      "url": "https://www.soapcentral.com/shows/harry-potter-back-hogwarts-event-every-reveal-new-house-crests-wand-replicas",
-      "image": "assets/thumbs/house-crests-ravenclaw-eagle-2026-09-01.jpg"
-    },
-    {
-      "id": "sorting-ceremony-reimagined-2026-09-01",
-      "date": "2026-09-01",
-      "status": "official",
-      "category": "Fandom",
-      "headline": "The online Sorting Ceremony is rebuilt with new animation, music and crests",
-      "summary": "Wizarding World relaunched its Sorting Ceremony at HarryPotter.com using the new house heraldry from the series. Anyone already sorted can go through it again.",
-      "source": "Wizarding World",
-      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
-      "image": "assets/thumbs/sorting-ceremony-reimagined-2026-09-01.jpg"
-    },
-    {
-      "id": "free-audiobooks-philosophers-stone-2026-09-01",
-      "date": "2026-09-01",
-      "status": "official",
-      "category": "Books and audio",
-      "headline": "Stephen Fry and Jim Dale audiobooks of the first book go free until Halloween",
-      "summary": "Both narrated editions of Philosopher's Stone are free on Audible, Amazon Music, Spotify and the Harry Potter YouTube channel from 1 September through Halloween.",
-      "source": "Wizarding World",
-      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
-      "image": "assets/thumbs/free-audiobooks-philosophers-stone-2026-.jpg",
-      "video": "ZuD_Aah14P8"
-    },
-    {
-      "id": "cinema-run-closes-2026-09-01",
-      "date": "2026-09-01",
-      "status": "official",
-      "category": "Films",
-      "headline": "The eight film cinema run closes with Deathly Hallows Part 2",
-      "summary": "All eight films returned to cinemas for the 25th anniversary of Philosopher's Stone. Regal ran one film a day from 25 August to 1 September, inside a wider Warner Bros window of 27 August to 3 September, with AMC, Cinemark, Megaplex, Harkins and Marcus also taking part.",
-      "source": "Attractions Magazine",
-      "url": "https://attractionsmagazine.com/harry-potter-movie-theaters-2026-sorcerers-stone-25th-anniversary/",
-      "image": "assets/thumbs/cinema-run-closes-2026-09-01.jpg"
-    },
-    {
-      "id": "back-to-hogwarts-showcase-2026-08-31",
-      "date": "2026-08-31",
-      "status": "official",
-      "category": "Fandom",
-      "headline": "Back to Hogwarts showcase lands 18 announcements in one sitting",
-      "summary": "The annual 1 September showcase covered the HBO series, a returning podcast, LEGO sets tied to the show, a Snapchat lens set, a Macy's Thanksgiving Parade debut, new shops, park lands and games. It is the single densest source of the week.",
-      "source": "Wizarding World",
-      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
-      "image": "assets/thumbs/back-to-hogwarts-showcase-2026-08-31.jpg",
-      "video": "tqqhFtRpnWw"
-    },
-    {
-      "id": "teaser-christmas-2026-08-31",
-      "date": "2026-08-31",
-      "status": "official",
-      "category": "HBO series",
-      "headline": "Season one is titled Philosopher's Stone and arrives Christmas 2026",
-      "summary": "A new teaser was set for 1 September, with the first season confirmed as Harry Potter and the Philosopher's Stone, premiering on HBO and streaming on HBO Max at Christmas. The trailer earlier this year drew 277 million views in its first 48 hours, a record for HBO.",
-      "source": "Wizarding World",
-      "url": "https://www.harrypotter.com/news/watch-the-first-teaser-for-hbo-original-harry-potter-series-premiering-christmas-2026",
-      "image": "assets/thumbs/teaser-christmas-2026-08-31.jpg",
-      "video": "RIu4sFKGi6E"
-    },
-    {
-      "id": "official-podcast-heyman-2026-08-31",
-      "date": "2026-08-31",
-      "status": "official",
-      "category": "HBO series",
-      "headline": "Official podcast returns weekly, with David Heyman in a bonus episode",
-      "summary": "Rhianna Dhillon and Law Sharma are back to cover the series week by week. A bonus episode with executive producer David Heyman went up on 31 August.",
-      "source": "Wizarding World",
-      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
-      "image": "assets/thumbs/official-podcast-heyman-2026-08-31.jpg",
-      "video": "pnfh52yeM9M"
-    },
-    {
-      "id": "oxford-street-flagship-2026-08-31",
-      "date": "2026-08-31",
-      "status": "official",
-      "category": "Shops and experiences",
-      "headline": "London gets a 21,000 square foot flagship shop on Oxford Street on 4 November",
-      "summary": "The store is built around a Diagon Alley look, with a Knight Bus and a Ukrainian Ironbelly dragon installed inside. A greenscreen broomstick flight also arrives at the New York shop this autumn.",
-      "source": "Soap Central",
-      "url": "https://www.soapcentral.com/shows/harry-potter-back-hogwarts-event-every-reveal-new-house-crests-wand-replicas",
-      "image": "assets/thumbs/oxford-street-flagship-2026-08-31.jpg"
-    },
-    {
-      "id": "illustrated-half-blood-prince-2026-08-31",
-      "date": "2026-08-31",
-      "status": "official",
-      "category": "Books and audio",
-      "headline": "Levi Pinfold's illustrated Half-Blood Prince arrives 6 October",
-      "summary": "Bloomsbury publishes the sixth illustrated edition, continuing the series Pinfold took over from Jim Kay.",
-      "source": "Wizarding World",
-      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
-      "image": "assets/thumbs/illustrated-half-blood-prince-2026-08-31.jpg"
-    },
-    {
-      "id": "lego-remastered-switch-2-2026-08-31",
-      "date": "2026-08-31",
-      "status": "official",
-      "category": "Games",
-      "headline": "LEGO Harry Potter Remastered hits Nintendo Switch 2 on 16 October",
-      "summary": "Pre-orders opened alongside the announcement. Hogwarts Mystery also starts a Castle Chronicles event in September built on the Lily and James Potter story, and Puzzles and Spells adds an Epic Quidditch mode with multi day club competitions.",
-      "source": "Wizarding World",
-      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
-      "image": "assets/thumbs/lego-remastered-switch-2-2026-08-31.jpg",
-      "video": "zpLF2QXbb0g"
-    },
-    {
-      "id": "abu-dhabi-lands-reveal-2026-08-31",
-      "date": "2026-08-31",
-      "status": "official",
-      "category": "Shops and experiences",
-      "headline": "Warner Bros World Abu Dhabi reveals new Harry Potter lands on 7 September",
-      "summary": "Three new themed lands were trailed at the showcase, with the full reveal set for 7 September. Worth watching if you want the first concept art.",
-      "source": "Soap Central",
-      "url": "https://www.soapcentral.com/shows/harry-potter-back-hogwarts-event-every-reveal-new-house-crests-wand-replicas",
-      "image": "assets/thumbs/abu-dhabi-lands-reveal-2026-08-31.jpg",
-      "video": "qWIByerF_Qc"
-    },
-    {
-      "id": "ice-gaylord-texan-2026-08-31",
-      "date": "2026-08-31",
-      "status": "official",
-      "category": "Shops and experiences",
-      "headline": "An ice carved Harry Potter walkthrough opens in Texas on 13 November",
-      "summary": "ICE! at the Gaylord Texan near Dallas turns roughly two million pounds of ice into ten scenes from the films. It runs to early January.",
-      "source": "Wizarding World",
-      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
-      "image": "assets/thumbs/ice-gaylord-texan-2026-08-31.jpg",
-      "video": "z8cu9cB47Fs"
-    },
-    {
-      "id": "macys-parade-debut-2026-08-31",
-      "date": "2026-08-31",
-      "status": "official",
-      "category": "Shops and experiences",
-      "headline": "Harry Potter joins the Macy's Thanksgiving parade for the first time",
-      "summary": "The debut lands on the parade's 100th anniversary this November in the United States.",
-      "source": "Wizarding World",
-      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
-      "image": "assets/thumbs/macys-parade-debut-2026-08-31.jpg"
-    },
-    {
-      "id": "wizards-of-baking-s3-2026-08-31",
-      "date": "2026-08-31",
-      "status": "official",
-      "category": "Television",
-      "headline": "Wizards of Baking returns for a third season in a tournament format",
-      "summary": "The four houses compete this festive season, with bakes themed around all eight films.",
-      "source": "Wizarding World",
-      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
-      "image": "assets/thumbs/wizards-of-baking-s3-2026-08-31.jpg",
-      "video": "AxYsZULb-LE"
-    },
-    {
-      "id": "voldemort-casting-secret-2026",
-      "date": "2026-08-28",
-      "status": "rumor",
-      "category": "HBO series",
-      "headline": "Voldemort casting is still unannounced, and the viral cast lists are wrong",
-      "summary": "HBO has kept the role quiet on purpose. A widely shared list naming Jamie Campbell Bower and Peter Capaldi has no studio backing, and one popular claim about a Marvel actor traces back to the German language audiobook cast rather than the series. Treat every Voldemort name as unproven until HBO says otherwise.",
-      "source": "Sportskeeda",
-      "url": "https://www.sportskeeda.com/pop-culture/news-from-jamie-campbell-bower-peter-capaldi-post-alleged-harry-potter-new-series-cast-list-goes-viral-online",
-      "image": "assets/hogwarts-night.jpg"
-    },
-    {
-      "id": "rupert-grint-cursed-child-2026-08-27",
-      "date": "2026-08-27",
-      "status": "official",
-      "category": "Stage",
-      "headline": "Rupert Grint will play Ron Weasley again, this time on Broadway",
-      "summary": "Grint joins Harry Potter and the Cursed Child in New York, returning to the role 15 years after the last film. Tom Felton played Draco in the same production earlier this year.",
-      "source": "Variety",
-      "url": "https://variety.com/2026/legit/global/rupert-grint-ron-weasley-harry-potter-and-the-cursed-child-1236843779/",
-      "image": "assets/thumbs/rupert-grint-cursed-child-2026-08-27.jpg"
-    },
-    {
-      "id": "season-2-filming-fall-2026",
-      "date": "2026-08-26",
-      "status": "confirmed",
-      "category": "HBO series",
-      "headline": "Season two starts filming this autumn on Chamber of Secrets",
-      "summary": "HBO renewed the show back in May and the second season goes into production in late 2026, before the first has even aired. Francesca Gardiner runs the show with Jon Brown promoted to co showrunner.",
-      "source": "Variety",
-      "url": "https://variety.com/2026/tv/news/harry-potter-renewed-season-2-hbo-chamber-of-secrets-1236739605/",
-      "image": "assets/thumbs/season-2-filming-fall-2026.jpg"
-    },
-    {
-      "id": "leaked-prologue-dedalus-diggle",
-      "date": "2026-08-26",
-      "status": "leak",
-      "category": "HBO series",
-      "headline": "Leaked set images point to a prologue scene the films never had",
-      "summary": "Images from location filming show Dedalus Diggle and the Dursleys in what looks like an opening sequence drawn from the first chapter of the book. Nothing here is studio released, so details can still change in the edit.",
-      "source": "Collider",
-      "url": "https://collider.com/hbo-harry-potter-series-set-images-dedalus-diggle-vernon-dursley-prologue-scene/",
-      "image": "assets/thumbs/leaked-prologue-dedalus-diggle.jpg"
-    },
-    {
-      "id": "cast-reference-rotten-tomatoes",
-      "date": "2026-08-26",
-      "status": "confirmed",
-      "category": "HBO series",
-      "headline": "Where the full cast list stands going into the premiere",
-      "summary": "Dominic McLaughlin, Arabella Stanton and Alastair Stout lead as Harry, Hermione and Ron, with John Lithgow as Dumbledore, Paapa Essiedu as Snape, Janet McTeer as McGonagall, Nick Frost as Hagrid and Nicholas Hoult added in August as Gilderoy Lockhart. Peter Serafinowicz plays Peeves, a character the films cut.",
-      "source": "Rotten Tomatoes",
-      "url": "https://editorial.rottentomatoes.com/article/everything-we-know-about-hbos-harry-potter-series/",
-      "image": "assets/thumbs/cast-reference-rotten-tomatoes.jpg"
-    },
-    {
-      "id": "asha-soetan-season-2-leavesden-2026-08-17",
-      "date": "2026-08-17",
-      "status": "confirmed",
-      "category": "HBO series",
-      "headline": "Atriz de Angelina Johnson deixa escapar que a segunda temporada ja grava em Leavesden",
-      "summary": "Asha Soetan, que vive a estudante Angelina Johnson, postou nas redes que estava de volta ao set com cenas empolgantes mas jurada de segredo. Foi assim que se soube que a segunda temporada comecou a rodar em Leavesden, antes de qualquer anuncio do estudio.",
-      "source": "Watford Observer",
-      "url": "https://uk.news.yahoo.com/hbo-harry-potter-actor-reveals-161500213.html",
-      "image": "assets/thumbs/asha-soetan-season-2-leavesden-2026-08-17.jpg"
-    },
-    {
-      "id": "hogwarts-legacy-2-development-2026-08-17",
-      "date": "2026-08-17",
-      "status": "confirmed",
-      "category": "Games",
-      "headline": "A Hogwarts Legacy sequel is officially in development",
-      "summary": "Warner Bros confirmed the follow up in August. No release window and no platforms yet, and a first look is widely expected to be timed near the series launch.",
-      "source": "Game Informer",
-      "url": "https://gameinformer.com/2026/08/17/a-hogwarts-legacy-sequel-is-officially-in-development",
-      "image": "assets/thumbs/hogwarts-legacy-2-development-2026-08-17.jpg"
-    },
-    {
-      "id": "waterloo-station-paparazzi-2026-05-04",
-      "date": "2026-05-04",
-      "status": "paparazzi",
-      "category": "HBO series",
-      "headline": "Fotos de paparazzi poem os Dursley e os Weasley na estacao de Waterloo",
-      "summary": "A estacao de Waterloo, em Londres, foi usada como Kings Cross para gravar a Plataforma nove e tres quartos. As imagens mostram os atores de Valter Dursley e Molly Weasley juntos, mais figurantes fantasiados e os gemeos Weasley. As fotos sairam pelo Daily Mail e circularam a partir de um post do perfil Luka4152 no X.",
-      "source": "Notebookcheck",
-      "url": "https://www.notebookcheck.net/Harry-Potter-series-New-set-photos-spark-plenty-of-fan-speculation.1288829.0.html",
-      "image": "assets/thumbs/waterloo-station-paparazzi-2026-05-04.jpg"
-    }
-  ]
+ "updated": "2026-09-05",
+ "stories": [
+  {
+   "id": "invisibility-cloak-design-2026-09-05",
+   "date": "2026-09-05",
+   "status": "analysis",
+   "category": "Fandom",
+   "headline": "The Leaky Cauldron reads the new invisibility cloak in the full trailer",
+   "summary": "Amanda Kirk compares the film cloak, a velvety and gossamer fabric carrying Celtic knotwork, against the version glimpsed in the 2 September trailer. The new one looks lighter and much longer, closer to a curtain of fabric, which would hide three children far better but could also trip Harry or snag on things or be grabbed. She also notes the dormitory scene seems to follow the book, with presents waiting at the foot of the bed rather than down in the common room.",
+   "source": "The Leaky Cauldron",
+   "url": "https://www.the-leaky-cauldron.org/2026/09/05/harrys-invisibility-cloaks/"
+  },
+  {
+   "id": "dobby-portrayal-question-2026-09-04",
+   "date": "2026-09-04",
+   "status": "rumor",
+   "category": "Fandom",
+   "headline": "Nobody knows yet how HBO will actually put Dobby on screen",
+   "summary": "Casting a living actor as Dobby left readers asking what the house elf will look like. The films used a fully computer generated Dobby with Toby Jones providing the voice. Hiring Lenny Rush could mean motion capture, prosthetics, a puppet or simply a voice role with the visual built separately. Comments on the announcement ran from Not a CGI creature to Live action Dobby. HBO has said nothing about the method, so every answer going round is guesswork.",
+   "source": "SuperHeroHype",
+   "url": "https://www.superherohype.com/movies/691216-hbo-max-harry-potter-tv-show-dobby-casting-question"
+  },
+  {
+   "id": "lenny-rush-dobby-reaction-2026-09-04",
+   "date": "2026-09-04",
+   "status": "confirmed",
+   "category": "HBO series",
+   "headline": "Lenny Rush says he is over the moon to be cast as Dobby",
+   "summary": "The Doctor Who actor posted on Instagram the day after HBO named him as Dobby for season two. He wrote that he is over the moon to be joining the magical world of the HBO Harry Potter series, added that even littler me, a massive Harry Potter fan, would not believe it, and said he is very excited to join the franchise. He paired the post with a childhood photo of himself as a fan.",
+   "source": "ComingSoon",
+   "url": "https://www.comingsoon.net/tv/news/2186736-harry-potter-hbo-series-new-dobby-actor-instagram-post"
+  },
+  {
+   "id": "season-2-cast-riddle-dobby-ginny-2026-09-04",
+   "date": "2026-09-04",
+   "status": "official",
+   "category": "HBO series",
+   "headline": "HBO names its new Ginny and casts Tom Riddle and Dobby for season two",
+   "summary": "HBO announced the three on 4 September and captioned the reveal \"The Chamber of Secrets has been opened\". Bonnie Hill takes over as Ginny Weasley from Gracie Cochrane, whose family said in May that she had made the challenging decision to step away from the part after the first season. Billy Barratt plays Tom Riddle, the memory in the diary that drives the second book, which is the first time the show has cast the role. Lenny Rush plays Dobby. They join Kit Harington as Gilderoy Lockhart in the second season, which adapts Chamber of Secrets and goes into production this autumn.",
+   "source": "TVLine",
+   "url": "https://www.tvline.com/2251090/harry-potter-season-2-cast-dobby-tom-riddle-ginny-weasley/"
+  },
+  {
+   "id": "season-2-production-problems-2026-09-04",
+   "date": "2026-09-04",
+   "status": "rumor",
+   "category": "HBO series",
+   "headline": "Fresh reports say season two has hit recasting and script trouble",
+   "summary": "UNILAD and The Tab both published roundups saying the second season of the HBO series has been slowed down. Gracie Cochrane left the part of Ginny Weasley in May and Kit Harington took over from Nicholas Hoult as Gilderoy Lockhart in August. Tabloid sources also claim the scripts were not finished and that a planned August start slipped to later in the year. Warner Bros and HBO have said nothing, and cast member Asha Soetan has posted from set since then, so the delay claim is not stood up.",
+   "source": "UNILAD",
+   "url": "https://www.unilad.com/film-and-tv/news/harry-potter-hbo-season-two-problems-597276-20260904"
+  },
+  {
+   "id": "caldeirao-furado-trailer-breakdown-2026-09-03",
+   "date": "2026-09-03",
+   "status": "analysis",
+   "category": "Analise e teoria",
+   "headline": "Caldeirao Furado destrincha o trailer quadro a quadro",
+   "summary": "Caco Cardassi publicou as primeiras impressoes do trailer completo em um video de cinquenta e dois minutos, que passou de cem mil visualizacoes em oito horas. O Caldeirao Furado tem 1,67 milhao de inscritos e e o maior canal de Harry Potter do mundo. No mesmo dia o canal ja tinha subido a analise do anuncio do trailer e a reacao ao vivo.",
+   "source": "Caldeirao Furado",
+   "url": "https://www.youtube.com/watch?v=RcY7feIAzSY",
+   "image": "assets/thumbs/caldeirao-furado-trailer-breakdown-2026-09-03.jpg"
+  },
+  {
+   "id": "hogwarts-professor-emoji-symbols-2026-09-03",
+   "date": "2026-09-03",
+   "status": "analysis",
+   "category": "Analise e teoria",
+   "headline": "Um estudioso dos livros le os tres emojis que Rowling postou com o trailer",
+   "summary": "John Granger, do Hogwarts Professor, argumenta que o coracao, a coruja e o raio que Rowling usou ao divulgar o trailer nao sao enfeite. No sistema simbolico dos livros o coracao e o centro espiritual, a coruja e a percepcao do que nao se ve e o raio e a transformacao. O site faz leitura literaria da serie ha anos, com alquimia e composicao em anel, e e o tipo de analise que nao aparece nos portais de noticia.",
+   "source": "Hogwarts Professor",
+   "url": "https://www.hogwartsprofessor.com/the-hbo-potter-trailer-the-meaning-of-rowlings-heart-owl-and-lightning-bolt/"
+  },
+  {
+   "id": "potterish-trailer-hedwig-2026-09-02",
+   "date": "2026-09-02",
+   "status": "confirmed",
+   "category": "HBO series",
+   "headline": "Potterish destaca a Cerimonia de Selecao, o Quadribol e a primeira Edwiges",
+   "summary": "O Potterish, site brasileiro de Harry Potter no ar desde 2002, publicou sua leitura do trailer completo em portugues e em ingles. O texto separa a Cerimonia de Selecao, a primeira partida de Quadribol e o primeiro vislumbre de Edwiges, e sai junto com um guia de estreia com data, numero de episodios e onde assistir.",
+   "source": "Potterish",
+   "url": "https://potterish.com/new-harry-potter-hbo-series-trailer/?lang=en",
+   "image": "assets/thumbs/potterish-trailer-hedwig-2026-09-02.jpg"
+  },
+  {
+   "id": "full-trailer-arrives-2026-09-02",
+   "date": "2026-09-02",
+   "status": "official",
+   "category": "HBO series",
+   "headline": "The first full trailer for Philosopher's Stone arrives and locks Christmas Day",
+   "summary": "HBO Max put out the full trailer on 2 September, a day after the Back to Hogwarts teaser promised it. It walks through Harry's first year, taking in the Hogwarts Express, the Sorting Hat with Harry whispering not Slytherin, a Herbology lesson, the Great Hall feast, a first run at Quidditch, the troll in the bathroom and the Stone itself. Dominic McLaughlin, Arabella Stanton and Alastair Stout lead, with John Lithgow as Dumbledore, Paapa Essiedu as Snape, Janet McTeer as McGonagall and Nick Frost as Hagrid. The eight episode season lands 25 December on HBO and HBO Max.",
+   "source": "TVLine",
+   "url": "https://www.tvline.com/2249543/harry-potter-tv-series-full-trailer-hbo/",
+   "image": "assets/thumbs/full-trailer-arrives-2026-09-02.jpg",
+   "video": "SJVmeJaS44s"
+  },
+  {
+   "id": "snapchat-ar-lenses-2026-09-01",
+   "date": "2026-09-01",
+   "status": "official",
+   "category": "Fandom",
+   "headline": "Snapchat and HBO Max open a wizarding world season on the app",
+   "summary": "Snap and HBO Max announced a tie in that runs all the way to the series launch. AR lenses went live on the Harry Potter account on 1 September along with a custom app icon. Twelve lenses roll out across the season, among them a Hogwarts letter, a Hogwarts Express journey and a Sorting Hat. Chat wallpapers and Bitmoji fashion drawn from each house wardrobe follow, and Snapchat AR mirrors travel to fan events in the United States and the United Kingdom.",
+   "source": "Snap Newsroom",
+   "url": "https://newsroom.snap.com/snapchat-hbo-max-harry-potter-philosophers-stone"
+  },
+  {
+   "id": "studio-tour-house-spirit-2026-09-01",
+   "date": "2026-09-01",
+   "status": "official",
+   "category": "Shops and experiences",
+   "headline": "Warner Bros Studio Tour London sets a Hogwarts House Spirit season for early 2027",
+   "summary": "The feature runs from 23 January to 19 April 2027 and celebrates Gryffindor, Hufflepuff, Ravenclaw and Slytherin across the original sets, costumes and props. It was one of the eighteen items in the Back to Hogwarts showcase. Ticket information and the rest of the detail come later.",
+   "source": "Attractions Magazine",
+   "url": "https://attractionsmagazine.com/back-to-hogwarts-harry-potter-announcements-2026/",
+   "image": "assets/thumbs/studio-tour-house-spirit-2026-09-01.jpg",
+   "video": "rgKBEQzB01A"
+  },
+  {
+   "id": "full-trailer-date-2026-09-01",
+   "date": "2026-09-01",
+   "status": "official",
+   "category": "HBO series",
+   "headline": "Quidditch teaser sets the first full trailer for 2 September",
+   "summary": "The Back to Hogwarts livestream closed with a short teaser built around Harry's first Quidditch match, with Ron and Hermione cheering from the stands. HBO Max confirmed that the first full trailer for Harry Potter and the Philosopher's Stone arrives the next day. The series still premieres at Christmas 2026.",
+   "source": "MuggleNet",
+   "url": "https://mugglenet.com/2026/09/hbo-harry-potter-full-trailer-september-2/",
+   "image": "assets/thumbs/full-trailer-date-2026-09-01.jpg",
+   "video": "tqqhFtRpnWw"
+  },
+  {
+   "id": "lego-hbo-series-sets-2026-09-01",
+   "date": "2026-09-01",
+   "status": "official",
+   "category": "Shops and experiences",
+   "headline": "LEGO sets drawn from the HBO series are on the way",
+   "summary": "Warner Bros confirmed a new LEGO range based on the HBO series rather than the films. No sets, characters or release dates have been named yet. It would be the first time the long running LEGO partnership follows the television version of Hogwarts.",
+   "source": "MuggleNet",
+   "url": "https://mugglenet.com/2026/09/hbo-harry-potter-lego-sets-coming/",
+   "image": "assets/thumbs/lego-hbo-series-sets-2026-09-01.jpg"
+  },
+  {
+   "id": "house-crests-ravenclaw-eagle-2026-09-01",
+   "date": "2026-09-01",
+   "status": "official",
+   "category": "HBO series",
+   "headline": "New Hogwarts house crests revealed, and the Ravenclaw eagle divides fans",
+   "summary": "The Back to Hogwarts event in London unveiled simplified house crests for the HBO series, with more focus on the house animals and closer wording to the books. Ravenclaw's crest uses an eagle rather than a raven, which is book accurate and still set off a long argument online.",
+   "source": "Soap Central",
+   "url": "https://www.soapcentral.com/shows/harry-potter-back-hogwarts-event-every-reveal-new-house-crests-wand-replicas",
+   "image": "assets/thumbs/house-crests-ravenclaw-eagle-2026-09-01.jpg"
+  },
+  {
+   "id": "sorting-ceremony-reimagined-2026-09-01",
+   "date": "2026-09-01",
+   "status": "official",
+   "category": "Fandom",
+   "headline": "The online Sorting Ceremony is rebuilt with new animation, music and crests",
+   "summary": "Wizarding World relaunched its Sorting Ceremony at HarryPotter.com using the new house heraldry from the series. Anyone already sorted can go through it again.",
+   "source": "Wizarding World",
+   "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
+   "image": "assets/thumbs/sorting-ceremony-reimagined-2026-09-01.jpg"
+  },
+  {
+   "id": "free-audiobooks-philosophers-stone-2026-09-01",
+   "date": "2026-09-01",
+   "status": "official",
+   "category": "Books and audio",
+   "headline": "Stephen Fry and Jim Dale audiobooks of the first book go free until Halloween",
+   "summary": "Both narrated editions of Philosopher's Stone are free on Audible, Amazon Music, Spotify and the Harry Potter YouTube channel from 1 September through Halloween.",
+   "source": "Wizarding World",
+   "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
+   "image": "assets/thumbs/free-audiobooks-philosophers-stone-2026-.jpg",
+   "video": "ZuD_Aah14P8"
+  },
+  {
+   "id": "cinema-run-closes-2026-09-01",
+   "date": "2026-09-01",
+   "status": "official",
+   "category": "Films",
+   "headline": "The eight film cinema run closes with Deathly Hallows Part 2",
+   "summary": "All eight films returned to cinemas for the 25th anniversary of Philosopher's Stone. Regal ran one film a day from 25 August to 1 September, inside a wider Warner Bros window of 27 August to 3 September, with AMC, Cinemark, Megaplex, Harkins and Marcus also taking part.",
+   "source": "Attractions Magazine",
+   "url": "https://attractionsmagazine.com/harry-potter-movie-theaters-2026-sorcerers-stone-25th-anniversary/",
+   "image": "assets/thumbs/cinema-run-closes-2026-09-01.jpg"
+  },
+  {
+   "id": "back-to-hogwarts-showcase-2026-08-31",
+   "date": "2026-08-31",
+   "status": "official",
+   "category": "Fandom",
+   "headline": "Back to Hogwarts showcase lands 18 announcements in one sitting",
+   "summary": "The annual 1 September showcase covered the HBO series, a returning podcast, LEGO sets tied to the show, a Snapchat lens set, a Macy's Thanksgiving Parade debut, new shops, park lands and games. It is the single densest source of the week.",
+   "source": "Wizarding World",
+   "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
+   "image": "assets/thumbs/back-to-hogwarts-showcase-2026-08-31.jpg",
+   "video": "tqqhFtRpnWw"
+  },
+  {
+   "id": "teaser-christmas-2026-08-31",
+   "date": "2026-08-31",
+   "status": "official",
+   "category": "HBO series",
+   "headline": "Season one is titled Philosopher's Stone and arrives Christmas 2026",
+   "summary": "A new teaser was set for 1 September, with the first season confirmed as Harry Potter and the Philosopher's Stone, premiering on HBO and streaming on HBO Max at Christmas. The trailer earlier this year drew 277 million views in its first 48 hours, a record for HBO.",
+   "source": "Wizarding World",
+   "url": "https://www.harrypotter.com/news/watch-the-first-teaser-for-hbo-original-harry-potter-series-premiering-christmas-2026",
+   "image": "assets/thumbs/teaser-christmas-2026-08-31.jpg",
+   "video": "RIu4sFKGi6E"
+  },
+  {
+   "id": "official-podcast-heyman-2026-08-31",
+   "date": "2026-08-31",
+   "status": "official",
+   "category": "HBO series",
+   "headline": "Official podcast returns weekly, with David Heyman in a bonus episode",
+   "summary": "Rhianna Dhillon and Law Sharma are back to cover the series week by week. A bonus episode with executive producer David Heyman went up on 31 August.",
+   "source": "Wizarding World",
+   "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
+   "image": "assets/thumbs/official-podcast-heyman-2026-08-31.jpg",
+   "video": "pnfh52yeM9M"
+  },
+  {
+   "id": "oxford-street-flagship-2026-08-31",
+   "date": "2026-08-31",
+   "status": "official",
+   "category": "Shops and experiences",
+   "headline": "London gets a 21,000 square foot flagship shop on Oxford Street on 4 November",
+   "summary": "The store is built around a Diagon Alley look, with a Knight Bus and a Ukrainian Ironbelly dragon installed inside. A greenscreen broomstick flight also arrives at the New York shop this autumn.",
+   "source": "Soap Central",
+   "url": "https://www.soapcentral.com/shows/harry-potter-back-hogwarts-event-every-reveal-new-house-crests-wand-replicas",
+   "image": "assets/thumbs/oxford-street-flagship-2026-08-31.jpg"
+  },
+  {
+   "id": "illustrated-half-blood-prince-2026-08-31",
+   "date": "2026-08-31",
+   "status": "official",
+   "category": "Books and audio",
+   "headline": "Levi Pinfold's illustrated Half-Blood Prince arrives 6 October",
+   "summary": "Bloomsbury publishes the sixth illustrated edition, continuing the series Pinfold took over from Jim Kay.",
+   "source": "Wizarding World",
+   "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
+   "image": "assets/thumbs/illustrated-half-blood-prince-2026-08-31.jpg"
+  },
+  {
+   "id": "lego-remastered-switch-2-2026-08-31",
+   "date": "2026-08-31",
+   "status": "official",
+   "category": "Games",
+   "headline": "LEGO Harry Potter Remastered hits Nintendo Switch 2 on 16 October",
+   "summary": "Pre-orders opened alongside the announcement. Hogwarts Mystery also starts a Castle Chronicles event in September built on the Lily and James Potter story, and Puzzles and Spells adds an Epic Quidditch mode with multi day club competitions.",
+   "source": "Wizarding World",
+   "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
+   "image": "assets/thumbs/lego-remastered-switch-2-2026-08-31.jpg",
+   "video": "zpLF2QXbb0g"
+  },
+  {
+   "id": "abu-dhabi-lands-reveal-2026-08-31",
+   "date": "2026-08-31",
+   "status": "official",
+   "category": "Shops and experiences",
+   "headline": "Warner Bros World Abu Dhabi reveals new Harry Potter lands on 7 September",
+   "summary": "Three new themed lands were trailed at the showcase, with the full reveal set for 7 September. Worth watching if you want the first concept art.",
+   "source": "Soap Central",
+   "url": "https://www.soapcentral.com/shows/harry-potter-back-hogwarts-event-every-reveal-new-house-crests-wand-replicas",
+   "image": "assets/thumbs/abu-dhabi-lands-reveal-2026-08-31.jpg",
+   "video": "qWIByerF_Qc"
+  },
+  {
+   "id": "ice-gaylord-texan-2026-08-31",
+   "date": "2026-08-31",
+   "status": "official",
+   "category": "Shops and experiences",
+   "headline": "An ice carved Harry Potter walkthrough opens in Texas on 13 November",
+   "summary": "ICE! at the Gaylord Texan near Dallas turns roughly two million pounds of ice into ten scenes from the films. It runs to early January.",
+   "source": "Wizarding World",
+   "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
+   "image": "assets/thumbs/ice-gaylord-texan-2026-08-31.jpg",
+   "video": "z8cu9cB47Fs"
+  },
+  {
+   "id": "macys-parade-debut-2026-08-31",
+   "date": "2026-08-31",
+   "status": "official",
+   "category": "Shops and experiences",
+   "headline": "Harry Potter joins the Macy's Thanksgiving parade for the first time",
+   "summary": "The debut lands on the parade's 100th anniversary this November in the United States.",
+   "source": "Wizarding World",
+   "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
+   "image": "assets/thumbs/macys-parade-debut-2026-08-31.jpg"
+  },
+  {
+   "id": "wizards-of-baking-s3-2026-08-31",
+   "date": "2026-08-31",
+   "status": "official",
+   "category": "Television",
+   "headline": "Wizards of Baking returns for a third season in a tournament format",
+   "summary": "The four houses compete this festive season, with bakes themed around all eight films.",
+   "source": "Wizarding World",
+   "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
+   "image": "assets/thumbs/wizards-of-baking-s3-2026-08-31.jpg",
+   "video": "AxYsZULb-LE"
+  },
+  {
+   "id": "voldemort-casting-secret-2026",
+   "date": "2026-08-28",
+   "status": "rumor",
+   "category": "HBO series",
+   "headline": "Voldemort casting is still unannounced, and the viral cast lists are wrong",
+   "summary": "HBO has kept the role quiet on purpose. A widely shared list naming Jamie Campbell Bower and Peter Capaldi has no studio backing, and one popular claim about a Marvel actor traces back to the German language audiobook cast rather than the series. Treat every Voldemort name as unproven until HBO says otherwise.",
+   "source": "Sportskeeda",
+   "url": "https://www.sportskeeda.com/pop-culture/news-from-jamie-campbell-bower-peter-capaldi-post-alleged-harry-potter-new-series-cast-list-goes-viral-online"
+  },
+  {
+   "id": "rupert-grint-cursed-child-2026-08-27",
+   "date": "2026-08-27",
+   "status": "official",
+   "category": "Stage",
+   "headline": "Rupert Grint will play Ron Weasley again, this time on Broadway",
+   "summary": "Grint joins Harry Potter and the Cursed Child in New York, returning to the role 15 years after the last film. Tom Felton played Draco in the same production earlier this year.",
+   "source": "Variety",
+   "url": "https://variety.com/2026/legit/global/rupert-grint-ron-weasley-harry-potter-and-the-cursed-child-1236843779/",
+   "image": "assets/thumbs/rupert-grint-cursed-child-2026-08-27.jpg"
+  },
+  {
+   "id": "season-2-filming-fall-2026",
+   "date": "2026-08-26",
+   "status": "confirmed",
+   "category": "HBO series",
+   "headline": "Season two starts filming this autumn on Chamber of Secrets",
+   "summary": "HBO renewed the show back in May and the second season goes into production in late 2026, before the first has even aired. Francesca Gardiner runs the show with Jon Brown promoted to co showrunner.",
+   "source": "Variety",
+   "url": "https://variety.com/2026/tv/news/harry-potter-renewed-season-2-hbo-chamber-of-secrets-1236739605/",
+   "image": "assets/thumbs/season-2-filming-fall-2026.jpg"
+  },
+  {
+   "id": "leaked-prologue-dedalus-diggle",
+   "date": "2026-08-26",
+   "status": "leak",
+   "category": "HBO series",
+   "headline": "Leaked set images point to a prologue scene the films never had",
+   "summary": "Images from location filming show Dedalus Diggle and the Dursleys in what looks like an opening sequence drawn from the first chapter of the book. Nothing here is studio released, so details can still change in the edit.",
+   "source": "Collider",
+   "url": "https://collider.com/hbo-harry-potter-series-set-images-dedalus-diggle-vernon-dursley-prologue-scene/",
+   "image": "assets/thumbs/leaked-prologue-dedalus-diggle.jpg"
+  },
+  {
+   "id": "cast-reference-rotten-tomatoes",
+   "date": "2026-08-26",
+   "status": "confirmed",
+   "category": "HBO series",
+   "headline": "Where the full cast list stands going into the premiere",
+   "summary": "Dominic McLaughlin, Arabella Stanton and Alastair Stout lead as Harry, Hermione and Ron, with John Lithgow as Dumbledore, Paapa Essiedu as Snape, Janet McTeer as McGonagall, Nick Frost as Hagrid and Nicholas Hoult added in August as Gilderoy Lockhart. Peter Serafinowicz plays Peeves, a character the films cut.",
+   "source": "Rotten Tomatoes",
+   "url": "https://editorial.rottentomatoes.com/article/everything-we-know-about-hbos-harry-potter-series/",
+   "image": "assets/thumbs/cast-reference-rotten-tomatoes.jpg"
+  },
+  {
+   "id": "asha-soetan-season-2-leavesden-2026-08-17",
+   "date": "2026-08-17",
+   "status": "confirmed",
+   "category": "HBO series",
+   "headline": "Atriz de Angelina Johnson deixa escapar que a segunda temporada ja grava em Leavesden",
+   "summary": "Asha Soetan, que vive a estudante Angelina Johnson, postou nas redes que estava de volta ao set com cenas empolgantes mas jurada de segredo. Foi assim que se soube que a segunda temporada comecou a rodar em Leavesden, antes de qualquer anuncio do estudio.",
+   "source": "Watford Observer",
+   "url": "https://uk.news.yahoo.com/hbo-harry-potter-actor-reveals-161500213.html",
+   "image": "assets/thumbs/asha-soetan-season-2-leavesden-2026-08-17.jpg"
+  },
+  {
+   "id": "hogwarts-legacy-2-development-2026-08-17",
+   "date": "2026-08-17",
+   "status": "confirmed",
+   "category": "Games",
+   "headline": "A Hogwarts Legacy sequel is officially in development",
+   "summary": "Warner Bros confirmed the follow up in August. No release window and no platforms yet, and a first look is widely expected to be timed near the series launch.",
+   "source": "Game Informer",
+   "url": "https://gameinformer.com/2026/08/17/a-hogwarts-legacy-sequel-is-officially-in-development",
+   "image": "assets/thumbs/hogwarts-legacy-2-development-2026-08-17.jpg"
+  },
+  {
+   "id": "waterloo-station-paparazzi-2026-05-04",
+   "date": "2026-05-04",
+   "status": "paparazzi",
+   "category": "HBO series",
+   "headline": "Fotos de paparazzi poem os Dursley e os Weasley na estacao de Waterloo",
+   "summary": "A estacao de Waterloo, em Londres, foi usada como Kings Cross para gravar a Plataforma nove e tres quartos. As imagens mostram os atores de Valter Dursley e Molly Weasley juntos, mais figurantes fantasiados e os gemeos Weasley. As fotos sairam pelo Daily Mail e circularam a partir de um post do perfil Luka4152 no X.",
+   "source": "Notebookcheck",
+   "url": "https://www.notebookcheck.net/Harry-Potter-series-New-set-photos-spark-plenty-of-fan-speculation.1288829.0.html",
+   "image": "assets/thumbs/waterloo-station-paparazzi-2026-05-04.jpg"
+  }
+ ]
 }
-</script>
+    </script>
 
 <script>
 (function () {
@@ -3898,7 +3918,7 @@
     render();
   }
 
-  var HOUSE_PLATE = "assets/hogwarts-night.jpg";
+  /* o castelo continua no cabecalho, mas nao serve mais de tapa buraco */
 
   function shot(s) {
     var fb = icon(s.category, "fallback");
@@ -3906,13 +3926,18 @@
     var style = "--pan:" + (22 + (seed % 9) * 2.4).toFixed(1) + "s;" +
                 "--panx:" + (((seed % 5) - 2) * 1.8).toFixed(1) + "%;" +
                 "--pany:" + (((seed % 4) - 1) * 1.6).toFixed(1) + "%;";
-    var src = s.image || HOUSE_PLATE;
+    var src = s.image || "";
     var vid = s.video || "";
     if (!VIDEO_OK) vid = "";
-    var cls = "shot" + (vid ? " moving" : "");
-    var body =
-      '<img src="' + esc(src) + '" alt="" decoding="async" data-plate="' + esc(HOUSE_PLATE) + '">' +
-      (vid ? '<span class="reel" aria-hidden="true"></span>' : "") + fb;
+    /* sem foto propria a materia ganha uma chapa gravada com o objeto da
+       editoria e o nome de quem publicou, e nao a mesma foto do castelo
+       repetida em oito materias */
+    var semFoto = !src;
+    var cls = "shot" + (vid ? " moving" : "") + (semFoto ? " sem-foto" : "");
+    var body = semFoto
+      ? fb + '<span class="chapa-fonte">' + esc(s.source) + "</span>"
+      : '<img src="' + esc(src) + '" alt="" decoding="async">' +
+        (vid ? '<span class="reel" aria-hidden="true"></span>' : "") + fb;
     return '<figure class="cut">' +
       '<div class="' + cls + '" style="' + style + '"' + (vid ? ' data-video="' + esc(vid) + '"' : "") + '>' +
       body + "</div>" +
@@ -3968,13 +3993,6 @@
 
   function markFailed(img) {
     if (!img || !img.parentNode) return;
-    var plate = img.getAttribute("data-plate");
-    if (plate && !img.hasAttribute("data-plated")) {
-      img.setAttribute("data-plated", "1");
-      img.parentNode.classList.add("plated");
-      img.src = plate;
-      return;
-    }
     img.parentNode.classList.add("failed");
   }
   listEl.addEventListener("error", function (e) {
