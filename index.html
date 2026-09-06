@@ -973,13 +973,14 @@
     width: 1000px; height: 1000px;
     margin: -500px 0 0 -500px;
     pointer-events: none;
-    z-index: 1;
+    /* acima da materia, senao a luz so passa onde a pagina e vazada e para
+       seco na borda de cada foto. O album, que e 10050, fica por cima. */
+    z-index: 9994;
     opacity: 0;
     transition: opacity .45s ease;
     will-change: transform;
-    mix-blend-mode: screen;
     background:
-      radial-gradient(closest-side, rgba(255,240,198,.30) 0%, rgba(255,214,124,.19) 14%, rgba(226,176,80,.10) 32%, rgba(150,112,40,.04) 52%, transparent 72%);
+      radial-gradient(closest-side, rgba(255,240,198,.16) 0%, rgba(255,214,124,.10) 14%, rgba(226,176,80,.05) 32%, rgba(150,112,40,.02) 52%, transparent 72%);
   }
   .wand-glow.lit { opacity: 1; }
   /* no Lumos o papel ja e claro, entao a luz vira sombra quente e discreta */
@@ -999,8 +1000,13 @@
     opacity: 0;
     transition: opacity .35s ease;
     will-change: transform;
-    mix-blend-mode: screen;
-    background: radial-gradient(closest-side, rgba(255,253,245,.42) 0%, rgba(255,244,206,.26) 12%, rgba(255,220,140,.14) 30%, rgba(255,198,92,.06) 52%, transparent 76%);
+    /* nada de mix blend aqui. O screen soma com o que esta embaixo, entao a
+       luz acendia forte sobre uma foto clara e quase nada sobre uma escura,
+       e a borda de cada div aparecia como um corte reto na iluminacao.
+       Com blend normal a luz e um veu igual sobre tudo. */
+    background: radial-gradient(closest-side,
+      rgba(255,247,214,.20) 0%, rgba(255,236,178,.115) 16%,
+      rgba(255,214,128,.055) 38%, rgba(255,198,92,.02) 58%, transparent 76%);
   }
   .wand-core.lit { opacity: 1; }
   :root[data-theme="light"] .wand-core { opacity: 0 !important; }
