@@ -173,7 +173,9 @@
   h1.wordmark { position: relative; }
   h1.wordmark::after {
     content: "";
-    position: absolute; inset: -6% -4%;
+    /* o brilho parava fora da folha e abria uma barra de rolagem lateral,
+       entao ele agora comeca e termina na propria largura do nome */
+    position: absolute; inset: -6% 0;
     pointer-events: none;
     background: linear-gradient(100deg, transparent 38%, rgba(255,240,190,.55) 48%, transparent 58%);
     background-size: 260% 100%;
@@ -303,6 +305,11 @@
   }
   .lumos:hover { background: rgba(210,166,75,.14); border-color: var(--gold); color: var(--gold-bright); }
   .lumos .spark { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 8px var(--gold); }
+  /* o botao da varinha, que so aparece com a luz apagada */
+  .lumos[hidden] { display: none !important; }
+  .lumos.apagado { color: var(--gold-dim); border-color: var(--gold-dim); background: transparent; }
+  .lumos.apagado .spark { background: var(--gold-dim); box-shadow: none; }
+  .lumos svg { display: block; }
 
   /* ============ Barra de resultados ============ */
   .toolbar {
@@ -1094,12 +1101,18 @@
   html.wandering a, html.wandering button, html.wandering .card, html.wandering label { cursor: none; }
   html.wandering input, html.wandering textarea, html.wandering select { cursor: text; }
 
+  /* com a varinha guardada nao sobra nada dela na tela */
+  html:not(.wandering) #wand,
+  html:not(.wandering) .wand-glow,
+  html:not(.wandering) .wand-core,
+  html:not(.wandering) .wand-dark { display: none !important; }
+
   @media (prefers-reduced-motion: reduce) {
-    .wand, .wand-glow, .wand-core, .wand-dark, .spark-bit, .cast, .cast-ring, .cast-flash { display: none !important; }
+    #wand, .wand-glow, .wand-core, .wand-dark, .spark-bit, .cast, .cast-ring, .cast-flash { display: none !important; }
     html.wandering, html.wandering body { cursor: auto; }
   }
   @media (hover: none), (pointer: coarse) {
-    .wand, .wand-glow, .wand-core, .wand-dark { display: none !important; }
+    #wand, .wand-glow, .wand-core, .wand-dark { display: none !important; }
   }
 
   /* ===== de onde vem a noticia, o mapa das bancadas ===== */
@@ -1386,11 +1399,12 @@
     pointer-events: none;
   }
   .ear-l { left: -22px; transform: rotate(180deg); }
-  .ear-r { right: -22px; }
+  /* o adesivo esta colado bem nesse canto, entao o texto da margem direita
+     comeca abaixo dele e nao fica com as primeiras palavras escondidas */
+  .ear-r { right: -22px; top: 132px; }
   @media (min-width: 1240px) { .wrap { padding-left: 48px; padding-right: 48px; } }
-  /* a partir daqui sobra uma margem so para o adesivo, entao ele nunca
-     fica por cima de materia nenhuma */
-  @media (min-width: 1180px) { .wrap { padding-right: 186px; } }
+  /* o adesivo agora fica colado no proprio canto da folha, entao a margem
+     larga da direita saiu e o jornal voltou para o meio da tela */
   @media (max-width: 1239px) { .ear { display: none; } }
 
   /* ---- o cabecalho do jornal ---- */
@@ -1634,38 +1648,67 @@
      outras holograficas, e so se juntam colecionando.
      ===================================================================== */
 
-  /* ---- o adesivo, colado no canto de cima da folha ----
-     Ele mora na margem esquerda, entao nao cobre materia nenhuma. A
-     borda e roxa com a letra dourada, como a carta. A roda de letras
-     gira bem devagar. O miolo holografico tem brilho proprio. Ele boia
-     parado e escorrega devagar quando o ponteiro chega perto. ---- */
+  /* ---- o adesivo, colado de verdade no canto de cima da folha ----
+     Ele nao boia mais. E um quadrado de papel grudado por cima da moldura,
+     no alto e na direita, torto como quem colou com a mao. O canto de baixo
+     a esquerda esta descolando, entao aparece o avesso do papel e a sombra
+     que a dobra joga na folha. A roda de letras gira bem devagar e o miolo
+     holografico tem brilho proprio. ---- */
   .album-seal {
-    position: fixed;
-    right: 24px;
-    top: 96px;
-    z-index: 45;
+    position: absolute;
+    right: -12px;
+    top: -16px;
+    z-index: 46;
     width: 132px; height: 132px;
     border: none;
     background: none;
     padding: 0;
     cursor: pointer;
-    transition: transform 1.2s cubic-bezier(.22,.9,.3,1);
-    will-change: transform;
+    transform: rotate(3.5deg);
+    transform-origin: 88% 12%;
+    transition: transform .35s cubic-bezier(.22,.9,.3,1);
   }
+  .album-seal:hover, .album-seal:focus-visible { transform: rotate(1.2deg) scale(1.035); }
+
+  /* o papel colado. O canto de baixo a esquerda esta recortado, e o avesso
+     da dobra vem desenhado por cima, no proprio botao, porque o recorte
+     tambem cortaria qualquer coisa desenhada dentro dele. */
   .seal-bob {
     position: absolute;
     inset: 0;
     display: block;
-    animation: selaBoia 5.4s ease-in-out infinite;
-    filter: drop-shadow(0 8px 14px rgba(30,22,8,.4));
-    transition: scale .35s cubic-bezier(.2,.8,.3,1);
+    background:
+      radial-gradient(circle at 28% 20%, rgba(255,255,255,.55), rgba(255,255,255,0) 58%),
+      linear-gradient(148deg, #F8F1DB 0%, #EBE0C2 58%, #DCCFA8 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 30px 100%, 0 calc(100% - 30px));
+    box-shadow:
+      inset 0 0 0 1px rgba(74,54,12,.34),
+      2px 3px 5px rgba(26,18,4,.30),
+      6px 9px 16px -6px rgba(26,18,4,.34);
   }
-  @keyframes selaBoia {
-    0%, 100% { translate: 0 0; rotate: -5deg; }
-    50%      { translate: 0 -8px; rotate: 3deg; }
+  /* a sombra que o canto descolado joga na folha do jornal */
+  .album-seal::before {
+    content: "";
+    position: absolute;
+    left: -3px; bottom: -3px;
+    width: 38px; height: 38px;
+    background: linear-gradient(46deg, rgba(26,18,4,.42), rgba(26,18,4,0) 62%);
+    filter: blur(2px);
+    pointer-events: none;
   }
-  .album-seal:hover .seal-bob, .album-seal:focus-visible .seal-bob { scale: 1.06; }
-  .album-seal svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  /* o avesso do papel na dobra */
+  .album-seal::after {
+    content: "";
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 30px; height: 30px;
+    background: linear-gradient(44deg, #C4B48A 0%, #DED0AC 46%, #F4ECD4 100%);
+    clip-path: polygon(0 100%, 100% 100%, 0 0);
+    box-shadow: inset 1px -1px 0 rgba(74,54,12,.3);
+    pointer-events: none;
+  }
+  /* a roda e o miolo entram para dentro, entao a dobra nunca corta o desenho */
+  .album-seal svg { position: absolute; inset: 9px; width: auto; height: auto; right: 9px; bottom: 9px; }
 
   /* so a roda de letras gira, o resto do adesivo fica parado */
   .seal-roda { transform-origin: 70px 70px; animation: selaGira 75s linear infinite; }
@@ -1681,7 +1724,7 @@
   /* o miolo holografico, com brilho */
   .seal-core {
     position: absolute;
-    inset: 25px;
+    inset: 31px;
     border-radius: 50%;
     display: grid;
     place-content: center;
@@ -1725,7 +1768,7 @@
   .seal-core b, .seal-core small { position: relative; z-index: 2; }
   .seal-core b {
     font-family: var(--font-head);
-    font-size: 30px;
+    font-size: 26px;
     line-height: 1;
     color: #241541;
     text-shadow: 0 1px 0 rgba(255,255,255,.7);
@@ -1738,12 +1781,16 @@
     color: #3A2460;
     margin-top: 2px;
   }
-  @media (min-width: 1180px) {
-    .album-seal { right: max(24px, calc((100vw - 1520px) / 2 + 26px)); top: 108px; }
-  }
+  /* com a folha mais estreita a margem e pequena, entao o adesivo encolhe
+     a saliencia para nao empurrar a pagina para os lados */
+  @media (max-width: 1239px) { .album-seal { right: -6px; } }
   @media (max-width: 700px) {
-    .album-seal { width: 84px; height: 84px; right: 8px; top: 8px; }
-    .seal-core { inset: 16px; }
+    .album-seal { width: 88px; height: 88px; right: -2px; top: -14px; }
+    .seal-bob { clip-path: polygon(0 0, 100% 0, 100% 100%, 21px 100%, 0 calc(100% - 21px)); }
+    .album-seal::after { width: 21px; height: 21px; }
+    .album-seal::before { width: 27px; height: 27px; }
+    .album-seal svg { inset: 6px; right: 6px; bottom: 6px; }
+    .seal-core { inset: 20px; }
     .seal-core b { font-size: 17px; }
     .seal-core small { font-size: 6px; margin-top: 1px; }
   }
@@ -2133,7 +2180,7 @@
     .album-page { padding: 18px 14px 28px; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .seal-roda, .seal-core::before, .seal-core::after, .seal-bob { animation: none !important; }
+    .seal-roda, .seal-core::before, .seal-core::after { animation: none !important; }
     .album-seal { transition: none !important; }
   }
 
@@ -2262,6 +2309,7 @@
       <span>Updated <b id="stamp-date">2 September 2026</b></span>
       <span id="stamp-count">22 stories</span>
       <button class="lumos" id="themeBtn" type="button"><span class="spark"></span><span id="themeLabel">Lumos</span></button>
+      <button class="lumos" id="wandBtn" type="button" hidden aria-pressed="true" title="A varinha vira o ponteiro e acende a folha"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.4 13.6 L11 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12.4" cy="3.6" r="2" fill="currentColor"/></svg><span>Varinha</span><span class="spark"></span></button>
     </div>
 
 
@@ -3389,6 +3437,18 @@
   "updated": "2026-09-07",
   "stories": [
     {
+      "id": "abu-dhabi-areas-reveladas-2026-09-07",
+      "date": "2026-09-07",
+      "status": "official",
+      "category": "Shops and experiences",
+      "headline": "Abu Dhabi names its three Harry Potter lands, Diagon Alley, Hogwarts and the Forbidden Forest",
+      "summary": "Miral and Warner Bros Discovery Global Experiences confirmed the expansion at Warner Bros World Abu Dhabi, about 63 thousand square metres, opening in 2029. It is the first Harry Potter land that Universal does not run, and the only place in the world to hold all three of those settings together. Mohamed Khalifa Al Mubarak, chairman of Miral, called it a milestone for Yas Island.",
+      "source": "Miral",
+      "url": "https://www.mediaoffice.abudhabi/en/tourism/miral-announces-construction-of-3-new-harry-potter-themed-lands-at-warner-bros-world-abu-dhabi/",
+      "image": "assets/thumbs/abu-dhabi-areas-reveladas-2026-09-07.jpg",
+      "imagemIlustrativa": "A arte oficial das tres areas, com o Ford Anglia voando por cima"
+    },
+    {
       "id": "loja-colecao-natal-2026-09-06",
       "date": "2026-09-06",
       "status": "official",
@@ -3480,7 +3540,8 @@
       "summary": "Caco Cardassi publicou as primeiras impressoes do trailer completo em um video de cinquenta e dois minutos, que passou de cem mil visualizacoes em oito horas. O Caldeirao Furado tem 1,67 milhao de inscritos e e o maior canal de Harry Potter do mundo. No mesmo dia o canal ja tinha subido a analise do anuncio do trailer e a reacao ao vivo.",
       "source": "Caldeirao Furado",
       "url": "https://www.youtube.com/watch?v=RcY7feIAzSY",
-      "image": "assets/thumbs/caldeirao-furado-trailer-breakdown-2026-09-03.jpg"
+      "image": "assets/thumbs/caldeirao-furado-trailer-breakdown-2026-09-03.jpg",
+      "video": "RUcGv6D3qEM"
     },
     {
       "id": "hogwarts-professor-emoji-symbols-2026-09-03",
@@ -3584,7 +3645,8 @@
       "summary": "Wizarding World relaunched its Sorting Ceremony at HarryPotter.com using the new house heraldry from the series. Anyone already sorted can go through it again.",
       "source": "Wizarding World",
       "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
-      "image": "assets/thumbs/sorting-ceremony-reimagined-2026-09-01.jpg"
+      "image": "assets/thumbs/sorting-ceremony-reimagined-2026-09-01.jpg",
+      "video": "1dIoOzgYFlM"
     },
     {
       "id": "free-audiobooks-philosophers-stone-2026-09-01",
@@ -4254,7 +4316,28 @@
     return t !== "light";
   }
   var themeLabel = document.getElementById("themeLabel");
-  function sync() { themeLabel.textContent = isDark() ? "Lumos" : "Nox"; }
+  var wandBtn = document.getElementById("wandBtn");
+  /* a varinha vem armada, entao ela acende sozinha na primeira vez que o
+     jornal apaga a luz. Depois quem manda e o botao. */
+  var querVarinha = true;
+
+  function ajustarVarinha() {
+    var pode = !!window.PW_WAND;
+    var ligada = pode && isDark() && querVarinha;
+    if (pode) { if (ligada) window.PW_WAND.on(); else window.PW_WAND.off(); }
+    if (!wandBtn) return;
+    wandBtn.hidden = !(pode && isDark());
+    wandBtn.setAttribute("aria-pressed", ligada ? "true" : "false");
+    wandBtn.classList.toggle("apagado", !ligada);
+  }
+
+  function sync() {
+    themeLabel.textContent = isDark() ? "Lumos" : "Nox";
+    ajustarVarinha();
+  }
+  /* a varinha se instala mais abaixo neste mesmo script, e avisa aqui
+     quando ficar pronta, senao o botao nunca apareceria */
+  window.PW_SYNC = sync;
   sync();
   document.getElementById("themeBtn").addEventListener("click", function (ev) {
     var r = ev.currentTarget.getBoundingClientRect();
@@ -4263,6 +4346,14 @@
     try { castSpell(x, y); } catch (e) {}
     document.documentElement.setAttribute("data-theme", isDark() ? "light" : "dark");
     sync();
+  });
+  if (wandBtn) wandBtn.addEventListener("click", function (ev) {
+    querVarinha = !querVarinha;
+    if (querVarinha) {
+      var r = ev.currentTarget.getBoundingClientRect();
+      try { castSpell(ev.clientX || (r.left + r.width / 2), ev.clientY || (r.top + r.height / 2)); } catch (e) {}
+    }
+    ajustarVarinha();
   });
 
   /* poeira dourada subindo, discreta */
@@ -4306,11 +4397,12 @@
     room.setAttribute("aria-hidden", "true");
     document.body.appendChild(room);
 
-    document.documentElement.classList.add("wandering");
-
     /* mx e my sao a mao. wx e wy sao a ponta da varinha, que corre atras. */
     var mx = -300, my = -300, wx = -300, wy = -300;
     var prevX = -300, prevY = -300, tilt = 0, live = false, raf = 0, sparkClock = 0;
+    /* a varinha so trabalha quando alguem pede. No jornal impresso ela fica
+       guardada, e o ponteiro do sistema continua sendo o ponteiro. */
+    var armada = false;
 
     function frame(now) {
       raf = requestAnimationFrame(frame);
@@ -4376,6 +4468,7 @@
     }
 
     document.addEventListener("mousemove", function (e) {
+      if (!armada) return;
       mx = e.clientX; my = e.clientY;
       if (!live) { wx = mx; wy = my; prevX = mx; prevY = my; }
       wake();
@@ -4386,10 +4479,26 @@
 
     /* um punhado de faiscas ao clicar em qualquer lugar */
     document.addEventListener("mousedown", function () {
+      if (!armada) return;
       for (var i = 0; i < 7; i++) dropSpark(wx, wy);
     }, { passive: true });
 
-    raf = requestAnimationFrame(frame);
+    window.PW_WAND = {
+      on: function () {
+        if (armada) return;
+        armada = true;
+        document.documentElement.classList.add("wandering");
+        if (!raf) raf = requestAnimationFrame(frame);
+      },
+      off: function () {
+        if (!armada) return;
+        armada = false;
+        document.documentElement.classList.remove("wandering");
+        sleep();
+        if (raf) { cancelAnimationFrame(raf); raf = 0; }
+      }
+    };
+    try { if (window.PW_SYNC) window.PW_SYNC(); } catch (e) {}
 
     /* o feitico, uma varinha grande que brande no ponto do clique */
     var WAND_SVG = wand.querySelector("svg").outerHTML;
