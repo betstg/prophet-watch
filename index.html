@@ -1399,9 +1399,7 @@
     pointer-events: none;
   }
   .ear-l { left: -22px; transform: rotate(180deg); }
-  /* o adesivo esta colado bem nesse canto, entao o texto da margem direita
-     comeca abaixo dele e nao fica com as primeiras palavras escondidas */
-  .ear-r { right: -22px; top: 132px; }
+  .ear-r { right: -22px; }
   @media (min-width: 1240px) { .wrap { padding-left: 48px; padding-right: 48px; } }
   /* o adesivo agora fica colado no proprio canto da folha, entao a margem
      larga da direita saiu e o jornal voltou para o meio da tela */
@@ -1656,8 +1654,10 @@
      holografico tem brilho proprio. ---- */
   .album-seal {
     position: absolute;
-    right: -12px;
-    top: -16px;
+    /* colado no alto do jornal, na ponta da direita do cabecalho, e alinhado
+       com a folha em qualquer largura de tela */
+    top: 14px;
+    right: max(14px, calc((100% - 1520px) / 2 + 10px));
     z-index: 46;
     width: 132px; height: 132px;
     border: none;
@@ -1783,16 +1783,19 @@
   }
   /* com a folha mais estreita a margem e pequena, entao o adesivo encolhe
      a saliencia para nao empurrar a pagina para os lados */
-  @media (max-width: 1239px) { .album-seal { right: -6px; } }
+  @media (max-width: 1239px) { .album-seal { right: 14px; } }
   @media (max-width: 700px) {
-    .album-seal { width: 88px; height: 88px; right: -2px; top: -14px; }
-    .seal-bob { clip-path: polygon(0 0, 100% 0, 100% 100%, 21px 100%, 0 calc(100% - 21px)); }
-    .album-seal::after { width: 21px; height: 21px; }
-    .album-seal::before { width: 27px; height: 27px; }
-    .album-seal svg { inset: 6px; right: 6px; bottom: 6px; }
-    .seal-core { inset: 20px; }
-    .seal-core b { font-size: 17px; }
-    .seal-core small { font-size: 6px; margin-top: 1px; }
+    /* na tela estreita o adesivo mora no canto de cima e o nome do jornal
+       comeca abaixo dele, senao um cobria o outro */
+    .hero-inner { padding-top: 100px !important; }
+    .album-seal { width: 92px; height: 92px; right: 10px; top: 8px; }
+    .seal-bob { clip-path: polygon(0 0, 100% 0, 100% 100%, 20px 100%, 0 calc(100% - 20px)); }
+    .album-seal::after { width: 20px; height: 20px; }
+    .album-seal::before { width: 26px; height: 26px; }
+    .album-seal svg { inset: 7px; right: 7px; bottom: 7px; }
+    .seal-core { inset: 23px; }
+    .seal-core b { font-size: 18px; }
+    .seal-core small { font-size: 5.6px; margin-top: 1px; }
   }
 
   /* ---- o album aberto ---- */
@@ -2314,6 +2317,30 @@
 
 
   </div>
+  <button class="album-seal" id="albumSeal" type="button" aria-label="Abrir o Album de Quotes">
+    <span class="seal-bob">
+    <svg viewBox="0 0 140 140" aria-hidden="true">
+      <defs>
+      <path id="sealRing" d="M70,70 m-52,0 a52,52 0 1,1 104,0 a52,52 0 1,1 -104,0"/>
+      <radialGradient id="sealRoxo" cx=".38" cy=".3" r=".82">
+        <stop offset="0" stop-color="#5C3E8E"/>
+        <stop offset=".58" stop-color="#3B2560"/>
+        <stop offset="1" stop-color="#221340"/>
+      </radialGradient>
+      </defs>
+      <circle cx="70" cy="70" r="69" fill="#F4ECD6"/>
+      <circle cx="70" cy="70" r="65" fill="url(#sealRoxo)"/>
+      <circle cx="70" cy="70" r="63.4" fill="none" stroke="#E3C275" stroke-width="1.3" opacity=".85"/>
+      <circle cx="70" cy="70" r="44" fill="none" stroke="#E3C275" stroke-width="1.3" opacity=".85"/>
+      <g class="seal-roda">
+      <text class="seal-text">
+        <textPath href="#sealRing" startOffset="0">ADQUIRA SEU ALBUM DE QUOTES &#183;&nbsp;</textPath>
+      </text>
+      </g>
+    </svg>
+    <span class="seal-core"><b id="sealCount">0</b><small id="sealWord">figurinhas</small></span>
+    </span>
+  </button>
 </header>
 
 <div class="sparks" id="sparks" aria-hidden="true"></div>
@@ -2370,30 +2397,6 @@
 
   <p class="resultline" id="resultline"></p>
   <div class="press">
-    <button class="album-seal" id="albumSeal" type="button" aria-label="Abrir o Album de Quotes">
-      <span class="seal-bob">
-        <svg viewBox="0 0 140 140" aria-hidden="true">
-          <defs>
-            <path id="sealRing" d="M70,70 m-52,0 a52,52 0 1,1 104,0 a52,52 0 1,1 -104,0"/>
-            <radialGradient id="sealRoxo" cx=".38" cy=".3" r=".82">
-              <stop offset="0" stop-color="#5C3E8E"/>
-              <stop offset=".58" stop-color="#3B2560"/>
-              <stop offset="1" stop-color="#221340"/>
-            </radialGradient>
-          </defs>
-          <circle cx="70" cy="70" r="69" fill="#F4ECD6"/>
-          <circle cx="70" cy="70" r="65" fill="url(#sealRoxo)"/>
-          <circle cx="70" cy="70" r="63.4" fill="none" stroke="#E3C275" stroke-width="1.3" opacity=".85"/>
-          <circle cx="70" cy="70" r="44" fill="none" stroke="#E3C275" stroke-width="1.3" opacity=".85"/>
-          <g class="seal-roda">
-            <text class="seal-text">
-              <textPath href="#sealRing" startOffset="0">ADQUIRA SEU ALBUM DE QUOTES &#183;&nbsp;</textPath>
-            </text>
-          </g>
-        </svg>
-        <span class="seal-core"><b id="sealCount">0</b><small id="sealWord">figurinhas</small></span>
-      </span>
-    </button>
     <span class="ear ear-l" aria-hidden="true">Que ninguem diga que o Profeta nao avisou</span>
     <span class="ear ear-r" aria-hidden="true">Toda noticia aqui carrega a bancada de onde saiu</span>
     <main id="list"></main>
