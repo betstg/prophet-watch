@@ -1646,11 +1646,11 @@
      outras holograficas, e so se juntam colecionando.
      ===================================================================== */
 
-  /* ---- o adesivo, colado de verdade no canto de cima da folha ----
-     Ele nao boia mais. E um quadrado de papel grudado por cima da moldura,
-     no alto e na direita, torto como quem colou com a mao. O canto de baixo
-     a esquerda esta descolando, entao aparece o avesso do papel e a sombra
-     que a dobra joga na folha. A roda de letras gira bem devagar e o miolo
+  /* ---- o adesivo, um circulo colado no alto da folha ----
+     Ele nao boia e nao tem cartao atras. E so o circulo, grudado meio torto
+     como quem colou com a mao, com a beirada de baixo a esquerda ja
+     descolando. Naquele pedaco aparece o avesso do adesivo e a sombra que a
+     parte solta joga no papel. A roda de letras gira bem devagar e o miolo
      holografico tem brilho proprio. ---- */
   .album-seal {
     position: absolute;
@@ -1664,51 +1664,60 @@
     background: none;
     padding: 0;
     cursor: pointer;
-    transform: rotate(3.5deg);
-    transform-origin: 88% 12%;
+    transform: rotate(-5deg);
+    transform-origin: 78% 22%;
     transition: transform .35s cubic-bezier(.22,.9,.3,1);
   }
-  .album-seal:hover, .album-seal:focus-visible { transform: rotate(1.2deg) scale(1.035); }
+  .album-seal:hover, .album-seal:focus-visible { transform: rotate(-2deg) scale(1.04); }
 
-  /* o papel colado. O canto de baixo a esquerda esta recortado, e o avesso
-     da dobra vem desenhado por cima, no proprio botao, porque o recorte
-     tambem cortaria qualquer coisa desenhada dentro dele. */
+  /* a sombra que a beirada solta joga no papel, mais longa desse lado */
+  .album-seal::before {
+    content: "";
+    position: absolute;
+    left: -7px; bottom: -6px;
+    width: 78px; height: 46px;
+    border-radius: 50%;
+    transform: rotate(-20deg);
+    background: radial-gradient(closest-side, rgba(26,18,4,.40), rgba(26,18,4,0) 76%);
+    filter: blur(3px);
+    pointer-events: none;
+  }
+
+  /* o circulo em si, com a sombra curta de coisa grudada */
   .seal-bob {
     position: absolute;
     inset: 0;
     display: block;
-    background:
-      radial-gradient(circle at 28% 20%, rgba(255,255,255,.55), rgba(255,255,255,0) 58%),
-      linear-gradient(148deg, #F8F1DB 0%, #EBE0C2 58%, #DCCFA8 100%);
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 30px 100%, 0 calc(100% - 30px));
-    box-shadow:
-      inset 0 0 0 1px rgba(74,54,12,.34),
-      2px 3px 5px rgba(26,18,4,.30),
-      6px 9px 16px -6px rgba(26,18,4,.34);
+    border-radius: 50%;
+    filter:
+      drop-shadow(1px 2px 2px rgba(26,18,4,.42))
+      drop-shadow(3px 5px 8px rgba(26,18,4,.24));
   }
-  /* a sombra que o canto descolado joga na folha do jornal */
-  .album-seal::before {
-    content: "";
-    position: absolute;
-    left: -3px; bottom: -3px;
-    width: 38px; height: 38px;
-    background: linear-gradient(46deg, rgba(26,18,4,.42), rgba(26,18,4,0) 62%);
-    filter: blur(2px);
-    pointer-events: none;
-  }
-  /* o avesso do papel na dobra */
+
+  /* a beirada descolada. E um crescente que segue a curva do adesivo, no
+     canto de baixo a esquerda, pintado com o avesso do papel */
   .album-seal::after {
     content: "";
     position: absolute;
-    left: 0; bottom: 0;
-    width: 30px; height: 30px;
-    background: linear-gradient(44deg, #C4B48A 0%, #DED0AC 46%, #F4ECD4 100%);
-    clip-path: polygon(0 100%, 100% 100%, 0 0);
-    box-shadow: inset 1px -1px 0 rgba(74,54,12,.3);
+    inset: -3px;
+    border-radius: 50%;
+    /* escuro na dobra, onde o adesivo ainda esta preso, e claro na ponta que
+       levantou e pegou luz */
+    background: radial-gradient(circle at 50% 50%,
+      #5E5238 0%, #6E6144 65.5%, #C9BA95 70%, #F6EEDA 88%, #FFFBF0 100%);
+    transform: translate(-2.5px, 2.5px);
+    -webkit-mask:
+      radial-gradient(circle at 50% 50%, transparent 0 65%, #000 66%),
+      linear-gradient(40deg, #000 0 19%, transparent 30%);
+    -webkit-mask-composite: source-in;
+    mask:
+      radial-gradient(circle at 50% 50%, transparent 0 65%, #000 66%),
+      linear-gradient(40deg, #000 0 19%, transparent 30%);
+    mask-composite: intersect;
     pointer-events: none;
   }
-  /* a roda e o miolo entram para dentro, entao a dobra nunca corta o desenho */
-  .album-seal svg { position: absolute; inset: 9px; width: auto; height: auto; right: 9px; bottom: 9px; }
+
+  .album-seal svg { position: absolute; inset: 0; width: 100%; height: 100%; }
 
   /* so a roda de letras gira, o resto do adesivo fica parado */
   .seal-roda { transform-origin: 70px 70px; animation: selaGira 75s linear infinite; }
@@ -1724,7 +1733,7 @@
   /* o miolo holografico, com brilho */
   .seal-core {
     position: absolute;
-    inset: 31px;
+    inset: 25px;
     border-radius: 50%;
     display: grid;
     place-content: center;
@@ -1768,7 +1777,7 @@
   .seal-core b, .seal-core small { position: relative; z-index: 2; }
   .seal-core b {
     font-family: var(--font-head);
-    font-size: 26px;
+    font-size: 30px;
     line-height: 1;
     color: #241541;
     text-shadow: 0 1px 0 rgba(255,255,255,.7);
@@ -1787,15 +1796,12 @@
   @media (max-width: 700px) {
     /* na tela estreita o adesivo mora no canto de cima e o nome do jornal
        comeca abaixo dele, senao um cobria o outro */
-    .hero-inner { padding-top: 100px !important; }
-    .album-seal { width: 92px; height: 92px; right: 10px; top: 8px; }
-    .seal-bob { clip-path: polygon(0 0, 100% 0, 100% 100%, 20px 100%, 0 calc(100% - 20px)); }
-    .album-seal::after { width: 20px; height: 20px; }
-    .album-seal::before { width: 26px; height: 26px; }
-    .album-seal svg { inset: 7px; right: 7px; bottom: 7px; }
-    .seal-core { inset: 23px; }
-    .seal-core b { font-size: 18px; }
-    .seal-core small { font-size: 5.6px; margin-top: 1px; }
+    .hero-inner { padding-top: 96px !important; }
+    .album-seal { width: 86px; height: 86px; right: 10px; top: 8px; }
+    .album-seal::before { left: -5px; bottom: -4px; width: 52px; height: 30px; }
+    .seal-core { inset: 16px; }
+    .seal-core b { font-size: 19px; }
+    .seal-core small { font-size: 6px; margin-top: 1px; }
   }
 
   /* ---- o album aberto ---- */
