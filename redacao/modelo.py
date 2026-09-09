@@ -18,12 +18,15 @@ RAIZ = "https://generativelanguage.googleapis.com/v1beta"
 
 # tenta nesta ordem e fica com o primeiro que o Google aceitar. Assim uma
 # troca de nome de modelo la fora nao derruba a redacao aqui.
+# O apelido latest e o primeiro de proposito. Ele sempre aponta para o flash
+# atual, entao a redacao nao quebra quando o Google aposenta uma versao, que
+# foi exatamente o que aconteceu com o gemini-2.5-flash.
 CANDIDATOS = [
     os.environ.get("MODELO", "").strip(),
-    "gemini-3-flash",
-    "gemini-2.5-flash",
-    "gemini-2.0-flash",
     "gemini-flash-latest",
+    "gemini-3-flash-preview",
+    "gemini-flash-lite-latest",
+    "gemini-2.0-flash",
 ]
 _ESCOLHIDO = None
 _MORTOS = set()
@@ -110,17 +113,28 @@ def pergunta(instrucao, texto, json_esperado=True, tentativas=3, teto_saida=4000
         corpo["generationConfig"]["responseMimeType"] = "application/json"
 
     espera = 4
-    for volta in range(tentativas + 2):
+    for volta in range(tentativas + 5):
         try:
             resposta = _post("/models/%s:generateContent" % modelo, corpo)
             partes = resposta["candidates"][0]["content"]["parts"]
             bruto = "".join(p.get("text", "") for p in partes).strip()
         except urllib.error.HTTPError as e:
             codigo = e.code
-            if codigo in (429, 500, 503) and volta < tentativas - 1:
-                time.sleep(espera)
-                espera *= 2
-                continue
+            if codigo in (429, 500, 503):
+                if volta < 2:
+                    time.sleep(espera)
+                    espera *= 2
+                    continue
+                # a fila desse modelo nao baixa. Vai para o proximo da lista.
+                _MORTOS.add(modelo)
+                NOTAS.append("%s seguiu ocupado com HTTP %s, troquei de modelo" % (modelo, codigo))
+                try:
+                    modelo = _escolhe()
+                    espera = 4
+                    continue
+                except SemModelo:
+                    raise SemModelo("todos os modelos ocupados ou recusados. %s"
+                                    % " | ".join(NOTAS[-3:]))
             detalhe = ""
             try:
                 detalhe = e.read().decode("utf-8", "replace")[:400]
