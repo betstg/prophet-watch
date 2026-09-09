@@ -32,15 +32,17 @@ Recuse: recapitulacao do que ja saiu, lista do tipo dez momentos, questionario,
 promocao, materia que so pergunta uma coisa no titulo sem responder, fofoca sem
 fonte, e qualquer coisa que nao seja do mundo de Harry Potter.
 
-Responda em JSON, um vetor. Cada item assim.
-{{"endereco": "...", "porque": "uma frase curta dizendo o fato que voce espera achar"}}
-Vetor vazio e uma resposta boa e comum. Nao invente endereco, use exatamente os
-que recebeu. No maximo 8 itens, os mais fortes."""
+Responda em JSON, um vetor com UM item para CADA manchete que recebeu, na mesma
+ordem, sem pular nenhuma. Cada item assim.
+{{"endereco": "...", "abrir": true ou false, "porque": "uma frase curta"}}
+Quando abrir for true, o porque diz o fato que voce espera achar. Quando for
+false, o porque diz por que descartou. Nao invente endereco, use exatamente os
+que recebeu. No maximo 8 com abrir true, os mais fortes."""
 
 
 def pauta(editoria, novidades, teto=45):
     if not novidades:
-        return []
+        return [], []
     lista = "\n".join(
         "%d. [%s] %s\n   %s" % (i + 1, n["bancada"], n["titulo"][:170], n["endereco"])
         for i, n in enumerate(novidades[:teto]))
@@ -54,13 +56,18 @@ def pauta(editoria, novidades, teto=45):
         raise modelo.SemModelo("o reporter de %s nao recebeu resposta do modelo" % editoria)
     if not isinstance(saida, list):
         raise modelo.SemModelo("o reporter de %s recebeu resposta fora do formato" % editoria)
-    validos = {n["endereco"] for n in novidades}
-    escolhidos = []
+    titulos = {n["endereco"]: n["titulo"] for n in novidades}
+    escolhidos, descartados = [], []
     for item in saida:
         if not isinstance(item, dict):
             continue
         e = (item.get("endereco") or "").strip()
-        if e in validos:
-            escolhidos.append(dict(endereco=e, porque=item.get("porque", ""),
-                                   editoria=editoria))
-    return escolhidos
+        if e not in titulos:
+            continue
+        registro = dict(endereco=e, titulo=titulos[e],
+                        porque=item.get("porque", ""), editoria=editoria)
+        if item.get("abrir"):
+            escolhidos.append(registro)
+        else:
+            descartados.append(registro)
+    return escolhidos, descartados

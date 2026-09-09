@@ -129,7 +129,7 @@ def _corpo():
     candidatos = []
     for area, lista in sorted(por_area.items()):
         try:
-            escolhidos = reporter.pauta(area, lista)
+            escolhidos, descartados = reporter.pauta(area, lista)
         except modelo.SemModelo as e:
             DESFECHO[0] = "o modelo nao respondeu, %s" % e
             diz("  PAROU AQUI, %s" % e)
@@ -138,7 +138,13 @@ def _corpo():
             return 1
         diz("  %-9s olhou %2d titulos, quer abrir %d" % (area, len(lista), len(escolhidos)))
         for c in escolhidos:
-            diz("      %s" % c["endereco"])
+            diz("      ABRIR    %s" % c["titulo"][:88])
+            diz("               %s" % c["porque"][:88])
+            diz("               %s" % c["endereco"])
+        for c in descartados:
+            diz("      descarta %s" % c["titulo"][:88])
+            diz("               %s" % c["porque"][:88])
+            diz("               %s" % c["endereco"])
         candidatos.extend(escolhidos)
 
     if not candidatos:
