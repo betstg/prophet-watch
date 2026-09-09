@@ -54,8 +54,9 @@ def fecha_relatorio(desfecho):
              % (desfecho,
                 datetime.datetime.utcnow().strftime("%d/%m/%Y %H:%M UTC"),
                 "\n".join(LINHAS)[-14000:]))
-    with io.open(os.path.join(AQUI, "ultima-rodada.md"), "w", encoding="utf-8") as f:
-        f.write(corpo)
+    if os.environ.get("GITHUB_ACTIONS"):
+        with io.open(os.path.join(AQUI, "ultima-rodada.md"), "w", encoding="utf-8") as f:
+            f.write(corpo)
     resumo = os.environ.get("GITHUB_STEP_SUMMARY")
     if resumo:
         with io.open(resumo, "a", encoding="utf-8") as f:
