@@ -44,6 +44,7 @@ jobs:
         run: python3 redacao/redacao.py
 
       - name: Publicar a edicao
+        if: always()
         run: |
           if [ -z "$(git status --porcelain)" ]; then
             echo "Nada mudou, nao ha o que publicar."

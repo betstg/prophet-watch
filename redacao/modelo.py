@@ -26,6 +26,8 @@ CANDIDATOS = [
     "gemini-flash-latest",
 ]
 _ESCOLHIDO = None
+_MORTOS = set()
+NOTAS = []          # o que aconteceu na escolha do modelo, para o relatorio
 
 
 class SemModelo(Exception):
@@ -58,22 +60,39 @@ def modelos_disponiveis():
 
 
 def _escolhe():
+    """Escolhe o modelo e conta em voz alta o que a conta oferece."""
     global _ESCOLHIDO
-    if _ESCOLHIDO:
+    if _ESCOLHIDO and _ESCOLHIDO not in _MORTOS:
         return _ESCOLHIDO
     if not CHAVE:
         raise SemModelo("falta a chave. Guarde GEMINI_API_KEY nos segredos do repositorio.")
-    tem = set(modelos_disponiveis())
+
+    tem = [m for m in modelos_disponiveis() if m not in _MORTOS]
+    if not NOTAS:
+        NOTAS.append("a conta oferece %d modelos, %s"
+                     % (len(tem), ", ".join(tem[:14]) if tem else "a listagem nao respondeu"))
+
+    # primeiro os candidatos que a conta confirma que existem
     for nome in CANDIDATOS:
-        if nome and (not tem or nome in tem):
+        if nome and nome in tem:
             _ESCOLHIDO = nome
+            NOTAS.append("usando %s" % nome)
             return nome
-    if tem:
-        flash = [m for m in tem if "flash" in m and "thinking" not in m]
-        if flash:
-            _ESCOLHIDO = sorted(flash)[-1]
-            return _ESCOLHIDO
-    raise SemModelo("nenhum modelo utilizavel. A conta ve estes, " + ", ".join(sorted(tem)[:12]))
+    # depois qualquer flash que a conta tenha
+    flash = [m for m in tem if "flash" in m and "thinking" not in m and "image" not in m
+             and "tts" not in m and "live" not in m]
+    if flash:
+        _ESCOLHIDO = sorted(flash)[-1]
+        NOTAS.append("nenhum candidato bateu, usando %s" % _ESCOLHIDO)
+        return _ESCOLHIDO
+    # por ultimo, tenta o candidato no escuro, porque a listagem pode ter falhado
+    for nome in CANDIDATOS:
+        if nome and nome not in _MORTOS:
+            _ESCOLHIDO = nome
+            NOTAS.append("a listagem nao ajudou, tentando %s no escuro" % nome)
+            return nome
+    raise SemModelo("nenhum modelo utilizavel. A conta ve estes, "
+                    + (", ".join(sorted(tem)[:14]) or "nenhum"))
 
 
 def pergunta(instrucao, texto, json_esperado=True, tentativas=3, teto_saida=4000):
@@ -91,7 +110,7 @@ def pergunta(instrucao, texto, json_esperado=True, tentativas=3, teto_saida=4000
         corpo["generationConfig"]["responseMimeType"] = "application/json"
 
     espera = 4
-    for volta in range(tentativas):
+    for volta in range(tentativas + 2):
         try:
             resposta = _post("/models/%s:generateContent" % modelo, corpo)
             partes = resposta["candidates"][0]["content"]["parts"]
@@ -107,6 +126,18 @@ def pergunta(instrucao, texto, json_esperado=True, tentativas=3, teto_saida=4000
                 detalhe = e.read().decode("utf-8", "replace")[:400]
             except Exception:
                 pass
+            if codigo in (400, 403, 404):
+                # esse modelo nao serve para essa chave. Marca como morto e
+                # tenta o proximo, em vez de derrubar a rodada inteira.
+                _MORTOS.add(modelo)
+                NOTAS.append("%s recusou com HTTP %s, %s" % (modelo, codigo, detalhe[:160]))
+                try:
+                    modelo = _escolhe()
+                except SemModelo:
+                    raise SemModelo("todos os modelos recusaram. %s" % " | ".join(NOTAS[-3:]))
+                corpo_novo = dict(corpo)
+                corpo = corpo_novo
+                continue
             raise SemModelo("o modelo respondeu HTTP %s. %s" % (codigo, detalhe))
         except (KeyError, IndexError):
             if volta < tentativas - 1:

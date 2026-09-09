@@ -36,7 +36,7 @@ TETO_EDICAO = 6     # quantas materias no maximo por rodada
 
 
 LINHAS = []
-DESFECHO = ["sem desfecho"]
+DESFECHO = ["a rodada terminou sem dizer o motivo, isso e defeito da redacao"]
 
 
 def diz(*a):
@@ -90,6 +90,7 @@ def _corpo():
 
     ids, manchetes, enderecos = ja_publicado()
     diz("Ja no jornal, %d materias." % len(ids))
+    diz("Chave do modelo, %s." % ("presente" if modelo.CHAVE else "AUSENTE"))
 
     diz("\n== VIGIA ==")
     novidades, relatorio = vigia.ronda(bancadas.BANCADAS)
@@ -108,6 +109,18 @@ def _corpo():
         diz("Guarde GEMINI_API_KEY nos segredos do repositorio.")
         return 1
 
+    diz("\n== MODELO ==")
+    try:
+        diz("  " + modelo._escolhe())
+    except modelo.SemModelo as e:
+        DESFECHO[0] = "o modelo nao pode ser escolhido, %s" % e
+        diz("  PAROU AQUI, %s" % e)
+        for n in modelo.NOTAS:
+            diz("  nota, %s" % n)
+        return 1
+    for n in modelo.NOTAS:
+        diz("  nota, %s" % n)
+
     diz("\n== REPORTERES ==")
     por_area = {}
     for n in novidades:
@@ -117,7 +130,10 @@ def _corpo():
         try:
             escolhidos = reporter.pauta(area, lista)
         except modelo.SemModelo as e:
-            diz("  o modelo nao respondeu, %s" % e)
+            DESFECHO[0] = "o modelo nao respondeu, %s" % e
+            diz("  PAROU AQUI, %s" % e)
+            for n in modelo.NOTAS:
+                diz("  nota, %s" % n)
             return 1
         diz("  %-9s olhou %2d titulos, quer abrir %d" % (area, len(lista), len(escolhidos)))
         for c in escolhidos:
