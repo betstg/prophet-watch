@@ -21,35 +21,45 @@ PAUTA = {
 INSTRUCAO = """Voce e reporter do Prophet Watch, um jornal de noticias de Harry Potter.
 Sua area e {pauta}.
 
-Recebe uma lista de manchetes novas com o endereco de cada uma. Devolve so as
-que valem a pena abrir e apurar.
+Recebe uma lista de manchetes novas. Voce decide SO DUAS COISAS, e nada alem disso.
 
-Aceite: fato novo, anuncio, escalacao, data, trailer, imagem oficial, numero,
-declaracao de quem faz a obra, ou analise que faz um argumento real sobre o
-texto dos livros.
+1. Isso e do universo de Harry Potter? Conta a serie do HBO, os filmes, os livros,
+   os audiolivros, os jogos, o teatro, os parques, as lojas, o elenco, quem faz a
+   obra, e a comunidade de fas falando dessas coisas. Nao conta assunto de outra
+   franquia que so cita Harry Potter de passagem.
 
-Recuse: recapitulacao do que ja saiu, lista do tipo dez momentos, questionario,
-promocao, materia que so pergunta uma coisa no titulo sem responder, fofoca sem
-fonte, e qualquer coisa que nao seja do mundo de Harry Potter.
+2. Isso e obviamente a mesma materia que o jornal ja publicou? Recebe a lista do
+   que ja esta no jornal. So descarte quando for claramente a mesma coisa.
+
+Se passar nessas duas, mande abrir. Ponto.
+
+Voce NAO decide se e importante. Voce NAO decide se e fato ou boato. Voce NAO
+decide se merece espaco. Voce NAO descarta por ser lista, por ser recapitulacao,
+nem por parecer fraco. Titulo mente, e materia boa se esconde atras de titulo
+ruim. Quem julga conteudo e quem abriu a pagina e leu, e nao e voce.
+
+Na duvida, mande abrir. Abrir errado custa alguns segundos. Descartar errado
+perde a materia para sempre.
 
 Responda em JSON, um vetor com UM item para CADA manchete que recebeu, na mesma
 ordem, sem pular nenhuma. Cada item assim.
 {{"endereco": "...", "abrir": true ou false, "porque": "uma frase curta"}}
-Quando abrir for true, o porque diz o fato que voce espera achar. Quando for
-false, o porque diz por que descartou. Nao invente endereco, use exatamente os
-que recebeu. No maximo 8 com abrir true, os mais fortes."""
+Quando abrir for false, o porque diz qual das duas regras reprovou, fora do
+universo ou ja publicado. Nao invente endereco, use exatamente os que recebeu."""
 
 
-def pauta(editoria, novidades, teto=45):
+def pauta(editoria, novidades, ja_publicadas=None, teto=45):
     if not novidades:
         return [], []
+    ja = "\n".join("- " + t for t in (ja_publicadas or [])[:40]) or "nada ainda"
     lista = "\n".join(
         "%d. [%s] %s\n   %s" % (i + 1, n["bancada"], n["titulo"][:170], n["endereco"])
         for i, n in enumerate(novidades[:teto]))
     saida = modelo.pergunta(
         INSTRUCAO.format(pauta=PAUTA.get(editoria, "noticias de Harry Potter")),
-        "Manchetes novas da sua area.\n\n" + lista,
-        teto_saida=1500)
+        ("Manchetes que o jornal ja publicou.\n%s\n\n"
+         "Manchetes novas da sua area.\n\n%s" % (ja, lista)),
+        teto_saida=2500)
     if saida is None:
         # o modelo nao respondeu. Isso nao pode passar por dia sem noticia,
         # senao a redacao fica muda e ninguem descobre.

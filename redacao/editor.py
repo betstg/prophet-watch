@@ -23,7 +23,10 @@ Escolha o status com honestidade.
 official, quando quem anuncia e a Warner, a HBO, a Bloomsbury ou os canais oficiais.
 confirmed, quando nao e anuncio oficial mas a imprensa de industria apurou.
 analysis, quando e leitura de fa, de podcast ou de estudioso do livro.
-rumor, quando circula sem fonte com nome.
+rumor, quando circula sem fonte com nome. O jornal publica boato, e publica
+como boato. Quando for rumor, a manchete e o resumo tem que deixar claro que
+aquilo e uma alegacao que circula, dizer de onde ela saiu, e dizer o que ainda
+nao esta confirmado. Nunca escreva boato com cara de fato.
 leak, quando e material que escapou antes da hora.
 paparazzi, quando e foto feita fora do set por fotografo de imprensa.
 
