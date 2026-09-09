@@ -57,9 +57,11 @@ def fecha(aprovadas, ja_publicadas):
     for i, a in enumerate(aprovadas):
         corpo.append(
             "MATERIA %d\nData, %s\nVeiculo, %s\nProcedencia, %s\n"
-            "Editoria sugerida, %s\nTitulo original, %s\nApuracao, %s"
+            "Editoria sugerida, %s\nTitulo original, %s\nApuracao, %s%s"
             % (i + 1, a["data"], a["veiculo"], a["procedencia"],
-               a["editoria"], a["titulo"][:180], a["fato"]))
+               a["editoria"], a["titulo"][:180], a["fato"],
+               ("\nOrigem do boato, " + a["origem_boato"])
+               if a.get("origem_boato") else ""))
     texto = ("Manchetes que ja estao no jornal, nao repita nenhuma delas.\n%s\n\n"
              "Materias apuradas hoje.\n\n%s" % (ja, "\n\n".join(corpo)))
 

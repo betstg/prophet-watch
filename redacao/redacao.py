@@ -129,7 +129,7 @@ def _corpo():
     candidatos = []
     for area, lista in sorted(por_area.items()):
         try:
-            escolhidos, descartados = reporter.pauta(area, lista)
+            escolhidos, descartados = reporter.pauta(area, lista, manchetes)
         except modelo.SemModelo as e:
             DESFECHO[0] = "o modelo nao respondeu, %s" % e
             diz("  PAROU AQUI, %s" % e)
@@ -154,7 +154,7 @@ def _corpo():
 
     diz("\n== CHECAGEM ==")
     aprovadas = []
-    for c in candidatos[:14]:
+    for c in candidatos[:20]:
         v = checador.checa(c, desde, ate)
         if v.get("reprovada"):
             diz("  reprovada, %-42s %s" % (v["reprovada"][:42], c["endereco"][:70]))
@@ -165,7 +165,9 @@ def _corpo():
     # a regra das duas fontes. Veiculo fraco so entra se outro contar o mesmo.
     firmes = []
     for a in aprovadas:
-        if not a["fonte_fraca"]:
+        if not a["fonte_fraca"] or a["procedencia"] == "boato":
+            # boato de veiculo fraco entra, porque entra marcado como boato e
+            # nao como fato. A regra das duas fontes protege o fato, nao o boato.
             firmes.append(a)
             continue
         outros = [o for o in aprovadas if o is not a and not o["fonte_fraca"]
@@ -173,11 +175,11 @@ def _corpo():
         if outros:
             firmes.append(a)
         else:
-            diz("  fora,      fonte unica e fraca, %s" % a["veiculo"])
+            diz("  fora,      fato de fonte unica e fraca, %s" % a["veiculo"])
     aprovadas = firmes[:TETO_EDICAO]
 
     if not aprovadas:
-        DESFECHO[0] = "%d materias abertas e nenhuma passou na checagem" % len(candidatos[:14])
+        DESFECHO[0] = "%d materias abertas e nenhuma passou na checagem" % len(candidatos[:20])
         diz("\nNada passou na checagem. A edicao de hoje fica como esta.")
         return 0
 
