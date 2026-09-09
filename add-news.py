@@ -21,7 +21,7 @@ CLOSE = '</script>'
 FIELDS = ('id', 'date', 'status', 'category', 'headline', 'summary', 'source', 'url')
 # these are optional, but when they come in they must survive. Leaving them out
 # of the copy is what silently stripped the pictures off every filed story.
-OPCIONAIS = ('image', 'video', 'imagemIlustrativa')
+OPCIONAIS = ('image', 'video', 'imagemIlustrativa', 'corpo', 'fonteLida')
 STATUSES = ('official', 'confirmed', 'analysis', 'rumor', 'leak', 'paparazzi')
 MAX_STORIES = 120
 # the castle used to be the fallback picture, and it ended up on eight stories

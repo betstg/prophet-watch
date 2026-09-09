@@ -43,6 +43,7 @@ Responda em JSON, um objeto so.
  "motivo": "uma frase curta",
  "data": "AAAA-MM-DD ou vazio",
  "fato": "o que a pagina sustenta, em duas ou tres frases curtas",
+ "relato": ["um paragrafo", "outro paragrafo"],
  "assunto": "quem ou o que a materia trata, em poucas palavras",
  "editoria_sugerida": "HBO series, Films, Books and audio, Games, Stage, Television, Shops and experiences, Fandom ou Analise e teoria",
  "procedencia": "oficial, imprensa, fa, ou boato",
@@ -51,10 +52,34 @@ Responda em JSON, um objeto so.
  "foto_e_do_evento": true se a foto mostra o proprio fato, false se mostra o assunto,
  "foto_legenda": "se for do assunto, uma linha curta em portugues dizendo o que a foto mostra"}
 
-Nao use dois pontos, ponto e virgula, nem traco como pausa em nada que escrever."""
+O campo relato e a materia contada por inteiro, em portugues do Brasil, para o
+leitor que nao vai clicar no link. De quatro a oito paragrafos, um por item da
+lista. So o que a pagina diz, com os nomes, os numeros, as datas e as falas que
+estao nela. Nao invente nada, nao complete com o que voce sabe de fora, nao
+escreva opiniao. Quando a pagina cita alguem, traduza a fala e diga quem falou.
+Quando for boato, o relato tem que dizer que aquilo e uma alegacao que circula e
+de onde ela saiu.
+
+Tudo que voce escrever e em portugues do Brasil, com acento correto. Nao use dois
+pontos, ponto e virgula, nem traco como pausa em nada que escrever."""
 
 
 DATA = re.compile(r"(\d{4})-(\d{2})-(\d{2})")
+
+
+def _relato(bruto):
+    """O corpo da materia, um paragrafo por linha em branco.
+
+    O modelo as vezes devolve uma lista de paragrafos e as vezes um texto so.
+    Os dois casos viram a mesma coisa aqui, e cada paragrafo passa pela limpeza
+    de pontuacao, que e o que garante a regra do jornal.
+    """
+    if isinstance(bruto, list):
+        partes = [str(p) for p in bruto]
+    else:
+        partes = re.split(r"\n\s*\n", str(bruto or ""))
+    limpos = [modelo.limpa(re.sub(r"\s+", " ", p).strip()) for p in partes]
+    return "\n\n".join(p for p in limpos if len(p) > 30)
 
 
 def _dia(texto):
@@ -78,7 +103,7 @@ def checa(candidato, desde, ate):
            pag["data_declarada"] or "nao declarada", pag["video"] or "nenhum",
            fotos, pag["corpo"]))
 
-    v = modelo.pergunta(INSTRUCAO, texto, teto_saida=1200)
+    v = modelo.pergunta(INSTRUCAO, texto, teto_saida=3200)
     if not isinstance(v, dict):
         return dict(reprovada="o checador nao respondeu",
                     endereco=candidato["endereco"])
@@ -101,6 +126,7 @@ def checa(candidato, desde, ate):
     return dict(
         endereco=pag["url"], veiculo=pag["veiculo"], titulo=pag["titulo"],
         data=dia, fato=modelo.limpa(v.get("fato", "")),
+        relato=_relato(v.get("relato")),
         assunto=v.get("assunto", ""), editoria=v.get("editoria_sugerida", "Fandom"),
         procedencia=(v.get("procedencia") or "").lower(),
         origem_boato=v.get("origem_do_boato", ""),

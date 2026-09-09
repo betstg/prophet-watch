@@ -4,14 +4,24 @@ import re
 import modelo
 
 STATUS = ("official", "confirmed", "analysis", "rumor", "leak", "paparazzi")
-EDITORIAS = ("HBO series", "Films", "Books and audio", "Games", "Stage",
-             "Television", "Shops and experiences", "Fandom", "Analise e teoria")
+EDITORIAS = ("Série da HBO", "Filmes", "Livros e áudio", "Jogos", "Teatro",
+             "Televisão", "Lojas e experiências", "Fandom", "Análise e teoria")
+# o checador ainda sugere a editoria com o nome em ingles, entao a traducao mora
+# aqui. Os nomes tem que bater com os do site, acento incluido, senao o filtro
+# passa a mostrar a mesma editoria duas vezes e o icone some.
+DE_PARA = {"HBO series": "Série da HBO", "Films": "Filmes",
+           "Books and audio": "Livros e áudio", "Games": "Jogos",
+           "Stage": "Teatro", "Television": "Televisão",
+           "Shops and experiences": "Lojas e experiências",
+           "Fandom": "Fandom", "Analise e teoria": "Análise e teoria",
+           "Análise e teoria": "Análise e teoria"}
 
 INSTRUCAO = """Voce e o editor do Prophet Watch, um jornal de noticias de Harry Potter
 no formato do Profeta Diario. Recebe materias ja apuradas e checadas e escreve
 a edicao.
 
-Para cada materia escreva manchete e resumo em ingles, que e a lingua do jornal.
+Para cada materia escreva manchete e resumo em portugues do Brasil, que e a
+lingua do jornal. Acento correto sempre.
 
 A manchete diz o fato, nao promete. Entre 8 e 16 palavras. Nada de pergunta,
 nada de suspense, nada de voce nao vai acreditar.
@@ -81,14 +91,20 @@ def fecha(aprovadas, ja_publicadas):
         if status not in STATUS:
             status = "confirmed" if a["procedencia"] == "imprensa" else "analysis"
         categoria = (v.get("category") or "").strip()
+        categoria = DE_PARA.get(categoria, categoria)
         if categoria not in EDITORIAS:
-            categoria = a["editoria"] if a["editoria"] in EDITORIAS else "Fandom"
+            sugerida = DE_PARA.get(a["editoria"], a["editoria"])
+            categoria = sugerida if sugerida in EDITORIAS else "Fandom"
         slug = re.sub(r"[^a-z0-9-]", "", (v.get("slug") or "").lower().replace(" ", "-"))
         slug = re.sub(r"-{2,}", "-", slug).strip("-")[:48] or "materia"
         prontas.append(dict(
             id="%s-%s" % (slug, a["data"]),
             date=a["data"], status=status, category=categoria,
             headline=headline, summary=summary,
+            # o corpo e o relato do checador, que foi quem leu a pagina. Assim o
+            # texto de leitura nasce do que estava escrito la, e nao de memoria.
+            corpo=a.get("relato", "") or summary,
+            fonteLida=bool(a.get("relato")),
             source=a["veiculo"], url=a["endereco"],
             _foto=a.get("foto", ""), _video=a.get("video", ""),
             _legenda="" if a.get("foto_do_evento") else a.get("foto_legenda", ""),

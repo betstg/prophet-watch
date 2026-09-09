@@ -1809,6 +1809,167 @@
     .seal-core small { font-size: 6px; margin-top: 1px; }
   }
 
+
+  /* =====================================================================
+     A PAGINA DE LEITURA
+     A materia abre dentro do jornal, com a foto e o texto em portugues.
+     O botao no pe leva ao site onde a noticia saiu.
+     ===================================================================== */
+  .leitura {
+    position: fixed;
+    inset: 0;
+    z-index: 10055;
+    background: rgba(12, 9, 4, .74);
+    backdrop-filter: blur(3px);
+    overflow-y: auto;
+    padding: 26px 16px 60px;
+  }
+  .leitura[hidden] { display: none !important; }
+  .leitura-page {
+    max-width: 780px;
+    margin: 0 auto;
+    background: #EFE6CB;
+    color: #100B04;
+    padding: 22px 22px 34px;
+    box-shadow: 0 30px 80px -30px rgba(0,0,0,.8);
+    position: relative;
+  }
+  .leitura-page::before {
+    content: "";
+    position: absolute; inset: 8px;
+    border: 1px solid rgba(74,54,12,.4);
+    pointer-events: none;
+  }
+  .leitura-topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 12px;
+    border-bottom: 4px double rgba(110,92,52,.8);
+    position: relative;
+    z-index: 1;
+  }
+  .leitura-marca {
+    font-family: var(--font-label);
+    font-size: 10px;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    color: #5A4A22;
+  }
+  .leitura-corpo { position: relative; z-index: 1; padding-top: 18px; }
+  .leitura-kicker {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-family: var(--font-label);
+    font-size: 10px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: #5A4A22;
+    margin-bottom: 10px;
+  }
+  .leitura-kicker .selo {
+    border: 1px solid #6E5C34;
+    padding: 3px 9px;
+    color: #3A2E12;
+  }
+  .leitura h2.titulo {
+    font-family: var(--font-black);
+    font-size: clamp(26px, 4.6vw, 42px);
+    line-height: 1.05;
+    margin: 0 0 12px;
+    color: #100B04;
+  }
+  .leitura-linha {
+    font-family: var(--font-deck);
+    font-size: 12px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: #5A4A22;
+    border-top: 1px solid rgba(110,92,52,.5);
+    border-bottom: 1px solid rgba(110,92,52,.5);
+    padding: 8px 0;
+    margin-bottom: 18px;
+  }
+  .leitura figure {
+    margin: 0 0 18px;
+  }
+  .leitura figure img,
+  .leitura figure iframe {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border: 1px solid rgba(74,54,12,.45);
+    filter: grayscale(1) contrast(1.5) brightness(1.04) sepia(.16);
+  }
+  .leitura figure figcaption {
+    font-family: var(--font-label);
+    font-size: 10px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: #6E5C34;
+    padding-top: 6px;
+    border-top: 1px solid rgba(110,92,52,.4);
+    margin-top: 6px;
+  }
+  .leitura-texto p {
+    font-family: var(--font-read);
+    font-size: 17px;
+    line-height: 1.62;
+    color: #17110A;
+    margin: 0 0 15px;
+    text-align: justify;
+    hyphens: auto;
+  }
+  .leitura-texto p:first-child::first-letter {
+    font-family: var(--font-black);
+    float: left;
+    font-size: 3.1em;
+    line-height: .82;
+    padding: 6px 8px 0 0;
+    color: #100B04;
+  }
+  .leitura-aviso {
+    font-family: var(--font-label);
+    font-size: 11px;
+    line-height: 1.5;
+    letter-spacing: .04em;
+    color: #5A4A22;
+    background: rgba(110,92,52,.1);
+    border-left: 3px solid #6E5C34;
+    padding: 10px 12px;
+    margin: 0 0 18px;
+  }
+  .leitura-pe {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 4px double rgba(110,92,52,.8);
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .leitura .album-btn { text-decoration: none !important; display: inline-block; }
+  .leitura-pe .nota {
+    flex: 1 1 200px;
+    font-family: var(--font-label);
+    font-size: 10px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: #6E5C34;
+  }
+  @media (max-width: 620px) {
+    .leitura { padding: 12px 8px 40px; }
+    .leitura-page { padding: 16px 14px 26px; }
+    .leitura-texto p { font-size: 16px; text-align: left; hyphens: none; }
+    .leitura-pe .nota { flex: 1 1 100%; order: 3; }
+    .leitura-pe .album-btn { flex: 1 1 100%; text-align: center; }
+  }
+
   /* ---- o album aberto ---- */
   .album {
     position: fixed;
@@ -2317,11 +2478,11 @@
   <img class="hero-img" src="hogwarts-night.jpg" alt="" aria-hidden="true">
   <div class="hero-inner">
     <h1 class="wordmark">Prophet Watch</h1>
-    <p class="tagline">Harry Potter news, sorted by how well it is sourced</p>
-    <aside class="issue"><span id="issueNo">Issue #1</span><span id="issueDate">2 September 2026</span><span>5 Knuts</span></aside>
+    <p class="tagline">Notícia de Harry Potter, organizada pela procedência</p>
+    <aside class="issue"><span id="issueNo">Edição nº 1</span><span id="issueDate">2 de setembro de 2026</span><span>5 Nuques</span></aside>
     <div class="stamp">
-      <span>Updated <b id="stamp-date">2 September 2026</b></span>
-      <span id="stamp-count">22 stories</span>
+      <span>Atualizado em <b id="stamp-date">2 de setembro de 2026</b></span>
+      <span id="stamp-count">22 histórias</span>
       <button class="lumos" id="themeBtn" type="button"><span class="spark"></span><span id="themeLabel">Lumos</span></button>
       <button class="lumos" id="wandBtn" type="button" hidden aria-pressed="true" title="A varinha vira o ponteiro e acende a folha"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.4 13.6 L11 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12.4" cy="3.6" r="2" fill="currentColor"/></svg><span>Varinha</span><span class="spark"></span></button>
     </div>
@@ -2519,1446 +2680,1627 @@
       <circle cx="20" cy="20" r="17"/><circle cx="20" cy="20" r="13" stroke-dasharray="2 4"/>
       <path d="M20 11 22.4 17.6 29 20 22.4 22.4 20 29 17.6 22.4 11 20 17.6 17.6z" fill="currentColor" stroke="none"/>
     </svg>
-    Prophet Watch gathers Harry Potter news twice a day, morning and dusk, Rome time. Every entry keeps the link to where it came from, so nothing has to be taken on trust. The sourcing mark says how well stood up a story was when it was filed, not how likely it is to be true.
+    O Prophet Watch recolhe noticia de Harry Potter duas vezes por dia, de manha e no fim da tarde, hora de Roma. Toda materia guarda o link de onde ela saiu, entao nada precisa ser aceito no escuro. A marca de procedencia diz o quanto a materia estava firme quando foi publicada, e nao o quanto ela tem chance de ser verdade.
   </footer>
 </div>
 
 <script type="application/json" id="album-data">
 [
  {
-  "quote": "MOTORBIKES DON'T FLY!",
+  "quote": "MOTOCICLETAS NÃO VOAM!",
   "who": "Vernon Dursley",
   "book": 1,
-  "bookTitle": "Philosopher's Stone",
+  "bookTitle": "A Pedra Filosofal",
   "chapter": 2,
-  "chapterTitle": "The Vanishing Glass",
-  "moment": "No carro a caminho do zoologico"
+  "chapterTitle": "O Vidro Que Sumiu",
+  "moment": "No carro a caminho do zoologico",
+  "raro": "comum"
  },
  {
-  "quote": "I was the only one who saw her for what she was — a freak!",
+  "quote": "Eu era a única que a via como ela era. Um aborto da natureza!",
   "who": "Petunia Dursley",
   "book": 1,
-  "bookTitle": "Philosopher's Stone",
+  "bookTitle": "A Pedra Filosofal",
   "chapter": 4,
-  "chapterTitle": "The Keeper of the Keys",
+  "chapterTitle": "O Guardião das Chaves",
   "moment": "Petunia fala da irma pela primeira vez",
-  "tier": "notable"
+  "tier": "notable",
+  "raro": "comum"
  },
  {
-  "quote": "Harry — yer a wizard.",
+  "quote": "Harry, você é um bruxo.",
   "who": "Rubeus Hagrid",
   "book": 1,
-  "bookTitle": "Philosopher's Stone",
+  "bookTitle": "A Pedra Filosofal",
   "chapter": 4,
-  "chapterTitle": "The Keeper of the Keys",
+  "chapterTitle": "O Guardião das Chaves",
   "moment": "Hagrid conta a verdade na cabana",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "holo"
  },
  {
-  "quote": "Me dad's a Muggle. Mum didn't tell him she was a witch 'til after they were married.",
+  "quote": "Papai é trouxa. Mamãe não contou a ele que era bruxa até depois de casarem.",
   "who": "Seamus Finnigan",
   "book": 1,
-  "bookTitle": "Philosopher's Stone",
+  "bookTitle": "A Pedra Filosofal",
   "chapter": 7,
-  "chapterTitle": "The Sorting Hat",
+  "chapterTitle": "O Chapéu Seletor",
   "moment": "Simas se apresenta no banquete de abertura",
-  "tier": "notable"
+  "tier": "notable",
+  "raro": "comum"
  },
  {
-  "quote": "Hope to see you in Hufflepuff! My old house, you know.",
+  "quote": "Espero ver vocês na Lufa-Lufa! A minha casa antiga, sabe?",
   "who": "The Fat Friar",
   "book": 1,
-  "bookTitle": "Philosopher's Stone",
+  "bookTitle": "A Pedra Filosofal",
   "chapter": 7,
-  "chapterTitle": "The Sorting Hat",
+  "chapterTitle": "O Chapéu Seletor",
   "moment": "O Frade Gordo recebe os novatos",
-  "tier": "notable"
+  "tier": "notable",
+  "raro": "comum"
  },
  {
-  "quote": "Ah, yes. Harry Potter. Our new — celebrity.",
+  "quote": "Ah, sim. Harry Potter. A nossa nova celebridade.",
   "who": "Severus Snape",
   "book": 1,
-  "bookTitle": "Philosopher's Stone",
+  "bookTitle": "A Pedra Filosofal",
   "chapter": 8,
-  "chapterTitle": "The Potions Master",
+  "chapterTitle": "O Mestre das Poções",
   "moment": "a chamada da primeira aula de Poções",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "gold"
  },
  {
-  "quote": "Sniff around, my sweet, they might be lurking in a corner.",
+  "quote": "Vá farejando, minha querida, eles podem estar escondidos em algum canto.",
   "who": "Argus Filch",
   "book": 1,
-  "bookTitle": "Philosopher's Stone",
+  "bookTitle": "A Pedra Filosofal",
   "chapter": 9,
-  "chapterTitle": "The Midnight Duel",
+  "chapterTitle": "O Duelo à Meia-Noite",
   "moment": "Filch cacando alunos pelo castelo",
-  "tier": "notable"
+  "tier": "notable",
+  "raro": "comum"
  },
  {
-  "quote": "We could all have been killed — or worse, expelled.",
+  "quote": "Espero que estejam satisfeitos com o que fizeram. Podíamos ter sido mortos, ou pior, expulsos.",
   "who": "Hermione Granger",
   "book": 1,
-  "bookTitle": "Philosopher's Stone",
+  "bookTitle": "A Pedra Filosofal",
   "chapter": 9,
-  "chapterTitle": "The Midnight Duel",
+  "chapterTitle": "O Duelo à Meia-Noite",
   "moment": "depois da fuga da meia-noite",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "gold"
  },
  {
-  "quote": "It's Wing-gar-dium Levi-o-sa, make the 'gar' nice and long.",
+  "quote": "É ving-gar-dium levi-o-sa é bem pronunciado e longo.",
   "who": "Hermione Granger",
   "book": 1,
-  "bookTitle": "Philosopher's Stone",
+  "bookTitle": "A Pedra Filosofal",
   "chapter": 10,
-  "chapterTitle": "Hallowe'en",
+  "chapterTitle": "O Dia das Bruxas",
   "moment": "corrigindo Rony na aula de Feitiços",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "gold"
  },
  {
-  "quote": "Flint nearly kills the Gryffindor Seeker, which could happen to anyone, I'm sure.",
+  "quote": "Marcos quase matou o apanhador da Grifinória, o que pode acontecer com qualquer um, tenho certeza.",
   "who": "Lee Jordan",
   "book": 1,
-  "bookTitle": "Philosopher's Stone",
+  "bookTitle": "A Pedra Filosofal",
   "chapter": 11,
-  "chapterTitle": "Quidditch",
+  "chapterTitle": "Quadribol",
   "moment": "Lino narra o jogo sem nenhuma isencao",
-  "tier": "notable"
+  "tier": "notable",
+  "raro": "comum"
  },
  {
-  "quote": "Now, I want a nice fair game, all of you.",
+  "quote": "Quero ver um jogo limpo, meninos.",
   "who": "Rolanda Hooch",
   "book": 1,
-  "bookTitle": "Philosopher's Stone",
+  "bookTitle": "A Pedra Filosofal",
   "chapter": 11,
-  "chapterTitle": "Quidditch",
+  "chapterTitle": "Quadribol",
   "moment": "Madame Hooch abre o primeiro jogo de Harry",
-  "tier": "notable"
+  "tier": "notable",
+  "raro": "comum"
  },
  {
-  "quote": "It does not do to dwell on dreams and forget to live, remember that.",
+  "quote": "Não faz bem viver sonhando e se esquecer de viver, lembre-se.",
   "who": "Albus Dumbledore",
   "book": 1,
-  "bookTitle": "Philosopher's Stone",
+  "bookTitle": "A Pedra Filosofal",
   "chapter": 12,
-  "chapterTitle": "The Mirror of Erised",
+  "chapterTitle": "O Espelho de Ojesed",
   "moment": "tirando Harry do Espelho de Ojesed",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "gold"
  },
  {
-  "quote": "I'm worth twelve of you, Malfoy.",
+  "quote": "Eu valho doze Dracos, Malfoy.",
   "who": "Neville Longbottom",
   "book": 1,
-  "bookTitle": "Philosopher's Stone",
+  "bookTitle": "A Pedra Filosofal",
   "chapter": 13,
-  "chapterTitle": "Nicolas Flamel",
+  "chapterTitle": "Nicolau Flamel",
   "moment": "Neville responde no jogo de Quadribol",
-  "tier": "well known"
+  "tier": "well known",
+  "raro": "comum"
  },
  {
-  "quote": "The planets have been read wrongly before now, even by centaurs.",
+  "quote": "Os planetas já foram mal interpretados antes, até mesmo pelos centauros.",
   "who": "Firenze",
   "book": 1,
-  "bookTitle": "Philosopher's Stone",
+  "bookTitle": "A Pedra Filosofal",
   "chapter": 15,
-  "chapterTitle": "The Forbidden Forest",
+  "chapterTitle": "A Floresta Proibida",
   "moment": "Firenze salva Harry na Floresta Proibida",
-  "tier": "notable"
+  "tier": "notable",
+  "raro": "comum"
  },
  {
-  "quote": "Books! And cleverness! There are more important things — friendship and bravery.",
+  "quote": "Eu! Livros! E inteligência! Há coisas mais importantes, amizade e bravura e, ah, Harry, tenha cuidado!",
   "who": "Hermione Granger",
   "book": 1,
-  "bookTitle": "Philosopher's Stone",
+  "bookTitle": "A Pedra Filosofal",
   "chapter": 16,
-  "chapterTitle": "Through the Trapdoor",
+  "chapterTitle": "No Alçapão",
   "moment": "antes de Harry seguir sozinho",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "comum"
  },
  {
-  "quote": "It takes a great deal of bravery to stand up to our enemies, but just as much to stand up to our friends.",
+  "quote": "É preciso muita audácia para enfrentarmos os nossos inimigos, mas igual audácia para defendermos os nossos amigos.",
   "who": "Albus Dumbledore",
   "book": 1,
-  "bookTitle": "Philosopher's Stone",
+  "bookTitle": "A Pedra Filosofal",
   "chapter": 17,
-  "chapterTitle": "The Man with Two Faces",
+  "chapterTitle": "O Homem de Duas Caras",
   "moment": "os últimos pontos para Neville, no banquete",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "gold"
  },
  {
-  "quote": "There is no good and evil, there is only power, and those too weak to seek it.",
+  "quote": "Não existe bem nem mal, só existe o poder, e aqueles que são demasiado fracos para o desejarem.",
   "who": "Quirinus Quirrell",
   "book": 1,
-  "bookTitle": "Philosopher's Stone",
+  "bookTitle": "A Pedra Filosofal",
   "chapter": 17,
-  "chapterTitle": "The Man with Two Faces",
+  "chapterTitle": "O Homem de Duas Caras",
   "moment": "repetindo o credo de Voldemort",
-  "tier": "well known"
+  "tier": "well known",
+  "raro": "comum"
  },
  {
-  "quote": "Nice big smile, Harry. Together, you and I are worth the front page.",
+  "quote": "Dê um belo sorriso, Harry. Juntos, você e eu valemos uma primeira página.",
   "who": "Gilderoy Lockhart",
   "book": 2,
-  "bookTitle": "Chamber of Secrets",
+  "bookTitle": "A Câmara Secreta",
   "chapter": 4,
-  "chapterTitle": "At Flourish and Blotts",
-  "moment": "Lockhart puxa Harry para a foto do Profeta"
+  "chapterTitle": "Na Floreios e Borrões",
+  "moment": "Lockhart puxa Harry para a foto do Profeta",
+  "raro": "comum"
  },
  {
-  "quote": "Of all the trees we could've hit, we had to get one that hits back.",
+  "quote": "De todas as árvores em que podíamos ter batido, tínhamos que bater nessa que revida?",
   "who": "Ron Weasley",
   "book": 2,
-  "bookTitle": "Chamber of Secrets",
+  "bookTitle": "A Câmara Secreta",
   "chapter": 5,
-  "chapterTitle": "The Whomping Willow",
+  "chapterTitle": "O Salgueiro Lutador",
   "moment": "depois de bater o Ford Anglia no salgueiro",
-  "tier": "well known"
+  "tier": "well known",
+  "raro": "comum"
  },
  {
-  "quote": "I'm — I'm Colin Creevey. I'm in Gryffindor, too.",
+  "quote": "Tudo bem, Harry? Sou... Colin Creevey. Sou da Grifinória também.",
   "who": "Colin Creevey",
   "book": 2,
-  "bookTitle": "Chamber of Secrets",
+  "bookTitle": "A Câmara Secreta",
   "chapter": 6,
   "chapterTitle": "Gilderoy Lockhart",
   "moment": "Colin se apresenta a Harry no castelo",
-  "tier": "notable"
+  "tier": "notable",
+  "raro": "comum"
  },
  {
-  "quote": "My name was down for Eton, you know. I can't tell you how glad I am I came here instead.",
+  "quote": "Eu estava inscrito em Eton, sabe. Nem sei dizer como estou contente de, em vez disso, ter vindo para cá.",
   "who": "Justin Finch-Fletchley",
   "book": 2,
-  "bookTitle": "Chamber of Secrets",
+  "bookTitle": "A Câmara Secreta",
   "chapter": 6,
   "chapterTitle": "Gilderoy Lockhart",
   "moment": "Justino conta que ia para Eton",
-  "tier": "notable"
+  "tier": "notable",
+  "raro": "comum"
  },
  {
-  "quote": "D'you think I don't know what people call me behind my back? Fat Myrtle! Ugly Myrtle! Miserable, moaning, moping Myrtle!",
+  "quote": "Vocês acham que não sei como as pessoas me chamam pelas costas? Murta Gorda! Murta Feiosa! Murta infeliz, chorona, apática!",
   "who": "Moaning Myrtle",
   "book": 2,
-  "bookTitle": "Chamber of Secrets",
+  "bookTitle": "A Câmara Secreta",
   "chapter": 8,
-  "chapterTitle": "The Deathday Party",
-  "moment": "Na festa de aniversario de morte do Nick"
+  "chapterTitle": "A Festa do Aniversário de Morte",
+  "moment": "Na festa de aniversario de morte do Nick",
+  "raro": "comum"
  },
  {
-  "quote": "Half an inch of skin and sinew holding my neck on, Harry!",
+  "quote": "Pouco mais de um centímetro, se tanto... de pele... e um tendão seguram minha cabeça, Harry!",
   "who": "Nearly Headless Nick",
   "book": 2,
-  "bookTitle": "Chamber of Secrets",
+  "bookTitle": "A Câmara Secreta",
   "chapter": 8,
-  "chapterTitle": "The Deathday Party",
+  "chapterTitle": "A Festa do Aniversário de Morte",
   "moment": "Nick explica por que e quase sem cabeca",
-  "tier": "notable"
+  "tier": "notable",
+  "raro": "comum"
  },
  {
-  "quote": "Dobby is used to death threats, sir. Dobby gets them five times a day at home.",
+  "quote": "Dobby está acostumado com ameaças de morte, meu senhor. Em casa, Dobby as recebe cinco vezes por dia.",
   "who": "Dobby",
   "book": 2,
-  "bookTitle": "Chamber of Secrets",
+  "bookTitle": "A Câmara Secreta",
   "chapter": 10,
-  "chapterTitle": "The Rogue Bludger",
+  "chapterTitle": "O Balaço Errante",
   "moment": "na ala hospitalar, visitando Harry",
-  "tier": "well known"
+  "tier": "well known",
+  "raro": "comum"
  },
  {
-  "quote": "Get to that Snitch before Malfoy or die trying, Harry, because we've got to win today, we've got to.",
+  "quote": "Chegue ao pomo antes de Draco ou morra tentando, porque temos que vencer hoje, é muito simples.",
   "who": "Oliver Wood",
   "book": 2,
-  "bookTitle": "Chamber of Secrets",
+  "bookTitle": "A Câmara Secreta",
   "chapter": 10,
-  "chapterTitle": "The Rogue Bludger",
-  "moment": "No vestiario, antes do jogo com a Sonserina"
+  "chapterTitle": "O Balaço Errante",
+  "moment": "No vestiario, antes do jogo com a Sonserina",
+  "raro": "comum"
  },
  {
-  "quote": "This boy needs rest, he's got thirty-three bones to regrow! Out! OUT!",
+  "quote": "Esse menino precisa de descanso, precisa fazer crescer trinta e três ossos! Fora! FORA!",
   "who": "Poppy Pomfrey",
   "book": 2,
-  "bookTitle": "Chamber of Secrets",
+  "bookTitle": "A Câmara Secreta",
   "chapter": 10,
-  "chapterTitle": "The Rogue Bludger",
-  "moment": "Na ala hospitalar, com o braco sem osso"
+  "chapterTitle": "O Balaço Errante",
+  "moment": "Na ala hospitalar, com o braco sem osso",
+  "raro": "comum"
  },
  {
-  "quote": "Oh, Potter, you rotter, oh, what have you done, You're killing off students, you think it's good fun —",
+  "quote": "Ah, Potter, podre, veja o que você fez. Matar alunos não é nada cortês...",
   "who": "Peeves",
   "book": 2,
-  "bookTitle": "Chamber of Secrets",
+  "bookTitle": "A Câmara Secreta",
   "chapter": 11,
-  "chapterTitle": "The Duelling Club",
-  "moment": "Peeves canta pelos corredores do castelo"
+  "chapterTitle": "O Clube dos Duelos",
+  "moment": "Peeves canta pelos corredores do castelo",
+  "raro": "comum"
  },
  {
-  "quote": "When in doubt, go to the library.",
+  "quote": "Quando tiver uma dúvida, vá à biblioteca.",
   "who": "Ron Weasley",
   "book": 2,
-  "bookTitle": "Chamber of Secrets",
+  "bookTitle": "A Câmara Secreta",
   "chapter": 14,
-  "chapterTitle": "Cornelius Fudge",
+  "chapterTitle": "Cornélio Fudge",
   "moment": "Rony resumindo o método de Hermione",
-  "tier": "well known"
+  "tier": "well known",
+  "raro": "comum"
  },
  {
-  "quote": "It is our choices, Harry, that show what we truly are, far more than our abilities.",
+  "quote": "São as nossas escolhas, Harry, que revelam o que realmente somos, muito mais do que as nossas qualidades.",
   "who": "Albus Dumbledore",
   "book": 2,
-  "bookTitle": "Chamber of Secrets",
+  "bookTitle": "A Câmara Secreta",
   "chapter": 18,
-  "chapterTitle": "Dobby's Reward",
+  "chapterTitle": "A Recompensa de Dobby",
   "moment": "respondendo o medo de Harry da Sonserina",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "holo"
  },
  {
-  "quote": "Never trust anything that can think for itself if you can't see where it keeps its brain.",
+  "quote": "Nunca confie em nada que é capaz de pensar se você não pode ver onde fica o seu cérebro.",
   "who": "Arthur Weasley",
   "book": 2,
-  "bookTitle": "Chamber of Secrets",
+  "bookTitle": "A Câmara Secreta",
   "chapter": 18,
-  "chapterTitle": "Dobby's Reward",
+  "chapterTitle": "A Recompensa de Dobby",
   "moment": "Arthur repreendendo Gina pelo diário",
-  "tier": "well known"
+  "tier": "well known",
+  "raro": "comum"
  },
  {
-  "quote": "You'll meet the same sticky end as your parents one of these days, Harry Potter.",
+  "quote": "Você vai ter o mesmo fim sangrento dos seus pais um dia desses, Harry Potter.",
   "who": "Lucius Malfoy",
   "book": 2,
-  "bookTitle": "Chamber of Secrets",
+  "bookTitle": "A Câmara Secreta",
   "chapter": 18,
-  "chapterTitle": "Dobby's Reward",
+  "chapterTitle": "A Recompensa de Dobby",
   "moment": "Lucio ameaca Harry depois de perder Dobby",
-  "tier": "notable"
+  "tier": "notable",
+  "raro": "comum"
  },
  {
-  "quote": "Don't let the Muggles get you down!",
+  "quote": "Não deixe os trouxas te derrubarem!",
   "who": "Ron Weasley",
   "book": 3,
-  "bookTitle": "Prisoner of Azkaban",
+  "bookTitle": "O Prisioneiro de Azkaban",
   "chapter": 1,
-  "chapterTitle": "Owl Post",
+  "chapterTitle": "O Correio-coruja",
   "moment": "o bilhete de aniversário para Harry",
-  "tier": "well known"
+  "tier": "well known",
+  "traducaoPropria": true,
+  "raro": "comum"
  },
  {
-  "quote": "We don't send people to Azkaban just for blowing up their aunts!",
+  "quote": "Nós não mandamos ninguém para Azkaban só por ter inflado uma tia!",
   "who": "Cornelius Fudge",
   "book": 3,
-  "bookTitle": "Prisoner of Azkaban",
+  "bookTitle": "O Prisioneiro de Azkaban",
   "chapter": 3,
-  "chapterTitle": "The Knight Bus",
+  "chapterTitle": "O Nôitibus Andante",
   "moment": "Fudge perdoa Harry por inflar a tia Guida",
-  "tier": "notable"
+  "tier": "notable",
+  "traducaoPropria": true,
+  "raro": "comum"
  },
  {
-  "quote": "Them! Don' listen properly, do they? Don' look properly either. Never notice nuffink, they don'.",
+  "quote": "Eles! Não escutam direito, escutam? Nem olham direito. Nunca reparam em nada, eles.",
   "who": "Stan Shunpike",
   "book": 3,
-  "bookTitle": "Prisoner of Azkaban",
+  "bookTitle": "O Prisioneiro de Azkaban",
   "chapter": 3,
-  "chapterTitle": "The Knight Bus",
+  "chapterTitle": "O Nôitibus Andante",
   "moment": "Lanolino explica por que os trouxas nao veem",
-  "tier": "notable"
+  "tier": "notable",
+  "traducaoPropria": true,
+  "raro": "comum"
  },
  {
-  "quote": "I don't go looking for trouble. Trouble usually finds me.",
+  "quote": "Eu não saio por aí procurando encrenca. Em geral as encrencas é que vêm ao meu encontro.",
   "who": "Harry Potter",
   "book": 3,
-  "bookTitle": "Prisoner of Azkaban",
+  "bookTitle": "O Prisioneiro de Azkaban",
   "chapter": 5,
-  "chapterTitle": "The Dementor",
+  "chapterTitle": "O Dementador",
   "moment": "ao sr. Weasley, que o avisa sobre Sirius",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "comum"
  },
  {
-  "quote": "The Grim, my dear, the Grim! The giant, spectral dog that haunts churchyards!",
+  "quote": "O Sinistro, meu querido, o Sinistro! O cão gigantesco e espectral que assombra os cemitérios!",
   "who": "Sybill Trelawney",
   "book": 3,
-  "bookTitle": "Prisoner of Azkaban",
+  "bookTitle": "O Prisioneiro de Azkaban",
   "chapter": 6,
-  "chapterTitle": "Talons and Tea Leaves",
-  "moment": "Na primeira aula de Adivinhacao"
+  "chapterTitle": "Garras e Folhas de Chá",
+  "moment": "Na primeira aula de Adivinhacao",
+  "raro": "comum"
  },
  {
-  "quote": "That suggests that what you fear most of all is fear. Very wise, Harry.",
+  "quote": "O que você mais teme é o medo. Muito sensato, Harry.",
   "who": "Remus Lupin",
   "book": 3,
-  "bookTitle": "Prisoner of Azkaban",
+  "bookTitle": "O Prisioneiro de Azkaban",
   "chapter": 8,
-  "chapterTitle": "Flight of the Fat Lady",
+  "chapterTitle": "A Fuga da Mulher Gorda",
   "moment": "depois de Harry dizer que teme os dementadores",
-  "tier": "well known"
+  "tier": "well known",
+  "raro": "comum"
  },
  {
-  "quote": "Then you should have died! Died rather than betray your friends, as we would have done for you!",
+  "quote": "ENTÃO VOCÊ DEVIA TER MORRIDO! MORRER EM VEZ DE TRAIR SEUS AMIGOS, COMO TERÍAMOS FEITO POR VOCÊ!",
   "who": "Sirius Black",
   "book": 3,
-  "bookTitle": "Prisoner of Azkaban",
+  "bookTitle": "O Prisioneiro de Azkaban",
   "chapter": 19,
-  "chapterTitle": "The Servant of Lord Voldemort",
+  "chapterTitle": "O Servo de Lord Voldemort",
   "moment": "contra Pettigrew, na Casa dos Gritos",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "gold"
  },
  {
-  "quote": "You think the dead we have loved ever truly leave us?",
+  "quote": "Você acha que os mortos que realmente amamos nos deixam?",
   "who": "Albus Dumbledore",
   "book": 3,
-  "bookTitle": "Prisoner of Azkaban",
+  "bookTitle": "O Prisioneiro de Azkaban",
   "chapter": 22,
-  "chapterTitle": "Owl Post Again",
+  "chapterTitle": "Novo Correio-coruja",
   "moment": "depois de Harry ver o pai conjurar o Patrono",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "comum"
  },
  {
-  "quote": "Ced, that'll be something to tell your grandchildren, that will... you beat Harry Potter!",
+  "quote": "Ced, isso é coisa para você contar aos seus netos, é sim... você venceu Harry Potter!",
   "who": "Amos Diggory",
   "book": 4,
-  "bookTitle": "Goblet of Fire",
+  "bookTitle": "O Cálice de Fogo",
   "chapter": 6,
-  "chapterTitle": "The Portkey",
+  "chapterTitle": "A Chave do Portal",
   "moment": "Amos se gaba do filho a caminho da Copa",
-  "tier": "notable"
+  "tier": "notable",
+  "traducaoPropria": true,
+  "raro": "comum"
  },
  {
-  "quote": "And that, boys, is why you should never go for looks alone!",
+  "quote": "E é por isso, meninos, que vocês nunca devem se guiar só pela aparência!",
   "who": "Arthur Weasley",
   "book": 4,
-  "bookTitle": "Goblet of Fire",
+  "bookTitle": "O Cálice de Fogo",
   "chapter": 8,
-  "chapterTitle": "The Quidditch World Cup",
+  "chapterTitle": "A Copa Mundial de Quadribol",
   "moment": "Arthur comenta a veela na Copa",
-  "tier": "notable"
+  "tier": "notable",
+  "traducaoPropria": true,
+  "raro": "comum"
  },
  {
-  "quote": "CONSTANT VIGILANCE!",
+  "quote": "VIGILÂNCIA CONSTANTE!",
   "who": "Alastor Moody",
   "book": 4,
-  "bookTitle": "Goblet of Fire",
+  "bookTitle": "O Cálice de Fogo",
   "chapter": 14,
-  "chapterTitle": "The Unforgivable Curses",
+  "chapterTitle": "As Maldições Imperdoáveis",
   "moment": "a primeira aula de Defesa do ano",
   "tier": "iconic",
-  "note": "quem grita é Barty Crouch Jr disfarçado de Moody"
+  "note": "quem grita é Barty Crouch Jr disfarçado de Moody",
+  "raro": "holo"
  },
  {
-  "quote": "I wonder if you could give me a quick word?",
+  "quote": "Será que eu poderia trocar uma palavrinha com você?",
   "who": "Rita Skeeter",
   "book": 4,
-  "bookTitle": "Goblet of Fire",
+  "bookTitle": "O Cálice de Fogo",
   "chapter": 20,
-  "chapterTitle": "The First Task",
+  "chapterTitle": "A Primeira Tarefa",
   "moment": "Rita cerca Harry antes da primeira tarefa",
-  "tier": "notable"
+  "tier": "notable",
+  "traducaoPropria": true,
+  "raro": "comum"
  },
  {
-  "quote": "Socks are Dobby's favourite, favourite clothes, sir!",
+  "quote": "Meias são a roupa favorita, favorita de Dobby, senhor!",
   "who": "Dobby",
   "book": 4,
-  "bookTitle": "Goblet of Fire",
+  "bookTitle": "O Cálice de Fogo",
   "chapter": 23,
-  "chapterTitle": "The Yule Ball",
+  "chapterTitle": "O Baile de Inverno",
   "moment": "Dobby ganha meias no Baile de Inverno",
-  "tier": "iconic"
+  "tier": "iconic",
+  "traducaoPropria": true,
+  "raro": "comum"
  },
  {
-  "quote": "If you want to know what a man's like, take a good look at how he treats his inferiors, not his equals.",
+  "quote": "Se você quer saber como um homem é, veja como ele trata os inferiores, e não os seus iguais.",
   "who": "Sirius Black",
   "book": 4,
-  "bookTitle": "Goblet of Fire",
+  "bookTitle": "O Cálice de Fogo",
   "chapter": 27,
-  "chapterTitle": "Padfoot Returns",
+  "chapterTitle": "A Volta de Almofadinhas",
   "moment": "sobre Barty Crouch, na caverna de Hogsmeade",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "gold"
  },
  {
-  "quote": "The Dark Lord will rise again, Crouch!",
+  "quote": "O Lorde das Trevas há de ressurgir, Crouch!",
   "who": "Bellatrix Lestrange",
   "book": 4,
-  "bookTitle": "Goblet of Fire",
+  "bookTitle": "O Cálice de Fogo",
   "chapter": 30,
-  "chapterTitle": "The Pensieve",
+  "chapterTitle": "A Penseira",
   "moment": "Belatriz no julgamento, dentro da Penseira",
-  "tier": "notable"
+  "tier": "notable",
+  "traducaoPropria": true,
+  "raro": "comum"
  },
  {
-  "quote": "Kill the spare.",
+  "quote": "Mate o outro.",
   "who": "Lord Voldemort",
   "book": 4,
-  "bookTitle": "Goblet of Fire",
+  "bookTitle": "O Cálice de Fogo",
   "chapter": 32,
-  "chapterTitle": "Flesh, Blood and Bone",
+  "chapterTitle": "Osso, Carne e Sangue",
   "moment": "a ordem no cemitério",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "holo"
  },
  {
-  "quote": "Bone of the father, unknowingly given, you will renew your son!",
+  "quote": "Osso do pai, dado sem saber, renove seu filho!",
   "who": "Peter Pettigrew",
   "book": 4,
-  "bookTitle": "Goblet of Fire",
+  "bookTitle": "O Cálice de Fogo",
   "chapter": 32,
-  "chapterTitle": "Flesh, Blood and Bone",
+  "chapterTitle": "Osso, Carne e Sangue",
   "moment": "Rabicho faz o ritual no cemiterio",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "comum"
  },
  {
-  "quote": "We are only as strong as we are united, as weak as we are divided.",
+  "quote": "Seremos tão fortes quanto formos unidos e tão fracos quanto formos desunidos.",
   "who": "Albus Dumbledore",
   "book": 4,
-  "bookTitle": "Goblet of Fire",
+  "bookTitle": "O Cálice de Fogo",
   "chapter": 37,
-  "chapterTitle": "The Beginning",
+  "chapterTitle": "O Começo",
   "moment": "o discurso do banquete de despedida",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "comum"
  },
  {
-  "quote": "What's comin' will come, an' we'll meet it when it does.",
+  "quote": "O que tiver que ser será, e nós o enfrentaremos quando vier.",
   "who": "Rubeus Hagrid",
   "book": 4,
-  "bookTitle": "Goblet of Fire",
+  "bookTitle": "O Cálice de Fogo",
   "chapter": 37,
-  "chapterTitle": "The Beginning",
+  "chapterTitle": "O Começo",
   "moment": "consolando o trio depois de Cedrico",
-  "tier": "well known"
+  "tier": "well known",
+  "raro": "comum"
  },
  {
-  "quote": "Wotcher, Harry!",
+  "quote": "— Tudo bem, Harry.",
   "who": "Nymphadora Tonks",
   "book": 5,
-  "bookTitle": "Order of the Phoenix",
+  "bookTitle": "A Ordem da Fênix",
   "chapter": 3,
-  "chapterTitle": "The Advance Guard",
+  "chapterTitle": "A guarda avançada",
   "moment": "Tonks chega com a guarda avancada",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "comum"
  },
  {
-  "quote": "Oh, Ron, how wonderful! A prefect! That's everyone in the family!",
+  "quote": "— Ah, Rony, que maravilha! Monitor! Como todos na família!",
   "who": "Molly Weasley",
   "book": 5,
-  "bookTitle": "Order of the Phoenix",
+  "bookTitle": "A Ordem da Fênix",
   "chapter": 9,
-  "chapterTitle": "The Woes of Mrs Weasley",
+  "chapterTitle": "As tribulações da Sra. Weasley",
   "moment": "Molly comemora o distintivo de Rony",
-  "tier": "notable"
+  "tier": "notable",
+  "raro": "comum"
  },
  {
-  "quote": "Don't worry. You're just as sane as I am.",
+  "quote": "— Não se preocupe. Você é tão normal quanto eu.",
   "who": "Luna Lovegood",
   "book": 5,
-  "bookTitle": "Order of the Phoenix",
+  "bookTitle": "A Ordem da Fênix",
   "chapter": 10,
   "chapterTitle": "Luna Lovegood",
   "moment": "o primeiro encontro com Harry no trem",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "gold"
  },
  {
-  "quote": "Have a biscuit, Potter.",
+  "quote": "— Coma um biscoito, Harry.",
   "who": "Minerva McGonagall",
   "book": 5,
-  "bookTitle": "Order of the Phoenix",
+  "bookTitle": "A Ordem da Fênix",
   "chapter": 12,
-  "chapterTitle": "Professor Umbridge",
+  "chapterTitle": "A professora Umbridge",
   "moment": "no meio do sermão sobre Umbridge",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "gold"
  },
  {
-  "quote": "I want you to write, 'I must not tell lies.'",
+  "quote": "— Quero que o senhor escreva: Não devo contar mentiras.",
   "who": "Dolores Umbridge",
   "book": 5,
-  "bookTitle": "Order of the Phoenix",
+  "bookTitle": "A Ordem da Fênix",
   "chapter": 13,
-  "chapterTitle": "Detention with Dolores",
-  "moment": "Na primeira detencao, com a pena preta"
+  "chapterTitle": "A detenção de Dolores",
+  "moment": "Na primeira detencao, com a pena preta",
+  "raro": "comum"
  },
  {
-  "quote": "Why would anyone want to look like they've got worms coming out of their head?",
+  "quote": "— Por que alguém iria querer parecer que tem minhocas saindo do crânio?",
   "who": "Pansy Parkinson",
   "book": 5,
-  "bookTitle": "Order of the Phoenix",
+  "bookTitle": "A Ordem da Fênix",
   "chapter": 14,
-  "chapterTitle": "Percy and Padfoot",
+  "chapterTitle": "Percy e Almofadinhas",
   "moment": "Pansy debocha do cabelo de Angelina",
-  "tier": "notable"
+  "tier": "notable",
+  "raro": "comum"
  },
  {
-  "quote": "Yes, but the world isn't split into good people and Death Eaters.",
+  "quote": "— É, mas o mundo não está dividido entre bons e os Comensais da Morte.",
   "who": "Sirius Black",
   "book": 5,
-  "bookTitle": "Order of the Phoenix",
+  "bookTitle": "A Ordem da Fênix",
   "chapter": 14,
-  "chapterTitle": "Percy and Padfoot",
+  "chapterTitle": "Percy e Almofadinhas",
   "moment": "sobre Snape e Crouch, no Largo Grimmauld",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "gold"
  },
  {
-  "quote": "Just because you've got the emotional range of a teaspoon doesn't mean we all have.",
+  "quote": "— Só porque você tem a amplitude emocional de uma colher de chá isto não significa que todos sejamos iguais.",
   "who": "Hermione Granger",
   "book": 5,
-  "bookTitle": "Order of the Phoenix",
+  "bookTitle": "A Ordem da Fênix",
   "chapter": 21,
-  "chapterTitle": "The Eye of the Snake",
+  "chapterTitle": "O olho da Cobra",
   "moment": "Hermione com Rony, sobre Cho",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "gold"
  },
  {
-  "quote": "You know, Minister, I disagree with Dumbledore on many counts, but you cannot deny he's got style.",
+  "quote": "— Sabe, ministro, discordo de Dumbledore em muita coisa... mas não se pode negar que ele tem classe...",
   "who": "Phineas Nigellus Black",
   "book": 5,
-  "bookTitle": "Order of the Phoenix",
+  "bookTitle": "A Ordem da Fênix",
   "chapter": 27,
-  "chapterTitle": "The Centaur and the Sneak",
-  "moment": "No escritorio, apos Dumbledore fugir de Fudge"
+  "chapterTitle": "O centauro e o dedo-duro",
+  "moment": "No escritorio, apos Dumbledore fugir de Fudge",
+  "raro": "comum"
  },
  {
-  "quote": "Give her hell from us, Peeves.",
+  "quote": "— Infernize ela por nós, Pirraça.",
   "who": "Fred Weasley",
   "book": 5,
-  "bookTitle": "Order of the Phoenix",
+  "bookTitle": "A Ordem da Fênix",
   "chapter": 29,
-  "chapterTitle": "Careers Advice",
+  "chapterTitle": "Orientação vocacional",
   "moment": "Fred e Jorge saem de Hogwarts voando",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "comum"
  },
  {
-  "quote": "You sort of start thinking anything's possible if you've got enough nerve.",
+  "quote": "— O bom de ser criada com Fred e Jorge é que a gente meio que começa a achar que tudo é possível desde que se tenha coragem.",
   "who": "Ginny Weasley",
   "book": 5,
-  "bookTitle": "Order of the Phoenix",
+  "bookTitle": "A Ordem da Fênix",
   "chapter": 29,
-  "chapterTitle": "Careers Advice",
+  "chapterTitle": "Orientação vocacional",
   "moment": "sobre crescer perto de Fred e Jorge",
-  "tier": "well known"
+  "tier": "well known",
+  "raro": "comum"
  },
  {
-  "quote": "Chocolate in the library! Out — out — OUT!",
+  "quote": "— Chocolate na biblioteca! Fora... fora... FORA!",
   "who": "Irma Pince",
   "book": 5,
-  "bookTitle": "Order of the Phoenix",
+  "bookTitle": "A Ordem da Fênix",
   "chapter": 29,
-  "chapterTitle": "Careers Advice",
+  "chapterTitle": "Orientação vocacional",
   "moment": "Madame Pince expulsa quem come na biblioteca",
-  "tier": "notable"
+  "tier": "notable",
+  "raro": "comum"
  },
  {
-  "quote": "Who blackened your eye, Granger? I want to send them flowers.",
+  "quote": "— Quem lhe deu o olho roxo, Granger? Quero mandar flores para eles.",
   "who": "Draco Malfoy",
   "book": 6,
-  "bookTitle": "Half-Blood Prince",
+  "bookTitle": "O Enigma do Príncipe",
   "chapter": 6,
-  "chapterTitle": "Draco's Detour",
+  "chapterTitle": "A fuga de Draco",
   "moment": "provocando Hermione na Madame Malkin",
-  "tier": "well known"
+  "tier": "well known",
+  "raro": "comum"
  },
  {
-  "quote": "I enjoyed the meetings too. It was like having friends.",
+  "quote": "— Eu gostei das reuniões também. Era como se eu tivesse amigos.",
   "who": "Luna Lovegood",
   "book": 6,
-  "bookTitle": "Half-Blood Prince",
+  "bookTitle": "O Enigma do Príncipe",
   "chapter": 7,
-  "chapterTitle": "The Slug Club",
+  "chapterTitle": "O Clube do Slugue",
   "moment": "sobre a Armada de Dumbledore, no trem",
-  "tier": "well known"
+  "tier": "well known",
+  "raro": "comum"
  },
  {
-  "quote": "There's no need to call me 'sir', Professor.",
+  "quote": "— Não é preciso me chamar de “senhor”, professor.",
   "who": "Harry Potter",
   "book": 6,
-  "bookTitle": "Half-Blood Prince",
+  "bookTitle": "O Enigma do Príncipe",
   "chapter": 9,
-  "chapterTitle": "The Half-Blood Prince",
+  "chapterTitle": "O Príncipe Mestiço",
   "moment": "Harry responde a Snape na aula de Defesa",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "comum"
  },
  {
-  "quote": "Greatness inspires envy, envy engenders spite, spite spawns lies.",
+  "quote": "— A grandeza inspira a inveja, a inveja engendra o despeito, o despeito produz a mentira.",
   "who": "Lord Voldemort",
   "book": 6,
-  "bookTitle": "Half-Blood Prince",
+  "bookTitle": "O Enigma do Príncipe",
   "chapter": 20,
-  "chapterTitle": "Lord Voldemort's Request",
+  "chapterTitle": "O pedido de Lord Voldemort",
   "moment": "Voldemort pede o cargo a Dumbledore",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "comum"
  },
  {
-  "quote": "Seven! Isn't it bad enough to think of killing one person?",
+  "quote": "— Sete! Já não é bastante ruim pensar em matar uma pessoa?",
   "who": "Horace Slughorn",
   "book": 6,
-  "bookTitle": "Half-Blood Prince",
+  "bookTitle": "O Enigma do Príncipe",
   "chapter": 23,
   "chapterTitle": "Horcruxes",
   "moment": "recuando diante de Riddle, na memória real",
-  "tier": "well known"
+  "tier": "well known",
+  "raro": "comum"
  },
  {
-  "quote": "I've got to do it! He'll kill me! He'll kill my whole family!",
+  "quote": "— Tenho de fazer isto. Ele me matará! Ele matará minha família toda!",
   "who": "Draco Malfoy",
   "book": 6,
-  "bookTitle": "Half-Blood Prince",
+  "bookTitle": "O Enigma do Príncipe",
   "chapter": 27,
-  "chapterTitle": "The Lightning-Struck Tower",
+  "chapterTitle": "A torre atingida pelo raio",
   "moment": "Draco na torre, sem conseguir terminar",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "comum"
  },
  {
-  "quote": "You dare use my own spells against me, Potter? It was I who invented them — I, the Half-Blood Prince!",
+  "quote": "— Você se atreve a usar os meus feitiços contra mim, Potter? Fui eu quem os inventei: eu, o Príncipe Mestiço!",
   "who": "Severus Snape",
   "book": 6,
-  "bookTitle": "Half-Blood Prince",
+  "bookTitle": "O Enigma do Príncipe",
   "chapter": 28,
-  "chapterTitle": "Flight of the Prince",
+  "chapterTitle": "A fuga do Príncipe",
   "moment": "Snape se revela ao fugir de Hogwarts",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "gold"
  },
  {
-  "quote": "I feel that if a single pupil wants to come, then the school ought to remain open for that pupil.",
+  "quote": "— Acho que se um único aluno quiser freqüentá-la, a escola deverá estar aberta para este aluno.",
   "who": "Pomona Sprout",
   "book": 6,
-  "bookTitle": "Half-Blood Prince",
+  "bookTitle": "O Enigma do Príncipe",
   "chapter": 29,
-  "chapterTitle": "The Phoenix Lament",
-  "moment": "Os professores decidem o futuro de Hogwarts"
+  "chapterTitle": "O lamento da Fênix",
+  "moment": "Os professores decidem o futuro de Hogwarts",
+  "raro": "comum"
  },
  {
-  "quote": "It's for some stupid, noble reason, isn't it?",
+  "quote": "— É por algum motivo nobre e idiota, não é?",
   "who": "Ginny Weasley",
   "book": 6,
-  "bookTitle": "Half-Blood Prince",
+  "bookTitle": "O Enigma do Príncipe",
   "chapter": 30,
-  "chapterTitle": "The White Tomb",
+  "chapterTitle": "O túmulo branco",
   "moment": "Gina entende por que Harry termina",
-  "tier": "notable"
+  "tier": "notable",
+  "raro": "comum"
  },
  {
-  "quote": "I don't think you're a waste of space.",
+  "quote": "Eu não acho que você seja um desperdício de espaço.",
   "who": "Dudley Dursley",
   "book": 7,
-  "bookTitle": "Deathly Hallows",
+  "bookTitle": "As Relíquias da Morte",
   "chapter": 3,
-  "chapterTitle": "The Dursleys Departing",
+  "chapterTitle": "A Partida dos Dursley",
   "moment": "Duda se despede de Harry na porta de casa",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "comum"
  },
  {
-  "quote": "It's time you earned it.",
+  "quote": "E do senhor aprender a merecê-lo.",
   "who": "Harry Potter",
   "book": 7,
-  "bookTitle": "Deathly Hallows",
+  "bookTitle": "As Relíquias da Morte",
   "chapter": 7,
-  "chapterTitle": "The Will of Albus Dumbledore",
+  "chapterTitle": "O Testamento de Dumbledore",
   "moment": "a Scrimgeour, que exigiu respeito",
-  "tier": "well known"
+  "tier": "well known",
+  "raro": "comum"
  },
  {
-  "quote": "The Ministry has fallen. Scrimgeour is dead. They are coming.",
+  "quote": "O Ministério caiu. Scrimgeour está morto. Eles estão vindo.",
   "who": "Kingsley Shacklebolt",
   "book": 7,
-  "bookTitle": "Deathly Hallows",
+  "bookTitle": "As Relíquias da Morte",
   "chapter": 8,
-  "chapterTitle": "The Wedding",
+  "chapterTitle": "O Casamento",
   "moment": "O patrono corta o casamento em Toca",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "comum"
  },
  {
-  "quote": "Vot is the point of being an international Quidditch player if all the good-looking girls are taken?",
+  "quote": "Qual é a vantagem de ser jogador internacional de Quadribol se todas as moças bonitas já estão comprometidas?",
   "who": "Viktor Krum",
   "book": 7,
-  "bookTitle": "Deathly Hallows",
+  "bookTitle": "As Relíquias da Morte",
   "chapter": 8,
-  "chapterTitle": "The Wedding",
+  "chapterTitle": "O Casamento",
   "moment": "Krum no casamento de Gui e Fleur",
-  "tier": "notable"
+  "tier": "notable",
+  "raro": "comum"
  },
  {
-  "quote": "Master Regulus told Kreacher to come back.",
+  "quote": "Meu senhor Régulo disse a Monstro para voltar.",
   "who": "Kreacher",
   "book": 7,
-  "bookTitle": "Deathly Hallows",
+  "bookTitle": "As Relíquias da Morte",
   "chapter": 10,
-  "chapterTitle": "Kreacher's Tale",
+  "chapterTitle": "A História de Monstro",
   "moment": "Monstro conta a ordem que recebeu de Regulo",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "comum"
  },
  {
-  "quote": "They took my Luna and I don't know where she is, what they've done to her.",
+  "quote": "Levaram minha Luna e não sei onde está, o que fizeram com ela.",
   "who": "Xenophilius Lovegood",
   "book": 7,
-  "bookTitle": "Deathly Hallows",
+  "bookTitle": "As Relíquias da Morte",
   "chapter": 21,
-  "chapterTitle": "The Tale of the Three Brothers",
+  "chapterTitle": "O Conto dos Três Irmãos",
   "moment": "O pai de Luna explica por que entregou Harry",
-  "tier": "notable"
+  "tier": "notable",
+  "raro": "comum"
  },
  {
-  "quote": "Blood traitor is next to Mudblood in my book.",
+  "quote": "No meu caderninho, traidor do sangue vem logo abaixo de sangue ruim.",
   "who": "Bellatrix Lestrange",
   "book": 7,
-  "bookTitle": "Deathly Hallows",
+  "bookTitle": "As Relíquias da Morte",
   "chapter": 23,
   "chapterTitle": "Malfoy Manor",
   "moment": "ameaçando Harry enquanto tortura Hermione",
-  "tier": "known"
+  "tier": "known",
+  "raro": "comum"
  },
  {
-  "quote": "Dobby has no master! Dobby is a free elf, and Dobby has come to save Harry Potter and his friends!",
+  "quote": "Dobby não tem senhores! Dobby é um elfo livre, e Dobby veio salvar Harry Potter e seus amigos!",
   "who": "Dobby",
   "book": 7,
-  "bookTitle": "Deathly Hallows",
+  "bookTitle": "As Relíquias da Morte",
   "chapter": 23,
   "chapterTitle": "Malfoy Manor",
   "moment": "Dobby aparece no porão da Mansão Malfoy",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "gold"
  },
  {
-  "quote": "The wand chooses the wizard. That much has always been clear to those of us who have studied wandlore.",
+  "quote": "A varinha escolhe o bruxo. Isto sempre esteve claro para os estudiosos da tradição das varinhas.",
   "who": "Garrick Ollivander",
   "book": 7,
-  "bookTitle": "Deathly Hallows",
+  "bookTitle": "As Relíquias da Morte",
   "chapter": 24,
-  "chapterTitle": "The Wandmaker",
+  "chapterTitle": "O Fabricante de Varinhas",
   "moment": "no Chalé das Conchas, sobre varinhas",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "gold"
  },
  {
-  "quote": "So young, to be fighting so many.",
+  "quote": "Tão jovens para estarem lutando contra tantos.",
   "who": "Griphook",
   "book": 7,
-  "bookTitle": "Deathly Hallows",
+  "bookTitle": "As Relíquias da Morte",
   "chapter": 24,
-  "chapterTitle": "The Wandmaker",
+  "chapterTitle": "O Fabricante de Varinhas",
   "moment": "Grampo observa os tres em Shell Cottage",
-  "tier": "notable"
+  "tier": "notable",
+  "raro": "comum"
  },
  {
-  "quote": "'Arry, you saved my sister's life, I do not forget.",
+  "quote": "Arry, você salvou a vida da minha irrmã, eu nam esqueci.",
   "who": "Fleur Delacour",
   "book": 7,
-  "bookTitle": "Deathly Hallows",
+  "bookTitle": "As Relíquias da Morte",
   "chapter": 25,
-  "chapterTitle": "Shell Cottage",
+  "chapterTitle": "A Casa das Conchas",
   "moment": "Fleur agradece a Harry em Shell Cottage",
-  "tier": "notable"
+  "tier": "notable",
+  "raro": "comum"
  },
  {
-  "quote": "The thing is, it helps when people stand up to them, it gives everyone hope.",
+  "quote": "E tem uma coisa, faz bem quando alguém os enfrenta, dá esperança a todos.",
   "who": "Neville Longbottom",
   "book": 7,
-  "bookTitle": "Deathly Hallows",
+  "bookTitle": "As Relíquias da Morte",
   "chapter": 29,
-  "chapterTitle": "The Lost Diadem",
+  "chapterTitle": "O Diadema Perdido",
   "moment": "Neville conta como resistiu no castelo",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "comum"
  },
  {
-  "quote": "No! You'll do no more murder at Hogwarts!",
+  "quote": "Não! Você não vai matar mais ninguém em Hogwarts!",
   "who": "Filius Flitwick",
   "book": 7,
-  "bookTitle": "Deathly Hallows",
+  "bookTitle": "As Relíquias da Morte",
   "chapter": 30,
-  "chapterTitle": "The Sacking of Severus Snape",
-  "moment": "Flitwick socorre McGonagall contra Snape"
+  "chapterTitle": "A Demissão de Severo Snape",
+  "moment": "Flitwick socorre McGonagall contra Snape",
+  "raro": "comum"
  },
  {
-  "quote": "We teachers are rather good at magic, you know.",
+  "quote": "Nós, professores, somos muito bons em magia, sabe.",
   "who": "Minerva McGonagall",
   "book": 7,
-  "bookTitle": "Deathly Hallows",
+  "bookTitle": "As Relíquias da Morte",
   "chapter": 30,
-  "chapterTitle": "The Sacking of Severus Snape",
+  "chapterTitle": "A Demissão de Severo Snape",
   "moment": "acalmando os alunos antes da batalha",
-  "tier": "well known"
+  "tier": "well known",
+  "raro": "comum"
  },
  {
-  "quote": "You're joking, Perce!",
+  "quote": "Você está brincando, Perce!",
   "who": "Fred Weasley",
   "book": 7,
-  "bookTitle": "Deathly Hallows",
+  "bookTitle": "As Relíquias da Morte",
   "chapter": 31,
-  "chapterTitle": "The Battle of Hogwarts",
+  "chapterTitle": "A Batalha de Hogwarts",
   "moment": "as últimas palavras de Fred",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "holo"
  },
  {
-  "quote": "Did I mention I'm resigning?",
+  "quote": "Cheguei a mencionar que estou me demitindo?",
   "who": "Percy Weasley",
   "book": 7,
-  "bookTitle": "Deathly Hallows",
+  "bookTitle": "As Relíquias da Morte",
   "chapter": 31,
-  "chapterTitle": "The Battle of Hogwarts",
+  "chapterTitle": "A Batalha de Hogwarts",
   "moment": "Percy volta para a familia no meio da batalha",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "comum"
  },
  {
-  "quote": "Like it hot, scum?",
+  "quote": "Que tal o calor, gentalha?",
   "who": "Vincent Crabbe",
   "book": 7,
-  "bookTitle": "Deathly Hallows",
+  "bookTitle": "As Relíquias da Morte",
   "chapter": 31,
-  "chapterTitle": "The Battle of Hogwarts",
+  "chapterTitle": "A Batalha de Hogwarts",
   "moment": "Crabbe solta o Fogomaldito na Sala Precisa",
-  "tier": "notable"
+  "tier": "notable",
+  "raro": "comum"
  },
  {
-  "quote": "Always.",
+  "quote": "Sempre.",
   "who": "Severus Snape",
   "book": 7,
-  "bookTitle": "Deathly Hallows",
+  "bookTitle": "As Relíquias da Morte",
   "chapter": 33,
-  "chapterTitle": "The Prince's Tale",
+  "chapterTitle": "A História do Príncipe",
   "moment": "a resposta sobre ainda amar Lílian",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "holo"
  },
  {
-  "quote": "Of course it is happening inside your head, Harry, but why on earth should that mean that it is not real?",
+  "quote": "Claro que está acontecendo em sua mente, Harry, mas por que isto significa que não é real?",
   "who": "Albus Dumbledore",
   "book": 7,
-  "bookTitle": "Deathly Hallows",
+  "bookTitle": "As Relíquias da Morte",
   "chapter": 35,
   "chapterTitle": "King's Cross",
   "moment": "na visão da estação de King's Cross",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "holo"
  },
  {
-  "quote": "Not my daughter, you bitch!",
+  "quote": "A MINHA FILHA NÃO, SUA VACA!",
   "who": "Molly Weasley",
   "book": 7,
-  "bookTitle": "Deathly Hallows",
+  "bookTitle": "As Relíquias da Morte",
   "chapter": 36,
-  "chapterTitle": "The Flaw in the Plan",
+  "chapterTitle": "A Falha no Plano",
   "moment": "Molly enfrenta Belatriz no Salão Principal",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "holo"
  },
  {
-  "quote": "He is dead!",
+  "quote": "Está morto!",
   "who": "Narcissa Malfoy",
   "book": 7,
-  "bookTitle": "Deathly Hallows",
+  "bookTitle": "As Relíquias da Morte",
   "chapter": 36,
-  "chapterTitle": "The Flaw in the Plan",
-  "moment": "Narcissa mente para Voldemort na Floresta"
+  "chapterTitle": "A Falha no Plano",
+  "moment": "Narcissa mente para Voldemort na Floresta",
+  "raro": "comum"
  },
  {
-  "quote": "I'll join you when hell freezes over.",
+  "quote": "Me juntarei a você quando o inferno congelar.",
   "who": "Neville Longbottom",
   "book": 7,
-  "bookTitle": "Deathly Hallows",
+  "bookTitle": "As Relíquias da Morte",
   "chapter": 36,
-  "chapterTitle": "The Flaw in the Plan",
+  "chapterTitle": "A Falha no Plano",
   "moment": "Neville recusa Voldemort na última hora",
-  "tier": "iconic"
+  "tier": "iconic",
+  "raro": "comum"
  }
 ]
     </script>
 <script type="application/json" id="news-data">
 {
-  "updated": "2026-09-07",
-  "stories": [
-    {
-      "id": "forbidden-forest-first-land-2026-09-07",
-      "date": "2026-09-07",
-      "status": "confirmed",
-      "category": "Shops and experiences",
-      "headline": "Abu Dhabi will build the first permanent Forbidden Forest land anywhere",
-      "summary": "Attractions Magazine reports that the three new lands cover about 678 thousand square feet and grow Warner Bros World Abu Dhabi by more than half. The Forbidden Forest has only ever turned up at Universal as a single ride or a limited walkthrough, so this is the first time it becomes a land of its own. The rides are world exclusives built for this park and no ride names have been given yet. Miral and Warner Bros Discovery Global Experiences say more details on the attractions will follow later.",
-      "source": "Attractions Magazine",
-      "url": "https://attractionsmagazine.com/harry-potter-forbidden-forest-theme-park-land-abu-dhabi-announcement/",
-      "image": "assets/thumbs/forbidden-forest-first-land-2026-09-07.jpg"
-    },
-    {
-      "id": "radcliffe-voldemort-claim-2026-09-06",
-      "date": "2026-09-06",
-      "status": "rumor",
-      "category": "HBO series",
-      "headline": "The viral claim that Daniel Radcliffe will play Voldemort traces back to a joke account",
-      "summary": "A post from Culture Crave on X said Radcliffe was close to a verbal deal with HBO to play Lord Voldemort in the new series. Entertainment sites picked it up on 6 September and ran it as a report. A fact check published the day before found the claim started with a parody account and that no deal exists. HBO has still not named an actor for the adult Voldemort. Radcliffe has said the series should be a clean break from the films, and Cillian Murphy already denied taking the part.",
-      "source": "Inside the Magic",
-      "url": "https://insidethemagic.net/2026/09/report-daniel-radcliffe-returning-as-lord-voldemort-in-hbo-harry-potter-series-ad1/",
-      "image": "assets/thumbs/radcliffe-voldemort-claim-2026-09-06.jpg",
-      "imagemIlustrativa": "Daniel Radcliffe em As Reliquias da Morte Parte 2"
-    },
-    {
-      "id": "abu-dhabi-areas-reveladas-2026-09-07",
-      "date": "2026-09-07",
-      "status": "official",
-      "category": "Shops and experiences",
-      "headline": "Abu Dhabi names its three Harry Potter lands, Diagon Alley, Hogwarts and the Forbidden Forest",
-      "summary": "Miral and Warner Bros Discovery Global Experiences confirmed the expansion at Warner Bros World Abu Dhabi, about 63 thousand square metres, opening in 2029. It is the first Harry Potter land that Universal does not run, and the only place in the world to hold all three of those settings together. Mohamed Khalifa Al Mubarak, chairman of Miral, called it a milestone for Yas Island.",
-      "source": "Miral",
-      "url": "https://www.mediaoffice.abudhabi/en/tourism/miral-announces-construction-of-3-new-harry-potter-themed-lands-at-warner-bros-world-abu-dhabi/",
-      "image": "assets/thumbs/abu-dhabi-areas-reveladas-2026-09-07.jpg",
-      "imagemIlustrativa": "A arte oficial das tres areas, com o Ford Anglia voando por cima"
-    },
-    {
-      "id": "loja-colecao-natal-2026-09-06",
-      "date": "2026-09-06",
-      "status": "official",
-      "category": "Shops and experiences",
-      "headline": "The official shop opens its Christmas range with more than 100 products",
-      "summary": "The 2026 collection splits in two, Christmas at Hogwarts and Diagon Alley in the snow. It runs from a knitted Hogwarts sweater at 75 dollars to a gold snow globe at 40 dollars. Two advent calendars are listed as coming soon, a Funko POP one at 49.99 and a Time Turner one at 111.99.",
-      "source": "MuggleNet",
-      "url": "https://mugglenet.com/2026/09/harry-potter-shop-christmas-collection-2026/",
-      "image": "assets/thumbs/loja-colecao-natal-2026-09-06.jpg"
-    },
-    {
-      "id": "abu-dhabi-experiencias-interativas-2026-09-06",
-      "date": "2026-09-06",
-      "status": "confirmed",
-      "category": "Shops and experiences",
-      "headline": "Abu Dhabi builds interactive experiences into all three Harry Potter lands",
-      "summary": "Forbes reports that the shops, rides and dining rooms of each land carry interactive experiences designed into the scenery. Kat Chang of Thinkwell did the concept design for all three. The flagship ride is built around the flying Ford Anglia, and the whole expansion sits indoors, away from the heat.",
-      "source": "Forbes",
-      "url": "https://www.forbes.com/sites/carolinereid/2026/09/06/harry-potter-abu-dhabi-lands-to-feature-interactive-experiences/",
-      "image": "assets/thumbs/abu-dhabi-experiencias-interativas-2026-09-06.jpg",
-      "imagemIlustrativa": "O Ford Anglia voando sobre Yas Island, no teaser das tres novas areas"
-    },
-    {
-      "id": "invisibility-cloak-design-2026-09-05",
-      "date": "2026-09-05",
-      "status": "analysis",
-      "category": "Fandom",
-      "headline": "The Leaky Cauldron reads the new invisibility cloak in the full trailer",
-      "summary": "Amanda Kirk compares the film cloak, a velvety and gossamer fabric carrying Celtic knotwork, against the version glimpsed in the 2 September trailer. The new one looks lighter and much longer, closer to a curtain of fabric, which would hide three children far better but could also trip Harry or snag on things or be grabbed. She also notes the dormitory scene seems to follow the book, with presents waiting at the foot of the bed rather than down in the common room.",
-      "source": "The Leaky Cauldron",
-      "url": "https://www.the-leaky-cauldron.org/2026/09/05/harrys-invisibility-cloaks/",
-      "image": "assets/thumbs/invisibility-cloak-design-2026-09-05.jpg",
-      "imagemIlustrativa": "Harry recebe a capa de invisibilidade, no primeiro filme"
-    },
-    {
-      "id": "dobby-portrayal-question-2026-09-04",
-      "date": "2026-09-04",
-      "status": "rumor",
-      "category": "Fandom",
-      "headline": "Nobody knows yet how HBO will actually put Dobby on screen",
-      "summary": "Casting a living actor as Dobby left readers asking what the house elf will look like. The films used a fully computer generated Dobby with Toby Jones providing the voice. Hiring Lenny Rush could mean motion capture, prosthetics, a puppet or simply a voice role with the visual built separately. Comments on the announcement ran from Not a CGI creature to Live action Dobby. HBO has said nothing about the method, so every answer going round is guesswork.",
-      "source": "SuperHeroHype",
-      "url": "https://www.superherohype.com/movies/691216-hbo-max-harry-potter-tv-show-dobby-casting-question",
-      "image": "assets/thumbs/dobby-portrayal-question-2026-09-04.jpg",
-      "imagemIlustrativa": "Dobby no quarto de Harry, na Camara Secreta"
-    },
-    {
-      "id": "lenny-rush-dobby-reaction-2026-09-04",
-      "date": "2026-09-04",
-      "status": "confirmed",
-      "category": "HBO series",
-      "headline": "Lenny Rush says he is over the moon to be cast as Dobby",
-      "summary": "The Doctor Who actor posted on Instagram the day after HBO named him as Dobby for season two. He wrote that he is over the moon to be joining the magical world of the HBO Harry Potter series, added that even littler me, a massive Harry Potter fan, would not believe it, and said he is very excited to join the franchise. He paired the post with a childhood photo of himself as a fan.",
-      "source": "ComingSoon",
-      "url": "https://www.comingsoon.net/tv/news/2186736-harry-potter-hbo-series-new-dobby-actor-instagram-post",
-      "image": "assets/thumbs/lenny-rush-dobby-reaction-2026-09-04.jpg",
-      "imagemIlustrativa": "Dobby, em arte oficial do Wizarding World"
-    },
-    {
-      "id": "season-2-cast-riddle-dobby-ginny-2026-09-04",
-      "date": "2026-09-04",
-      "status": "official",
-      "category": "HBO series",
-      "headline": "HBO names its new Ginny and casts Tom Riddle and Dobby for season two",
-      "summary": "HBO announced the three on 4 September and captioned the reveal \"The Chamber of Secrets has been opened\". Bonnie Hill takes over as Ginny Weasley from Gracie Cochrane, whose family said in May that she had made the challenging decision to step away from the part after the first season. Billy Barratt plays Tom Riddle, the memory in the diary that drives the second book, which is the first time the show has cast the role. Lenny Rush plays Dobby. They join Kit Harington as Gilderoy Lockhart in the second season, which adapts Chamber of Secrets and goes into production this autumn.",
-      "source": "TVLine",
-      "url": "https://www.tvline.com/2251090/harry-potter-season-2-cast-dobby-tom-riddle-ginny-weasley/",
-      "image": "assets/thumbs/season-2-cast-riddle-dobby-ginny-2026-09-04.jpg",
-      "imagemIlustrativa": "Gina Weasley na Camara Secreta"
-    },
-    {
-      "id": "season-2-production-problems-2026-09-04",
-      "date": "2026-09-04",
-      "status": "rumor",
-      "category": "HBO series",
-      "headline": "Fresh reports say season two has hit recasting and script trouble",
-      "summary": "UNILAD and The Tab both published roundups saying the second season of the HBO series has been slowed down. Gracie Cochrane left the part of Ginny Weasley in May and Kit Harington took over from Nicholas Hoult as Gilderoy Lockhart in August. Tabloid sources also claim the scripts were not finished and that a planned August start slipped to later in the year. Warner Bros and HBO have said nothing, and cast member Asha Soetan has posted from set since then, so the delay claim is not stood up.",
-      "source": "UNILAD",
-      "url": "https://www.unilad.com/film-and-tv/news/harry-potter-hbo-season-two-problems-597276-20260904",
-      "image": "assets/thumbs/season-2-production-problems-2026-09-04.jpg",
-      "imagemIlustrativa": "Os estudios Warner Bros de Leavesden, vistos do alto"
-    },
-    {
-      "id": "caldeirao-furado-trailer-breakdown-2026-09-03",
-      "date": "2026-09-03",
-      "status": "analysis",
-      "category": "Analise e teoria",
-      "headline": "Caldeirao Furado destrincha o trailer quadro a quadro",
-      "summary": "Caco Cardassi publicou as primeiras impressoes do trailer completo em um video de cinquenta e dois minutos, que passou de cem mil visualizacoes em oito horas. O Caldeirao Furado tem 1,67 milhao de inscritos e e o maior canal de Harry Potter do mundo. No mesmo dia o canal ja tinha subido a analise do anuncio do trailer e a reacao ao vivo.",
-      "source": "Caldeirao Furado",
-      "url": "https://www.youtube.com/watch?v=RcY7feIAzSY",
-      "image": "assets/thumbs/caldeirao-furado-trailer-breakdown-2026-09-03.jpg",
-      "video": "RUcGv6D3qEM"
-    },
-    {
-      "id": "hogwarts-professor-emoji-symbols-2026-09-03",
-      "date": "2026-09-03",
-      "status": "analysis",
-      "category": "Analise e teoria",
-      "headline": "Um estudioso dos livros le os tres emojis que Rowling postou com o trailer",
-      "summary": "John Granger, do Hogwarts Professor, argumenta que o coracao, a coruja e o raio que Rowling usou ao divulgar o trailer nao sao enfeite. No sistema simbolico dos livros o coracao e o centro espiritual, a coruja e a percepcao do que nao se ve e o raio e a transformacao. O site faz leitura literaria da serie ha anos, com alquimia e composicao em anel, e e o tipo de analise que nao aparece nos portais de noticia.",
-      "source": "Hogwarts Professor",
-      "url": "https://www.hogwartsprofessor.com/the-hbo-potter-trailer-the-meaning-of-rowlings-heart-owl-and-lightning-bolt/",
-      "image": "assets/thumbs/hogwarts-professor-emoji-symbols-2026-09-03.jpg",
-      "imagemIlustrativa": "Edwiges, a coruja das neves, em arte do Wizarding World"
-    },
-    {
-      "id": "potterish-trailer-hedwig-2026-09-02",
-      "date": "2026-09-02",
-      "status": "confirmed",
-      "category": "HBO series",
-      "headline": "Potterish destaca a Cerimonia de Selecao, o Quadribol e a primeira Edwiges",
-      "summary": "O Potterish, site brasileiro de Harry Potter no ar desde 2002, publicou sua leitura do trailer completo em portugues e em ingles. O texto separa a Cerimonia de Selecao, a primeira partida de Quadribol e o primeiro vislumbre de Edwiges, e sai junto com um guia de estreia com data, numero de episodios e onde assistir.",
-      "source": "Potterish",
-      "url": "https://potterish.com/new-harry-potter-hbo-series-trailer/?lang=en",
-      "image": "assets/thumbs/potterish-trailer-hedwig-2026-09-02.jpg"
-    },
-    {
-      "id": "full-trailer-arrives-2026-09-02",
-      "date": "2026-09-02",
-      "status": "official",
-      "category": "HBO series",
-      "headline": "The first full trailer for Philosopher's Stone arrives and locks Christmas Day",
-      "summary": "HBO Max put out the full trailer on 2 September, a day after the Back to Hogwarts teaser promised it. It walks through Harry's first year, taking in the Hogwarts Express, the Sorting Hat with Harry whispering not Slytherin, a Herbology lesson, the Great Hall feast, a first run at Quidditch, the troll in the bathroom and the Stone itself. Dominic McLaughlin, Arabella Stanton and Alastair Stout lead, with John Lithgow as Dumbledore, Paapa Essiedu as Snape, Janet McTeer as McGonagall and Nick Frost as Hagrid. The eight episode season lands 25 December on HBO and HBO Max.",
-      "source": "TVLine",
-      "url": "https://www.tvline.com/2249543/harry-potter-tv-series-full-trailer-hbo/",
-      "image": "assets/thumbs/full-trailer-arrives-2026-09-02.jpg",
-      "video": "SJVmeJaS44s"
-    },
-    {
-      "id": "snapchat-ar-lenses-2026-09-01",
-      "date": "2026-09-01",
-      "status": "official",
-      "category": "Fandom",
-      "headline": "Snapchat and HBO Max open a wizarding world season on the app",
-      "summary": "Snap and HBO Max announced a tie in that runs all the way to the series launch. AR lenses went live on the Harry Potter account on 1 September along with a custom app icon. Twelve lenses roll out across the season, among them a Hogwarts letter, a Hogwarts Express journey and a Sorting Hat. Chat wallpapers and Bitmoji fashion drawn from each house wardrobe follow, and Snapchat AR mirrors travel to fan events in the United States and the United Kingdom.",
-      "source": "Snap Newsroom",
-      "url": "https://newsroom.snap.com/snapchat-hbo-max-harry-potter-philosophers-stone",
-      "image": "assets/thumbs/snapchat-ar-lenses-2026-09-01.jpg",
-      "imagemIlustrativa": "O Beco Diagonal, no primeiro filme"
-    },
-    {
-      "id": "studio-tour-house-spirit-2026-09-01",
-      "date": "2026-09-01",
-      "status": "official",
-      "category": "Shops and experiences",
-      "headline": "Warner Bros Studio Tour London sets a Hogwarts House Spirit season for early 2027",
-      "summary": "The feature runs from 23 January to 19 April 2027 and celebrates Gryffindor, Hufflepuff, Ravenclaw and Slytherin across the original sets, costumes and props. It was one of the eighteen items in the Back to Hogwarts showcase. Ticket information and the rest of the detail come later.",
-      "source": "Attractions Magazine",
-      "url": "https://attractionsmagazine.com/back-to-hogwarts-harry-potter-announcements-2026/",
-      "image": "assets/thumbs/studio-tour-house-spirit-2026-09-01.jpg",
-      "video": "rgKBEQzB01A"
-    },
-    {
-      "id": "full-trailer-date-2026-09-01",
-      "date": "2026-09-01",
-      "status": "official",
-      "category": "HBO series",
-      "headline": "Quidditch teaser sets the first full trailer for 2 September",
-      "summary": "The Back to Hogwarts livestream closed with a short teaser built around Harry's first Quidditch match, with Ron and Hermione cheering from the stands. HBO Max confirmed that the first full trailer for Harry Potter and the Philosopher's Stone arrives the next day. The series still premieres at Christmas 2026.",
-      "source": "MuggleNet",
-      "url": "https://mugglenet.com/2026/09/hbo-harry-potter-full-trailer-september-2/",
-      "image": "assets/thumbs/full-trailer-date-2026-09-01.jpg",
-      "video": "tqqhFtRpnWw"
-    },
-    {
-      "id": "lego-hbo-series-sets-2026-09-01",
-      "date": "2026-09-01",
-      "status": "official",
-      "category": "Shops and experiences",
-      "headline": "LEGO sets drawn from the HBO series are on the way",
-      "summary": "Warner Bros confirmed a new LEGO range based on the HBO series rather than the films. No sets, characters or release dates have been named yet. It would be the first time the long running LEGO partnership follows the television version of Hogwarts.",
-      "source": "MuggleNet",
-      "url": "https://mugglenet.com/2026/09/hbo-harry-potter-lego-sets-coming/",
-      "image": "assets/thumbs/lego-hbo-series-sets-2026-09-01.jpg"
-    },
-    {
-      "id": "house-crests-ravenclaw-eagle-2026-09-01",
-      "date": "2026-09-01",
-      "status": "official",
-      "category": "HBO series",
-      "headline": "New Hogwarts house crests revealed, and the Ravenclaw eagle divides fans",
-      "summary": "The Back to Hogwarts event in London unveiled simplified house crests for the HBO series, with more focus on the house animals and closer wording to the books. Ravenclaw's crest uses an eagle rather than a raven, which is book accurate and still set off a long argument online.",
-      "source": "Soap Central",
-      "url": "https://www.soapcentral.com/shows/harry-potter-back-hogwarts-event-every-reveal-new-house-crests-wand-replicas",
-      "image": "assets/thumbs/house-crests-ravenclaw-eagle-2026-09-01.jpg"
-    },
-    {
-      "id": "sorting-ceremony-reimagined-2026-09-01",
-      "date": "2026-09-01",
-      "status": "official",
-      "category": "Fandom",
-      "headline": "The online Sorting Ceremony is rebuilt with new animation, music and crests",
-      "summary": "Wizarding World relaunched its Sorting Ceremony at HarryPotter.com using the new house heraldry from the series. Anyone already sorted can go through it again.",
-      "source": "Wizarding World",
-      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
-      "image": "assets/thumbs/sorting-ceremony-reimagined-2026-09-01.jpg",
-      "video": "1dIoOzgYFlM"
-    },
-    {
-      "id": "free-audiobooks-philosophers-stone-2026-09-01",
-      "date": "2026-09-01",
-      "status": "official",
-      "category": "Books and audio",
-      "headline": "Stephen Fry and Jim Dale audiobooks of the first book go free until Halloween",
-      "summary": "Both narrated editions of Philosopher's Stone are free on Audible, Amazon Music, Spotify and the Harry Potter YouTube channel from 1 September through Halloween.",
-      "source": "Wizarding World",
-      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
-      "image": "assets/thumbs/free-audiobooks-philosophers-stone-2026-.jpg",
-      "video": "ZuD_Aah14P8"
-    },
-    {
-      "id": "cinema-run-closes-2026-09-01",
-      "date": "2026-09-01",
-      "status": "official",
-      "category": "Films",
-      "headline": "The eight film cinema run closes with Deathly Hallows Part 2",
-      "summary": "All eight films returned to cinemas for the 25th anniversary of Philosopher's Stone. Regal ran one film a day from 25 August to 1 September, inside a wider Warner Bros window of 27 August to 3 September, with AMC, Cinemark, Megaplex, Harkins and Marcus also taking part.",
-      "source": "Attractions Magazine",
-      "url": "https://attractionsmagazine.com/harry-potter-movie-theaters-2026-sorcerers-stone-25th-anniversary/",
-      "image": "assets/thumbs/cinema-run-closes-2026-09-01.jpg"
-    },
-    {
-      "id": "back-to-hogwarts-showcase-2026-08-31",
-      "date": "2026-08-31",
-      "status": "official",
-      "category": "Fandom",
-      "headline": "Back to Hogwarts showcase lands 18 announcements in one sitting",
-      "summary": "The annual 1 September showcase covered the HBO series, a returning podcast, LEGO sets tied to the show, a Snapchat lens set, a Macy's Thanksgiving Parade debut, new shops, park lands and games. It is the single densest source of the week.",
-      "source": "Wizarding World",
-      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
-      "image": "assets/thumbs/back-to-hogwarts-showcase-2026-08-31.jpg",
-      "video": "tqqhFtRpnWw"
-    },
-    {
-      "id": "teaser-christmas-2026-08-31",
-      "date": "2026-08-31",
-      "status": "official",
-      "category": "HBO series",
-      "headline": "Season one is titled Philosopher's Stone and arrives Christmas 2026",
-      "summary": "A new teaser was set for 1 September, with the first season confirmed as Harry Potter and the Philosopher's Stone, premiering on HBO and streaming on HBO Max at Christmas. The trailer earlier this year drew 277 million views in its first 48 hours, a record for HBO.",
-      "source": "Wizarding World",
-      "url": "https://www.harrypotter.com/news/watch-the-first-teaser-for-hbo-original-harry-potter-series-premiering-christmas-2026",
-      "image": "assets/thumbs/teaser-christmas-2026-08-31.jpg",
-      "video": "RIu4sFKGi6E"
-    },
-    {
-      "id": "official-podcast-heyman-2026-08-31",
-      "date": "2026-08-31",
-      "status": "official",
-      "category": "HBO series",
-      "headline": "Official podcast returns weekly, with David Heyman in a bonus episode",
-      "summary": "Rhianna Dhillon and Law Sharma are back to cover the series week by week. A bonus episode with executive producer David Heyman went up on 31 August.",
-      "source": "Wizarding World",
-      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
-      "image": "assets/thumbs/official-podcast-heyman-2026-08-31.jpg",
-      "video": "pnfh52yeM9M"
-    },
-    {
-      "id": "oxford-street-flagship-2026-08-31",
-      "date": "2026-08-31",
-      "status": "official",
-      "category": "Shops and experiences",
-      "headline": "London gets a 21,000 square foot flagship shop on Oxford Street on 4 November",
-      "summary": "The store is built around a Diagon Alley look, with a Knight Bus and a Ukrainian Ironbelly dragon installed inside. A greenscreen broomstick flight also arrives at the New York shop this autumn.",
-      "source": "Soap Central",
-      "url": "https://www.soapcentral.com/shows/harry-potter-back-hogwarts-event-every-reveal-new-house-crests-wand-replicas",
-      "image": "assets/thumbs/oxford-street-flagship-2026-08-31.jpg"
-    },
-    {
-      "id": "illustrated-half-blood-prince-2026-08-31",
-      "date": "2026-08-31",
-      "status": "official",
-      "category": "Books and audio",
-      "headline": "Levi Pinfold's illustrated Half-Blood Prince arrives 6 October",
-      "summary": "Bloomsbury publishes the sixth illustrated edition, continuing the series Pinfold took over from Jim Kay.",
-      "source": "Wizarding World",
-      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
-      "image": "assets/thumbs/illustrated-half-blood-prince-2026-08-31.jpg"
-    },
-    {
-      "id": "lego-remastered-switch-2-2026-08-31",
-      "date": "2026-08-31",
-      "status": "official",
-      "category": "Games",
-      "headline": "LEGO Harry Potter Remastered hits Nintendo Switch 2 on 16 October",
-      "summary": "Pre-orders opened alongside the announcement. Hogwarts Mystery also starts a Castle Chronicles event in September built on the Lily and James Potter story, and Puzzles and Spells adds an Epic Quidditch mode with multi day club competitions.",
-      "source": "Wizarding World",
-      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
-      "image": "assets/thumbs/lego-remastered-switch-2-2026-08-31.jpg",
-      "video": "zpLF2QXbb0g"
-    },
-    {
-      "id": "abu-dhabi-lands-reveal-2026-08-31",
-      "date": "2026-08-31",
-      "status": "official",
-      "category": "Shops and experiences",
-      "headline": "Warner Bros World Abu Dhabi reveals new Harry Potter lands on 7 September",
-      "summary": "Three new themed lands were trailed at the showcase, with the full reveal set for 7 September. Worth watching if you want the first concept art.",
-      "source": "Soap Central",
-      "url": "https://www.soapcentral.com/shows/harry-potter-back-hogwarts-event-every-reveal-new-house-crests-wand-replicas",
-      "image": "assets/thumbs/abu-dhabi-lands-reveal-2026-08-31.jpg",
-      "video": "qWIByerF_Qc"
-    },
-    {
-      "id": "ice-gaylord-texan-2026-08-31",
-      "date": "2026-08-31",
-      "status": "official",
-      "category": "Shops and experiences",
-      "headline": "An ice carved Harry Potter walkthrough opens in Texas on 13 November",
-      "summary": "ICE! at the Gaylord Texan near Dallas turns roughly two million pounds of ice into ten scenes from the films. It runs to early January.",
-      "source": "Wizarding World",
-      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
-      "image": "assets/thumbs/ice-gaylord-texan-2026-08-31.jpg",
-      "video": "z8cu9cB47Fs"
-    },
-    {
-      "id": "macys-parade-debut-2026-08-31",
-      "date": "2026-08-31",
-      "status": "official",
-      "category": "Shops and experiences",
-      "headline": "Harry Potter joins the Macy's Thanksgiving parade for the first time",
-      "summary": "The debut lands on the parade's 100th anniversary this November in the United States.",
-      "source": "Wizarding World",
-      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
-      "image": "assets/thumbs/macys-parade-debut-2026-08-31.jpg"
-    },
-    {
-      "id": "wizards-of-baking-s3-2026-08-31",
-      "date": "2026-08-31",
-      "status": "official",
-      "category": "Television",
-      "headline": "Wizards of Baking returns for a third season in a tournament format",
-      "summary": "The four houses compete this festive season, with bakes themed around all eight films.",
-      "source": "Wizarding World",
-      "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
-      "image": "assets/thumbs/wizards-of-baking-s3-2026-08-31.jpg",
-      "video": "AxYsZULb-LE"
-    },
-    {
-      "id": "voldemort-casting-secret-2026",
-      "date": "2026-08-28",
-      "status": "rumor",
-      "category": "HBO series",
-      "headline": "Voldemort casting is still unannounced, and the viral cast lists are wrong",
-      "summary": "HBO has kept the role quiet on purpose. A widely shared list naming Jamie Campbell Bower and Peter Capaldi has no studio backing, and one popular claim about a Marvel actor traces back to the German language audiobook cast rather than the series. Treat every Voldemort name as unproven until HBO says otherwise.",
-      "source": "Sportskeeda",
-      "url": "https://www.sportskeeda.com/pop-culture/news-from-jamie-campbell-bower-peter-capaldi-post-alleged-harry-potter-new-series-cast-list-goes-viral-online",
-      "image": "assets/thumbs/voldemort-casting-secret-2026.jpg",
-      "imagemIlustrativa": "Voldemort no Calice de Fogo"
-    },
-    {
-      "id": "rupert-grint-cursed-child-2026-08-27",
-      "date": "2026-08-27",
-      "status": "official",
-      "category": "Stage",
-      "headline": "Rupert Grint will play Ron Weasley again, this time on Broadway",
-      "summary": "Grint joins Harry Potter and the Cursed Child in New York, returning to the role 15 years after the last film. Tom Felton played Draco in the same production earlier this year.",
-      "source": "Variety",
-      "url": "https://variety.com/2026/legit/global/rupert-grint-ron-weasley-harry-potter-and-the-cursed-child-1236843779/",
-      "image": "assets/thumbs/rupert-grint-cursed-child-2026-08-27.jpg"
-    },
-    {
-      "id": "season-2-filming-fall-2026",
-      "date": "2026-08-26",
-      "status": "confirmed",
-      "category": "HBO series",
-      "headline": "Season two starts filming this autumn on Chamber of Secrets",
-      "summary": "HBO renewed the show back in May and the second season goes into production in late 2026, before the first has even aired. Francesca Gardiner runs the show with Jon Brown promoted to co showrunner.",
-      "source": "Variety",
-      "url": "https://variety.com/2026/tv/news/harry-potter-renewed-season-2-hbo-chamber-of-secrets-1236739605/",
-      "image": "assets/thumbs/season-2-filming-fall-2026.jpg"
-    },
-    {
-      "id": "leaked-prologue-dedalus-diggle",
-      "date": "2026-08-26",
-      "status": "leak",
-      "category": "HBO series",
-      "headline": "Leaked set images point to a prologue scene the films never had",
-      "summary": "Images from location filming show Dedalus Diggle and the Dursleys in what looks like an opening sequence drawn from the first chapter of the book. Nothing here is studio released, so details can still change in the edit.",
-      "source": "Collider",
-      "url": "https://collider.com/hbo-harry-potter-series-set-images-dedalus-diggle-vernon-dursley-prologue-scene/",
-      "image": "assets/thumbs/leaked-prologue-dedalus-diggle.jpg"
-    },
-    {
-      "id": "cast-reference-rotten-tomatoes",
-      "date": "2026-08-26",
-      "status": "confirmed",
-      "category": "HBO series",
-      "headline": "Where the full cast list stands going into the premiere",
-      "summary": "Dominic McLaughlin, Arabella Stanton and Alastair Stout lead as Harry, Hermione and Ron, with John Lithgow as Dumbledore, Paapa Essiedu as Snape, Janet McTeer as McGonagall, Nick Frost as Hagrid and Nicholas Hoult added in August as Gilderoy Lockhart. Peter Serafinowicz plays Peeves, a character the films cut.",
-      "source": "Rotten Tomatoes",
-      "url": "https://editorial.rottentomatoes.com/article/everything-we-know-about-hbos-harry-potter-series/",
-      "image": "assets/thumbs/cast-reference-rotten-tomatoes.jpg"
-    },
-    {
-      "id": "asha-soetan-season-2-leavesden-2026-08-17",
-      "date": "2026-08-17",
-      "status": "confirmed",
-      "category": "HBO series",
-      "headline": "Atriz de Angelina Johnson deixa escapar que a segunda temporada ja grava em Leavesden",
-      "summary": "Asha Soetan, que vive a estudante Angelina Johnson, postou nas redes que estava de volta ao set com cenas empolgantes mas jurada de segredo. Foi assim que se soube que a segunda temporada comecou a rodar em Leavesden, antes de qualquer anuncio do estudio.",
-      "source": "Watford Observer",
-      "url": "https://uk.news.yahoo.com/hbo-harry-potter-actor-reveals-161500213.html",
-      "image": "assets/thumbs/asha-soetan-season-2-leavesden-2026-08-17.jpg"
-    },
-    {
-      "id": "hogwarts-legacy-2-development-2026-08-17",
-      "date": "2026-08-17",
-      "status": "confirmed",
-      "category": "Games",
-      "headline": "A Hogwarts Legacy sequel is officially in development",
-      "summary": "Warner Bros confirmed the follow up in August. No release window and no platforms yet, and a first look is widely expected to be timed near the series launch.",
-      "source": "Game Informer",
-      "url": "https://gameinformer.com/2026/08/17/a-hogwarts-legacy-sequel-is-officially-in-development",
-      "image": "assets/thumbs/hogwarts-legacy-2-development-2026-08-17.jpg"
-    },
-    {
-      "id": "waterloo-station-paparazzi-2026-05-04",
-      "date": "2026-05-04",
-      "status": "paparazzi",
-      "category": "HBO series",
-      "headline": "Fotos de paparazzi poem os Dursley e os Weasley na estacao de Waterloo",
-      "summary": "A estacao de Waterloo, em Londres, foi usada como Kings Cross para gravar a Plataforma nove e tres quartos. As imagens mostram os atores de Valter Dursley e Molly Weasley juntos, mais figurantes fantasiados e os gemeos Weasley. As fotos sairam pelo Daily Mail e circularam a partir de um post do perfil Luka4152 no X.",
-      "source": "Notebookcheck",
-      "url": "https://www.notebookcheck.net/Harry-Potter-series-New-set-photos-spark-plenty-of-fan-speculation.1288829.0.html",
-      "image": "assets/thumbs/waterloo-station-paparazzi-2026-05-04.jpg"
-    }
-  ]
+ "updated": "2026-09-07",
+ "stories": [
+  {
+   "id": "forbidden-forest-first-land-2026-09-07",
+   "date": "2026-09-07",
+   "status": "confirmed",
+   "category": "Lojas e experiências",
+   "headline": "Abu Dhabi terá a primeira área permanente dedicada à Floresta Proibida",
+   "summary": "A Attractions Magazine informou em 7 de setembro de 2026 que o Warner Bros World Abu Dhabi vai ganhar três áreas de Harry Potter, a Floresta Proibida, o Beco Diagonal e Hogwarts. Juntas elas ocupam cerca de 678 mil pés quadrados. A Floresta Proibida se torna a primeira área de parque inteiramente dedicada a esse cenário. A conclusão das obras está prevista para 2029 e a data de abertura ainda não foi anunciada.",
+   "source": "Attractions Magazine",
+   "url": "https://attractionsmagazine.com/harry-potter-forbidden-forest-theme-park-land-abu-dhabi-announcement/",
+   "image": "assets/thumbs/forbidden-forest-first-land-2026-09-07.jpg",
+   "corpo": "A Attractions Magazine publicou em 7 de setembro de 2026 que o Warner Bros World Abu Dhabi, em Yas Island, vai receber três novas áreas de Harry Potter. São elas a Floresta Proibida, o Beco Diagonal e Hogwarts.\n\nAs três áreas somam cerca de 678 mil pés quadrados. A expansão maior, que inclui as atrações da DC chamadas Kryptonite Collider e Superman Up and Away, acrescenta cerca de 753.478 pés quadrados ao parque. Com isso o parque cresce mais de 50 por cento.\n\nO ponto mais destacado pelo site é a Floresta Proibida. Ela passa a ser a primeira área de parque temático dedicada inteiramente a esse cenário de Harry Potter.\n\nAntes disso, a floresta só tinha aparecido como ambiente de uma atração, no brinquedo do Hagrid no Universal Orlando, e como experiência temporária, no Fan Fest da Universal em 2026.\n\nAs três áreas vão ter atrações exclusivas no mundo, que não existem em nenhum outro parque da Warner Bros.\n\nA conclusão das obras está prevista para 2029. A data oficial de abertura ainda não foi anunciada.\n\nO anúncio foi feito pela Warner Bros Discovery e pela Miral. O Warner Bros World informou que mais detalhes sobre as atrações serão revelados depois.",
+   "fonteLida": true
+  },
+  {
+   "id": "radcliffe-voldemort-claim-2026-09-06",
+   "date": "2026-09-06",
+   "status": "rumor",
+   "category": "Série da HBO",
+   "headline": "Site diz que Daniel Radcliffe está perto de fechar acordo para viver Voldemort",
+   "summary": "A Inside the Magic publicou em 6 de setembro de 2026 um texto de Alessia Dunn sobre um post da conta Culture Cave no X. O post diz que Daniel Radcliffe está perto de aceitar de forma verbal um acordo com a HBO para viver Lord Voldemort na nova série. O papel seria o do Voldemort adulto, não o do jovem Tom Riddle, que já foi entregue a Billy Barratt. O acordo não está fechado e nada foi confirmado.",
+   "source": "Inside the Magic",
+   "url": "https://insidethemagic.net/2026/09/report-daniel-radcliffe-returning-as-lord-voldemort-in-hbo-harry-potter-series-ad1/",
+   "image": "assets/thumbs/radcliffe-voldemort-claim-2026-09-06.jpg",
+   "imagemIlustrativa": "Daniel Radcliffe em As Reliquias da Morte Parte 2",
+   "corpo": "A Inside the Magic publicou em 6 de setembro de 2026 um texto assinado por Alessia Dunn sobre um rumor de escalação na série de Harry Potter da HBO. O texto foi atualizado em 8 de setembro.\n\nSegundo a conta Culture Cave no X, Daniel Radcliffe estaria perto de aceitar de forma verbal um acordo com a HBO para viver Lord Voldemort. O post afirma o seguinte. \"Daniel Radcliffe está, segundo relatos, PERTO de aceitar verbalmente um acordo com a HBO para viver Lord Voldemort na próxima série de Harry Potter. Se o acordo for fechado, o ex-ator de Harry Potter iria do menino que sobreviveu para aquele que não deve ser nomeado.\"\n\nO site deixa claro o alcance do rumor. O papel seria o do Voldemort adulto e não o do jovem Tom Riddle, que já foi escalado à parte. O acordo é descrito como próximo, mas não fechado, então nada está confirmado.\n\nBilly Barratt foi escalado como o jovem Lord Voldemort. Ele é conhecido por Bring Her Back e Invasion e foi o vencedor mais novo do International Emmy de Melhor Ator, aos 13 anos, pelo telefilme Responsible Child. Ele é o primeiro ator anunciado para qualquer versão de Voldemort na nova adaptação.\n\nA HBO também confirmou Lenny Rush como Dobby e Bonnie Hill como Ginny Weasley na segunda temporada. Bonnie Hill entra no lugar de Gracie Cochrane, que deixou o papel depois das gravações da primeira temporada.\n\nA primeira temporada se chama Harry Potter and the Philosopher's Stone e ganhou um trailer completo. O elenco tem Dominic McLaughlin como Harry Potter, Arabella Stanton como Hermione Granger, Alastair Stout como Ron Weasley, John Lithgow como Albus Dumbledore, Janet McTeer como Minerva McGonagall, Paapa Essiedu como Severus Snape, Nick Frost como Rubeus Hagrid, Rory Wilmot como Neville Longbottom e Lox Pratt como Draco Malfoy.\n\nA reação ao trailer foi dividida. Parte do público criticou a semelhança com o filme de 2001 e o tom visual mais escuro. A estreia da série está marcada para o Natal de 2026.",
+   "fonteLida": true
+  },
+  {
+   "id": "abu-dhabi-areas-reveladas-2026-09-07",
+   "date": "2026-09-07",
+   "status": "official",
+   "category": "Lojas e experiências",
+   "headline": "Miral confirma três áreas de Harry Potter em Abu Dhabi com obras até 2029",
+   "summary": "A Miral e a Warner Bros Discovery Global Experiences anunciaram em 7 de setembro de 2026 três novas áreas temáticas de Harry Potter no Warner Bros World Abu Dhabi. São o Beco Diagonal, Hogwarts e a Floresta Proibida. Juntas elas somam cerca de 63 mil metros quadrados, o que equivale a 678 mil pés quadrados. A conclusão está prevista para 2029. As áreas vão ter atrações exclusivas no mundo.",
+   "source": "Miral",
+   "url": "https://www.mediaoffice.abudhabi/en/tourism/miral-announces-construction-of-3-new-harry-potter-themed-lands-at-warner-bros-world-abu-dhabi/",
+   "image": "assets/thumbs/abu-dhabi-areas-reveladas-2026-09-07.jpg",
+   "imagemIlustrativa": "A arte oficial das tres areas, com o Ford Anglia voando por cima",
+   "corpo": "A Miral, junto com a Warner Bros Discovery Global Experiences, anunciou em 7 de setembro de 2026 a construção de três novas áreas temáticas de Harry Potter no Warner Bros World Abu Dhabi.\n\nAs áreas são o Beco Diagonal, Hogwarts e a Floresta Proibida. Juntas elas ocupam cerca de 63 mil metros quadrados, o equivalente a 678 mil pés quadrados. A conclusão está prevista para 2029.\n\nO projeto prevê atrações de Harry Potter exclusivas no mundo, com narrativa imersiva.\n\nMohamed Khalifa Al Mubarak, presidente da Miral, comentou o anúncio. \"Esta expansão reflete ainda mais a nossa parceria de longa data com a Warner Bros Discovery Global Experiences\", disse ele.\n\nSimon Robinson, presidente de Global Experiences and Studio Operations da Warner Bros Discovery, também falou. \"Apresentar três novas áreas temáticas de Harry Potter nos permite aprofundar a conexão entre as nossas franquias icônicas e os visitantes\", afirmou.\n\nAs áreas de Harry Potter fazem parte de uma expansão maior do Warner Bros World Abu Dhabi. Essa expansão acrescenta cerca de 70 mil metros quadrados, ou 753.478 pés quadrados, e aumenta o tamanho do parque em mais de 50 por cento. Ela inclui duas atrações da DC já anunciadas, a Kryptonite Collider e a Superman Up and Away.\n\nO parque tem hoje seis áreas imersivas.",
+   "fonteLida": true
+  },
+  {
+   "id": "loja-colecao-natal-2026-09-06",
+   "date": "2026-09-06",
+   "status": "official",
+   "category": "Lojas e experiências",
+   "headline": "Loja oficial abre sua linha de Natal com mais de 100 produtos",
+   "summary": "A coleção de 2026 se divide em duas partes, Christmas at Hogwarts e Diagon Alley in the snow. Ela vai de um suéter de tricô de Hogwarts por 75 dólares até um globo de neve dourado por 40 dólares. Dois calendários do advento aparecem como em breve, um da Funko POP por 49,99 e um do Time Turner por 111,99. A informação é do MuggleNet.",
+   "source": "MuggleNet",
+   "url": "https://mugglenet.com/2026/09/harry-potter-shop-christmas-collection-2026/",
+   "image": "assets/thumbs/loja-colecao-natal-2026-09-06.jpg",
+   "corpo": "Loja oficial abre sua linha de Natal com mais de 100 produtos.\n\nA coleção de 2026 se divide em duas partes, Christmas at Hogwarts e Diagon Alley in the snow. Ela vai de um suéter de tricô de Hogwarts por 75 dólares até um globo de neve dourado por 40 dólares.\n\nDois calendários do advento aparecem na lista como em breve. Um é da Funko POP, por 49,99. O outro é do Time Turner, por 111,99.\n\nNão foi possível abrir a página do MuggleNet. Este texto é a tradução do título e do resumo que já estavam no arquivo.",
+   "fonteLida": false
+  },
+  {
+   "id": "abu-dhabi-experiencias-interativas-2026-09-06",
+   "date": "2026-09-06",
+   "status": "confirmed",
+   "category": "Lojas e experiências",
+   "headline": "Abu Dhabi coloca experiências interativas nas três áreas de Harry Potter",
+   "summary": "A Forbes informa que as lojas, os brinquedos e os salões de refeição de cada área trazem experiências interativas desenhadas dentro do cenário. Kat Chang, da Thinkwell, assinou o design conceitual das três áreas. O brinquedo principal foi construído em torno do Ford Anglia voador. Toda a expansão fica em ambiente fechado, longe do calor.",
+   "source": "Forbes",
+   "url": "https://www.forbes.com/sites/carolinereid/2026/09/06/harry-potter-abu-dhabi-lands-to-feature-interactive-experiences/",
+   "image": "assets/thumbs/abu-dhabi-experiencias-interativas-2026-09-06.jpg",
+   "imagemIlustrativa": "O Ford Anglia voando sobre Yas Island, no teaser das tres novas areas",
+   "corpo": "Abu Dhabi coloca experiências interativas nas três áreas de Harry Potter.\n\nA Forbes informa que as lojas, os brinquedos e os salões de refeição de cada área trazem experiências interativas desenhadas dentro do cenário.\n\nKat Chang, da Thinkwell, assinou o design conceitual das três áreas. O brinquedo principal foi construído em torno do Ford Anglia voador. Toda a expansão fica em ambiente fechado, longe do calor.\n\nNão foi possível abrir a página da Forbes. Este texto é a tradução do título e do resumo que já estavam no arquivo.",
+   "fonteLida": false
+  },
+  {
+   "id": "invisibility-cloak-design-2026-09-05",
+   "date": "2026-09-05",
+   "status": "analysis",
+   "category": "Fandom",
+   "headline": "The Leaky Cauldron analisa a nova capa de invisibilidade no trailer completo",
+   "summary": "Amanda Kirk compara a capa do filme, um tecido aveludado e diáfano com nós celtas, com a versão vista no trailer de 2 de setembro. A nova parece mais leve e bem mais comprida, mais perto de uma cortina de tecido. Ela esconderia três crianças bem melhor, mas também poderia fazer Harry tropeçar, prender em objetos ou ser agarrada.",
+   "source": "The Leaky Cauldron",
+   "url": "https://www.the-leaky-cauldron.org/2026/09/05/harrys-invisibility-cloaks/",
+   "image": "assets/thumbs/invisibility-cloak-design-2026-09-05.jpg",
+   "imagemIlustrativa": "Harry recebe a capa de invisibilidade, no primeiro filme",
+   "corpo": "The Leaky Cauldron analisa a nova capa de invisibilidade no trailer completo.\n\nAmanda Kirk compara a capa do filme, um tecido aveludado e diáfano que traz nós celtas, com a versão vista no trailer de 2 de setembro.\n\nA nova capa parece mais leve e bem mais comprida, mais perto de uma cortina de tecido. Isso esconderia três crianças bem melhor, mas também poderia fazer Harry tropeçar, prender em objetos ou ser agarrada.\n\nA autora também anota que a cena do dormitório parece seguir o livro, com os presentes esperando no pé da cama e não lá embaixo no salão comunal.\n\nNão foi possível abrir a página do The Leaky Cauldron. Este texto é a tradução do título e do resumo que já estavam no arquivo.",
+   "fonteLida": false
+  },
+  {
+   "id": "dobby-portrayal-question-2026-09-04",
+   "date": "2026-09-04",
+   "status": "rumor",
+   "category": "Fandom",
+   "headline": "HBO escala Lenny Rush como Dobby e não explica como o elfo será feito",
+   "summary": "A SuperHeroHype publicou em 4 de setembro de 2026 um texto de Nitish Singh sobre a escalação de Lenny Rush como Dobby na série da HBO. O ator é vencedor do BAFTA. A dúvida dos fãs é como o elfo doméstico vai chegar à tela. Nos filmes, Dobby era feito só em computação gráfica, com a voz de Toby Jones. A HBO não disse se vai usar captura de movimento, próteses ou apenas trabalho de voz.",
+   "source": "SuperHeroHype",
+   "url": "https://www.superherohype.com/movies/691216-hbo-max-harry-potter-tv-show-dobby-casting-question",
+   "image": "assets/thumbs/dobby-portrayal-question-2026-09-04.jpg",
+   "imagemIlustrativa": "Dobby no quarto de Harry, na Camara Secreta",
+   "corpo": "A SuperHeroHype publicou em 4 de setembro de 2026 um texto assinado por Nitish Singh sobre a nova série de Harry Potter da HBO. A HBO escalou o ator Lenny Rush, vencedor do BAFTA, para o papel de Dobby.\n\nO anúncio gerou muita conversa entre os fãs. A pergunta principal é como a produção vai levar Dobby para a tela.\n\nNos filmes da Warner Bros, Dobby era feito inteiramente em computação gráfica. Toby Jones fazia a voz e os outros atores contracenavam com um espaço vazio. A escalação de Lenny Rush fez os fãs imaginarem que a HBO pode seguir outro caminho.\n\nO texto reúne reações nas redes sociais. Um fã escreveu \"Não é uma criatura em CGI ???\". Outro comentou \"Dobby em live action?\". Um terceiro disse \"Sim, vamos torcer para que usem maquiagem e bonecos e não recorram a um personagem totalmente em CGI\".\n\nAté agora a HBO não revelou se Lenny Rush vai usar captura de movimento, próteses ou se vai apenas fazer a voz, com o visual criado à parte.\n\nO texto também lembra outras escalações. Billy Barratt entra como o jovem Tom Riddle, na história da Câmara Secreta. Bonnie Hill assume o papel de Ginny Weasley no lugar de Gracie Cochrane a partir da segunda temporada.\n\nEnquanto a HBO não explica a técnica, Dobby segue como o principal assunto dos fãs sobre a série.",
+   "fonteLida": true
+  },
+  {
+   "id": "lenny-rush-dobby-reaction-2026-09-04",
+   "date": "2026-09-04",
+   "status": "confirmed",
+   "category": "Série da HBO",
+   "headline": "Lenny Rush diz estar nas nuvens por ter sido escalado como Dobby",
+   "summary": "Lenny Rush foi escalado como Dobby na segunda temporada da série Harry Potter da HBO. O ator, conhecido por Doctor Who, comemorou no Instagram com fotos antigas em que usa trajes de Hogwarts. Ele escreveu que está nas nuvens por entrar no mundo mágico da série. A produção também escalou Kit Harington como Gilderoy Lockhart, Bonnie Hill como Ginny Weasley e Billy Barratt como o jovem Tom Riddle.",
+   "source": "ComingSoon",
+   "url": "https://www.comingsoon.net/tv/news/2186736-harry-potter-hbo-series-new-dobby-actor-instagram-post",
+   "image": "assets/thumbs/lenny-rush-dobby-reaction-2026-09-04.jpg",
+   "imagemIlustrativa": "Dobby, em arte oficial do Wizarding World",
+   "corpo": "Lenny Rush foi escalado como Dobby na segunda temporada da série Harry Potter da HBO. O ator ficou conhecido pelo trabalho em Doctor Who.\n\nRush comentou a escalação no Instagram. Ele publicou fotos antigas em que aparece vestido com trajes de Hogwarts.\n\nNa publicação, o ator escreveu que \"está nas nuvens por entrar no mundo mágico da série Harry Potter da HBO, como Dobby\".\n\nO anúncio faz parte da preparação da segunda temporada. A produção segue montando o elenco.\n\nOutras trocas recentes também foram divulgadas. Kit Harington assume o papel de Gilderoy Lockhart. Bonnie Hill substitui Gracie Cochrane como Ginny Weasley. Billy Barratt interpreta o jovem Tom Riddle.\n\nA primeira temporada estreia em 25 de dezembro de 2026, na HBO e no Max.",
+   "fonteLida": true
+  },
+  {
+   "id": "season-2-cast-riddle-dobby-ginny-2026-09-04",
+   "date": "2026-09-04",
+   "status": "official",
+   "category": "Série da HBO",
+   "headline": "HBO escala Dobby e Tom Riddle e anuncia nova atriz para Ginny Weasley",
+   "summary": "A HBO anunciou em 4 de setembro de 2026 três escalações para a segunda temporada de Harry Potter. Lenny Rush, de 17 anos, será Dobby. Billy Barratt, da série Invasion, será o jovem Tom Riddle. Bonnie Hill assume Ginny Weasley no lugar de Gracie Cochrane, que deixou o papel depois da primeira temporada. A temporada inicial estreia neste Natal, na HBO e no HBO Max.",
+   "source": "TVLine",
+   "url": "https://www.tvline.com/2251090/harry-potter-season-2-cast-dobby-tom-riddle-ginny-weasley/",
+   "image": "assets/thumbs/season-2-cast-riddle-dobby-ginny-2026-09-04.jpg",
+   "imagemIlustrativa": "Gina Weasley na Camara Secreta",
+   "corpo": "A HBO anunciou em 4 de setembro de 2026 três escalações para a segunda temporada da série Harry Potter.\n\nLenny Rush, de 17 anos, vai interpretar Dobby. O elfo doméstico tenta impedir o retorno de Harry a Hogwarts no segundo ano.\n\nBilly Barratt foi escalado como o jovem Tom Riddle. O ator é conhecido pela série Invasion, da Apple TV. O personagem é apresentado como uma versão de Lord Voldemort.\n\nBonnie Hill assume o papel de Ginny Weasley. Ela é descrita como uma atriz relativamente novata. Ginny é irmã de Ron e futuro interesse amoroso de Harry. Hill entra no lugar de Gracie Cochrane.\n\nA família de Cochrane divulgou um comunicado em maio. O texto diz que \"por circunstâncias imprevistas, Gracie tomou a difícil decisão de deixar seu papel de Ginny Weasley na série Harry Potter da HBO depois da primeira temporada\".\n\nUm porta-voz da HBO também se manifestou. Ele afirmou que a emissora \"apoia a decisão de Gracie Cochrane e da família de não voltar para a próxima temporada da série Harry Potter da HBO\" e que é \"grata pelo trabalho dela na primeira temporada\".\n\nA primeira temporada se chama Harry Potter and the Philosopher's Stone. A estreia acontece neste Natal, na HBO e no HBO Max.",
+   "fonteLida": true
+  },
+  {
+   "id": "season-2-production-problems-2026-09-04",
+   "date": "2026-09-04",
+   "status": "rumor",
+   "category": "Série da HBO",
+   "headline": "UNILAD lista trocas de elenco e sumiço de objetos na segunda temporada da série",
+   "summary": "A UNILAD publicou um balanço dos problemas da segunda temporada da série de Harry Potter da HBO. Gracie Cochrane deixou o papel de Ginny Weasley em maio de 2026 e a produção abriu teste para crianças britânicas de dez a doze anos. Nicholas Hoult saiu por conflito de agenda e Kit Harington foi confirmado como Gilderoy Lockhart em vinte e quatro de agosto. O texto também cita o sumiço de objetos de cena no set do Salão Principal.",
+   "source": "UNILAD",
+   "url": "https://www.unilad.com/film-and-tv/news/harry-potter-hbo-season-two-problems-597276-20260904",
+   "image": "assets/thumbs/season-2-production-problems-2026-09-04.jpg",
+   "imagemIlustrativa": "Os estudios Warner Bros de Leavesden, vistos do alto",
+   "corpo": "A UNILAD publicou em quatro de setembro de 2026 um balanço dos problemas enfrentados pela segunda temporada da série de Harry Potter da HBO. O texto reúne trocas no elenco, um atraso no início das filmagens e um caso de segurança no set.\n\nGracie Cochrane, escalada para viver Ginny Weasley, deixou o papel em maio de 2026. Em comunicado, a família da atriz afirmou que, diante de circunstâncias imprevistas, Gracie tomou a difícil decisão de se afastar do papel depois da primeira temporada.\n\nA HBO abriu então um teste de elenco para crianças britânicas de dez a doze anos. O prazo para envio das inscrições terminou em dezessete de julho de 2026.\n\nNicholas Hoult também saiu do projeto, alegando conflito de agenda. Kit Harington foi confirmado no lugar dele como Gilderoy Lockhart em vinte e quatro de agosto de 2026.\n\nSegundo a UNILAD, o início das gravações da segunda temporada foi adiado em parte porque o papel de Ginny Weasley seguia vago em julho de 2026. A HBO pretende rodar as temporadas de forma seguida, nos estúdios da Warner Bros em Hertfordshire, para lidar com o crescimento do elenco infantil durante a adaptação de A Câmara Secreta.\n\nEm maio de 2026 objetos de cena sumiram do set do Salão Principal, entre eles livros, abóboras, varinhas e itens do banquete de Halloween. A produção passou a usar microchips nos objetos. Um aviso interno dizia que os objetos de cena desta produção foram microchipados e que, por motivo de inventário e segurança, eles são rastreados diariamente.\n\nAs filmagens estavam em andamento em quatorze de agosto de 2026. A atriz Asha Soetan, que vive Angelina Johnson, confirmou o retorno ao set.",
+   "fonteLida": true
+  },
+  {
+   "id": "caldeirao-furado-trailer-breakdown-2026-09-03",
+   "date": "2026-09-03",
+   "status": "analysis",
+   "category": "Análise e teoria",
+   "headline": "Caldeirão Furado publica análise do trailer completo em vídeo de cinquenta e dois minutos",
+   "summary": "Caco Cardassi publicou as primeiras impressões do trailer completo em um vídeo de cinquenta e dois minutos, que passou de cem mil visualizações em oito horas. O Caldeirão Furado tem 1,67 milhão de inscritos e é o maior canal de Harry Potter do mundo. No mesmo dia o canal já tinha subido a análise do anúncio do trailer e a reação ao vivo ao vídeo divulgado pela HBO.",
+   "source": "Caldeirao Furado",
+   "url": "https://www.youtube.com/watch?v=RcY7feIAzSY",
+   "image": "assets/thumbs/caldeirao-furado-trailer-breakdown-2026-09-03.jpg",
+   "video": "RUcGv6D3qEM",
+   "corpo": "O Caldeirão Furado destrinchou o trailer quadro a quadro.\n\nCaco Cardassi publicou as primeiras impressões do trailer completo em um vídeo de cinquenta e dois minutos. O vídeo passou de cem mil visualizações em oito horas.\n\nO Caldeirão Furado tem 1,67 milhão de inscritos e é o maior canal de Harry Potter do mundo.\n\nNo mesmo dia o canal já tinha subido a análise do anúncio do trailer e a reação ao vivo.",
+   "fonteLida": false
+  },
+  {
+   "id": "hogwarts-professor-emoji-symbols-2026-09-03",
+   "date": "2026-09-03",
+   "status": "analysis",
+   "category": "Análise e teoria",
+   "headline": "John Granger lê coração, coruja e raio postados por Rowling como símbolos espirituais dos livros",
+   "summary": "John Granger, do Hogwarts Professor, publicou em três de setembro de 2026 uma leitura dos três emojis que J.K. Rowling usou ao comentar o trailer da série da HBO. Para ele, o coração representa a capacidade espiritual humana, a coruja indica a percepção do que não se vê e o raio funciona como cifra de iluminação súbita e de transformação. Granger cita a mitologia grega, C.S. Lewis e o herói Orestes.",
+   "source": "Hogwarts Professor",
+   "url": "https://www.hogwartsprofessor.com/the-hbo-potter-trailer-the-meaning-of-rowlings-heart-owl-and-lightning-bolt/",
+   "image": "assets/thumbs/hogwarts-professor-emoji-symbols-2026-09-03.jpg",
+   "imagemIlustrativa": "Edwiges, a coruja das neves, em arte do Wizarding World",
+   "corpo": "John Granger publicou em três de setembro de 2026, no site Hogwarts Professor, uma análise dos três emojis que J.K. Rowling usou ao comentar o trailer da série da HBO. Para ele, o coração, a coruja e o raio funcionam em mais de um nível.\n\nGranger reconhece que os símbolos podem ser lidos como um gesto simples de entusiasmo de fã. Ao mesmo tempo, ele sustenta que os três carregam sentido dentro do sistema simbólico dos livros e apontam para o que a adaptação pretende alcançar.\n\nSobre o coração, Granger diz que ele é um fio dourado na obra de Rowling e representa capacidade espiritual, e não apenas sentimento. Ele escreve que o coração é um símbolo pulsante da capacidade espiritual humana e funciona como centro espiritual do universo literário da autora.\n\nA coruja, segundo o texto, vem da mitologia grega e da influência de C.S. Lewis. Ela representa percepção sobrenatural e interligação. Granger fala em uma mente capaz de apreender a grande interligação das coisas, algo distinto do simbolismo cristão.\n\nO raio é ligado por Granger à cicatriz de Harry e ao herói grego Orestes. Ele descreve o relâmpago como uma cifra polivalente e profundamente espiritual, que indica três experiências ao mesmo tempo, a iluminação súbita, a origem celeste e a reorientação psicológica por choque catártico.\n\nPara Granger, os três símbolos juntos sinalizam o compromisso da adaptação em reproduzir a experiência imaginativa e transformadora dos textos originais de Rowling.",
+   "fonteLida": true
+  },
+  {
+   "id": "potterish-trailer-hedwig-2026-09-02",
+   "date": "2026-09-02",
+   "status": "confirmed",
+   "category": "Série da HBO",
+   "headline": "Potterish detalha trailer completo e aponta Seleção, Quadribol e a primeira aparição de Edwiges",
+   "summary": "O Potterish publicou sua leitura do trailer completo da série da HBO, divulgado em dois de setembro de 2026. O texto destaca a Cerimônia de Seleção, aulas de Herbologia, uma partida de Quadribol, uma cena de xadrez de bruxo e o trasgo no castelo. Edwiges aparece pela primeira vez, de forma rápida. A primeira temporada tem oito episódios e estreia em vinte e cinco de dezembro na HBO e na HBO Max.",
+   "source": "Potterish",
+   "url": "https://potterish.com/new-harry-potter-hbo-series-trailer/?lang=en",
+   "image": "assets/thumbs/potterish-trailer-hedwig-2026-09-02.jpg",
+   "corpo": "O Potterish publicou sua leitura do segundo vídeo promocional da série de Harry Potter da HBO. O trailer completo foi divulgado em dois de setembro de 2026.\n\nO site lembra que o teaser lançado em março teve 277 milhões de visualizações em 48 horas e se tornou o trailer mais visto da história.\n\nO novo vídeo mostra cenas do primeiro ano de Harry. Estão lá a Cerimônia de Seleção, aulas de Herbologia, o Quadribol, uma partida de xadrez de bruxo e a aparição de um trasgo no castelo.\n\nEdwiges aparece pela primeira vez em um trailer, de forma breve. O texto também destaca uma fala de Snape, que diz \"Vamos torcer para que você mostre algum talento no campo de Quadribol, Potter. Você certamente não demonstrou nenhum aqui dentro\".\n\nNo elenco citado estão Dominic McLaughlin como Harry Potter, Paapa Essiedu como Severus Snape e Janet McTeer como Minerva McGonagall. John Lithgow aparece presidindo o banquete. Kit Harington viverá Gilderoy Lockhart na segunda temporada.\n\nA primeira temporada tem oito episódios e adapta Harry Potter e a Pedra Filosofal. A estreia é em vinte e cinco de dezembro de 2026, na HBO e na HBO Max, com episódios semanais depois disso. O Potterish informa que já existe dublagem em português, mas os nomes dos dubladores ainda não foram anunciados. O site também afirma que a série vai além do ponto de vista de Harry.",
+   "fonteLida": true
+  },
+  {
+   "id": "full-trailer-arrives-2026-09-02",
+   "date": "2026-09-02",
+   "status": "official",
+   "category": "Série da HBO",
+   "headline": "HBO lança trailer completo de Harry Potter e a Pedra Filosofal com estreia no Natal",
+   "summary": "A HBO divulgou em dois de setembro de 2026 o trailer completo de Harry Potter e a Pedra Filosofal. Segundo a TVLine, o vídeo percorre o primeiro ano de Harry, com o Chapéu Seletor, aulas de Herbologia, a chegada ao Quadribol e o trasgo na masmorra. Dominic McLaughlin, Arabella Stanton e Alastair Stout encabeçam o elenco. A estreia está marcada para o Natal de 2026 na HBO e na HBO Max.",
+   "source": "TVLine",
+   "url": "https://www.tvline.com/2249543/harry-potter-tv-series-full-trailer-hbo/",
+   "image": "assets/thumbs/full-trailer-arrives-2026-09-02.jpg",
+   "video": "SJVmeJaS44s",
+   "corpo": "A TVLine publicou em dois de setembro de 2026, em texto assinado por Rebecca Luther, a notícia do lançamento do trailer completo de Harry Potter e a Pedra Filosofal.\n\nA série é apresentada como uma adaptação fiel dos livros de J.K. Rowling. Ela vai ao ar na HBO e na HBO Max.\n\nO trailer percorre o primeiro ano de Harry em Hogwarts. Aparecem a cena do Chapéu Seletor, aulas de Herbologia, a apresentação do Quadribol e um confronto com um trasgo na masmorra.\n\nUma fala de Snape foi destacada pelo site. Nela, o professor diz \"Vamos torcer para que você mostre algum talento no campo de Quadribol, Potter. Você certamente não demonstrou nenhum aqui dentro\".\n\nO elenco tem Dominic McLaughlin como Harry Potter, Alastair Stout como Ron Weasley e Arabella Stanton como Hermione Granger. John Lithgow vive Albus Dumbledore, Janet McTeer é Minerva McGonagall, Paapa Essiedu é Severus Snape e Nick Frost é Rubeus Hagrid.\n\nA estreia está marcada para o Natal de 2026. A segunda temporada já foi renovada e vai adaptar A Câmara Secreta, com Kit Harington como Gilderoy Lockhart no lugar de Nicholas Hoult.",
+   "fonteLida": true
+  },
+  {
+   "id": "snapchat-ar-lenses-2026-09-01",
+   "date": "2026-09-01",
+   "status": "official",
+   "category": "Fandom",
+   "headline": "Snapchat e HBO Max lançam doze lentes de realidade aumentada de Harry Potter",
+   "summary": "A Snap e a HBO Max anunciaram em 1 de setembro de 2026 uma parceria ligada à série Harry Potter and the Philosopher's Stone. Doze lentes de realidade aumentada chegam ao longo da temporada na conta oficial @harrypotter. O pacote também traz papéis de parede para as conversas, roupas de Bitmoji inspiradas em Hogwarts, um ícone de aplicativo personalizado e espelhos de realidade aumentada em eventos de fãs nos Estados Unidos e no Reino Unido.",
+   "source": "Snap Newsroom",
+   "url": "https://newsroom.snap.com/snapchat-hbo-max-harry-potter-philosophers-stone",
+   "image": "assets/thumbs/snapchat-ar-lenses-2026-09-01.jpg",
+   "imagemIlustrativa": "O Beco Diagonal, no primeiro filme",
+   "corpo": "A Snap Inc. e a HBO Max anunciaram em 1 de setembro de 2026 uma parceria para levar o mundo bruxo ao Snapchat. A ação acompanha a série original da HBO Harry Potter and the Philosopher's Stone. A série estreia no Natal de 2026 na HBO Max.\n\nO centro do anúncio são doze lentes de realidade aumentada. Elas vão chegar aos poucos ao longo da temporada. Parte delas já ficou disponível no dia do anúncio, na conta oficial @harrypotter no Snapchat.\n\nAlém das lentes, a parceria traz papéis de parede temáticos para as conversas dentro do aplicativo. Também há roupas de Bitmoji inspiradas nas casas de Hogwarts. O usuário ainda pode trocar o ícone do aplicativo por uma versão personalizada com o tema da série.\n\nA Snap também vai levar espelhos de realidade aumentada para eventos de fãs nos Estados Unidos e no Reino Unido. Nesses espelhos o público experimenta de forma virtual roupas do mundo bruxo. O comunicado não informa quais cidades ou quais locais vão receber a ação.\n\nAndrew Meengern, vice-presidente de marketing de HBO & Max Originals, afirmou que uma das razões pelas quais Harry Potter tem tanta ressonância entre os fãs é \"sua capacidade de fazer o extraordinário parecer ao alcance\".\n\nAnmol Malhotra, chefe global de conteúdo e parcerias da Snap Inc., disse que \"os fãs de Harry Potter nunca tiveram vergonha de representar sua Casa\". Ele acrescentou que a empresa está construindo experiências de realidade aumentada a partir desse comportamento do público.",
+   "fonteLida": true
+  },
+  {
+   "id": "studio-tour-house-spirit-2026-09-01",
+   "date": "2026-09-01",
+   "status": "official",
+   "category": "Lojas e experiências",
+   "headline": "Warner Bros. Studio Tour London terá temporada das casas de Hogwarts em 2027",
+   "summary": "O Warner Bros. Studio Tour London vai realizar a temporada Hogwarts House Spirit de 23 de janeiro a 19 de abril de 2027. O evento celebra as quatro casas de Hogwarts nos cenários, figurinos e adereços originais da produção. Informações sobre ingressos e outros detalhes serão divulgadas mais tarde. O anúncio fez parte da vitrine Back to Hogwarts de 2026, que reuniu várias novidades.",
+   "source": "Attractions Magazine",
+   "url": "https://attractionsmagazine.com/back-to-hogwarts-harry-potter-announcements-2026/",
+   "image": "assets/thumbs/studio-tour-house-spirit-2026-09-01.jpg",
+   "video": "rgKBEQzB01A",
+   "corpo": "O Warner Bros. Studio Tour London vai apresentar uma temporada chamada Hogwarts House Spirit. A atração sazonal fica em cartaz de 23 de janeiro a 19 de abril de 2027.\n\nA proposta é celebrar as quatro casas de Hogwarts ao longo de todo o percurso. A celebração vai acontecer entre os cenários, figurinos e adereços originais que ficam no local. Mais detalhes e as informações sobre ingressos serão divulgados depois.\n\nO anúncio foi um dos itens da vitrine Back to Hogwarts de 2026. Outro item foi a nova versão do teste do Chapéu Seletor no site oficial. É a terceira grande versão da ferramenta desde a estreia do Pottermore, em 2011.\n\nO Warner Bros. World Abu Dhabi também entrou na lista. O parque vai ganhar três áreas temáticas de Harry Potter até 2029, sendo elas Hogwarts, o Beco Diagonal e a primeira área permanente da Floresta Proibida em um parque temático.\n\nA atração ICE! vai acontecer no Gaylord Texan Resort de 13 de novembro de 2026 a 3 de janeiro de 2027. É um percurso a pé mantido a nove graus. Segundo o texto, serão usados \"2 milhões de libras de gelo para recriar 10 cenas dos filmes de Harry Potter\".\n\nA loja Harry Potter Shop Oxford Street abre em 4 de novembro de 2026. O espaço tem mais de 21 mil pés quadrados e vai ter um dragão Ukrainian Ironbelly, um Knight Bus em tamanho real e uma experiência gastronômica com cerveja amanteigada. A Harry Potter Shop New York vai ganhar uma experiência de voo em vassoura, ainda sem detalhes.\n\nA matéria cita ainda outros anúncios. Entre eles estão novos sets de LEGO, produtos alimentícios, jogos e a participação de Harry Potter da HBO na Macy's Thanksgiving Day Parade de 2026.",
+   "fonteLida": true
+  },
+  {
+   "id": "full-trailer-date-2026-09-01",
+   "date": "2026-09-01",
+   "status": "official",
+   "category": "Série da HBO",
+   "headline": "Trailer completo da série Harry Potter da HBO chega em 2 de setembro",
+   "summary": "O site MuggleNet informou em 1 de setembro de 2026 que o primeiro trailer completo da série Harry Potter da HBO chega no dia seguinte. Segundo a matéria, o vídeo deve mostrar novos detalhes desta versão do mundo bruxo. Entre eles está o primeiro olhar mais longo para o time de Quadribol e mais imagens do primeiro ano de Harry em Hogwarts.",
+   "source": "MuggleNet",
+   "url": "https://mugglenet.com/2026/09/hbo-harry-potter-full-trailer-september-2/",
+   "image": "assets/thumbs/full-trailer-date-2026-09-01.jpg",
+   "video": "tqqhFtRpnWw",
+   "corpo": "O site MuggleNet informou que o primeiro trailer completo da série Harry Potter da HBO chega em 2 de setembro de 2026.\n\nSegundo o texto, o trailer deve mostrar \"novos detalhes desta versão do Mundo Bruxo, incluindo nosso primeiro olhar estendido para o time de Quadribol e mais imagens do primeiro ano de Harry em Hogwarts\".\n\nO Quadribol é o ponto mais destacado pela matéria. O site trata esse trecho como o primeiro olhar mais longo para o time nesta versão da história.\n\nAntes do trailer, a celebração Back to Hogwarts já havia revelado muita coisa sobre a produção. A matéria cita anúncios de elenco, fotos dos cenários, figurinos, adereços e imagens escolhidas com cuidado.\n\nO texto não traz data de estreia, nomes de elenco nem declarações de pessoas ligadas à produção. A publicação é de 1 de setembro de 2026.",
+   "fonteLida": true
+  },
+  {
+   "id": "lego-hbo-series-sets-2026-09-01",
+   "date": "2026-09-01",
+   "status": "official",
+   "category": "Lojas e experiências",
+   "headline": "Novos sets de LEGO inspirados na série de Harry Potter da HBO estão a caminho",
+   "summary": "O MuggleNet informou em 1 de setembro de 2026 que novos sets de LEGO inspirados na série de televisão de Harry Potter da HBO estão em desenvolvimento. Os produtos devem trazer versões redesenhadas do mundo mágico como ele aparece na adaptação da HBO. A matéria diz que os detalhes ainda são muito limitados. Nada foi confirmado sobre locais, personagens, cenas ou datas de lançamento.",
+   "source": "MuggleNet",
+   "url": "https://mugglenet.com/2026/09/hbo-harry-potter-lego-sets-coming/",
+   "image": "assets/thumbs/lego-hbo-series-sets-2026-09-01.jpg",
+   "corpo": "Novos sets de LEGO inspirados na próxima série de televisão de Harry Potter da HBO estão oficialmente em desenvolvimento. A informação foi publicada pelo MuggleNet em 1 de setembro de 2026.\n\nSegundo a matéria, os produtos vão trazer versões redesenhadas do mundo mágico como ele é apresentado na adaptação da HBO. A referência, portanto, não são os filmes.\n\nA matéria afirma que \"os detalhes ainda são extremamente limitados, incluindo quais locais, personagens ou cenas serão representados e quando os primeiros sets chegarão\". Nomes de sets, imagens, datas de lançamento e preços não foram revelados.\n\nO site descreve o acordo como \"um grande novo capítulo para a parceria de longa data\" entre as duas marcas. O texto lembra que a LEGO produz sets de Harry Potter há mais de duas décadas.\n\nA matéria não informa quem fez o anúncio nem a data exata em que ele ocorreu. Também não traz nenhuma declaração atribuída a representantes da LEGO ou da Warner Bros. O texto é assinado pela equipe editorial do MuggleNet.",
+   "fonteLida": true
+  },
+  {
+   "id": "house-crests-ravenclaw-eagle-2026-09-01",
+   "date": "2026-09-01",
+   "status": "official",
+   "category": "Série da HBO",
+   "headline": "Novos brasões das casas de Hogwarts trocam o corvo da Corvinal por uma águia",
+   "summary": "O evento Back to Hogwarts de 1 de setembro de 2026 apresentou novos brasões das casas de Hogwarts para a série da HBO. Os desenhos são mais simples que os escudos heráldicos dos filmes e dão destaque aos animais de cada casa. O brasão da Corvinal passou a usar uma águia, como nos livros, no lugar do corvo que aparecia nos filmes. A mudança dividiu os fãs na internet.",
+   "source": "Soap Central",
+   "url": "https://www.soapcentral.com/shows/harry-potter-back-hogwarts-event-every-reveal-new-house-crests-wand-replicas",
+   "image": "assets/thumbs/house-crests-ravenclaw-eagle-2026-09-01.jpg",
+   "corpo": "O evento Back to Hogwarts aconteceu em 1 de setembro de 2026, a data em que os alunos voltam para Hogwarts na história. Entre os anúncios estavam os novos brasões das casas.\n\nOs desenhos têm, segundo a matéria, um \"desenho mais simples em comparação com os elaborados escudos heráldicos usados nos filmes originais\". As novas versões dão mais destaque aos animais de cada casa e ficam mais perto das descrições dos livros.\n\nO maior debate ficou por conta da Corvinal. Nos filmes, a casa era representada por um corvo. O novo desenho usa \"a águia fiel ao livro e tem o esquema original de azul e bronze\".\n\nAs reações dos fãs foram divididas. Parte do público disse que a águia \"parece menos uma ave de rapina majestosa e mais uma galinha\". Outros criticaram o desenho minimalista do brasão e argumentaram que uma águia não costuma ter esse tipo de estilo.\n\nMuitos fãs também disseram preferir o corvo dos filmes à nova águia. A matéria não nomeia nenhum fã nem indica de quais redes sociais as reações foram tiradas.\n\nO texto também não informa quem assinou os novos desenhos. Nenhum nome de designer aparece na matéria e não há declarações oficiais atribuídas à produção.\n\nO evento trouxe outras novidades. Foi apresentado um novo teste animado do Chapéu Seletor, com música atualizada. A atração ICE! acontece de 13 de novembro de 2026 a 3 de janeiro de 2027 e usa cerca de 2 milhões de libras de gelo. Uma loja de mais de 21 mil pés quadrados abre em 4 de novembro de 2026 na Oxford Street, em Londres. A série da HBO estreia em 25 de dezembro de 2026.",
+   "fonteLida": true
+  },
+  {
+   "id": "sorting-ceremony-reimagined-2026-09-01",
+   "date": "2026-09-01",
+   "status": "official",
+   "category": "Fandom",
+   "headline": "Cerimônia de Seleção do site oficial é refeita com nova animação, música e brasões",
+   "summary": "O site oficial HarryPotter.com relançou a sua Cerimônia de Seleção durante a vitrine Back to Hogwarts de 2026. A versão refeita traz animação nova, música nova e os novos brasões das casas de Hogwarts. As perguntas e as casas continuam as mesmas de antes. Quem já tinha sido selecionado no site pode passar pela cerimônia outra vez. O item foi um dos dezoito revelados no evento.",
+   "source": "Wizarding World",
+   "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
+   "image": "assets/thumbs/sorting-ceremony-reimagined-2026-09-01.jpg",
+   "video": "1dIoOzgYFlM",
+   "corpo": "A Cerimônia de Seleção oficial do HarryPotter.com foi refeita. O relançamento foi um dos dezoito anúncios da vitrine Back to Hogwarts de 2026.\n\nSegundo o site, a cerimônia ganhou \"animação, música e mais, tudo novo\". Os novos brasões das casas de Hogwarts também aparecem na experiência.\n\nO site afirma que \"seja você novo no HarryPotter.com ou já tenha recebido uma casa, estamos dando a você a rara oportunidade de viver de novo a nossa Cerimônia de Seleção exclusiva\". Ou seja, quem já foi selecionado antes pode repetir o processo.\n\nAs perguntas continuam iguais às da versão anterior. As quatro casas também seguem as mesmas. A mudança está na apresentação e na parte visual.\n\nA lista dos dezoito anúncios traz outros itens. Entre eles estão o segundo teaser da série Harry Potter and the Philosopher's Stone e a volta do Harry Potter Official Podcast, apresentado por Rhianna Dhillon e Law Sharma. Um episódio bônus do podcast tem a participação do produtor executivo David Heyman.\n\nTambém foram anunciados uma coleção de LEGO baseada na série da HBO, novos recursos de realidade aumentada no Snapchat e a participação de Harry Potter na Macy's Thanksgiving Parade, na centésima edição do desfile. A terceira temporada de Wizards of Baking terá um torneio entre as casas.\n\nO evento ainda apresentou a nova edição ilustrada de Enigma do Príncipe, por Levi Pinfold, com lançamento em 6 de outubro. O LEGO Harry Potter Collection sai remasterizado para o Nintendo Switch 2 em 16 de outubro. Completam a lista o modo Epic Quidditch em Harry Potter Puzzles & Spells, a história de Lílian e Tiago Potter em Hogwarts Mystery, a loja Harry Potter Shop Oxford Street em 4 de novembro, a experiência de vassoura na Harry Potter Shop New York, as novas áreas do Warner Bros. World Abu Dhabi, a atração Ice! no Gaylord Texan e a temporada Hogwarts House Spirit no Warner Bros. Studio Tour London.",
+   "fonteLida": true
+  },
+  {
+   "id": "free-audiobooks-philosophers-stone-2026-09-01",
+   "date": "2026-09-01",
+   "status": "official",
+   "category": "Livros e áudio",
+   "headline": "Audiolivros de Pedra Filosofal com Stephen Fry e Jim Dale ficam gratuitos até o Halloween",
+   "summary": "As duas versões em audiolivro de Harry Potter e a Pedra Filosofal ficaram gratuitas. As gravações narradas por Stephen Fry e por Jim Dale podem ser ouvidas desde o anúncio, feito em 1 de setembro de 2026, até o Dia das Bruxas. Elas estão no Audible, no Amazon Music, no Spotify e no canal oficial de Harry Potter no YouTube, sem necessidade de assinatura paga.",
+   "source": "Wizarding World",
+   "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
+   "image": "assets/thumbs/free-audiobooks-philosophers-stone-2026-.jpg",
+   "video": "ZuD_Aah14P8",
+   "corpo": "As duas edições em audiolivro de Harry Potter e a Pedra Filosofal foram liberadas de graça. O anúncio faz parte da vitrine Back to Hogwarts de 2026.\n\nAs gravações são narradas por Stephen Fry e por Jim Dale. As duas versões entram na promoção ao mesmo tempo.\n\nO site oficial afirma que os audiolivros estão \"disponíveis agora até o Dia das Bruxas no Audible, no Amazon Music, no Spotify e no canal oficial de Harry Potter no YouTube, sem precisar de assinatura paga\".\n\nOu seja, o ouvinte não precisa pagar nada para acompanhar o primeiro livro da série durante esse período. O acesso vale nas quatro plataformas citadas.\n\nO item foi um dos dezoito revelados na vitrine. A mesma lista trouxe a Cerimônia de Seleção refeita no HarryPotter.com e a nova edição ilustrada de Enigma do Príncipe, por Levi Pinfold, com lançamento em 6 de outubro.\n\nOutros anúncios do evento incluem o segundo teaser da série da HBO, a volta do Harry Potter Official Podcast e uma coleção de LEGO baseada na série. A lista também tem lojas novas, jogos e atrações em parques.",
+   "fonteLida": true
+  },
+  {
+   "id": "cinema-run-closes-2026-09-01",
+   "date": "2026-09-01",
+   "status": "official",
+   "category": "Filmes",
+   "headline": "Maratona dos oito filmes se encerra com Deathly Hallows Part 2 em 1 de setembro",
+   "summary": "Os oito filmes de Harry Potter voltaram aos cinemas entre 27 de agosto e 3 de setembro de 2026. A temporada marca os 25 anos da estreia do primeiro filme, em 16 de novembro de 2001. A Regal exibiu um filme por dia, de 25 de agosto a 1 de setembro, começando por Sorcerer's Stone e terminando com Deathly Hallows Part 2. AMC, Cinemark, Megaplex, Harkins e Marcus Theatres também participaram.",
+   "source": "Attractions Magazine",
+   "url": "https://attractionsmagazine.com/harry-potter-movie-theaters-2026-sorcerers-stone-25th-anniversary/",
+   "image": "assets/thumbs/cinema-run-closes-2026-09-01.jpg",
+   "corpo": "Os oito filmes de Harry Potter voltaram às salas de cinema. A temporada foi de 27 de agosto a 3 de setembro de 2026. O motivo é o aniversário de 25 anos do primeiro filme, que estreou em 16 de novembro de 2001.\n\nParticiparam as redes AMC, Regal, Cinemark, Megaplex, Harkins e Marcus Theatres.\n\nA Regal montou a própria programação, de 25 de agosto a 1 de setembro. A rede começou dois dias antes da janela oficial. Exibiu um filme por dia. Sorcerer's Stone abriu a sequência em 25 de agosto. Deathly Hallows Part 2 fechou a maratona em 1 de setembro.\n\nA sessão de Sorcerer's Stone trouxe 10 minutos de material extra de bastidores. A Regal também preparou experiências temáticas em cinemas selecionados. O ICEE de butterscotch, com espuma e calda de caramelo, voltou ao cardápio em 24 de agosto.\n\nAMC e Cinemark ofereceram itens colecionáveis exclusivos na lanchonete.\n\nSorcerer's Stone também foi exibido nas salas em domo da Cosm, na primavera de 2026, em Los Angeles, Atlanta e Dallas. As sessões tiveram efeitos dentro da sala, além de Butterbeer e sapos de chocolate. Os ingressos começavam em 75 dólares.\n\nO Universal Orlando programou comemorações dos 25 anos ao longo de 2026 no The Wizarding World of Harry Potter. Os ingressos da temporada nos cinemas foram vendidos pela Fandango e pelos sites das próprias redes.",
+   "fonteLida": true
+  },
+  {
+   "id": "back-to-hogwarts-showcase-2026-08-31",
+   "date": "2026-08-31",
+   "status": "official",
+   "category": "Fandom",
+   "headline": "Showcase Back to Hogwarts reúne anúncios de série, LEGO, lojas, jogos e parques",
+   "summary": "O showcase anual do Back to Hogwarts apresentou novidades em várias frentes. Saiu um novo teaser da série da HBO, que estreia no Natal na HBO Max. O podcast oficial volta com episódios semanais. Também foram anunciados sets de LEGO, filtros no Snapchat, a estreia de Harry Potter na parada da Macy's, a loja da Oxford Street, três áreas no Warner Bros. World Abu Dhabi e novos jogos.",
+   "source": "Wizarding World",
+   "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
+   "image": "assets/thumbs/back-to-hogwarts-showcase-2026-08-31.jpg",
+   "video": "tqqhFtRpnWw",
+   "corpo": "O showcase anual do Back to Hogwarts trouxe anúncios em várias frentes. Um segundo teaser de Harry Potter and the Philosopher's Stone, a série original da HBO, foi divulgado logo depois do evento. A estreia está marcada para o Natal, na HBO Max.\n\nO podcast oficial volta com episódios semanais. Rhianna Dhillon apresenta e Law Sharma é o co-apresentador. Os dois vão analisar a série semana a semana. Um episódio bônus com o produtor executivo David Heyman saiu no Back to Hogwarts Day. Heyman também produziu os oito filmes.\n\nNovos sets de LEGO inspirados na série da HBO foram anunciados, com detalhes ainda por vir. A HBO Max e o Snapchat criaram experiências de realidade aumentada, com filtros para a carta de Hogwarts, para a viagem no Hogwarts Express e para o Chapéu Seletor. Harry Potter também vai aparecer pela primeira vez na Macy's Thanksgiving Day Parade, na centésima edição do desfile nos Estados Unidos.\n\nWizards of Baking volta para a terceira temporada nesta temporada de festas. O formato é de torneio. As casas de Hogwarts competem entre si com bolos inspirados nos oito filmes. James e Oliver Phelps apresentam. O programa fica na HBO Max, na Food Network nos Estados Unidos e no Amazon Prime no Reino Unido e na Irlanda.\n\nA cerimônia oficial de seleção ganhou nova animação e nova música. As narrações de Stephen Fry e de Jim Dale para Harry Potter and the Philosopher's Stone ficaram gratuitas até 31 de outubro. Estão no Audible, no Amazon Music, no Spotify e no canal oficial de Harry Potter no YouTube, sem assinatura paga.\n\nA edição ilustrada de Harry Potter and the Half-Blood Prince sai em 6 de outubro pela Bloomsbury, com arte de Levi Pinfold. Nos jogos, a LEGO Harry Potter Collection chega ao Nintendo Switch 2 em 16 de outubro. Harry Potter Puzzles and Spells ganha o modo Epic Quidditch. Harry Potter Hogwarts Mystery lança o evento Castle Chronicles em setembro.\n\nEntre as experiências, a Harry Potter Shop Oxford Street abre em 4 de novembro, com tema da Diagon Alley, um dragão Ukrainian Ironbelly e um Knight Bus em tamanho real. A loja de Nova York ganha uma experiência de voo de vassoura no outono. O Warner Bros. World Abu Dhabi anunciou três novas áreas temáticas, com os nomes revelados em 7 de setembro, na Yas Island.\n\nO evento Ice! Featuring Harry Potter fica no Gaylord Texan Resort, em Dallas, de 13 de novembro de 2026 a 2 de janeiro de 2027, com dez cenas esculpidas em gelo. Entre elas estão o Hogwarts Express, a Floresta Proibida, a Honeydukes, o campo de quadribol e o Salão Principal. O Warner Bros. Studio Tour London prepara o evento Hogwarts House Spirit para a primavera. Os novos brasões das casas, vindos da série da HBO, foram exibidos em 1 de setembro na experiência da Plataforma 9¾ em Londres.",
+   "fonteLida": true
+  },
+  {
+   "id": "teaser-christmas-2026-08-31",
+   "date": "2026-08-31",
+   "status": "official",
+   "category": "Série da HBO",
+   "headline": "HBO divulga primeiro teaser da série Harry Potter, que estreia no Natal de 2026",
+   "summary": "A HBO divulgou o primeiro teaser da nova série original de Harry Potter. A primeira temporada se chama Harry Potter and the Philosopher's Stone e estreia no Natal de 2026, na HBO e com streaming exclusivo no HBO Max. O vídeo mostra a vida de Harry na casa dos Dursleys e ambientes de Hogwarts como o Saguão de Entrada, as estufas e os salões comunais. Francesca Gardiner assina o roteiro e Mark Mylod dirige.",
+   "source": "Wizarding World",
+   "url": "https://www.harrypotter.com/news/watch-the-first-teaser-for-hbo-original-harry-potter-series-premiering-christmas-2026",
+   "image": "assets/thumbs/teaser-christmas-2026-08-31.jpg",
+   "video": "RIu4sFKGi6E",
+   "corpo": "A HBO divulgou o primeiro teaser da sua série original de Harry Potter. A primeira temporada recebeu o título de Harry Potter and the Philosopher's Stone. A estreia está marcada para o Natal de 2026.\n\nA série vai ao ar na HBO. O streaming fica disponível com exclusividade no HBO Max.\n\nO teaser mostra a vida difícil de Harry na casa dos Dursleys. Há momentos dos livros que nunca tinham sido adaptados para a tela.\n\nHogwarts aparece com ambientes recriados. O vídeo passa pelo Saguão de Entrada, pelas estufas e pelos salões comunais.\n\nA heráldica das casas foi atualizada. As cores tradicionais e os mascotes foram mantidos. Os uniformes escolares trazem gravatas próprias de cada casa e um brasão simplificado com a letra H.\n\nOs equipamentos e os uniformes de quadribol ganharam detalhes bordados. Uma guerra de bolas de neve no Natal aparece pela primeira vez em imagens.\n\nO teaser mostra Harry Potter, Ron Weasley, Hermione Granger, Albus Dumbledore, Rubeus Hagrid, Minerva McGonagall, Severus Snape e os Dursleys.\n\nFrancesca Gardiner é roteirista e produtora executiva. Mark Mylod dirige e também é produtor executivo. J.K. Rowling, Neil Blair, Ruth Kenley-Letts e David Heyman completam a produção executiva. Hans Zimmer assina a trilha musical. A produção é da Brontë Film and TV, da Warner Bros. Television e da Heyday Films.",
+   "fonteLida": true
+  },
+  {
+   "id": "official-podcast-heyman-2026-08-31",
+   "date": "2026-08-31",
+   "status": "official",
+   "category": "Série da HBO",
+   "headline": "Podcast oficial volta com episódios semanais e episódio bônus com David Heyman",
+   "summary": "O podcast oficial de Harry Potter volta com episódios semanais sobre a série da HBO. Rhianna Dhillon apresenta e Law Sharma é o co-apresentador. Os dois vão analisar a série semana a semana. Um episódio bônus com o produtor executivo David Heyman foi publicado no Back to Hogwarts Day. Heyman também produziu os oito filmes da saga no cinema.",
+   "source": "Wizarding World",
+   "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
+   "image": "assets/thumbs/official-podcast-heyman-2026-08-31.jpg",
+   "video": "pnfh52yeM9M",
+   "corpo": "O podcast oficial de Harry Potter volta ao ar. O anúncio foi feito no showcase do Back to Hogwarts de 2026.\n\nRhianna Dhillon segue na apresentação. Law Sharma volta como co-apresentador. Os dois vão publicar episódios semanais sobre a série original da HBO.\n\nO formato acompanha a série semana a semana. Cada episódio analisa o que foi ao ar.\n\nUm episódio bônus foi publicado no Back to Hogwarts Day. O convidado é David Heyman, produtor executivo da série. Heyman também produziu os oito filmes de Harry Potter no cinema.\n\nO podcast entra no ar junto com o restante das novidades da série. A primeira temporada é Harry Potter and the Philosopher's Stone. A estreia está marcada para o Natal, na HBO Max.",
+   "fonteLida": true
+  },
+  {
+   "id": "oxford-street-flagship-2026-08-31",
+   "date": "2026-08-31",
+   "status": "official",
+   "category": "Lojas e experiências",
+   "headline": "Harry Potter Shop Oxford Street abre em 4 de novembro com 21 mil pés quadrados",
+   "summary": "A nova loja de Harry Potter abre em 4 de novembro de 2026, no endereço The Ribbon, entre os números 134 e 140 da Oxford Street, em Londres. O espaço passa de 21 mil pés quadrados e será a maior loja da franquia no Reino Unido. A decoração se inspira na Diagon Alley, com um dragão Ukrainian Ironbelly, uma réplica do Knight Bus e uma área de comida com tema do Leaky Cauldron.",
+   "source": "Soap Central",
+   "url": "https://www.soapcentral.com/shows/harry-potter-back-hogwarts-event-every-reveal-new-house-crests-wand-replicas",
+   "image": "assets/thumbs/oxford-street-flagship-2026-08-31.jpg",
+   "corpo": "A nova loja de Harry Potter em Londres abre em 4 de novembro de 2026. O endereço é The Ribbon, entre os números 134 e 140 da Oxford Street.\n\nO espaço tem mais de 21 mil pés quadrados. Segundo o anúncio, é a maior loja da franquia no Reino Unido.\n\nO projeto se inspira na Diagon Alley. Dentro da loja ficam um dragão Ukrainian Ironbelly e uma réplica do Knight Bus. Há também uma área de comida com tema do Leaky Cauldron.\n\nO anúncio saiu no evento Back to Hogwarts. Na mesma ocasião foram apresentados os novos brasões das casas de Hogwarts, com desenho mais simples e mais destaque para os animais de cada casa. O corvo da Ravenclaw deu lugar a uma águia em azul e bronze, mais próxima dos livros. A reação dos fãs foi dividida. Parte deles criticou a águia e o traço minimalista.\n\nA carta de aceitação de Harry também muda. Segundo o anúncio, ela vai lembrar mais a versão descrita nos livros do que a que aparece nos filmes. O quiz do Chapéu Seletor foi refeito, com nova animação, nova música e os brasões atualizados.\n\nOutras experiências foram divulgadas no mesmo evento. O ICE! fica no Gaylord Texan Resort, em Grapevine, no Texas, de 13 de novembro de 2026 a 3 de janeiro de 2027, com cerca de 2 milhões de libras de gelo em dez cenas. O Warner Bros. Studio Tour London tem evento de 23 de janeiro a 19 de abril de 2027. O Warner Bros. World Yas Island, em Abu Dhabi, prepara três novas áreas temáticas, com detalhes em 7 de setembro de 2026.\n\nTambém foram anunciados sets de LEGO baseados na série da HBO, novos jogos e produtos de comida, como Exploding Bon Bons, uma bomba de chocolate quente do Chapéu Seletor e um kit de bolo de aniversário. As experiências de voo de vassoura foram ampliadas. A série da HBO estreia em 25 de dezembro de 2026.",
+   "fonteLida": true
+  },
+  {
+   "id": "illustrated-half-blood-prince-2026-08-31",
+   "date": "2026-08-31",
+   "status": "official",
+   "category": "Livros e áudio",
+   "headline": "Edição ilustrada de Half-Blood Prince por Levi Pinfold chega em 6 de outubro",
+   "summary": "A Bloomsbury publica a edição ilustrada de Harry Potter and the Half-Blood Prince em 6 de outubro. A arte é de Levi Pinfold, ilustrador premiado que assumiu a série no lugar de Jim Kay. Pinfold já havia ilustrado as edições das casas de Hogwarts. Este é o sexto livro da saga a ganhar edição ilustrada. O anúncio foi feito durante o showcase do Back to Hogwarts de 2026.",
+   "source": "Wizarding World",
+   "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
+   "image": "assets/thumbs/illustrated-half-blood-prince-2026-08-31.jpg",
+   "corpo": "A Bloomsbury publica em 6 de outubro a edição ilustrada de Harry Potter and the Half-Blood Prince.\n\nA arte é de Levi Pinfold. O ilustrador é premiado e assumiu a série no lugar de Jim Kay.\n\nPinfold já tinha trabalhado no universo de Harry Potter. Ele ilustrou as edições dedicadas às casas de Hogwarts.\n\nO anúncio faz parte do showcase do Back to Hogwarts de 2026. O evento reuniu novidades de livros, jogos, lojas, parques e da série da HBO.\n\nNa mesma lista de novidades de áudio, as narrações de Stephen Fry e de Jim Dale para Harry Potter and the Philosopher's Stone ficaram gratuitas até 31 de outubro. Os títulos estão no Audible, no Amazon Music, no Spotify e no canal oficial de Harry Potter no YouTube, sem necessidade de assinatura paga.",
+   "fonteLida": true
+  },
+  {
+   "id": "lego-remastered-switch-2-2026-08-31",
+   "date": "2026-08-31",
+   "status": "official",
+   "category": "Jogos",
+   "headline": "LEGO Harry Potter Collection chega ao Nintendo Switch 2 em 16 de outubro",
+   "summary": "A coleção remasterizada LEGO Harry Potter Collection chega ao Nintendo Switch 2 em 16 de outubro. As pré-vendas já estão abertas na Nintendo eShop. Harry Potter Hogwarts Mystery lança em setembro o evento Castle Chronicles, dedicado à história de amor de Lily e James Potter. Harry Potter Puzzles and Spells ganha o modo Epic Quidditch, com competição entre clubes em eventos de vários dias.",
+   "source": "Wizarding World",
+   "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
+   "image": "assets/thumbs/lego-remastered-switch-2-2026-08-31.jpg",
+   "video": "zpLF2QXbb0g",
+   "corpo": "A LEGO Harry Potter Collection remasterizada chega ao Nintendo Switch 2 em 16 de outubro. As pré-vendas já estão abertas na Nintendo eShop.\n\nO anúncio saiu no showcase do Back to Hogwarts de 2026, junto com outras novidades de jogos.\n\nHarry Potter Puzzles and Spells ganha um modo novo chamado Epic Quidditch. O modo coloca clubes para competir em desafios de puzzle com tema de quadribol. As disputas acontecem em eventos de vários dias.\n\nHarry Potter Hogwarts Mystery lança o evento Castle Chronicles em setembro. O evento explora a história de amor entre Lily e James Potter. O jogo recebe ainda outras atualizações.\n\nNovos sets de LEGO inspirados na série da HBO também foram anunciados no evento. Os detalhes ainda serão divulgados.\n\nA série original da HBO, Harry Potter and the Philosopher's Stone, estreia no Natal na HBO Max. O showcase apresentou ainda lojas, livros, áudio e novas áreas em parques.",
+   "fonteLida": true
+  },
+  {
+   "id": "abu-dhabi-lands-reveal-2026-08-31",
+   "date": "2026-08-31",
+   "status": "official",
+   "category": "Lojas e experiências",
+   "headline": "Warner Bros World Abu Dhabi prepara três novas áreas temáticas de Harry Potter",
+   "summary": "O evento Back to Hogwarts de 1 de setembro de 2026 reuniu vários anúncios. O Warner Bros World Abu Dhabi informou que três novas áreas temáticas estão em desenvolvimento e prometeu mais detalhes para 7 de setembro de 2026. O encontro também apresentou os novos brasões das casas de Hogwarts, com a águia da Corvinal no lugar do corvo, e confirmou a estreia da série da HBO em 25 de dezembro de 2026.",
+   "source": "Soap Central",
+   "url": "https://www.soapcentral.com/shows/harry-potter-back-hogwarts-event-every-reveal-new-house-crests-wand-replicas",
+   "image": "assets/thumbs/abu-dhabi-lands-reveal-2026-08-31.jpg",
+   "video": "qWIByerF_Qc",
+   "corpo": "O evento Back to Hogwarts, realizado em 1 de setembro de 2026, apresentou uma série de novidades do mundo de Harry Potter.\n\nO Warner Bros World Abu Dhabi informou que três novas áreas temáticas estão em desenvolvimento. O parque prometeu revelar mais detalhes em 7 de setembro de 2026.\n\nOs novos brasões das casas de Hogwarts também foram mostrados. Os desenhos ficaram mais simples e destacam os animais de cada casa. A Corvinal aparece com a águia, que é o animal descrito nos livros, no lugar do corvo. O azul e o bronze originais foram mantidos. A reação do público ficou dividida, e parte dos fãs criticou o traço minimalista.\n\nA atração ICE! no Gaylord Texan Resort funciona de 13 de novembro de 2026 a 3 de janeiro de 2027. Serão cerca de 2 milhões de libras de gelo esculpidas em 10 cenas inspiradas em Harry Potter.\n\nO Warner Bros. Studio Tour London terá uma temporada especial de 23 de janeiro a 19 de abril de 2027. Uma nova loja abre na Oxford Street em 4 de novembro de 2026, com mais de 21 mil pés quadrados. Ela será a maior loja da franquia no Reino Unido.\n\nO evento confirmou ainda que a série da HBO estreia em 25 de dezembro de 2026. Também foram anunciados conteúdo no desfile de Ação de Graças da Macy's, novos sets da LEGO ligados à série da HBO, uma versão atualizada do quiz do Chapéu Seletor com novas animações e produtos de alimentação temáticos, entre eles os Exploding Bon Bons e bombas de chocolate quente.",
+   "fonteLida": true
+  },
+  {
+   "id": "ice-gaylord-texan-2026-08-31",
+   "date": "2026-08-31",
+   "status": "official",
+   "category": "Lojas e experiências",
+   "headline": "Gaylord Texan monta em gelo dez cenas famosas dos filmes de Harry Potter",
+   "summary": "O Gaylord Texan Resort, em Dallas, apresenta em novembro uma versão congelada de dez cenas famosas dos filmes de Harry Potter. O passeio pelo gelo inclui o Expresso de Hogwarts, a Floresta Proibida, a Honeydukes, o campo de quadribol e o Salão Principal. A atração se chama ICE! featuring Harry Potter e funciona de 13 de novembro de 2026 a 2 de janeiro de 2027.",
+   "source": "Wizarding World",
+   "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
+   "image": "assets/thumbs/ice-gaylord-texan-2026-08-31.jpg",
+   "video": "z8cu9cB47Fs",
+   "corpo": "O Gaylord Texan Resort, em Dallas, vai apresentar uma versão congelada de dez cenas famosas dos filmes de Harry Potter. O anúncio faz parte do showcase do Back to Hogwarts de 2026.\n\nA atração se chama ICE! featuring Harry Potter. Ela reproduz em gelo dez momentos conhecidos das oito produções.\n\nO percurso passa pelo Expresso de Hogwarts, pela Floresta Proibida, pela Honeydukes, pelo campo de quadribol e pelo Salão Principal. Cada cena é montada como uma parada do trajeto.\n\nA temporada começa em 13 de novembro de 2026 e vai até 2 de janeiro de 2027. O evento acontece no resort, perto de Dallas, no Texas.\n\nA página oficial não informa a quantidade de gelo usada na montagem. Também não traz declarações de organizadores sobre a atração.\n\nO anúncio entrou em uma lista maior de novidades divulgadas no dia 31 de agosto de 2026. A lista reúne lançamentos ligados aos 25 anos do primeiro filme e à série da HBO prevista para o Natal.",
+   "fonteLida": true
+  },
+  {
+   "id": "macys-parade-debut-2026-08-31",
+   "date": "2026-08-31",
+   "status": "official",
+   "category": "Lojas e experiências",
+   "headline": "Harry Potter desfila pela primeira vez na Macy's Thanksgiving Day Parade",
+   "summary": "Harry Potter vai aparecer pela primeira vez na Macy's Thanksgiving Day Parade, nos Estados Unidos. A edição deste ano é a de número 100 e acontece na manhã do Dia de Ação de Graças, em novembro. Segundo a página oficial, a participação faz parte da preparação para a estreia da série da HBO, prevista para o Natal de 2026.",
+   "source": "Wizarding World",
+   "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
+   "image": "assets/thumbs/macys-parade-debut-2026-08-31.jpg",
+   "corpo": "Harry Potter vai participar pela primeira vez da Macy's Thanksgiving Day Parade. O anúncio foi feito no showcase do Back to Hogwarts de 2026.\n\nA página oficial informa que esta será a centésima edição do desfile. A data é a manhã do Dia de Ação de Graças, em novembro, nos Estados Unidos.\n\nA participação foi apresentada como parte da preparação para a estreia da série da HBO. A série chega no Natal deste ano.\n\nO site não detalhou o formato da participação nem o tamanho do balão ou do carro alegórico. Também não informou horário nem trajeto.\n\nO desfile é organizado pela Macy's e passa pelas ruas de Nova York. É um dos eventos mais assistidos da televisão americana no feriado.\n\nO anúncio apareceu junto com outras novidades divulgadas em 31 de agosto de 2026, todas ligadas aos 25 anos do primeiro filme e à chegada da série.",
+   "fonteLida": true
+  },
+  {
+   "id": "wizards-of-baking-s3-2026-08-31",
+   "date": "2026-08-31",
+   "status": "official",
+   "category": "Televisão",
+   "headline": "Wizards of Baking volta em terceira temporada com disputa entre as casas de Hogwarts",
+   "summary": "O programa de confeitaria Wizards of Baking volta nesta temporada de festas com formato de torneio. As casas de Hogwarts vão competir entre si, com bolos e doces inspirados em cada um dos oito filmes. A temporada celebra os 25 anos do filme Harry Potter and the Philosopher's Stone. James e Oliver Phelps aparecem falando sobre a nova fase do programa.",
+   "source": "Wizarding World",
+   "url": "https://www.harrypotter.com/news/everything-revealed-in-the-back-to-hogwarts-showcase-2026",
+   "image": "assets/thumbs/wizards-of-baking-s3-2026-08-31.jpg",
+   "video": "AxYsZULb-LE",
+   "corpo": "O programa Wizards of Baking foi confirmado para uma terceira temporada. O anúncio saiu no showcase do Back to Hogwarts de 2026.\n\nA novidade desta vez é o formato de torneio. As casas de Hogwarts vão competir umas contra as outras ao longo da temporada.\n\nOs desafios de confeitaria são inspirados em cada um dos oito filmes. A temporada marca os 25 anos de Harry Potter and the Philosopher's Stone.\n\nJames e Oliver Phelps aparecem no material de divulgação falando sobre a nova temporada. A página oficial não traz declarações diretas deles nem informações sobre os jurados.\n\nA exibição acontece no HBO Max e no Food Network para quem está nos Estados Unidos. No Reino Unido e na Irlanda, o programa fica no Amazon Prime.\n\nA página não informou a data exata de estreia. Diz apenas que o programa volta nesta temporada de festas.",
+   "fonteLida": true
+  },
+  {
+   "id": "voldemort-casting-secret-2026",
+   "date": "2026-08-28",
+   "status": "rumor",
+   "category": "Série da HBO",
+   "headline": "Lista de elenco de Harry Potter que viralizou não tem confirmação da HBO",
+   "summary": "Uma publicação da página RuPaul's Drag Race Family no Facebook divulgou em 29 de setembro uma suposta lista de elenco da série de Harry Potter da HBO. O texto apontava Jamie Campbell Bower como Lord Voldemort e Peter Capaldi como Dumbledore. Nada disso foi confirmado. Segundo a Variety, o processo de seleção continua aberto e o prazo para envio de testes vai até 31 de outubro.",
+   "source": "Sportskeeda",
+   "url": "https://www.sportskeeda.com/pop-culture/news-from-jamie-campbell-bower-peter-capaldi-post-alleged-harry-potter-new-series-cast-list-goes-viral-online",
+   "image": "assets/thumbs/voldemort-casting-secret-2026.jpg",
+   "imagemIlustrativa": "Voldemort no Calice de Fogo",
+   "corpo": "Uma suposta lista de elenco da nova série de Harry Potter da HBO viralizou nas redes sociais. A publicação saiu em 29 de setembro na página de fãs RuPaul's Drag Race Family, no Facebook.\n\nO texto apontava três atores mirins nos papéis principais. Toby Woolf apareceria como Harry, Bronte Carmichael como Hermione e Joshua Pickering como Ron.\n\nA lista também citava nomes adultos. Lesley Manville seria McGonagall, Peter Capaldi seria Dumbledore, Kristian Nairn seria Hagrid, Angus Imrie seria Quirrell, Edward Bluemel seria Snape e Lucy David seria a tia Petúnia. Jamie Campbell Bower apareceria como Lord Voldemort.\n\nA mesma publicação afirmava que a série estrearia no outono de 2026.\n\nNada disso foi confirmado. De acordo com a HBO, em reportagem da Variety publicada em 9 de setembro, nenhuma dessas escalações é oficial. O processo de seleção segue em andamento e o prazo para o envio de testes vai até 31 de outubro.\n\nBoatos parecidos já tinham circulado antes. Um texto da Hello Magazine de 27 de junho repercutiu rumores de um usuário do TikTok e citava Tom Felton, Helen Mirren, Blair Underwood e Adam Driver em papéis variados. Nenhum desses nomes foi confirmado.\n\nAté agora a HBO não anunciou nenhuma decisão oficial de elenco para a série de televisão de Harry Potter.",
+   "fonteLida": true
+  },
+  {
+   "id": "rupert-grint-cursed-child-2026-08-27",
+   "date": "2026-08-27",
+   "status": "official",
+   "category": "Teatro",
+   "headline": "Rupert Grint volta a viver Ron Weasley na Broadway a partir de fevereiro de 2027",
+   "summary": "Rupert Grint vai voltar ao papel de Ron Weasley na montagem de Harry Potter and the Cursed Child na Broadway. O ator entra em cartaz no Lyric Theatre de 2 de fevereiro a 30 de maio de 2027, em uma temporada de 17 semanas. Ele viveu o personagem nos oito filmes, entre 2001 e 2011, e retorna ao papel 15 anos depois. O cadastro para a pré-venda de ingressos abre em 1 de setembro.",
+   "source": "Variety",
+   "url": "https://variety.com/2026/legit/global/rupert-grint-ron-weasley-harry-potter-and-the-cursed-child-1236843779/",
+   "image": "assets/thumbs/rupert-grint-cursed-child-2026-08-27.jpg",
+   "corpo": "Rupert Grint vai voltar a interpretar Ron Weasley. O ator entra no elenco de Harry Potter and the Cursed Child na Broadway, 15 anos depois da última vez que viveu o personagem.\n\nNo palco ele interpreta a versão adulta de Ron. A peça acompanha a geração seguinte de estudantes de Hogwarts.\n\nA temporada acontece no Lyric Theatre, de 2 de fevereiro a 30 de maio de 2027. São 17 semanas de apresentações. O cadastro para a pré-venda de ingressos abre em 1 de setembro.\n\nGrint participou dos oito filmes de Harry Potter, de 2001 a 2011.\n\nEm comunicado, o ator disse que Ron Weasley faz parte dele desde os 11 anos de idade. Ele destacou que o retorno tem um significado especial porque tanto ele quanto o personagem agora são pais.\n\nA entrada de Grint vem depois da passagem de Tom Felton pela mesma produção, no papel do Draco Malfoy adulto. A temporada de Felton foi estendida até 3 de janeiro e aumentou a bilheteria do espetáculo.\n\nOs produtores Sonia Friedman e Colin Callender afirmaram que Grint leva ao papel a sua experiência de vida e a sua carreira. Para eles, o ator cria uma ponte poderosa entre os filmes originais e os temas de legado e família que a peça trata.",
+   "fonteLida": true
+  },
+  {
+   "id": "season-2-filming-fall-2026",
+   "date": "2026-08-26",
+   "status": "confirmed",
+   "category": "Série da HBO",
+   "headline": "HBO renova série de Harry Potter e grava Chamber of Secrets no outono de 2026",
+   "summary": "A HBO renovou a série de Harry Potter para uma segunda temporada antes mesmo da estreia da primeira. A nova leva adapta Harry Potter and the Chamber of Secrets e começa a ser filmada no outono de 2026. Jon Brown, roteirista da primeira temporada, foi promovido a co-showrunner ao lado de Francesca Gardiner. O plano da emissora é adaptar os sete livros em sete temporadas ao longo de uma década.",
+   "source": "Variety",
+   "url": "https://variety.com/2026/tv/news/harry-potter-renewed-season-2-hbo-chamber-of-secrets-1236739605/",
+   "image": "assets/thumbs/season-2-filming-fall-2026.jpg",
+   "corpo": "A HBO aprovou oficialmente a segunda temporada da sua adaptação de Harry Potter. A decisão veio antes da estreia da primeira temporada, marcada para o Natal de 2026.\n\nA renovação segue o plano da emissora de adaptar os sete livros de J.K. Rowling em sete temporadas, ao longo de uma década.\n\nA segunda temporada é baseada em Harry Potter and the Chamber of Secrets. As filmagens começam no outono de 2026.\n\nJon Brown, que assinou roteiros da primeira temporada, foi promovido a co-showrunner. Ele divide a função com Francesca Gardiner, showrunner da série.\n\nGardiner afirmou que trazer um co-showrunner é a chave para manter o ritmo do projeto, já que os cronogramas de produção se sobrepõem. Brown disse estar muito animado para colaborar com Francesca como co-showrunner e agradeceu à equipe por confiar nele para seguir nessa jornada.\n\nA primeira temporada tem o título Harry Potter and the Philosopher's Stone. Ela acompanha Harry aos 11 anos, quando ele recebe a carta de admissão em Hogwarts e descobre um inimigo perigoso do seu passado. Dominic McLaughlin vive o personagem.\n\nA produção executiva reúne Mark Mylod, que também dirige, além de J.K. Rowling, Neil Blair, Ruth Kenley-Letts e David Heyman. O estúdio é a Warner Bros. Television.",
+   "fonteLida": true
+  },
+  {
+   "id": "leaked-prologue-dedalus-diggle",
+   "date": "2026-08-26",
+   "status": "leak",
+   "category": "Série da HBO",
+   "headline": "Imagens vazadas do set apontam para uma cena de prólogo que os filmes nunca tiveram",
+   "summary": "Imagens de filmagens em locação mostram Dedalus Diggle e os Dursley no que parece ser uma sequência de abertura tirada do primeiro capítulo do livro. Nada disso foi divulgado pelo estúdio, então os detalhes ainda podem mudar na montagem. A página do Collider não pôde ser aberta pela nossa redação, então este texto é apenas a tradução do material que já estava no arquivo.",
+   "source": "Collider",
+   "url": "https://collider.com/hbo-harry-potter-series-set-images-dedalus-diggle-vernon-dursley-prologue-scene/",
+   "image": "assets/thumbs/leaked-prologue-dedalus-diggle.jpg",
+   "corpo": "Imagens vazadas do set apontam para uma cena de prólogo que os filmes nunca tiveram.\n\nImagens de filmagens em locação mostram Dedalus Diggle e os Dursley no que parece ser uma sequência de abertura tirada do primeiro capítulo do livro.\n\nNada disso foi divulgado pelo estúdio, então os detalhes ainda podem mudar na montagem.\n\nA página original do Collider não pôde ser aberta depois de três tentativas. O texto acima é a tradução do título e do resumo que já constavam no arquivo, sem apuração adicional.",
+   "fonteLida": false
+  },
+  {
+   "id": "cast-reference-rotten-tomatoes",
+   "date": "2026-08-26",
+   "status": "confirmed",
+   "category": "Série da HBO",
+   "headline": "Série de Harry Potter da HBO Max estreia em 25 de dezembro com elenco quase completo",
+   "summary": "A Rotten Tomatoes reuniu o que já se sabe sobre a série de Harry Potter da HBO Max. A estreia está marcada para 25 de dezembro de 2026, e o plano de temporadas vai até 2037, com um livro por temporada. Dominic McLaughlin, Alastair Stout e Arabella Stanton vivem Harry, Ron e Hermione. John Lithgow é Albus Dumbledore e Paapa Essiedu é Severus Snape. O papel de Lord Voldemort seguia sem ator definido em 11 de agosto de 2026.",
+   "source": "Rotten Tomatoes",
+   "url": "https://editorial.rottentomatoes.com/article/everything-we-know-about-hbos-harry-potter-series/",
+   "image": "assets/thumbs/cast-reference-rotten-tomatoes.jpg",
+   "corpo": "A Rotten Tomatoes publicou um guia com o que já se sabe sobre a série de Harry Potter da HBO Max. A estreia está marcada para 25 de dezembro de 2026. O plano prevê novas temporadas até 2037.\n\nCada temporada adapta um dos sete livros. A primeira se chama Harry Potter and the Philosopher's Stone. As gravações começaram em julho de 2025 no Reino Unido. O primeiro trailer saiu em março de 2026.\n\nFrancesca Gardiner é showrunner, roteirista e produtora executiva. Ela ganhou o Emmy por Succession. Gardiner foi escolhida em junho de 2025, depois de um processo de quatro meses com participação de J.K. Rowling. Mark Mylod dirige e também é produtor executivo. Laura Neal é a chefe de roteiro. Neil Blair, Ruth Kenley-Letts e David Heyman completam a produção executiva ao lado de Rowling.\n\nNo trio central, Dominic McLaughlin vive Harry Potter, Alastair Stout vive Ron Weasley e Arabella Stanton vive Hermione Granger.\n\nEntre os professores, John Lithgow é Albus Dumbledore e Paapa Essiedu é Severus Snape. Janet McTeer vive Minerva McGonagall e Nick Frost vive Rubeus Hagrid. Warwick Davis é Filius Flitwick e Luke Thallon é Quirinus Quirrell. Nicholas Hoult foi escalado como Gilderoy Lockhart. Paul Whitehouse é Argus Filch, Louise Brealey é Rolanda Hooch, Sirine Saba é Pomona Sprout, Richard Durden é Cuthbert Binns e Brid Brennan é Poppy Pomfrey.\n\nNa família Weasley, Katherine Parkinson é Molly. Tristan e Gabriel Harland vivem Fred e George. Ruari Spooner é Percy e Gracie Cochrane é Ginny. Entre os alunos, Lox Pratt é Draco Malfoy e Rory Wilmot é Neville Longbottom. Alessia Leoni, Sienna Moosah, Leo Earley, Elijah Oshin, Finn Stephens e William Nash vivem Parvati Patil, Lavender Brown, Seamus Finnigan, Dean Thomas, Vincent Crabbe e Gregory Goyle.\n\nJohnny Flynn é Lucius Malfoy e Bertie Carvel é Cornelius Fudge. Bel Powley e Daniel Rigby vivem Petunia e Vernon Dursley. Até a atualização do texto, em 11 de agosto de 2026, o papel de Lord Voldemort ainda não tinha ator definido. Ralph Fiennes e Cillian Murphy aparecem como possibilidades comentadas.",
+   "fonteLida": true
+  },
+  {
+   "id": "asha-soetan-season-2-leavesden-2026-08-17",
+   "date": "2026-08-17",
+   "status": "confirmed",
+   "category": "Série da HBO",
+   "headline": "Asha Soetan revela que a segunda temporada de Harry Potter já grava em Leavesden",
+   "summary": "A segunda temporada da série de Harry Potter da HBO já está sendo gravada no Warner Bros. Studios Leavesden. A informação veio de um post da atriz Asha Soetan no fim de agosto de 2026. Ela vive a estudante Angelina Johnson e escreveu que estava de volta ao set com cenas empolgantes, mas jurada de segredo. O início havia sido anunciado para o outono, mas as filmagens começaram em agosto.",
+   "source": "Watford Observer",
+   "url": "https://uk.news.yahoo.com/hbo-harry-potter-actor-reveals-161500213.html",
+   "image": "assets/thumbs/asha-soetan-season-2-leavesden-2026-08-17.jpg",
+   "corpo": "A segunda temporada da série de Harry Potter da HBO já está sendo gravada no Warner Bros. Studios Leavesden. A informação veio de um post da atriz Asha Soetan nas redes sociais, publicado no fim de agosto de 2026.\n\nSoetan vive a estudante de Hogwarts Angelina Johnson. Na publicação, ela escreveu que estava de volta ao set com cenas empolgantes, mas jurada de segredo.\n\nO anúncio anterior indicava um início no outono. As filmagens, porém, começaram em agosto de 2026.\n\nO trabalho segue em Leavesden e em locações vizinhas. Uma delas é a Berrybushes Farm, perto de Hunton Bridge.\n\nO elenco tem Dominic McLaughlin como Harry Potter, Alastair Stout como Ron Weasley e Arabella Stanton como Hermione Granger. Paapa Essiedu vive o professor Severus Snape e John Lithgow vive o professor Albus Dumbledore. Nicholas Hoult entra como o professor Gilderoy Lockhart.\n\nA HBO planeja adaptar os sete livros ao longo de uma década, com uma temporada por livro. Os calendários de gravação são compactos para manter a idade dos atores próxima da idade dos personagens.\n\nA primeira temporada adapta Harry Potter and the Philosopher's Stone e estreia neste Natal. A produção é apresentada como uma adaptação fiel ao material de J.K. Rowling.",
+   "fonteLida": true
+  },
+  {
+   "id": "hogwarts-legacy-2-development-2026-08-17",
+   "date": "2026-08-17",
+   "status": "confirmed",
+   "category": "Jogos",
+   "headline": "Warner Bros confirma em relatório financeiro que a sequência de Hogwarts Legacy está em desenvolvimento",
+   "summary": "A Warner Bros. Interactive confirmou que a sequência de Hogwarts Legacy está em desenvolvimento. A informação apareceu no relatório financeiro mais recente da empresa, em agosto de 2026. O jogo é tratado como o segundo título da linha e ainda não tem nome oficial. A Avalanche Software, estúdio do primeiro jogo, é apontada como responsável. O original saiu em fevereiro de 2023 e passou de 22 milhões de cópias vendidas.",
+   "source": "Game Informer",
+   "url": "https://gameinformer.com/2026/08/17/a-hogwarts-legacy-sequel-is-officially-in-development",
+   "image": "assets/thumbs/hogwarts-legacy-2-development-2026-08-17.jpg",
+   "corpo": "A Warner Bros. Interactive confirmou que uma sequência de Hogwarts Legacy está em desenvolvimento. A confirmação apareceu no relatório financeiro mais recente da empresa, divulgado em agosto de 2026.\n\nA empresa trata o jogo como o segundo título da linha Hogwarts Legacy. Ainda não há título oficial anunciado.\n\nA Avalanche Software, estúdio que criou o primeiro jogo, é apontada como responsável pelo desenvolvimento da sequência.\n\nO primeiro Hogwarts Legacy saiu em fevereiro de 2023. Foi o jogo mais vendido daquele ano, com mais de 22 milhões de cópias. Também foi o jogo mais buscado no Google em 2023.\n\nA história se passa nos anos 1890, cerca de um século antes da época de Harry Potter.\n\nO jogo chegou primeiro ao PlayStation 5, ao Xbox Series X e S e ao PC. Depois saiu para PlayStation 4, Xbox One, Nintendo Switch e Switch 2.\n\nO texto também trata da polêmica em torno de J.K. Rowling e do ativismo dela contra pessoas trans, e do uso do lucro da franquia por organizações que atuam contra direitos de pessoas trans. A Warner Bros. Interactive afirmou que Rowling não participou da criação de Hogwarts Legacy, embora tenha lucrado com o sucesso do jogo. Não está claro se ela terá alguma participação na sequência.",
+   "fonteLida": true
+  },
+  {
+   "id": "waterloo-station-paparazzi-2026-05-04",
+   "date": "2026-05-04",
+   "status": "paparazzi",
+   "category": "Série da HBO",
+   "headline": "Fotos do set mostram a estação de Waterloo usada como Kings Cross na série",
+   "summary": "Novas fotos do set da série de Harry Potter da HBO mostram gravações na estação de Waterloo, em Londres, no lugar de King's Cross. Uma imagem traz juntos os atores de Vernon Dursley e Molly Weasley, o que combina com o fim do primeiro livro. Outro homem, não identificado, aparece em uma escada e pode ser o pai de Hermione. Os figurinos tiveram boa reação entre os fãs.",
+   "source": "Notebookcheck",
+   "url": "https://www.notebookcheck.net/Harry-Potter-series-New-set-photos-spark-plenty-of-fan-speculation.1288829.0.html",
+   "image": "assets/thumbs/waterloo-station-paparazzi-2026-05-04.jpg",
+   "corpo": "Novas fotos do set da série de Harry Potter da HBO mostram gravações na estação de Waterloo, em Londres. A estação da história é King's Cross. Os fãs entendem que Waterloo é uma escolha prática de produção e vai representar King's Cross na série.\n\nUma das fotos mostra juntos os atores que vivem Vernon Dursley e Molly Weasley. A cena combina com o fim do primeiro livro, quando Harry volta à estação depois do primeiro ano na escola. A presença dos dois sugere que as filmagens estavam perto do fim e no prazo para a estreia em dezembro.\n\nOutra imagem, feita em uma escada, mostra um homem não identificado. Parte dos fãs acha que ele pode ser o pai de Hermione, que aparece no fim do primeiro livro na estação. A hipótese de Arthur Weasley foi descartada, porque o personagem não está no primeiro livro.\n\nA reação aos figurinos foi positiva. Vernon Dursley aparece de terno cinza e com um bigode marcante. Molly Weasley usa roupas quentes e coloridas.\n\nAs roupas dos gêmeos Weasley receberam elogios à parte. Os fãs falaram em visual gasto, de segunda mão e com charme dos anos 1990, o que combina com a situação financeira da família.\n\nO texto foi publicado em 4 de maio de 2026 por Marius Müller no Notebookcheck.",
+   "fonteLida": true
+  }
+ ]
 }
-</script>
+    </script>
 
 <script>
 (function () {
   var STATUS_ORDER = ["official", "confirmed", "analysis", "rumor", "leak", "paparazzi"];
   var STATUS_LABEL = {
-    official: "Official", confirmed: "Confirmed", analysis: "Analysis",
-    rumor: "Rumor", leak: "Leak", paparazzi: "Paparazzi"
+    official: "Oficial", confirmed: "Confirmado", analysis: "Análise",
+    rumor: "Boato", leak: "Vazamento", paparazzi: "Paparazzi"
   };
 
   /* one drawn mark per desk, used on the rail and when a photograph will not load */
   /* objetos do mundo bruxo, um por editoria, desenhados aqui mesmo */
   var ICONS = {
     /* a cicatriz */
-    "HBO series": '<path d="M13.8 2.4 5.8 14.2h4.5L9.4 21.6 18.4 9.6h-4.9z" fill="currentColor" stroke="none"/>',
+    "Série da HBO": '<path d="M13.8 2.4 5.8 14.2h4.5L9.4 21.6 18.4 9.6h-4.9z" fill="currentColor" stroke="none"/>',
     /* o Expresso de Hogwarts */
-    "Films": '<rect x="3.4" y="8.6" width="9.4" height="7.2" rx="1.2"/>' +
+    "Filmes": '<rect x="3.4" y="8.6" width="9.4" height="7.2" rx="1.2"/>' +
              '<path d="M12.8 10.8h3.6l2.6 3.2v1.8h-6.2z"/>' +
              '<path d="M2.4 17.6h18.6"/>' +
              '<circle cx="7" cy="19.2" r="1.7"/><circle cx="16.4" cy="19.2" r="1.7"/>' +
              '<path d="M6.4 8.6V6.2h2.2v2.4"/>' +
              '<path d="M5.6 4.4c.9-1.5 2.9-1.5 3.8 0"/>',
     /* o livro aberto com a pena */
-    "Books and audio": '<path d="M11.4 7.6C9.2 6.2 6.6 6.2 4 7.2v10.4c2.6-1 5.2-1 7.4.4"/>' +
+    "Livros e áudio": '<path d="M11.4 7.6C9.2 6.2 6.6 6.2 4 7.2v10.4c2.6-1 5.2-1 7.4.4"/>' +
              '<path d="M11.4 7.6c1-.6 2.1-1 3.2-1.1"/>' +
              '<path d="M11.4 7.6v10.4"/>' +
              '<path d="M20.4 4.4c-4 1.2-6.6 4.2-7.4 8.2 3.4.4 6.4-2.4 7.4-8.2z"/>' +
              '<path d="M13.2 12.8 11.6 16"/>',
     /* o pomo de ouro */
-    "Games": '<circle cx="12" cy="12.4" r="3.6"/>' +
+    "Jogos": '<circle cx="12" cy="12.4" r="3.6"/>' +
              '<path d="M8.4 10.8C6 5.8 3 4.4 1.6 6.6c-.4 2.8 2.6 4.8 6.6 5.2"/>' +
              '<path d="M15.6 10.8c2.4-5 5.4-6.4 6.8-4.2.4 2.8-2.6 4.8-6.6 5.2"/>',
     /* o vira tempo */
-    "Stage": '<circle cx="12" cy="12" r="8.4"/>' +
+    "Teatro": '<circle cx="12" cy="12" r="8.4"/>' +
              '<path d="M8.6 7.6h6.8l-3.4 4.4 3.4 4.4H8.6l3.4-4.4z"/>' +
              '<path d="M12 3.6V1.8"/>',
     /* o radio dos bruxos */
-    "Television": '<rect x="2.8" y="8.4" width="18.4" height="11" rx="2"/>' +
+    "Televisão": '<rect x="2.8" y="8.4" width="18.4" height="11" rx="2"/>' +
              '<circle cx="8.4" cy="13.9" r="2.7"/>' +
              '<path d="M14.4 11.6h4.2M14.4 14h4.2M14.4 16.4h4.2"/>' +
              '<path d="M17.4 8.4V4.2"/><path d="M15.6 4.2h3.6"/>',
     /* o frasco de pocao */
-    "Shops and experiences": '<path d="M9.6 2.8h4.8v3.8l3.5 6.1a4.7 4.7 0 0 1-4 7.1h-3.8a4.7 4.7 0 0 1-4-7.1l3.5-6.1z"/>' +
+    "Lojas e experiências": '<path d="M9.6 2.8h4.8v3.8l3.5 6.1a4.7 4.7 0 0 1-4 7.1h-3.8a4.7 4.7 0 0 1-4-7.1l3.5-6.1z"/>' +
              '<path d="M6.6 14.6c1.9.9 3.6.9 5.4 0s3.5-.5 5 .2"/>' +
              '<path d="M8.8 2.8h6.4"/>',
     /* a coruja */
@@ -3967,7 +4309,7 @@
              '<path d="M10.9 12.6 12 14.4l1.1-1.8z" fill="currentColor" stroke="none"/>' +
              '<path d="M6.8 4.6 8.6 7M17.2 4.6 15.4 7"/>',
     /* o livro sob a lupa */
-    "Analise e teoria": '<path d="M10.4 6.2C8.4 5 6.2 5 4 5.9v10.2c2.2-.9 4.4-.9 6.4.3"/>' +
+    "Análise e teoria": '<path d="M10.4 6.2C8.4 5 6.2 5 4 5.9v10.2c2.2-.9 4.4-.9 6.4.3"/>' +
              '<path d="M10.4 6.2v10.2"/>' +
              '<circle cx="16.2" cy="11.6" r="4"/>' +
              '<path d="M19.2 14.6 21.8 17.4"/>',
@@ -3990,9 +4332,9 @@
 
   function fmtDate(iso) {
     var p = iso.split("-");
-    var months = ["January", "February", "March", "April", "May", "June",
-                  "July", "August", "September", "October", "November", "December"];
-    return Number(p[2]) + " " + months[Number(p[1]) - 1] + " " + p[0];
+    var meses = ["janeiro", "fevereiro", "marco", "abril", "maio", "junho",
+                 "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
+    return Number(p[2]) + " de " + meses[Number(p[1]) - 1] + " de " + p[0];
   }
   function esc(t) {
     return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;")
@@ -4224,9 +4566,9 @@
     if (!rows.length) {
       var e = document.createElement("div");
       e.className = "empty";
-      e.textContent = "Nothing in the archive matches that.";
+      e.textContent = "Nada no arquivo bate com isso.";
       var b = document.createElement("button");
-      b.type = "button"; b.textContent = "Clear the filters";
+      b.type = "button"; b.textContent = "Limpar os filtros";
       b.addEventListener("click", clearAll);
       e.appendChild(b);
       listEl.appendChild(e);
@@ -4245,7 +4587,7 @@
         head.innerHTML = '<span class="day-date">' + fmtDate(s.date) + "</span>" +
                          icon(charm, "day-charm") +
                          '<span class="day-line"></span>' +
-                         '<span class="day-count">' + n + (n === 1 ? " story" : " stories") + "</span>";
+                         '<span class="day-count">' + n + (n === 1 ? " matéria" : " matérias") + "</span>";
         listEl.appendChild(head);
       }
 
@@ -4265,7 +4607,7 @@
               STATUS_LABEL[s.status] + "</button>" +
             '<span class="desk">' + icon(s.category, "deskmark") + esc(s.category) + "</span>" +
           "</div>" +
-          '<h2 class="headline"><a href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer">' +
+          '<h2 class="headline"><a href="#materia/' + esc(s.id) + '" data-materia="' + esc(s.id) + '">' +
             esc(s.headline) + "</a></h2>" +
           '<div class="well">' +
             shot(s) +
@@ -4289,7 +4631,7 @@
               STATUS_LABEL[s.status] + "</button>" +
             '<span class="desk">' + icon(s.category, "deskmark") + esc(s.category) + "</span>" +
           "</div>" +
-          '<h2 class="headline"><a href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer">' +
+          '<h2 class="headline"><a href="#materia/' + esc(s.id) + '" data-materia="' + esc(s.id) + '">' +
             esc(s.headline) + "</a></h2>" +
           '<p class="summary"><span class="drop">' + esc(s.summary.charAt(0)) + "</span>" +
             esc(s.summary.slice(1)) + "</p>" +
@@ -4349,7 +4691,7 @@
 
   document.getElementById("stamp-date").textContent = fmtDate(data.updated);
   var iss = document.getElementById("issueDate"); if (iss) iss.textContent = fmtDate(data.updated);
-  var isn = document.getElementById("issueNo"); if (isn) isn.textContent = "Issue #" + stories.length;
+  var isn = document.getElementById("issueNo"); if (isn) isn.textContent = "Edição nº " + stories.length;
   document.getElementById("stamp-count").textContent = stories.length + " histórias";
   syncNav();
   document.addEventListener("click", function (ev) {
@@ -6119,7 +6461,7 @@ function retrato(nome) {
       for (var j = 0; j < OURO.length; j++) if (q.indexOf(OURO[j]) === 0) return "gold";
       return "comum";
     }
-    dados.forEach(function (d, i) { d.i = i; d.raro = raro(d.quote); });
+    dados.forEach(function (d, i) { d.i = i; if (!d.raro) d.raro = raro(d.quote); });
 
     /* ordem do album, livro por livro e capitulo por capitulo */
     var ordem = dados.slice().sort(function (a, b) {
@@ -6664,7 +7006,161 @@ function retrato(nome) {
     <div id="albumBooks"></div>
   </div>
 </div>
+<div class="leitura" id="leitura" hidden>
+  <div class="leitura-page" role="dialog" aria-modal="true" aria-label="Materia">
+    <div class="leitura-topo">
+      <span class="leitura-marca">Prophet Watch</span>
+      <button type="button" class="album-btn" id="leituraClose">Voltar ao jornal</button>
+    </div>
+    <div class="leitura-corpo" id="leituraCorpo"></div>
+  </div>
+</div>
 <div class="found-tally" id="tally" aria-hidden="true"></div>
+
+
+<script>
+/* ---------------------------------------------------------------------
+   A pagina de leitura.
+   A materia abre aqui dentro, com a foto e o texto em portugues, e um
+   botao leva ao site onde ela foi publicada. O endereco ganha um
+   #materia/id, entao o botao de voltar do navegador funciona e o link
+   pode ser passado para outra pessoa.
+   ------------------------------------------------------------------ */
+(function () {
+  var caixa = document.getElementById("leitura");
+  var alvo  = document.getElementById("leituraCorpo");
+  if (!caixa || !alvo) return;
+
+  var bruto = document.getElementById("news-data");
+  var materias = {};
+  try {
+    JSON.parse(bruto.textContent).stories.forEach(function (s) { materias[s.id] = s; });
+  } catch (e) { return; }
+
+  var ROTULO = {
+    official: "Oficial", confirmed: "Confirmado", analysis: "Análise",
+    rumor: "Boato", leak: "Vazamento", paparazzi: "Paparazzi"
+  };
+  var MESES = ["janeiro", "fevereiro", "marco", "abril", "maio", "junho",
+               "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
+
+  function esc(t) {
+    return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+  function dataEmPortugues(iso) {
+    var p = String(iso).split("-");
+    return Number(p[2]) + " de " + MESES[Number(p[1]) - 1] + " de " + p[0];
+  }
+  function paragrafos(texto) {
+    return String(texto || "").split(/\n\s*\n/).map(function (t) {
+      return t.trim();
+    }).filter(Boolean);
+  }
+
+  function monta(s) {
+    var figura = "";
+    if (s.video) {
+      figura = '<figure><iframe src="' + esc(s.video) + '" loading="lazy" ' +
+               'referrerpolicy="strict-origin-when-cross-origin" allowfullscreen ' +
+               'title="' + esc(s.headline) + '"></iframe>' +
+               (s.imagemIlustrativa ? "<figcaption>" + esc(s.imagemIlustrativa) + "</figcaption>" : "") +
+               "</figure>";
+    } else if (s.image) {
+      var src = (window.IMGMAP && window.IMGMAP[s.image]) || s.image;
+      figura = '<figure><img src="' + esc(src) + '" alt="" loading="lazy">' +
+               (s.imagemIlustrativa
+                 ? "<figcaption>" + esc(s.imagemIlustrativa) + "</figcaption>"
+                 : '<figcaption>Imagem ilustrativa</figcaption>') +
+               "</figure>";
+    }
+
+    var corpo = paragrafos(s.corpo || s.summary).map(function (t) {
+      return "<p>" + esc(t) + "</p>";
+    }).join("");
+
+    var aviso = "";
+    if (s.fonteLida === false) {
+      aviso = '<p class="leitura-aviso">O texto abaixo e o resumo que a redacao escreveu, ' +
+              'porque a pagina original nao abriu para nos. A materia inteira esta no site da fonte.</p>';
+    }
+
+    return '<div class="leitura-kicker">' +
+             '<span class="selo">' + esc(ROTULO[s.status] || s.status) + "</span>" +
+             "<span>" + esc(s.category) + "</span>" +
+           "</div>" +
+           '<h2 class="titulo">' + esc(s.headline) + "</h2>" +
+           '<div class="leitura-linha">' + dataEmPortugues(s.date) +
+             " &#183; " + esc(s.source) + "</div>" +
+           figura + aviso +
+           '<div class="leitura-texto">' + corpo + "</div>" +
+           '<div class="leitura-pe">' +
+             '<span class="nota">Texto em português do Prophet Watch</span>' +
+             '<a class="album-btn forte" href="' + esc(s.url) + '" target="_blank" ' +
+               'rel="noopener noreferrer">Ver no site oficial</a>' +
+             '<button type="button" class="album-btn" data-fecha>Voltar ao jornal</button>' +
+           "</div>";
+  }
+
+  var voltouDeOnde = 0;
+  function abre(id) {
+    var s = materias[id];
+    if (!s) { fecha(); return; }
+    alvo.innerHTML = monta(s);
+    caixa.hidden = false;
+    document.body.style.overflow = "hidden";
+    caixa.scrollTop = 0;
+    var b = caixa.querySelector(".album-btn");
+    if (b) b.focus();
+  }
+  function fecha() {
+    caixa.hidden = true;
+    alvo.innerHTML = "";
+    document.body.style.overflow = "";
+  }
+
+  function pelaUrl() {
+    var h = location.hash || "";
+    if (h.indexOf("#materia/") === 0) abre(decodeURIComponent(h.slice(9)));
+    else if (!caixa.hidden) fecha();
+  }
+
+  document.addEventListener("click", function (ev) {
+    var fechar = ev.target.closest && ev.target.closest("[data-fecha], #leituraClose");
+    if (fechar) {
+      ev.preventDefault();
+      if (location.hash.indexOf("#materia/") === 0) history.back();
+      else fecha();
+      return;
+    }
+    var a = ev.target.closest && ev.target.closest("a[data-materia]");
+    if (a) {
+      ev.preventDefault();
+      location.hash = "materia/" + encodeURIComponent(a.getAttribute("data-materia"));
+      return;
+    }
+    /* clicar na foto do cartao tambem abre a materia */
+    var fig = ev.target.closest && ev.target.closest("#list figure.cut");
+    if (fig) {
+      var cartao = fig.closest("article, section");
+      var link = cartao && cartao.querySelector("a[data-materia]");
+      if (link) {
+        ev.preventDefault();
+        location.hash = "materia/" + encodeURIComponent(link.getAttribute("data-materia"));
+      }
+    }
+  });
+
+  document.addEventListener("keydown", function (ev) {
+    if (ev.key === "Escape" && !caixa.hidden) {
+      if (location.hash.indexOf("#materia/") === 0) history.back(); else fecha();
+    }
+  });
+
+  window.addEventListener("hashchange", pelaUrl);
+  pelaUrl();
+}());
+</script>
 
 <!-- SHARED-BODY-END -->
 </body>
