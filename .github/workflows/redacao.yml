@@ -12,7 +12,8 @@ permissions:
 
 concurrency:
   group: redacao
-  cancel-in-progress: false
+  # a rodada nova manda. Assim uma rodada travada nunca prende o botao
+  cancel-in-progress: true
 
 jobs:
   fechar-edicao:
@@ -54,4 +55,7 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git add -A
           git commit -m "Edicao de $(date -u +%d\ de\ %B\ de\ %Y)"
+          # se alguem empurrou algo enquanto a rodada trabalhava, rebaseia em
+          # vez de perder o trabalho todo num push recusado
+          git pull --rebase --autostash origin main || git rebase --abort
           git push
