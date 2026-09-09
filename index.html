@@ -902,6 +902,11 @@
     z-index: 1;
   }
   .shot.moving.rolling iframe { opacity: 1; }
+  /* o video usa a mesma tinta das fotos. No jornal impresso ele entra em
+     preto e branco com a mesma reticula, e so no modo escuro fica colorido. */
+  :root[data-theme="light"] .shot.moving iframe {
+    filter: grayscale(1) contrast(1.62) brightness(1.06) sepia(.18);
+  }
   .shot.moving img { opacity: 1; }
   .shot.moving::after { z-index: 2; }
 
@@ -4108,7 +4113,9 @@
     reelObserver = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
         var box = en.target;
-        if (!en.isIntersecting) { sleepReel(box); return; }
+        /* saiu da tela, para o video e libera para rodar de novo na volta */
+        if (!en.isIntersecting) { sleepReel(box); box._reelDone = false; return; }
+        if (box._reelDone) return;
         if (box.querySelector("iframe")) return;
         var id = box.getAttribute("data-video");
         if (!id) return;
@@ -4124,6 +4131,12 @@
         f.addEventListener("load", function () {
           settled = true;
           box.classList.add("rolling");
+          /* trinta segundos de imagem que se mexe, depois a fotografia volta.
+             Ele roda de novo quando a materia sair e voltar para a tela. */
+          box._reelTimer = setTimeout(function () {
+            box._reelDone = true;
+            sleepReel(box);
+          }, 30000);
         });
         f.addEventListener("error", function () { settled = true; sleepReel(box); });
         setTimeout(function () { if (!settled) sleepReel(box); }, 6000);
@@ -4135,6 +4148,7 @@
     });
   }
   function sleepReel(box) {
+    if (box._reelTimer) { clearTimeout(box._reelTimer); box._reelTimer = 0; }
     var f = box.querySelector("iframe");
     if (f) { f.remove(); box.classList.remove("rolling"); }
   }
