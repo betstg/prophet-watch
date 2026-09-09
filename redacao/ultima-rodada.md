@@ -1,13 +1,20 @@
 # Ultima rodada da redacao
 
-**Desfecho**, falta a chave do modelo
+**Desfecho**, o modelo nao respondeu, o modelo respondeu HTTP 503. {
+  "error": {
+    "code": 503,
+    "message": "This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+    "status": "UNAVAILABLE"
+  }
+}
 
-**Quando**, 09/09/2026 13:51 UTC
+
+**Quando**, 09/09/2026 13:56 UTC
 
 ```
 Prophet Watch, redacao de 2026-09-09. Janela de 2026-09-05 ate 2026-09-09.
 Ja no jornal, 40 materias.
-Chave do modelo, AUSENTE.
+Chave do modelo, presente.
 
 == VIGIA ==
   Wizarding World                0 de 1
@@ -26,7 +33,7 @@ Chave do modelo, AUSENTE.
   Observatorio Potter            0 de 15
   Wizarding Bruno                0 de 15
   O Expresso de Hogwarts         0 de 15
-  The Leaky Cauldron             HTTP 522
+  The Leaky Cauldron             HTTP 403
   MuggleNet                      0 de 10
   Wizarding World Direct         0 de 10
   SnitchSeeker                   0 de 25
@@ -52,6 +59,25 @@ Chave do modelo, AUSENTE.
   Harry Potter Exhibition        0 de 0
 Novidades para olhar, 1.
 
-O vigia achou coisa nova, mas falta a chave do modelo.
-Guarde GEMINI_API_KEY nos segredos do repositorio.
+== MODELO ==
+  gemini-2.5-flash
+  nota, a conta oferece 50 modelos, gemini-2.5-flash, gemini-2.5-pro, gemini-2.5-flash-preview-tts, gemini-2.5-pro-preview-tts, gemma-4-26b-a4b-it, gemma-4-31b-it, gemini-flash-latest, gemini-flash-lite-latest, gemini-pro-latest, gemini-2.5-flash-lite, gemini-2.5-flash-image, gemini-3-flash-preview, gemini-3.1-pro-preview, gemini-3.1-pro-preview-customtools
+  nota, usando gemini-2.5-flash
+
+== REPORTERES ==
+  PAROU AQUI, o modelo respondeu HTTP 503. {
+  "error": {
+    "code": 503,
+    "message": "This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+    "status": "UNAVAILABLE"
+  }
+}
+
+  nota, a conta oferece 50 modelos, gemini-2.5-flash, gemini-2.5-pro, gemini-2.5-flash-preview-tts, gemini-2.5-pro-preview-tts, gemma-4-26b-a4b-it, gemma-4-31b-it, gemini-flash-latest, gemini-flash-lite-latest, gemini-pro-latest, gemini-2.5-flash-lite, gemini-2.5-flash-image, gemini-3-flash-preview, gemini-3.1-pro-preview, gemini-3.1-pro-preview-customtools
+  nota, usando gemini-2.5-flash
+  nota, gemini-2.5-flash recusou com HTTP 404, {
+  "error": {
+    "code": 404,
+    "message": "This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use models/ge
+  nota, usando gemini-flash-latest
 ```
