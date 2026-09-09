@@ -1,2 +1,4 @@
 .DS_Store
 artifact.html
+redacao/__pycache__/
+redacao/novas.json
