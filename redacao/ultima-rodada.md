@@ -1,15 +1,8 @@
 # Ultima rodada da redacao
 
-**Desfecho**, o modelo nao respondeu, o modelo respondeu HTTP 503. {
-  "error": {
-    "code": 503,
-    "message": "This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
-    "status": "UNAVAILABLE"
-  }
-}
+**Desfecho**, os reporteres viram 1 titulos e nenhum valia abrir
 
-
-**Quando**, 09/09/2026 13:56 UTC
+**Quando**, 09/09/2026 14:15 UTC
 
 ```
 Prophet Watch, redacao de 2026-09-09. Janela de 2026-09-05 ate 2026-09-09.
@@ -60,24 +53,12 @@ Chave do modelo, presente.
 Novidades para olhar, 1.
 
 == MODELO ==
-  gemini-2.5-flash
+  gemini-flash-latest
   nota, a conta oferece 50 modelos, gemini-2.5-flash, gemini-2.5-pro, gemini-2.5-flash-preview-tts, gemini-2.5-pro-preview-tts, gemma-4-26b-a4b-it, gemma-4-31b-it, gemini-flash-latest, gemini-flash-lite-latest, gemini-pro-latest, gemini-2.5-flash-lite, gemini-2.5-flash-image, gemini-3-flash-preview, gemini-3.1-pro-preview, gemini-3.1-pro-preview-customtools
-  nota, usando gemini-2.5-flash
+  nota, usando gemini-flash-latest
 
 == REPORTERES ==
-  PAROU AQUI, o modelo respondeu HTTP 503. {
-  "error": {
-    "code": 503,
-    "message": "This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
-    "status": "UNAVAILABLE"
-  }
-}
+  serie     olhou  1 titulos, quer abrir 0
 
-  nota, a conta oferece 50 modelos, gemini-2.5-flash, gemini-2.5-pro, gemini-2.5-flash-preview-tts, gemini-2.5-pro-preview-tts, gemma-4-26b-a4b-it, gemma-4-31b-it, gemini-flash-latest, gemini-flash-lite-latest, gemini-pro-latest, gemini-2.5-flash-lite, gemini-2.5-flash-image, gemini-3-flash-preview, gemini-3.1-pro-preview, gemini-3.1-pro-preview-customtools
-  nota, usando gemini-2.5-flash
-  nota, gemini-2.5-flash recusou com HTTP 404, {
-  "error": {
-    "code": 404,
-    "message": "This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use models/ge
-  nota, usando gemini-flash-latest
+Os reporteres nao acharam nada que valesse abrir.
 ```
