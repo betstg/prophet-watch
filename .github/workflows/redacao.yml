@@ -28,6 +28,16 @@ jobs:
       - name: Instalar o que a redacao usa
         run: pip install --quiet pillow
 
+      # A memoria do vigia e cache, nao e fonte. Guardar ela no repositorio
+      # fazia o Actions e o Mac da Betty brigarem pelo mesmo arquivo.
+      - name: Recuperar a memoria do vigia
+        uses: actions/cache@v4
+        with:
+          path: redacao/visto.json
+          key: vigia-${{ github.run_id }}
+          restore-keys: |
+            vigia-
+
       - name: Rodar a redacao
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}

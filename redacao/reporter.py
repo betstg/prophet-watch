@@ -48,8 +48,12 @@ def pauta(editoria, novidades, teto=45):
         INSTRUCAO.format(pauta=PAUTA.get(editoria, "noticias de Harry Potter")),
         "Manchetes novas da sua area.\n\n" + lista,
         teto_saida=1500)
+    if saida is None:
+        # o modelo nao respondeu. Isso nao pode passar por dia sem noticia,
+        # senao a redacao fica muda e ninguem descobre.
+        raise modelo.SemModelo("o reporter de %s nao recebeu resposta do modelo" % editoria)
     if not isinstance(saida, list):
-        return []
+        raise modelo.SemModelo("o reporter de %s recebeu resposta fora do formato" % editoria)
     validos = {n["endereco"] for n in novidades}
     escolhidos = []
     for item in saida:

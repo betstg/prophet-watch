@@ -35,8 +35,31 @@ JANELA = 4          # quantos dias para tras uma materia ainda e nova
 TETO_EDICAO = 6     # quantas materias no maximo por rodada
 
 
+LINHAS = []
+DESFECHO = ["sem desfecho"]
+
+
 def diz(*a):
-    print(*a, flush=True)
+    texto = " ".join(str(x) for x in a)
+    LINHAS.append(texto)
+    print(texto, flush=True)
+
+
+def fecha_relatorio(desfecho):
+    """Escreve o que aconteceu num lugar legivel sem abrir log de Actions."""
+    import io
+    corpo = ("# Ultima rodada da redacao\n\n"
+             "**Desfecho**, %s\n\n"
+             "**Quando**, %s\n\n```\n%s\n```\n"
+             % (desfecho,
+                datetime.datetime.utcnow().strftime("%d/%m/%Y %H:%M UTC"),
+                "\n".join(LINHAS)[-14000:]))
+    with io.open(os.path.join(AQUI, "ultima-rodada.md"), "w", encoding="utf-8") as f:
+        f.write(corpo)
+    resumo = os.environ.get("GITHUB_STEP_SUMMARY")
+    if resumo:
+        with io.open(resumo, "a", encoding="utf-8") as f:
+            f.write(corpo)
 
 
 def ja_publicado():
@@ -59,7 +82,7 @@ def nome_bonito(dominio):
     return partes.replace(".", " ").replace("-", " ").title()
 
 
-def main():
+def _corpo():
     hoje = datetime.date.today()
     ate = hoje.isoformat()
     desde = (hoje - datetime.timedelta(days=JANELA)).isoformat()
@@ -75,10 +98,12 @@ def main():
     novidades = [n for n in novidades if n["endereco"] not in enderecos]
     diz("Novidades para olhar, %d." % len(novidades))
     if not novidades:
+        DESFECHO[0] = "nada novo nas bancadas"
         diz("\nNada novo nas bancadas. A edicao de hoje fica como esta.")
         return 0
 
     if not modelo.CHAVE:
+        DESFECHO[0] = "falta a chave do modelo"
         diz("\nO vigia achou coisa nova, mas falta a chave do modelo.")
         diz("Guarde GEMINI_API_KEY nos segredos do repositorio.")
         return 1
@@ -100,6 +125,7 @@ def main():
         candidatos.extend(escolhidos)
 
     if not candidatos:
+        DESFECHO[0] = "os reporteres viram %d titulos e nenhum valia abrir" % len(novidades)
         diz("\nOs reporteres nao acharam nada que valesse abrir.")
         return 0
 
@@ -128,6 +154,7 @@ def main():
     aprovadas = firmes[:TETO_EDICAO]
 
     if not aprovadas:
+        DESFECHO[0] = "%d materias abertas e nenhuma passou na checagem" % len(candidatos[:14])
         diz("\nNada passou na checagem. A edicao de hoje fica como esta.")
         return 0
 
@@ -135,6 +162,7 @@ def main():
     prontas = editor.fecha(aprovadas, manchetes)
     prontas = [p for p in prontas if p["id"] not in ids]
     if not prontas:
+        DESFECHO[0] = "o editor nao aproveitou nenhuma das aprovadas"
         diz("O editor nao aproveitou nenhuma.")
         return 0
 
@@ -169,10 +197,25 @@ def main():
             diz("FALHOU, %s" % r.stderr.strip()[:500])
             return 1
 
+    DESFECHO[0] = "edicao fechada com %d materias novas" % len(saida)
     diz("\nEdicao fechada com %d materias novas." % len(saida))
     for p in saida:
         diz("  [%s] %s" % (p["status"], p["headline"]))
     return 0
+
+
+def main():
+    try:
+        codigo = _corpo()
+        desfecho = DESFECHO[0]
+    except modelo.SemModelo as e:
+        diz("\nPAROU, %s" % e)
+        codigo, desfecho = 1, "parou, %s" % e
+    except Exception as e:
+        diz("\nQUEBROU, %s, %s" % (type(e).__name__, e))
+        codigo, desfecho = 1, "quebrou, %s" % type(e).__name__
+    fecha_relatorio(desfecho)
+    return codigo
 
 
 if __name__ == "__main__":

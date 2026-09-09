@@ -62,7 +62,7 @@ def fecha(aprovadas, ja_publicadas):
 
     saida = modelo.pergunta(INSTRUCAO, texto, teto_saida=3000)
     if not isinstance(saida, list):
-        return []
+        raise modelo.SemModelo("o editor nao devolveu uma edicao utilizavel")
 
     prontas = []
     for a, v in zip(aprovadas, saida):
