@@ -2328,14 +2328,6 @@
   }
   /* o ouro do pomo ja combina com o resto, entao ele leva bem menos
      envelhecido do que os objetos desenhados */
-  .mg img.pomo { filter: sepia(.08) saturate(1.05) drop-shadow(0 6px 10px rgba(20,12,2,.5)); }
-  .mg .pomo { animation: pomoVoa 7s ease-in-out infinite; }
-  @keyframes pomoVoa {
-    0%, 100% { transform: translate(0, 0) rotate(-3deg); }
-    28% { transform: translate(-9px, -14px) rotate(4deg); }
-    54% { transform: translate(6px, 8px) rotate(-2deg); }
-    76% { transform: translate(-4px, -6px) rotate(3deg); }
-  }
 
   /* as pegadas ficam num canto so, no pe da mesa, e vivem de aparecer e
      sumir. Elas nao entram no rodizio de rolagem, ficam paradas ali */
@@ -2360,8 +2352,67 @@
   }
   :root[data-theme="light"] .mg.pegadas img { filter: none; }
   @media (prefers-reduced-motion: reduce) {
-    .mg .pomo, .mg.pegadas { animation: none; }
+    .mg.pegadas { animation: none; }
     .mg.pegadas { opacity: .7; }
+  }
+
+
+  /* =====================================================================
+     A CACA AO POMO
+     O pomo cruza a tela por cima do jornal, em arrancadas curtas e rapidas,
+     e some de vez em quando. Quem encostar nele ganha a figurinha do pomo,
+     que e a unica que nao sai em pacote nenhum.
+     ===================================================================== */
+  .pomo-voo {
+    position: fixed;
+    left: 0; top: 0;
+    z-index: 10040;
+    width: var(--pomo-w, 96px);
+    pointer-events: none;
+    will-change: transform, opacity;
+    transition: opacity .32s ease;
+  }
+  .pomo-voo[hidden] { display: none !important; }
+  .pomo-voo.sumiu { opacity: 0; }
+  .pomo-voo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 3px 8px rgba(20,12,2,.55));
+  }
+  /* a area de toque e maior que o desenho, senao ele fica impossivel */
+  .pomo-voo .pega {
+    position: absolute;
+    left: -14%; right: -14%; top: -46%; bottom: -46%;
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    pointer-events: auto;
+    border-radius: 50%;
+  }
+  .pomo-voo .pega:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 4px; }
+
+  /* o estouro de quem apanhou */
+  .pomo-flash {
+    position: fixed;
+    z-index: 10045;
+    width: 10px; height: 10px;
+    margin: -5px 0 0 -5px;
+    border-radius: 50%;
+    pointer-events: none;
+    background: radial-gradient(circle, #FFF8D6 0%, #FFD86E 35%, rgba(255,196,90,0) 70%);
+    animation: pomoEstoura .75s ease-out forwards;
+  }
+  @keyframes pomoEstoura {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(34); opacity: 0; }
+  }
+
+  @media (max-width: 700px) { .pomo-voo { --pomo-w: 74px; } }
+  @media (prefers-reduced-motion: reduce) {
+    .pomo-voo { transition: none; }
+    .pomo-flash { animation: none; opacity: 0; }
   }
 
   /* =====================================================================
@@ -4271,6 +4322,17 @@
   "moment": "Neville recusa Voldemort na última hora",
   "tier": "iconic",
   "raro": "comum"
+ },
+ {
+  "quote": "Apanhado em pleno voo, por cima da primeira página.",
+  "who": "Pomo de Ouro",
+  "book": 8,
+  "bookTitle": "Temporada de Quadribol",
+  "chapter": 1,
+  "chapterTitle": "O Primeiro Pomo",
+  "moment": "Só sai voando, e só vem de quem pegou",
+  "raro": "holo",
+  "soVoando": true
  }
 ]
     </script>
@@ -6077,6 +6139,10 @@
 };
 
   var FOTOS = {
+        "Pomo de Ouro": {
+              "src": "assets/figuras/pomo-de-ouro.png",
+              "fonte": "Quadro do pomo que voa no jornal"
+        },
       "Albus Dumbledore": {
             "src": "assets/figuras/albus-dumbledore.jpg",
             "fonte": "Harry Potter Trading Card Game",
@@ -6989,6 +7055,16 @@ function retrato(nome) {
 
   var EMBLEMAS = {
 
+    /* Temporada de Quadribol, os tres aros */
+    8:
+      '<g fill="none" stroke-width="8" stroke-linecap="round">' +
+      '<circle cx="52" cy="70" r="26"/><path d="M 52 96 L 52 178"/>' +
+      '<circle cx="100" cy="50" r="30"/><path d="M 100 80 L 100 178"/>' +
+      '<circle cx="148" cy="70" r="26"/><path d="M 148 96 L 148 178"/>' +
+      '<path d="M 22 178 L 178 178"/>' +
+      "</g>",
+
+
     /* Livro I, o Espelho de Ojesed */
     1:
       /* os pes com garra */
@@ -7242,7 +7318,12 @@ function retrato(nome) {
       try { localStorage.setItem(CHAVE, JSON.stringify(tenho)); } catch (e) {}
     }
     function quantas() { var n = 0; for (var k in tenho) if (tenho[k]) n++; return n; }
-    function faltam() { return dados.filter(function (d) { return !tenho[d.i]; }); }
+    /* o que ainda falta e pode sair num pacote. A carta do pomo fica de
+       fora de proposito, ela so chega para quem apanhar o pomo no voo */
+    function faltam() {
+      return dados.filter(function (d) { return !tenho[d.i] && !d.soVoando; });
+    }
+    function faltamTodas() { return dados.filter(function (d) { return !tenho[d.i]; }); }
 
     /* ---- o aviso de baixo ---- */
     var avisoEl = null, avisoT = null;
@@ -7333,13 +7414,14 @@ function retrato(nome) {
         if (!atual || atual.book !== d.book) { atual = { book: d.book, title: d.bookTitle, itens: [] }; livros.push(atual); }
         atual.itens.push(d);
       });
-      var ROMANO = ["", "Livro I", "Livro II", "Livro III", "Livro IV", "Livro V", "Livro VI", "Livro VII"];
+      var ROMANO = ["", "Livro I", "Livro II", "Livro III", "Livro IV", "Livro V",
+                    "Livro VI", "Livro VII", "Fora dos livros"];
       folhas.innerHTML = livros.map(function (L) {
         var meus = L.itens.filter(function (d) { return tenho[d.i]; }).length;
         return '<section class="album-book">' +
           '<div class="livro-fundo" aria-hidden="true"><svg viewBox="0 0 200 200">' +
             '<g fill="#4A3D22" stroke="#4A3D22">' + (EMBLEMAS[L.book] || "") + "</g></svg></div>" +
-          '<span class="livro-n">' + ROMANO[L.book] + "</span>" +
+          '<span class="livro-n">' + (ROMANO[L.book] || "") + "</span>" +
           "<h3>" + esc(L.title) + "</h3>" +
           '<span class="livro-conta">' + meus + " de " + L.itens.length + " nesta pagina</span>" +
           '<div class="livro-linha"></div>' +
@@ -7411,7 +7493,12 @@ function retrato(nome) {
       tenho: function (i) { return !!tenho[i]; },
       dados: function () { return dados; },
       faltam: faltam,
-      abrir: abrir
+      abrir: abrir,
+      /* o caçador do pomo precisa saber qual e a carta dele e se ja foi pega */
+      cartaDoPomo: function () {
+        for (var i = 0; i < dados.length; i++) if (dados[i].soVoando) return dados[i].i;
+        return -1;
+      }
     };
   })();
   window.ALBUM = ALBUM;
@@ -8256,21 +8343,15 @@ function retrato(nome) {
     return svg("0 0 340 160", defs, corpo);
   }
 
-  /* o pomo nao e desenho, e o gif que a Betty separou. Ele nao pousa na
-     mesa, ele voa, entao nao leva sombra de apoio nem inclinacao */
-  function pomo() {
-    return '<img class="mg-gif pomo" src="assets/pomo.gif" alt="" loading="lazy" decoding="async">';
-  }
-
   /* onde cada objeto se apoia. Um de cada, alternando os lados, e nunca dois
      vizinhos na mesma altura, senao a margem fica pesada de um lado so */
   var PECAS = [
     { faz: pena,    lado: "esq", topo: 6,  gira: -14, forca: .95, enfia: 30 },
     { faz: varinha, lado: "dir", topo: 20, gira: 12,  forca: .95, enfia: 26 },
     { faz: gota,    lado: "esq", topo: 35, gira: 4,   forca: .9,  enfia: 46 },
-    { faz: pomo,    lado: "dir", topo: 49, gira: 0,   forca: 1,   enfia: 18 },
-    { faz: chave,   lado: "esq", topo: 63, gira: -8,  forca: .92, enfia: 62 },
-    { faz: oculos,  lado: "dir", topo: 78, gira: 9,   forca: .9,  enfia: 58 }
+    { faz: chave,   lado: "dir", topo: 52, gira: -8,  forca: .92, enfia: 62 },
+    { faz: oculos,  lado: "esq", topo: 70, gira: 9,   forca: .9,  enfia: 58 },
+    { faz: varinha, lado: "dir", topo: 86, gira: -172, forca: .88, enfia: 26 }
   ];
 
   var html = "";
@@ -8298,6 +8379,125 @@ function retrato(nome) {
     });
   }, { rootMargin: "-8% 0px -8% 0px" });
   for (var m = 0; m < pecas.length; m++) olho.observe(pecas[m]);
+}());
+</script>
+
+
+<script>
+/* ---------------------------------------------------------------------
+   A caca ao pomo.
+
+   O pomo cruza a tela em arrancadas curtas, para um instante, arranca de
+   novo, e de vez em quando some por alguns segundos e volta em outro
+   canto. Quem encostar nele ganha a figurinha do pomo. Depois de apanhado
+   ele nao volta mais, porque a figurinha e uma so.
+   ------------------------------------------------------------------ */
+(function () {
+  function comeca() {
+    if (!window.ALBUM || !ALBUM.cartaDoPomo) return setTimeout(comeca, 400);
+    var carta = ALBUM.cartaDoPomo();
+    if (carta < 0) return;
+    if (ALBUM.tenho(carta)) return;          /* ja foi apanhado antes */
+
+    var pouco = window.matchMedia &&
+                window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    var caixa = document.createElement("div");
+    caixa.className = "pomo-voo";
+    caixa.innerHTML = '<img src="assets/pomo.gif" alt="" decoding="async">' +
+                      '<button type="button" class="pega" aria-label="Apanhar o pomo de ouro"></button>';
+    document.body.appendChild(caixa);
+
+    var x = 0, y = 0, t = null, apanhado = false;
+
+    function larguraDele() { return caixa.offsetWidth || 96; }
+    function sorteia() {
+      var w = larguraDele(), m = w * 0.8;
+      return [m + Math.random() * (window.innerWidth - w - m * 2),
+              m + Math.random() * (window.innerHeight - w * .6 - m * 2)];
+    }
+    function poe(nx, ny, ms) {
+      x = nx; y = ny;
+      caixa.style.transition = "transform " + ms + "ms cubic-bezier(.34,.02,.28,1), opacity .32s ease";
+      caixa.style.transform = "translate3d(" + nx.toFixed(1) + "px," + ny.toFixed(1) + "px,0)";
+    }
+
+    var arrancadas = 0;
+    function proximo() {
+      if (apanhado) return;
+      arrancadas++;
+      /* a cada punhado de arrancadas ele some e volta noutro canto */
+      if (arrancadas % (5 + Math.floor(Math.random() * 4)) === 0) {
+        caixa.classList.add("sumiu");
+        t = setTimeout(function () {
+          var d = sorteia();
+          caixa.style.transition = "none";
+          caixa.style.transform = "translate3d(" + d[0] + "px," + d[1] + "px,0)";
+          x = d[0]; y = d[1];
+          /* deixa o navegador assentar antes de reacender */
+          requestAnimationFrame(function () {
+            caixa.classList.remove("sumiu");
+            t = setTimeout(proximo, 260);
+          });
+        }, 1400 + Math.random() * 1800);
+        return;
+      }
+      var d = sorteia();
+      var dist = Math.sqrt((d[0] - x) * (d[0] - x) + (d[1] - y) * (d[1] - y));
+      /* rapido de proposito. Um pomo que da para apanhar sem esforco nao
+         vale figurinha nenhuma */
+      var ms = Math.max(260, Math.min(620, dist * 0.42));
+      poe(d[0], d[1], ms);
+      t = setTimeout(proximo, ms + 130 + Math.random() * 420);
+    }
+
+    function apanha(ev) {
+      if (apanhado) return;
+      apanhado = true;
+      if (ev) ev.preventDefault();
+      clearTimeout(t);
+      var r = caixa.getBoundingClientRect();
+      var faisca = document.createElement("div");
+      faisca.className = "pomo-flash";
+      faisca.style.left = (r.left + r.width / 2) + "px";
+      faisca.style.top = (r.top + r.height / 2) + "px";
+      document.body.appendChild(faisca);
+      setTimeout(function () { faisca.remove(); }, 820);
+      caixa.style.transition = "transform .3s ease, opacity .3s ease";
+      caixa.style.transform += " scale(.2)";
+      caixa.style.opacity = "0";
+      setTimeout(function () { caixa.remove(); }, 420);
+      ALBUM.ganhar(carta);
+      try { localStorage.setItem("profeta-pomo", "1"); } catch (e) {}
+    }
+
+    caixa.querySelector(".pega").addEventListener("click", apanha);
+
+    if (pouco) {
+      /* sem movimento, ele fica pousado num canto esperando ser apanhado */
+      var d = sorteia();
+      caixa.style.transform = "translate3d(" + d[0] + "px," + d[1] + "px,0)";
+      return;
+    }
+    var inicio = sorteia();
+    caixa.style.transform = "translate3d(" + inicio[0] + "px," + inicio[1] + "px,0)";
+    x = inicio[0]; y = inicio[1];
+    t = setTimeout(proximo, 900);
+
+    /* a tela mudou de tamanho, entao ele volta para dentro dela */
+    window.addEventListener("resize", function () {
+      if (apanhado) return;
+      var w = larguraDele();
+      if (x > window.innerWidth - w || y > window.innerHeight - w) {
+        var d = sorteia();
+        caixa.style.transition = "none";
+        caixa.style.transform = "translate3d(" + d[0] + "px," + d[1] + "px,0)";
+        x = d[0]; y = d[1];
+      }
+    });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", comeca);
+  else comeca();
 }());
 </script>
 
