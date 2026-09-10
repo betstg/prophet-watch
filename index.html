@@ -6867,8 +6867,8 @@ function retrato(nome) {
 
     var retratoSVG = CFC.frente(raro).replace('<g class="cfc-slot"></g>',
       '<path d="' + CFC.ARCO + '" fill="#1B1026"/>' +
-      (f ? '<image href="' + esc(FONTE(f.src)) + '" x="44" y="19" width="112" height="96" ' +
-           'preserveAspectRatio="xMidYMin slice" clip-path="url(#cfcArco)"/>' : "") +
+      (f ? '<image href="' + esc(FONTE(f.src)) + '" x="56" y="23" width="88" height="89" ' +
+           'preserveAspectRatio="xMidYMid slice" clip-path="url(#cfcArco)"/>' : "") +
       '<path d="' + CFC.ARCO + '" fill="url(#cfcVeu)"/>');
 
     var credito = f ? esc(f.fonte) : "Silhueta gravada para o Profeta";
@@ -6926,7 +6926,7 @@ function retrato(nome) {
     var qs = r.querySelectorAll(".fig-q");
     for (var i = 0; i < qs.length; i++) cfcEncolher(qs[i], 0.56);
     var ds = r.querySelectorAll(".fig-desc");
-    for (var j = 0; j < ds.length; j++) cfcEncolher(ds[j], 0.88);
+    for (var j = 0; j < ds.length; j++) cfcEncolher(ds[j], 0.7);
   }
 
   var EMBLEMAS = {
