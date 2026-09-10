@@ -4432,14 +4432,14 @@
    "date": "2026-09-06",
    "status": "confirmed",
    "category": "Lojas e experiências",
-   "headline": "Abu Dhabi coloca experiências interativas nas três áreas de Harry Potter",
-   "summary": "A Forbes informa que as lojas, os brinquedos e os salões de refeição de cada área trazem experiências interativas desenhadas dentro do cenário. Kat Chang, da Thinkwell, assinou o design conceitual das três áreas. O brinquedo principal foi construído em torno do Ford Anglia voador. Toda a expansão fica em ambiente fechado, longe do calor.",
+   "headline": "Warner Bros. World Abu Dhabi terá áreas de Harry Potter com experiências interativas",
+   "summary": "A Warner Bros. anunciou novas áreas de Harry Potter para o parque Warner Bros. World Abu Dhabi. O projeto reúne o Castelo de Hogwarts, o Beco Diagonal e a Floresta Proibida. A atração principal deve ser tematizada no Ford Anglia voador encantado. A consultoria criativa é da TAIT, com sua divisão Thinkwell. A reportagem é assinada por Caroline Reid e foi atualizada em 6 de setembro de 2026.",
    "source": "Forbes",
    "url": "https://www.forbes.com/sites/carolinereid/2026/09/06/harry-potter-abu-dhabi-lands-to-feature-interactive-experiences/",
    "image": "assets/thumbs/abu-dhabi-experiencias-interativas-2026-09-06.jpg",
    "imagemIlustrativa": "O Ford Anglia voando sobre Yas Island, no teaser das tres novas areas",
-   "corpo": "Abu Dhabi coloca experiências interativas nas três áreas de Harry Potter.\n\nA Forbes informa que as lojas, os brinquedos e os salões de refeição de cada área trazem experiências interativas desenhadas dentro do cenário.\n\nKat Chang, da Thinkwell, assinou o design conceitual das três áreas. O brinquedo principal foi construído em torno do Ford Anglia voador. Toda a expansão fica em ambiente fechado, longe do calor.\n\nNão foi possível abrir a página da Forbes. Este texto é a tradução do título e do resumo que já estavam no arquivo.",
-   "fonteLida": false
+   "corpo": "A Warner Bros. anunciou áreas temáticas de Harry Potter para o seu parque em Abu Dhabi. Serão espaços baseados no Castelo de Hogwarts, no Beco Diagonal e na Floresta Proibida. O Warner Bros. World é um parque coberto. Isso permite cenários mais elaborados do que os de concorrentes ao ar livre. O parque é operado pela Miral.\n\nA atração principal deve ser tematizada no Ford Anglia voador encantado. O carro teve papel de destaque no vídeo do anúncio. A reportagem aponta que esse é um diferencial em relação às áreas da Universal. As versões da Universal não incluem o Ford Anglia.\n\nA Warner Bros. produziu oito filmes da saga. Em 2007, licenciou os direitos para parques temáticos à Universal. Existem outras seis áreas de Harry Potter espalhadas pelo mundo. Todas são operadas pela Universal.\n\nA consultoria criativa da expansão é a TAIT. A divisão Thinkwell participa do trabalho. A Thinkwell já atuou no próprio Warner Bros. World e em outros dois parques da Ilha Yas, o Ferrari World e o SeaWorld Abu Dhabi. A empresa também desenhou atrações para o Universal Studios Singapore e para o Warner Bros. Studio Tour em Hollywood. No universo de Harry Potter, trabalhou nos tours de bastidores dos estúdios de Leavesden, na Inglaterra, e de Tóquio.\n\nA designer de conceito Kat Chang tem 20 anos de carreira. Ela passou pela Walt Disney Imagineering. Lá foi líder de design de interiores da atração Soaring Over the Horizon, na Shanghai Disneyland. Também foi líder de design de locações da série Monsters At Work. Na Thinkwell, segundo o texto, ela desenhou atrações, lojas e ambientes de alimentação para a futura área de Harry Potter em Abu Dhabi. Ela também forneceu o design de conceito para experiências interativas em cada ambiente.\n\nAs experiências interativas devem estar embutidas nos cenários. Nos parques da Universal, varinhas acionam efeitos. Em Abu Dhabi, a expectativa é de recursos interativos e possíveis jogos integrados aos ambientes.\n\nSean Evans, do canal Lift Hills and Thrills, comentou o projeto. Segundo ele, \"com o intenso nível de detalhe que o WB World já tem em abundância, eu realmente acho que este será o espaço de Harry Potter mais bonito do mundo\". A analista Tracy Kahaner falou em uma experiência \"verdadeiramente encantadora para os fãs\".\n\nO chefe da Miral, Mohamed Al Zaabi, falou sobre o padrão da empresa. Ele disse que \"a próxima experiência será melhor que a anterior. É isso que sempre fazemos na Miral. Continuamos elevando o nível\". O trabalho de design começou em 2024. A abertura está prevista para daqui a alguns anos.",
+   "fonteLida": true
   },
   {
    "id": "invisibility-cloak-design-2026-09-05",
@@ -7989,11 +7989,6 @@ function retrato(nome) {
       return "<p>" + esc(t) + "</p>";
     }).join("");
 
-    var aviso = "";
-    if (s.fonteLida === false) {
-      aviso = '<p class="leitura-aviso">O texto abaixo e o resumo que a redacao escreveu, ' +
-              'porque a pagina original nao abriu para nos. A materia inteira esta no site da fonte.</p>';
-    }
 
     return '<div class="leitura-kicker">' +
              '<span class="selo">' + esc(ROTULO[s.status] || s.status) + "</span>" +
@@ -8002,7 +7997,7 @@ function retrato(nome) {
            '<h2 class="titulo">' + esc(s.headline) + "</h2>" +
            '<div class="leitura-linha">' + dataEmPortugues(s.date) +
              " &#183; " + esc(s.source) + "</div>" +
-           figura + aviso +
+           figura +
            '<div class="leitura-texto">' + corpo + "</div>" +
            '<div class="leitura-pe">' +
              '<span class="nota">Texto em português do Prophet Watch</span>' +
@@ -8472,15 +8467,43 @@ function retrato(nome) {
     var x = 0, y = 0, vx = 0, vy = 0, quadro = 0, meu = caixa;
     var rato = { x: -9999, y: -9999, visto: 0 };
 
+    /* tres jeitos de estar no ar.
+       ronda, que e o de sempre, rondando o meio da tela.
+       passeio, quando ele resolve dar uma volta pela tela inteira.
+       parado, quando ele para no ar por um instante. Curto e raro, que e o
+       que faz valer a pena esperar por ele. */
+    var modo = "ronda", ateQuando = 0, ponto = null;
+
     function meio() { return [window.innerWidth / 2, window.innerHeight / 2]; }
     function tamanho() { var r = meu.getBoundingClientRect(); return [r.width || 240, r.height || 120]; }
     var c = meio(); x = c[0]; y = c[1];
 
     function cerca() {
       var t = tamanho();
-      var lw = Math.min(window.innerWidth * 0.66, window.innerWidth - t[0] - 24);
-      var lh = Math.min(window.innerHeight * 0.62, window.innerHeight - t[1] - 24);
+      var largo = modo === "passeio" ? 0.98 : 0.66;
+      var alto  = modo === "passeio" ? 0.94 : 0.62;
+      var lw = Math.min(window.innerWidth * largo, window.innerWidth - t[0] - 20);
+      var lh = Math.min(window.innerHeight * alto, window.innerHeight - t[1] - 20);
       return [Math.max(60, lw) / 2, Math.max(60, lh) / 2];
+    }
+
+    /* a proxima paragem do passeio. Ela cai sempre do outro lado de onde
+       ele esta, senao o passeio vira um bolo no meio da tela */
+    function paragem() {
+      var m = meio(), lim = cerca();
+      var lx = x < m[0] ? 1 : -1, ly = y < m[1] ? 1 : -1;
+      return [m[0] + lx * (0.45 + Math.random() * 0.53) * lim[0],
+              m[1] + ly * (0.35 + Math.random() * 0.6) * lim[1]];
+    }
+
+    function decide(agora) {
+      if (agora < ateQuando) return;
+      if (modo === "passeio") { modo = "ronda"; ponto = null; ateQuando = agora + 4000 + Math.random() * 5000; return; }
+      if (modo === "parado")  { modo = "ronda"; ateQuando = agora + 3000 + Math.random() * 4000; return; }
+      var sorte = Math.random();
+      if (sorte < 0.5) { modo = "passeio"; ponto = paragem(); ateQuando = agora + 7000 + Math.random() * 5000; }
+      else if (sorte < 0.62) { modo = "parado"; ateQuando = agora + 400 + Math.random() * 450; }
+      else { ateQuando = agora + 2200 + Math.random() * 2600; }
     }
     function olho(ev) { rato.x = ev.clientX; rato.y = ev.clientY; rato.visto = performance.now(); }
     document.addEventListener("pointermove", olho, { passive: true });
@@ -8488,9 +8511,20 @@ function retrato(nome) {
     function passo(agora) {
       if (meu !== caixa) { document.removeEventListener("pointermove", olho); return; }
       quadro++;
+      decide(agora);
       var m = meio(), lim = cerca();
-      vx += (m[0] - x) * 0.0016;
-      vy += (m[1] - y) * 0.0016;
+
+      /* para onde ele esta puxado agora. No passeio e a paragem da vez, e
+         quando chega perto dela ele escolhe outra */
+      var alvo = m;
+      if (modo === "passeio") {
+        if (!ponto) ponto = paragem();
+        if (Math.abs(ponto[0] - x) < 90 && Math.abs(ponto[1] - y) < 90) ponto = paragem();
+        alvo = ponto;
+      }
+      var mola = modo === "passeio" ? 0.011 : 0.0018;
+      vx += (alvo[0] - x) * mola;
+      vy += (alvo[1] - y) * mola;
 
       var perto = 0;
       if (agora - rato.visto < 2600) {
@@ -8507,10 +8541,19 @@ function retrato(nome) {
           vy += (dx / d) * lado;
         }
       }
-      vx += Math.sin(quadro * 0.11) * 0.16 + (Math.random() - 0.5) * 0.22;
-      vy += Math.cos(quadro * 0.09) * 0.14 + (Math.random() - 0.5) * 0.22;
-      vx *= 0.905; vy *= 0.905;
-      var teto = perto > 0 ? 26 : 6.5;
+      /* parado e parado mesmo, so o tremor de asa. Mas se alguem chega
+         perto ele acorda na hora, senao viraria alvo facil */
+      if (modo === "parado" && perto > 0) { modo = "ronda"; ateQuando = agora + 2400; }
+      if (modo === "parado") {
+        vx *= 0.72; vy *= 0.72;
+        vx += (Math.random() - 0.5) * 0.5;
+        vy += (Math.random() - 0.5) * 0.5;
+      } else {
+        vx += Math.sin(quadro * 0.11) * 0.2 + (Math.random() - 0.5) * 0.26;
+        vy += Math.cos(quadro * 0.09) * 0.18 + (Math.random() - 0.5) * 0.26;
+        vx *= 0.905; vy *= 0.905;
+      }
+      var teto = perto > 0 ? 28 : modo === "passeio" ? 21 : modo === "parado" ? 1.6 : 11;
       var v = Math.sqrt(vx * vx + vy * vy);
       if (v > teto) { vx = vx / v * teto; vy = vy / v * teto; }
       x += vx; y += vy;
