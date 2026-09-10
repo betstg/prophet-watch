@@ -1,12 +1,12 @@
 # Ultima rodada da redacao
 
-**Desfecho**, edicao fechada com 1 materias novas
+**Desfecho**, edicao fechada com 3 materias novas
 
-**Quando**, 10/09/2026 16:31 UTC
+**Quando**, 10/09/2026 20:56 UTC
 
 ```
 Prophet Watch, redacao de 2026-09-10. Janela de 2026-09-06 ate 2026-09-10.
-Ja no jornal, 42 materias.
+Ja no jornal, 43 materias.
 Chave do modelo, presente.
 
 == VIGIA ==
@@ -29,15 +29,15 @@ Chave do modelo, presente.
   The Leaky Cauldron             HTTP 403
   MuggleNet                      0 de 10
   Wizarding World Direct         1 de 10
-  SnitchSeeker                   1 de 25
+  SnitchSeeker                   2 de 25
   Harry Potter Theory            0 de 15
-  Hogwarts Professor             0 de 10
+  Hogwarts Professor             1 de 10
   HP Lexicon                     0 de 0
   The Rowling Library            0 de 1
   Critical Magic Theory          0 de 0
   MuggleCast                     0 de 10
   Super Carlin Brothers          0 de 15
-  r/HarryPotteronHBO             5 de 25
+  r/HarryPotteronHBO             4 de 25
   r/harrypotter                  HTTP 429
   Watford Observer               0 de 25
   Soap Central                   HTTP 403
@@ -48,9 +48,9 @@ Chave do modelo, presente.
   Attractions Magazine           0 de 0
   WhatsOnStage                   0 de 0
   Playbill                       0 de 10
-  The Potter Collector           0 de 15
+  The Potter Collector           1 de 15
   Harry Potter Exhibition        0 de 0
-Novidades para olhar, 8.
+Novidades para olhar, 10.
 
 == MODELO ==
   gemini-flash-latest
@@ -58,52 +58,62 @@ Novidades para olhar, 8.
   nota, usando gemini-flash-latest
 
 == REPORTERES ==
-  palco     olhou  1 titulos, quer abrir 1
-      ABRIR    True & False About the Rules
-               Trata-se de conteudo da comunidade de fas em site de Harry Potter e nao foi publicado an
-               https://www.snitchseeker.com/platform-9-newbies/true-and-false-about-the-rules-111628/
-  serie     olhou  6 titulos, quer abrir 6
-      ABRIR    Inside the DroneArt Show: Harry Potter — How Over 1,200 Drones Will Light Up the Skies o
-               É do universo de Harry Potter e ainda não foi publicado.
-               https://wizardingworlddirect.com/2026/09/10/inside-the-droneart-show-harry-potter-how-over-1200-drones-will-light-up-the-skies-of-vincennes/
-      ABRIR    HBO Quirrell memes! My silly son!
-               É do universo de Harry Potter e ainda não foi publicado.
-               https://www.reddit.com/r/HarryPotteronHBO/comments/1wcl225/hbo_quirrell_memes_my_silly_son/
-      ABRIR    Hermione needs to be scared during Devil's Snare!
-               É do universo de Harry Potter e ainda não foi publicado.
-               https://www.reddit.com/r/HarryPotteronHBO/comments/1wcjaa3/hermione_needs_to_be_scared_during_devils_snare/
-      ABRIR    After a week, the second teaser may be tracking ahead of the first [on YT]
-               É do universo de Harry Potter e ainda não foi publicado.
-               https://www.reddit.com/r/HarryPotteronHBO/comments/1wcipst/after_a_week_the_second_teaser_may_be_tracking/
-      ABRIR    Fixed harry potter new trailer colour grading to make it warm and cozy like the og versi
-               É do universo de Harry Potter e ainda não foi publicado.
-               https://www.reddit.com/r/HarryPotteronHBO/comments/1wch4av/fixed_harry_potter_new_trailer_colour_grading_to/
-      ABRIR    New casting rumour: Big if true…
-               É do universo de Harry Potter e ainda não foi publicado.
-               https://www.reddit.com/r/HarryPotteronHBO/comments/1wcghxb/new_casting_rumour_big_if_true/
-  tela      olhou  1 titulos, quer abrir 0
-      descarta NBC's Sitcom Spinoff With Harry Potter Alum Is Officially One Of The Best Shows On Strea
-               Fora do universo de Harry Potter, apenas citando um ex-integrante de passagem.
-               https://screenrant.com/the-paper-season-2-peacock-streaming-hit-september-2026/
+  estudo    olhou  2 titulos, quer abrir 2
+      ABRIR    The New Hogwarts House Emblems for HBO+ Harry Potter TV Adaptations
+               Análise simbólica e crítica dos novos brasões da série da HBO.
+               https://www.hogwartsprofessor.com/the-new-hogwarts-house-emblems-for-hbo-harry-potter-tv-adaptations/
+      ABRIR    Harry Potter 25th Anniversary Danish Editions | Unboxing and Review
+               Unboxing e revisão de edições de colecionador ainda não publicadas.
+               https://www.youtube.com/watch?v=3fI5kYpGOGY
+  palco     olhou  2 titulos, quer abrir 2
+      ABRIR    Wizarding World Chat [v. 3]
+               Trata-se de um espaco de interacao da comunidade de fas do universo Harry Potter.
+               https://www.snitchseeker.com/ssrpg-resources/wizarding-world-chat-v-3-a-117939/
+      ABRIR    Character Elimination...
+               E um jogo da comunidade de fas focado em personagens do universo Harry Potter.
+               https://www.snitchseeker.com/weasleys-wizard-wheezes-games/character-elimination-v-49-a-119869/
+  serie     olhou  5 titulos, quer abrir 4
+      ABRIR    New Philosopher’s Stone Paperback Will Wear the HBO Series’ Cover
+               Trata de novo produto físico vinculado à série da HBO.
+               https://wizardingworlddirect.com/2026/09/10/new-philosophers-stone-paperback-will-wear-the-hbo-series-cover/
+      ABRIR    Sorting Hat according to books
+               Discussão da comunidade sobre a adaptação de elementos dos livros para a série.
+               https://www.reddit.com/r/HarryPotteronHBO/comments/1wcs88n/sorting_hat_according_to_books/
+      ABRIR    A memory aid for any older fans…
+               Conteúdo da comunidade de fãs sobre a série da HBO.
+               https://www.reddit.com/r/HarryPotteronHBO/comments/1wcp8ys/a_memory_aid_for_any_older_fans/
+      ABRIR    A humble suggestion about mindset regarding the new show
+               Discussão da comunidade sobre expectativas para a nova série.
+               https://www.reddit.com/r/HarryPotteronHBO/comments/1wcojtt/a_humble_suggestion_about_mindset_regarding_the/
+  tela      olhou  1 titulos, quer abrir 1
+      ABRIR    Iconic Harry Potter Actor Gets His Fifth Redesign In 25 Years
+               Trata de ator e personagem icônico da franquia de filmes Harry Potter.
+               https://screenrant.com/harry-potter-warwick-davis-professor-flitwick-redesign/
 
 == CHECAGEM ==
-  reprovada, A pagina e apenas uma discussao de forum d https://www.snitchseeker.com/platform-9-newbies/true-and-false-about-t
-  passou,    2026-09-10 wizardingworlddirect.c Inside the DroneArt Show: Harry Potter — How Over 1,200 Dron
-  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wcl225/hbo_quirrel
-  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wcjaa3/hermione_ne
-  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wcipst/after_a_wee
-  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wch4av/fixed_harry
-  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wcghxb/new_casting
+  passou,    2026-09-10 hogwartsprofessor.com  The New Hogwarts House Emblems for HBO+ Harry Potter TV Adap
+  reprovada, O corpo nao sustenta nenhuma alegacao.     https://www.youtube.com/watch?v=3fI5kYpGOGY
+  reprovada, A pagina trata de regras e conversas de um https://www.snitchseeker.com/ssrpg-resources/wizarding-world-chat-v-3-
+  reprovada, forum de jogos de fas sem informacao nova  https://www.snitchseeker.com/weasleys-wizard-wheezes-games/character-e
+  passou,    2026-09-10 wizardingworlddirect.c New Philosopher&#039;s Stone Paperback Will Wear the HBO Ser
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wcs88n/sorting_hat
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wcp8ys/a_memory_ai
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wcojtt/a_humble_su
+  passou,    2026-09-10 screenrant.com         Iconic Harry Potter Actor Gets His Fifth Redesign In 25 Year
 
 == EDITOR ==
 
 == FOTOS ==
-  drones-iluminam-paris-magia-2026-09-10, foto ok
+  simbolismo-alquimico-emblemas-hbo-2026-09-10, foto ok
+  livro-capa-serie-hbo-2026-09-10, foto ok
+  warwick-davis-flitwick-hbo-2026-09-10, sem foto, a pagina desenha a chapa
 
 == FECHAMENTO ==
-added 1, skipped 0 already filed, now 43 stories, updated 2026-09-10
-wrote artifact.html (2228422 bytes)
+Before you finish the run, go back to each of those articles and look for a photograph INSIDE the body of the piece. A site with no og:image usually still illustrates the article. Only leave a story with no picture once you have actually looked and found nothing.
+wrote artifact.html (2294751 bytes)
 
-Edicao fechada com 1 materias novas.
-  [official] Mais de mil e duzentos drones iluminam o céu de Paris com magia
+Edicao fechada com 3 materias novas.
+  [analysis] Estudiosos apontam simbolismo alquímico nos novos emblemas de Hogwarts da HBO
+  [confirmed] Editoras preparam nova edição em brochura do primeiro livro com capa da série
+  [confirmed] Ator Warwick Davis retorna ao papel de Flitwick na nova série da HBO
 ```
