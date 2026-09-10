@@ -3298,7 +3298,8 @@
   "chapterTitle": "O Dia das Bruxas",
   "moment": "corrigindo Rony na aula de Feitiços",
   "tier": "iconic",
-  "raro": "gold"
+  "raro": "gold",
+  "foto": "hermione-granger-4.jpg"
  },
  {
   "quote": "Marcos quase matou o apanhador da Grifinória, o que pode acontecer com qualquer um, tenho certeza.",
@@ -3741,7 +3742,8 @@
   "chapterTitle": "O Começo",
   "moment": "o discurso do banquete de despedida",
   "tier": "iconic",
-  "raro": "comum"
+  "raro": "comum",
+  "foto": "albus-dumbledore-7.jpg"
  },
  {
   "quote": "O que tiver que ser será, e nós o enfrentaremos quando vier.",
@@ -3828,7 +3830,8 @@
   "chapterTitle": "Percy e Almofadinhas",
   "moment": "sobre Snape e Crouch, no Largo Grimmauld",
   "tier": "iconic",
-  "raro": "gold"
+  "raro": "gold",
+  "foto": "sirius-black.jpg"
  },
  {
   "quote": "— Só porque você tem a amplitude emocional de uma colher de chá isto não significa que todos sejamos iguais.",
@@ -4068,7 +4071,8 @@
   "chapterTitle": "Malfoy Manor",
   "moment": "Dobby aparece no porão da Mansão Malfoy",
   "tier": "iconic",
-  "raro": "gold"
+  "raro": "gold",
+  "foto": "dobby-2.jpg"
  },
  {
   "quote": "A varinha escolhe o bruxo. Isto sempre esteve claro para os estudiosos da tradição das varinhas.",
@@ -6864,6 +6868,14 @@ function retrato(nome) {
     /* a carta numero N do personagem usa a ilustracao numero N */
     var vs = (typeof VARIANTES !== "undefined") && VARIANTES[d.who];
     if (vs && vs.length > 1 && typeof d.vez === "number") f = vs[d.vez % vs.length];
+    /* o rodizio as vezes cai numa arte que e cena e nao retrato, e ai nao
+       aparece o personagem. Nesses casos a carta fixa a ilustracao pelo nome
+       do arquivo, e o credito vem junto porque sai da mesma entrada */
+    if (d.foto && vs) {
+      for (var k = 0; k < vs.length; k++) {
+        if (vs[k].src.indexOf(d.foto) !== -1) { f = vs[k]; break; }
+      }
+    }
 
     var retratoSVG = CFC.frente(raro).replace('<g class="cfc-slot"></g>',
       '<path d="' + CFC.ARCO + '" fill="#1B1026"/>' +
