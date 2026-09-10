@@ -2318,6 +2318,52 @@
     .rumo { font-size: 10px; padding: 8px 10px; }
   }
 
+
+  /* o pomo e as pegadas vem de gif, entao eles nao seguem as regras do svg */
+  .mg img.mg-gif {
+    display: block;
+    width: 100%;
+    height: auto;
+    transform: rotate(var(--gira, 0deg));
+  }
+  /* o ouro do pomo ja combina com o resto, entao ele leva bem menos
+     envelhecido do que os objetos desenhados */
+  .mg img.pomo { filter: sepia(.08) saturate(1.05) drop-shadow(0 6px 10px rgba(20,12,2,.5)); }
+  .mg .pomo { animation: pomoVoa 7s ease-in-out infinite; }
+  @keyframes pomoVoa {
+    0%, 100% { transform: translate(0, 0) rotate(-3deg); }
+    28% { transform: translate(-9px, -14px) rotate(4deg); }
+    54% { transform: translate(6px, 8px) rotate(-2deg); }
+    76% { transform: translate(-4px, -6px) rotate(3deg); }
+  }
+
+  /* as pegadas ficam num canto so, no pe da mesa, e vivem de aparecer e
+     sumir. Elas nao entram no rodizio de rolagem, ficam paradas ali */
+  .mg.pegadas {
+    top: auto;
+    bottom: 6%;
+    left: calc(50% - min(760px, 50vw) - var(--w, 150px) + 12px);
+    right: auto;
+    width: var(--w, 150px);
+    opacity: 0;
+    transform: none;
+    animation: pegadaSome 13s ease-in-out infinite;
+  }
+  .mg.pegadas img {
+    transform: rotate(-14deg);
+    filter: brightness(1.25) saturate(1.2) drop-shadow(0 0 5px rgba(255,196,90,.45));
+  }
+  @keyframes pegadaSome {
+    0%, 5% { opacity: 0; }
+    14%, 58% { opacity: .95; }
+    74%, 100% { opacity: 0; }
+  }
+  :root[data-theme="light"] .mg.pegadas img { filter: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .mg .pomo, .mg.pegadas { animation: none; }
+    .mg.pegadas { opacity: .7; }
+  }
+
   /* =====================================================================
      A PAGINA DE LEITURA
      A materia abre dentro do jornal, com a foto e o texto em portugues.
@@ -8210,16 +8256,21 @@ function retrato(nome) {
     return svg("0 0 340 160", defs, corpo);
   }
 
-  /* onde cada objeto se apoia. Alternando os lados, e nunca dois vizinhos
-     na mesma altura, senao a margem fica pesada de um lado so */
+  /* o pomo nao e desenho, e o gif que a Betty separou. Ele nao pousa na
+     mesa, ele voa, entao nao leva sombra de apoio nem inclinacao */
+  function pomo() {
+    return '<img class="mg-gif pomo" src="assets/pomo.gif" alt="" loading="lazy" decoding="async">';
+  }
+
+  /* onde cada objeto se apoia. Um de cada, alternando os lados, e nunca dois
+     vizinhos na mesma altura, senao a margem fica pesada de um lado so */
   var PECAS = [
-    { faz: pena,    lado: "esq", topo: 5,  gira: -14, forca: .95, enfia: 30 },
-    { faz: varinha, lado: "dir", topo: 17, gira: 12,  forca: .95, enfia: 26 },
-    { faz: gota,    lado: "esq", topo: 33, gira: 4,   forca: .9,  enfia: 46 },
-    { faz: chave,   lado: "dir", topo: 45, gira: -8,  forca: .92, enfia: 62 },
-    { faz: oculos,  lado: "esq", topo: 60, gira: 9,   forca: .9,  enfia: 58 },
-    { faz: varinha, lado: "dir", topo: 72, gira: -9,  forca: .88, enfia: 30 },
-    { faz: pena,    lado: "esq", topo: 86, gira: 168, forca: .85, enfia: 34 }
+    { faz: pena,    lado: "esq", topo: 6,  gira: -14, forca: .95, enfia: 30 },
+    { faz: varinha, lado: "dir", topo: 20, gira: 12,  forca: .95, enfia: 26 },
+    { faz: gota,    lado: "esq", topo: 35, gira: 4,   forca: .9,  enfia: 46 },
+    { faz: pomo,    lado: "dir", topo: 49, gira: 0,   forca: 1,   enfia: 18 },
+    { faz: chave,   lado: "esq", topo: 63, gira: -8,  forca: .92, enfia: 62 },
+    { faz: oculos,  lado: "dir", topo: 78, gira: 9,   forca: .9,  enfia: 58 }
   ];
 
   var html = "";
@@ -8229,6 +8280,11 @@ function retrato(nome) {
             "--gira:" + q.gira + "deg;--forca:" + q.forca +
             ";--enfia:" + (q.enfia || 34) + 'px">' + q.faz() + "</span>";
   }
+  /* as pegadas do mapa do maroto, num canto da mesa, aparecendo e sumindo */
+  html += '<span class="mg pegadas" aria-hidden="true">' +
+          '<img class="mg-gif" src="assets/pegadas.gif" alt="" loading="lazy" decoding="async">' +
+          "</span>";
+
   casa.innerHTML = html;
 
   var pecas = casa.querySelectorAll(".mg");
