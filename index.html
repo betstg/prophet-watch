@@ -1468,7 +1468,9 @@
   #list .card:not(.figured) .card-foot { margin-top: auto; }
   #list .card .card-body,
   :root[data-theme="light"] #list .card .card-body { padding: 0 !important; gap: 5px; }
-  #list .card .kicker { gap: 5px; margin: 7px 0 1px; }
+  /* o acento das maiusculas em portugues sobe acima da caixa alta, entao o
+     chapeu precisa de folga embaixo e a manchete de folga em cima */
+  #list .card .kicker { gap: 5px; margin: 7px 0 9px; }
   #list .card .tag { font-size: 9px; padding: 0 !important; letter-spacing: .18em; border: none !important; background: none !important; }
   #list .card .desk { font-size: 8.5px; letter-spacing: .12em; }
   #list .card h2.headline,
@@ -1476,9 +1478,10 @@
     font-family: var(--head-face, var(--font-deck)) !important;
     font-weight: var(--head-weight, 600) !important;
     text-transform: uppercase;
-    line-height: 1.02;
+    line-height: 1.14;
     letter-spacing: -.004em;
     margin: 2px 0 6px;
+    padding-top: .1em;
   }
   #list .card .summary {
     font-family: var(--font-read);
@@ -1530,7 +1533,7 @@
     padding: 2px 0 16px;
     margin: 0 0 16px;
   }
-  .frontpage .kicker { display: flex; justify-content: center; gap: 6px; margin: 0 0 6px; }
+  .frontpage .kicker { display: flex; justify-content: center; gap: 6px; margin: 0 0 20px; }
   .frontpage .tag {
     background: none !important;
     border: none !important;
@@ -1544,10 +1547,11 @@
     font-weight: 400 !important;
     text-transform: uppercase;
     font-size: clamp(30px, 5vw, 82px) !important;
-    line-height: .92;
+    line-height: 1.04;
     letter-spacing: -.012em;
     text-align: center;
     margin: 0 0 14px !important;
+    padding-top: .12em;
   }
   .frontpage h2.headline a { color: var(--ink) !important; text-decoration: none; }
   :root[data-theme="light"] .frontpage h2.headline a { color: #100B04 !important; }
