@@ -1,56 +1,56 @@
 # Ultima rodada da redacao
 
-**Desfecho**, 5 materias abertas e nenhuma passou na checagem
+**Desfecho**, edicao fechada com 1 materias novas
 
-**Quando**, 09/09/2026 23:19 UTC
+**Quando**, 10/09/2026 04:46 UTC
 
 ```
-Prophet Watch, redacao de 2026-09-09. Janela de 2026-09-05 ate 2026-09-09.
+Prophet Watch, redacao de 2026-09-10. Janela de 2026-09-06 ate 2026-09-10.
 Ja no jornal, 40 materias.
 Chave do modelo, presente.
 
 == VIGIA ==
   Wizarding World                0 de 1
   WBD Pressroom                  0 de 11
-  Harry Potter no YouTube        0 de 15
+  Harry Potter no YouTube        HTTP 404
   Variety                        0 de 10
   Deadline                       0 de 12
-  The Hollywood Reporter         0 de 10
+  The Hollywood Reporter         1 de 10
   TVLine                         0 de 20
   ScreenRant                     0 de 10
   Collider                       0 de 10
   Potterish                      0 de 25
   Ordem da Fenix Brasileira      0 de 25
   Mundo Bruxo                    0 de 10
-  Caldeirao Furado               0 de 15
-  Observatorio Potter            0 de 15
-  Wizarding Bruno                1 de 15
-  O Expresso de Hogwarts         0 de 15
+  Caldeirao Furado               HTTP 404
+  Observatorio Potter            HTTP 404
+  Wizarding Bruno                HTTP 404
+  O Expresso de Hogwarts         HTTP 404
   The Leaky Cauldron             HTTP 403
   MuggleNet                      0 de 10
   Wizarding World Direct         0 de 10
-  SnitchSeeker                   1 de 25
-  Harry Potter Theory            0 de 15
-  Hogwarts Professor             1 de 10
+  SnitchSeeker                   0 de 25
+  Harry Potter Theory            HTTP 404
+  Hogwarts Professor             0 de 10
   HP Lexicon                     0 de 0
   The Rowling Library            0 de 1
   Critical Magic Theory          0 de 0
   MuggleCast                     0 de 10
-  Super Carlin Brothers          0 de 15
-  r/HarryPotteronHBO             3 de 25
+  Super Carlin Brothers          HTTP 404
+  r/HarryPotteronHBO             7 de 25
   r/harrypotter                  HTTP 429
   Watford Observer               0 de 25
   Soap Central                   HTTP 403
-  GamingBible                    1 de 23
+  GamingBible                    0 de 23
   GamesRadar                     0 de 19
   r/HarryPotterGame              HTTP 429
   Blooloop                       0 de 25
   Attractions Magazine           0 de 0
   WhatsOnStage                   0 de 0
   Playbill                       0 de 10
-  The Potter Collector           0 de 15
+  The Potter Collector           HTTP 404
   Harry Potter Exhibition        0 de 0
-Novidades para olhar, 7.
+Novidades para olhar, 8.
 
 == MODELO ==
   gemini-flash-latest
@@ -58,39 +58,52 @@ Novidades para olhar, 7.
   nota, usando gemini-flash-latest
 
 == REPORTERES ==
-  brasil    olhou  1 titulos, quer abrir 1
-      ABRIR    DETALHES DA TOCA NO TRAILER DA SÉRIE DE HARRY POTTER! #weasley #harrypotter
-               E analise da comunidade de fas sobre detalhes da Toca no trailer da serie e ainda nao fo
-               https://www.youtube.com/shorts/1zMAfjDfqL4
-  estudo    olhou  1 titulos, quer abrir 0
-      descarta The Symbolism of the Letter G in Hallmarked Man: Is It the Key to Unlocking the Strike S
-               Fora do universo de Harry Potter, pois trata da serie Cormoran Strike.
-               https://www.hogwartsprofessor.com/the-symbolism-of-the-letter-g-in-hallmarked-man-is-it-the-key-to-unlocking-the-strike-series-structure/
-  jogos     olhou  1 titulos, quer abrir 0
-      descarta Hogwarts Legacy rival RPG is a modern take on PS2 Harry Potter
-               Fora do universo de Harry Potter, trata-se de outro jogo que apenas cita a franquia como
-               https://www.gamingbible.com/news/platform/steam/hogwarts-legacy-rival-rpg-modern-ps2-harry-potter-594484-20260909
-  palco     olhou  1 titulos, quer abrir 1
-      ABRIR    Hogwarts: Merlin's Beard! [Term 74, Sept 2120 - June 2121]
-               Trata-se de conteúdo da comunidade de fãs de Harry Potter e não foi publicado anteriorme
-               https://www.snitchseeker.com/ssrpg-resources/merlins-beard-term-74-sept-2120-june-2121-a-121336/
-  serie     olhou  3 titulos, quer abrir 3
-      ABRIR    Hogwarts’ grounds and surrounding land
-               Trata do universo de Harry Potter e não foi publicado anteriormente.
-               https://www.reddit.com/r/HarryPotteronHBO/comments/1wbz6xt/hogwarts_grounds_and_surrounding_land/
-      ABRIR    Who could this Hogwarts professsor be?
-               Trata do universo de Harry Potter e não foi publicado anteriormente.
-               https://www.reddit.com/r/HarryPotteronHBO/comments/1wbwzxf/who_could_this_hogwarts_professsor_be/
-      ABRIR    I really hope they do Rufus Scrimgeour justice in the show. His sacrifice and bravery go
-               Trata do universo de Harry Potter e não foi publicado anteriormente.
-               https://www.reddit.com/r/HarryPotteronHBO/comments/1wbwmsd/i_really_hope_they_do_rufus_scrimgeour_justice_in/
+  serie     olhou  7 titulos, quer abrir 7
+      ABRIR    A few fears I have of Hermione and Ron's personalities
+               Discussão de fãs sobre a caracterização de Hermione e Ron na série da HBO.
+               https://www.reddit.com/r/HarryPotteronHBO/comments/1wc5mh2/a_few_fears_i_have_of_hermione_and_rons/
+      ABRIR    I hope the first night speech is delightfully odd! “Nitwit! Blubber! Oddment! Tweak!”
+               Expectativa da comunidade sobre o discurso de Dumbledore na série da HBO.
+               https://www.reddit.com/r/HarryPotteronHBO/comments/1wc4ayd/i_hope_the_first_night_speech_is_delightfully_odd/
+      ABRIR    Hang on a minute, where's Snape?
+               Discussão de fãs sobre a ausência de Snape no material divulgado da série.
+               https://www.reddit.com/r/HarryPotteronHBO/comments/1wc3dnl/hang_on_a_minute_wheres_snape/
+      ABRIR    The movies made me forget this aesthetic detail about Voldemort
+               Debate sobre a estética de Voldemort nos livros em comparação com as adaptações.
+               https://www.reddit.com/r/HarryPotteronHBO/comments/1wc2r2u/the_movies_made_me_forget_this_aesthetic_detail/
+      ABRIR    is this a glimpse of the castle?
+               Especulação de fãs sobre possível vislumbre de Hogwarts no material da série.
+               https://www.reddit.com/r/HarryPotteronHBO/comments/1wc1rew/is_this_a_glimpse_of_the_castle/
+      ABRIR    This is what breakfast looked like in the movies btw
+               Comunidade comparando cenários e detalhes dos filmes para a nova produção.
+               https://www.reddit.com/r/HarryPotteronHBO/comments/1wc1fl6/this_is_what_breakfast_looked_like_in_the_movies/
+      ABRIR    (obvioudly) not having seen the show yet, what would you ask Francesca Gardiner, Jon Bro
+               Discussão sobre os showrunners e diretores da série Harry Potter da HBO.
+               https://www.reddit.com/r/HarryPotteronHBO/comments/1wc0zvy/obvioudly_not_having_seen_the_show_yet_what_would/
+  tela      olhou  1 titulos, quer abrir 1
+      ABRIR    Lego Grows Its 200-Plus Harry Potter Collection With Eight New Sets
+               Trata de novos produtos LEGO do universo Harry Potter e traz detalhes específicos sobre 
+               https://www.hollywoodreporter.com/lifestyle/shopping/lego-harry-potter-sets-2026-collection-buy-online-pricing-1236695426/
 
 == CHECAGEM ==
-  reprovada, o checador nao respondeu                   https://www.youtube.com/shorts/1zMAfjDfqL4
-  reprovada, a pagina e um forum de interpretacao de pa https://www.snitchseeker.com/ssrpg-resources/merlins-beard-term-74-sep
-  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wbz6xt/hogwarts_gr
-  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wbwzxf/who_could_t
-  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wbwmsd/i_really_ho
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wc5mh2/a_few_fears
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wc4ayd/i_hope_the_
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wc3dnl/hang_on_a_m
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wc2r2u/the_movies_
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wc1rew/is_this_a_g
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wc1fl6/this_is_wha
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wc0zvy/obvioudly_n
+  passou,    2026-09-09 hollywoodreporter.com  Lego Grows Its 200-Plus Harry Potter Collection With Eight N
 
-Nada passou na checagem. A edicao de hoje fica como esta.
+== EDITOR ==
+
+== FOTOS ==
+  lego-oito-novos-conjuntos-hogwarts-2026-09-09, sem foto, a pagina desenha a chapa
+
+== FECHAMENTO ==
+Before you finish the run, go back to each of those articles and look for a photograph INSIDE the body of the piece. A site with no og:image usually still illustrates the article. Only leave a story with no picture once you have actually looked and found nothing.
+wrote artifact.html (2194409 bytes)
+
+Edicao fechada com 1 materias novas.
+  [official] LEGO expande coleção de Harry Potter com oito novos conjuntos de personagens e arquitetura de Hogwarts
 ```
