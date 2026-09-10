@@ -2367,13 +2367,11 @@
     position: fixed;
     left: 0; top: 0;
     z-index: 10040;
-    width: var(--pomo-w, 96px);
+    width: var(--pomo-w, 260px);
     pointer-events: none;
-    will-change: transform, opacity;
-    transition: opacity .32s ease;
+    will-change: transform;
   }
   .pomo-voo[hidden] { display: none !important; }
-  .pomo-voo.sumiu { opacity: 0; }
   .pomo-voo img {
     display: block;
     width: 100%;
@@ -2383,7 +2381,7 @@
   /* a area de toque e maior que o desenho, senao ele fica impossivel */
   .pomo-voo .pega {
     position: absolute;
-    left: -14%; right: -14%; top: -46%; bottom: -46%;
+    left: 34%; right: 34%; top: 18%; bottom: 18%;
     border: none;
     background: none;
     padding: 0;
@@ -2409,9 +2407,10 @@
     100% { transform: scale(34); opacity: 0; }
   }
 
-  @media (max-width: 700px) { .pomo-voo { --pomo-w: 74px; } }
+  @media (max-width: 1100px) { .pomo-voo { --pomo-w: 200px; } }
+  @media (max-width: 700px) { .pomo-voo { --pomo-w: 150px; } }
+  @media (max-width: 430px) { .pomo-voo { --pomo-w: 120px; } }
   @media (prefers-reduced-motion: reduce) {
-    .pomo-voo { transition: none; }
     .pomo-flash { animation: none; opacity: 0; }
   }
 
@@ -8387,17 +8386,20 @@ function retrato(nome) {
 /* ---------------------------------------------------------------------
    A caca ao pomo.
 
-   O pomo cruza a tela em arrancadas curtas, para um instante, arranca de
-   novo, e de vez em quando some por alguns segundos e volta em outro
-   canto. Quem encostar nele ganha a figurinha do pomo. Depois de apanhado
-   ele nao volta mais, porque a figurinha e uma so.
+   O pomo mora no meio da tela e foge de quem chega perto. Nao some, nao
+   pisca, nao troca de canto sozinho, porque pomo nao faz isso. Ele fica
+   rondando o centro e da uma guinada quando o ponteiro se aproxima.
+
+   O movimento e uma conta simples de fisica em cada quadro. Uma mola puxa
+   ele de volta para o centro, o ponteiro empurra ele para longe, e o atrito
+   segura a velocidade. A guinada leva um empurrao de lado alem do empurrao
+   para tras, senao ele fugiria em linha reta e ficaria facil demais.
    ------------------------------------------------------------------ */
 (function () {
   function comeca() {
     if (!window.ALBUM || !ALBUM.cartaDoPomo) return setTimeout(comeca, 400);
     var carta = ALBUM.cartaDoPomo();
-    if (carta < 0) return;
-    if (ALBUM.tenho(carta)) return;          /* ja foi apanhado antes */
+    if (carta < 0 || ALBUM.tenho(carta)) return;
 
     var pouco = window.matchMedia &&
                 window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -8408,54 +8410,86 @@ function retrato(nome) {
                       '<button type="button" class="pega" aria-label="Apanhar o pomo de ouro"></button>';
     document.body.appendChild(caixa);
 
-    var x = 0, y = 0, t = null, apanhado = false;
+    var x = 0, y = 0, vx = 0, vy = 0, apanhado = false, quadro = 0;
+    var rato = { x: -9999, y: -9999, visto: 0 };
 
-    function larguraDele() { return caixa.offsetWidth || 96; }
-    function sorteia() {
-      var w = larguraDele(), m = w * 0.8;
-      return [m + Math.random() * (window.innerWidth - w - m * 2),
-              m + Math.random() * (window.innerHeight - w * .6 - m * 2)];
-    }
-    function poe(nx, ny, ms) {
-      x = nx; y = ny;
-      caixa.style.transition = "transform " + ms + "ms cubic-bezier(.34,.02,.28,1), opacity .32s ease";
-      caixa.style.transform = "translate3d(" + nx.toFixed(1) + "px," + ny.toFixed(1) + "px,0)";
+    function meio() { return [window.innerWidth / 2, window.innerHeight / 2]; }
+    function tamanho() { var r = caixa.getBoundingClientRect(); return [r.width || 240, r.height || 120]; }
+
+    var c = meio();
+    x = c[0]; y = c[1];
+
+    /* a area em que ele ronda, um retangulo no meio da tela */
+    function cerca() {
+      var t = tamanho();
+      var lw = Math.min(window.innerWidth * 0.66, window.innerWidth - t[0] - 24);
+      var lh = Math.min(window.innerHeight * 0.62, window.innerHeight - t[1] - 24);
+      return [Math.max(60, lw) / 2, Math.max(60, lh) / 2];
     }
 
-    var arrancadas = 0;
-    function proximo() {
+    document.addEventListener("pointermove", function (ev) {
+      rato.x = ev.clientX; rato.y = ev.clientY; rato.visto = performance.now();
+    }, { passive: true });
+
+    function passo(agora) {
       if (apanhado) return;
-      arrancadas++;
-      /* a cada punhado de arrancadas ele some e volta noutro canto */
-      if (arrancadas % (5 + Math.floor(Math.random() * 4)) === 0) {
-        caixa.classList.add("sumiu");
-        t = setTimeout(function () {
-          var d = sorteia();
-          caixa.style.transition = "none";
-          caixa.style.transform = "translate3d(" + d[0] + "px," + d[1] + "px,0)";
-          x = d[0]; y = d[1];
-          /* deixa o navegador assentar antes de reacender */
-          requestAnimationFrame(function () {
-            caixa.classList.remove("sumiu");
-            t = setTimeout(proximo, 260);
-          });
-        }, 1400 + Math.random() * 1800);
-        return;
+      quadro++;
+      var m = meio(), lim = cerca();
+
+      /* a mola do centro, fraca, so para ele nao morar na quina */
+      vx += (m[0] - x) * 0.0016;
+      vy += (m[1] - y) * 0.0016;
+
+      /* o ponteiro. Perto demais, ele guina */
+      var perto = 0;
+      if (agora - rato.visto < 2600) {
+        var dx = x - rato.x, dy = y - rato.y;
+        var d = Math.sqrt(dx * dx + dy * dy) || 1;
+        var alcance = 230;
+        if (d < alcance) {
+          perto = 1 - d / alcance;
+          var forca = perto * perto * 7.2;
+          vx += (dx / d) * forca;
+          vy += (dy / d) * forca;
+          /* o empurrao de lado, que e o que faz a fuga parecer finta */
+          var lado = (quadro % 47 < 24 ? 1 : -1) * perto * 3.4;
+          vx += (-dy / d) * lado;
+          vy += (dx / d) * lado;
+        }
       }
-      var d = sorteia();
-      var dist = Math.sqrt((d[0] - x) * (d[0] - x) + (d[1] - y) * (d[1] - y));
-      /* rapido de proposito. Um pomo que da para apanhar sem esforco nao
-         vale figurinha nenhuma */
-      var ms = Math.max(260, Math.min(620, dist * 0.42));
-      poe(d[0], d[1], ms);
-      t = setTimeout(proximo, ms + 130 + Math.random() * 420);
+
+      /* um tremor de asa constante, senao ele parece pendurado */
+      vx += Math.sin(quadro * 0.11) * 0.16 + (Math.random() - 0.5) * 0.22;
+      vy += Math.cos(quadro * 0.09) * 0.14 + (Math.random() - 0.5) * 0.22;
+
+      vx *= 0.905;
+      vy *= 0.905;
+
+      /* teto de velocidade, alto quando esta fugindo */
+      var teto = perto > 0 ? 26 : 6.5;
+      var v = Math.sqrt(vx * vx + vy * vy);
+      if (v > teto) { vx = vx / v * teto; vy = vy / v * teto; }
+
+      x += vx; y += vy;
+
+      /* bate na cerca e volta */
+      if (x < m[0] - lim[0]) { x = m[0] - lim[0]; vx = Math.abs(vx) * 0.7; }
+      if (x > m[0] + lim[0]) { x = m[0] + lim[0]; vx = -Math.abs(vx) * 0.7; }
+      if (y < m[1] - lim[1]) { y = m[1] - lim[1]; vy = Math.abs(vy) * 0.7; }
+      if (y > m[1] + lim[1]) { y = m[1] + lim[1]; vy = -Math.abs(vy) * 0.7; }
+
+      /* inclina para o lado que esta indo, como bicho que vira */
+      var inclina = Math.max(-22, Math.min(22, vx * 1.6));
+      caixa.style.transform = "translate3d(" + (x.toFixed(1) - 0) + "px," +
+                              (y.toFixed(1) - 0) + "px,0) translate(-50%,-50%) rotate(" +
+                              inclina.toFixed(1) + "deg)";
+      requestAnimationFrame(passo);
     }
 
     function apanha(ev) {
       if (apanhado) return;
       apanhado = true;
       if (ev) ev.preventDefault();
-      clearTimeout(t);
       var r = caixa.getBoundingClientRect();
       var faisca = document.createElement("div");
       faisca.className = "pomo-flash";
@@ -8464,37 +8498,15 @@ function retrato(nome) {
       document.body.appendChild(faisca);
       setTimeout(function () { faisca.remove(); }, 820);
       caixa.style.transition = "transform .3s ease, opacity .3s ease";
-      caixa.style.transform += " scale(.2)";
       caixa.style.opacity = "0";
       setTimeout(function () { caixa.remove(); }, 420);
       ALBUM.ganhar(carta);
-      try { localStorage.setItem("profeta-pomo", "1"); } catch (e) {}
     }
-
     caixa.querySelector(".pega").addEventListener("click", apanha);
 
-    if (pouco) {
-      /* sem movimento, ele fica pousado num canto esperando ser apanhado */
-      var d = sorteia();
-      caixa.style.transform = "translate3d(" + d[0] + "px," + d[1] + "px,0)";
-      return;
-    }
-    var inicio = sorteia();
-    caixa.style.transform = "translate3d(" + inicio[0] + "px," + inicio[1] + "px,0)";
-    x = inicio[0]; y = inicio[1];
-    t = setTimeout(proximo, 900);
-
-    /* a tela mudou de tamanho, entao ele volta para dentro dela */
-    window.addEventListener("resize", function () {
-      if (apanhado) return;
-      var w = larguraDele();
-      if (x > window.innerWidth - w || y > window.innerHeight - w) {
-        var d = sorteia();
-        caixa.style.transition = "none";
-        caixa.style.transform = "translate3d(" + d[0] + "px," + d[1] + "px,0)";
-        x = d[0]; y = d[1];
-      }
-    });
+    caixa.style.transform = "translate3d(" + x + "px," + y + "px,0) translate(-50%,-50%)";
+    if (pouco) return;                 /* pousado no meio, parado e catavel */
+    requestAnimationFrame(passo);
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", comeca);
   else comeca();
