@@ -83,9 +83,9 @@ def main():
         print('mapa com {} ilustracoes, {} KB'.format(len(figuras), len(mapa) // 1024))
         out = mapa + out
 
-    out = re.sub(r'(src=")((?:assets/)?[\w./-]+\.(?:jpg|jpeg|png|svg|webp))(")', inline, out)
+    out = re.sub(r'(src=")((?:assets/)?[\w./-]+\.(?:jpg|jpeg|png|svg|webp|gif))(")', inline, out)
     # the same for local paths that live in the script rather than in an attribute
-    out = re.sub(r'(")(assets/(?!figuras/)[\w./-]+\.(?:jpg|jpeg|png|svg|webp))(")', inline, out)
+    out = re.sub(r'(")(assets/(?!figuras/)[\w./-]+\.(?:jpg|jpeg|png|svg|webp|gif))(")', inline, out)
 
     for bad in ('<!doctype', '<html', '<head>', '<body>'):
         if bad in out.lower():
