@@ -3053,12 +3053,8 @@
 
   /* a fibra do papel, mais visivel */
   :root[data-theme="light"] .wrap::before { opacity: .18 !important; }
-  :root[data-theme="light"] body {
-    background-color: #EFE6CB;
-    background-image:
-      radial-gradient(120% 70% at 8% 0%, rgba(255,253,244,.9), transparent 52%),
-      radial-gradient(110% 80% at 94% 100%, rgba(168,144,96,.5), transparent 56%) !important;
-  }
+  /* O papel claro mora na folha, nao no fundo da pagina. Aqui embaixo
+     e a mesa de madeira, e esta regra tapava ela inteira no tema claro. */
 
   /* fotografia de jornal, retícula e tinta preta */
   :root[data-theme="light"] .shot img {
