@@ -2018,8 +2018,9 @@
      ===================================================================== */
   .magia {
     position: absolute;
-    inset: 0;
-    z-index: 2;
+    left: 0; right: 0; top: 0;
+    height: 100%;
+    z-index: 1;
     pointer-events: none;
   }
   .mg {
@@ -2033,41 +2034,288 @@
     will-change: opacity, transform;
   }
   .mg.acesa { opacity: var(--forca, .5); transform: translateY(0); }
-  .mg svg { stroke-width: 1.7; }
   .mg svg {
     display: block;
     width: 100%;
     height: auto;
     transform: rotate(var(--gira, 0deg));
+    /* um envelhecido leve, so para o objeto pousar no papel em vez de
+       boiar por cima dele */
+    filter: sepia(.22) saturate(.92) contrast(1.04);
   }
-  .mg-esq { left: calc(-1 * max(0px, min(var(--w, 150px) + 18px, (100vw - 100%) / 2 - 10px))); }
-  .mg-dir { right: calc(-1 * max(0px, min(var(--w, 150px) + 18px, (100vw - 100%) / 2 - 10px))); }
+  /* o objeto encosta na beira da folha e some um pouco por baixo dela.
+     A conta usa a metade da mesa que sobrou dos dois lados do papel, e
+     desconta um pedaco do proprio objeto, que e a parte encoberta. */
+  .mg-esq { left: calc(50% - min(760px, 50vw) - var(--w, 150px) + var(--enfia, 34px)); }
+  .mg-dir { right: calc(50% - min(760px, 50vw) - var(--w, 150px) + var(--enfia, 34px)); }
 
-  /* no impresso o objeto e tinta no papel, nao ouro */
-  :root[data-theme="light"] .mg { color: #4A3A18; }
-  :root[data-theme="light"] .mg.acesa { opacity: calc(var(--forca, .5) * .78); }
+  /* no impresso a folha e mais clara, entao o objeto ganha um pouco mais
+     de contraste para nao sumir */
+  :root[data-theme="light"] .mg svg { filter: sepia(.3) saturate(.86) contrast(1.1); }
+  :root[data-theme="light"] .mg.acesa { opacity: calc(var(--forca, .5) * .92); }
 
   /* tela media, ainda ha margem, mas menos */
   @media (max-width: 1699px) {
     .mg { --w: 96px; }
-    .mg.acesa { opacity: calc(var(--forca, .5) * .55); }
+    .mg.acesa { opacity: calc(var(--forca, .5) * .9); }
   }
   /* daqui para baixo a margem acabou, o objeto encosta na folha, entao ele
      encolhe e clareia ate virar marca de papel em vez de estorvo */
   @media (max-width: 1239px) {
     .mg { --w: 70px; }
-    .mg.acesa { opacity: calc(var(--forca, .5) * .4); }
+    .mg.acesa { opacity: calc(var(--forca, .5) * .5); }
   }
   @media (max-width: 900px) {
     .mg { --w: 54px; }
-    .mg.acesa { opacity: calc(var(--forca, .5) * .3); }
+    .mg.acesa { opacity: calc(var(--forca, .5) * .34); }
   }
   @media (max-width: 520px) {
     .mg { --w: 40px; }
-    .mg.acesa { opacity: calc(var(--forca, .5) * .28); }
+    .mg.acesa { opacity: calc(var(--forca, .5) * .3); }
   }
   @media (prefers-reduced-motion: reduce) {
     .mg { transition: none; }
+  }
+
+
+  /* =====================================================================
+     A MESA E A FOLHA
+
+     O jornal passa a ser uma folha apoiada numa mesa de madeira. A mesa e
+     o fundo da pagina, feita de degrades sobrepostos, veio grosso, veio
+     fino, dois nos e um escurecido nas beiras. A folha e o bloco do
+     conteudo, com sombra por baixo, fibra de papel por cima e as marcas
+     de dobra de quem ja carregou o jornal debaixo do braco.
+
+     Os objetos ficam na mesa, atras da folha, entao parte deles some por
+     baixo do papel. E de proposito, e o que faz a folha parecer apoiada
+     em cima e nao colada no fundo.
+     ===================================================================== */
+  body, :root[data-theme="light"] body {
+    background-color: #3A2410;
+    background-image:
+      /* a luz que cai de cima na mesa, e o escurecido das quinas */
+      radial-gradient(150% 80% at 50% -14%, rgba(255,216,158,.20), rgba(0,0,0,0) 58%),
+      linear-gradient(180deg, rgba(0,0,0,0) 38%, rgba(0,0,0,.46)),
+      linear-gradient(90deg, rgba(0,0,0,.34), rgba(0,0,0,0) 12%,
+                      rgba(0,0,0,0) 88%, rgba(0,0,0,.34)),
+      url("assets/mesa.jpg") !important;
+    background-size: auto, auto, auto, 430px auto !important;
+    background-repeat: no-repeat, no-repeat, no-repeat, repeat !important;
+    background-attachment: fixed !important;
+  }
+  :root[data-theme="light"] body { background-color: #4A2F14 !important; }
+
+  /* a folha, apoiada na mesa. Ela segura o cabecalho, as materias, as
+     fontes e o rodape, entao tudo que se le esta dentro do jornal */
+  .folha {
+    position: relative;
+    z-index: 3;
+    max-width: 1520px;
+    margin: 0 auto;
+    background-color: var(--bg);
+    box-shadow:
+      0 30px 70px -20px rgba(0,0,0,.85),
+      0 8px 20px rgba(0,0,0,.45),
+      0 1px 0 rgba(255,244,216,.12) inset;
+  }
+  :root[data-theme="light"] .folha {
+    background-color: #EFE6CB;
+    background-image:
+      radial-gradient(120% 60% at 8% 0%, rgba(255,253,244,.75), transparent 55%),
+      radial-gradient(100% 60% at 94% 100%, rgba(168,144,96,.35), transparent 60%);
+  }
+  .wrap { padding-top: 16px !important; }
+
+  /* a fibra do papel e as marcas de dobra.
+     A dobra do meio se repete a cada folha de leitura, entao o jornal
+     comprido continua parecendo um jornal e nao um rolo. */
+  .folha::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 40;
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23p)' opacity='.4'/%3E%3C/svg%3E"),
+      linear-gradient(180deg,
+        transparent 0, transparent 38%,
+        rgba(58,40,14,.10) 46%, rgba(58,40,14,.20) 49.6%,
+        rgba(255,248,224,.30) 50.4%, rgba(58,40,14,.09) 55%,
+        transparent 64%, transparent 100%),
+      linear-gradient(90deg,
+        transparent 28%, rgba(58,40,14,.05) 33%,
+        rgba(255,248,224,.13) 34%, transparent 39%),
+      linear-gradient(90deg,
+        transparent 61%, rgba(58,40,14,.045) 66%,
+        rgba(255,248,224,.11) 67%, transparent 72%),
+      radial-gradient(70% 30% at 84% 22%, rgba(58,40,14,.07), transparent 70%),
+      radial-gradient(60% 26% at 14% 68%, rgba(58,40,14,.06), transparent 70%);
+    background-size: 160px 160px, 100% 1180px, auto, auto, auto, auto;
+    background-repeat: repeat, repeat-y, no-repeat, no-repeat, no-repeat, no-repeat;
+    opacity: .3;
+    mix-blend-mode: multiply;
+  }
+  :root[data-theme="light"] .folha::after { opacity: .34; }
+  /* no escuro o multiply so suja, entao a dobra vira luz em vez de sombra */
+  :root:not([data-theme="light"]) .folha::after { mix-blend-mode: soft-light; opacity: .55; }
+
+  /* a folha e a mesa se acalmam para quem pediu menos movimento */
+  @media (prefers-reduced-motion: reduce) {
+    body { background-attachment: scroll !important; }
+  }
+  @media (max-width: 620px) {
+    .wrap { padding-top: 10px !important; }
+    .folha::after { background-size: 160px 160px, 100% 820px, auto, auto, auto, auto; }
+  }
+
+
+  /* =====================================================================
+     A ORELHA DE VIRAR
+     Um canto dobrado no pe direito da folha. Clicou, vira a pagina. E o
+     gesto que a pessoa ja faz num jornal de papel, entao ele nao precisa
+     de explicacao. O botao do rodape continua ali para quem prefere ler
+     o que esta clicando.
+     ===================================================================== */
+  .orelha {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 92px;
+    height: 92px;
+    border: none;
+    padding: 0;
+    background: none;
+    cursor: pointer;
+    z-index: 41;
+    color: var(--ink-faint);
+  }
+  .orelha[hidden] { display: none !important; }
+  .orelha::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(315deg,
+      var(--surface-2) 0 48%, rgba(0,0,0,.28) 48.6%, transparent 50%);
+    clip-path: polygon(100% 0, 100% 100%, 0 100%);
+    box-shadow: -6px -6px 14px -6px rgba(0,0,0,.55);
+    transition: clip-path .25s ease;
+  }
+  .orelha::after {
+    content: "";
+    position: absolute;
+    right: 16px;
+    bottom: 15px;
+    width: 26px;
+    height: 26px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    opacity: .55;
+    transform: rotate(-45deg);
+    transition: transform .25s ease, opacity .25s ease;
+  }
+  .orelha:hover::before, .orelha:focus-visible::before {
+    clip-path: polygon(72% 0, 100% 0, 100% 100%, 0 100%);
+  }
+  .orelha:hover::after, .orelha:focus-visible::after { transform: rotate(-45deg) scale(1.14); opacity: .9; }
+  .orelha .diz {
+    position: absolute;
+    right: 8px;
+    bottom: 54px;
+    font-family: var(--font-label);
+    font-size: 9px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity .25s ease, transform .25s ease;
+    pointer-events: none;
+  }
+  .orelha:hover .diz, .orelha:focus-visible .diz { opacity: .85; transform: translateY(0); }
+  :root[data-theme="light"] .orelha { color: #100B04; }
+  :root[data-theme="light"] .orelha::before {
+    background: linear-gradient(315deg, #E2D6B4 0 48%, rgba(0,0,0,.22) 48.6%, transparent 50%);
+  }
+  @media (max-width: 620px) {
+    .orelha { width: 66px; height: 66px; }
+    .orelha::after { right: 12px; bottom: 11px; width: 19px; height: 19px; }
+    .orelha .diz { display: none; }
+  }
+
+
+  /* =====================================================================
+     ARRASTAR PARA O LADO
+     Um caminho de codigo so para o dedo e para o mouse, que e o que o
+     pointer event resolve. Arrastar para a direita puxa as materias mais
+     antigas, arrastar para a esquerda volta para as mais novas. O eixo
+     vertical continua sendo da pagina, entao rolar nao vira folha.
+     ===================================================================== */
+  .press { touch-action: pan-y; }
+  .press.puxando { cursor: grabbing; }
+  .press.arrastando { user-select: none; -webkit-user-select: none; }
+  .press.arrastando a { -webkit-user-drag: none; }
+  .press > main, .press > .virar {
+    transition: transform .28s cubic-bezier(.2,.8,.25,1), opacity .28s ease;
+  }
+  .press.arrastando > main, .press.arrastando > .virar { transition: none; }
+  .press.saindo-esq > main { transform: translateX(-7%); opacity: 0; }
+  .press.saindo-dir > main { transform: translateX(7%); opacity: 0; }
+
+  /* o aviso que aparece enquanto a pessoa arrasta */
+  .rumo {
+    position: fixed;
+    top: 50%;
+    z-index: 60;
+    transform: translateY(-50%);
+    font-family: var(--font-label);
+    font-size: 11px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: #F3EAD2;
+    background: rgba(20, 13, 4, .88);
+    border: 1px solid var(--gold-dim);
+    padding: 10px 14px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .18s ease;
+    max-width: 42vw;
+    text-align: center;
+  }
+  .rumo.esq { left: 14px; }
+  .rumo.dir { right: 14px; }
+  .rumo.on { opacity: 1; }
+
+  /* a orelha de voltar, no pe esquerdo */
+  .orelha-volta {
+    right: auto;
+    left: 0;
+  }
+  .orelha-volta::before {
+    background: linear-gradient(45deg,
+      var(--surface-2) 0 48%, rgba(0,0,0,.28) 48.6%, transparent 50%);
+    clip-path: polygon(0 0, 100% 100%, 0 100%);
+    box-shadow: 6px -6px 14px -6px rgba(0,0,0,.55);
+  }
+  .orelha-volta:hover::before, .orelha-volta:focus-visible::before {
+    clip-path: polygon(0 0, 28% 0, 100% 100%, 0 100%);
+  }
+  .orelha-volta::after {
+    right: auto;
+    left: 16px;
+    border-right: none;
+    border-bottom: 2px solid currentColor;
+    border-left: 2px solid currentColor;
+    transform: rotate(45deg);
+  }
+  .orelha-volta:hover::after, .orelha-volta:focus-visible::after { transform: rotate(45deg) scale(1.14); }
+  .orelha-volta .diz { right: auto; left: 8px; }
+  :root[data-theme="light"] .orelha-volta::before {
+    background: linear-gradient(45deg, #E2D6B4 0 48%, rgba(0,0,0,.22) 48.6%, transparent 50%);
+  }
+  @media (max-width: 620px) {
+    .orelha-volta::after { left: 12px; }
+    .rumo { font-size: 10px; padding: 8px 10px; }
   }
 
   /* =====================================================================
@@ -2735,6 +2983,7 @@
   /* o jornal abre impresso. A varinha ainda apaga a luz quando ela quiser */
   document.documentElement.setAttribute("data-theme", "light");
 </script>
+<div class="folha">
 <header class="hero">
   <img class="hero-img" src="hogwarts-night.jpg" alt="" aria-hidden="true">
   <div class="hero-inner">
@@ -2832,15 +3081,18 @@
   <div class="press">
     <span class="ear ear-l" aria-hidden="true">Que ninguem diga que o Profeta nao avisou</span>
     <span class="ear ear-r" aria-hidden="true">Toda noticia aqui carrega a bancada de onde saiu</span>
-    <div class="magia" id="magia" aria-hidden="true"></div>
     <main id="list"></main>
+    <button type="button" class="orelha orelha-volta" id="orelhaVolta" hidden
+            aria-label="Voltar a pagina"><span class="diz">Voltar a página</span></button>
+    <button type="button" class="orelha" id="orelha" hidden
+            aria-label="Virar a pagina"><span class="diz">Virar a página</span></button>
     <nav class="virar" id="virar" hidden aria-label="Paginas do jornal"></nav>
   </div>
 
   <section class="desks" id="desks">
     <div class="desks-head">
       <h2>De onde vem a noticia</h2>
-      <p>Estas sao as 41 bancadas que o Prophet Watch le, de manha e no fim da tarde. Oficiais primeiro, depois imprensa, depois fa, depois quem estuda os livros. Clique para abrir a fonte.</p>
+      <p>Estas sao as 41 bancadas que o Prophet Watch le, de tres em tres horas, oito vezes por dia. Oficiais primeiro, depois imprensa, depois fa, depois quem estuda os livros. Clique para abrir a fonte.</p>
       <button type="button" class="desks-toggle" id="desksToggle" aria-expanded="false">Mostrar todas as 41 fontes</button>
     </div>
     <div class="desks-grid">
@@ -2943,8 +3195,9 @@
       <circle cx="20" cy="20" r="17"/><circle cx="20" cy="20" r="13" stroke-dasharray="2 4"/>
       <path d="M20 11 22.4 17.6 29 20 22.4 22.4 20 29 17.6 22.4 11 20 17.6 17.6z" fill="currentColor" stroke="none"/>
     </svg>
-    O Prophet Watch recolhe noticia de Harry Potter duas vezes por dia, de manha e no fim da tarde, hora de Roma. Toda materia guarda o link de onde ela saiu, entao nada precisa ser aceito no escuro. A marca de procedencia diz o quanto a materia estava firme quando foi publicada, e nao o quanto ela tem chance de ser verdade.
+    O Prophet Watch recolhe noticia de Harry Potter de tres em tres horas, oito vezes por dia. Toda materia guarda o link de onde ela saiu, entao nada precisa ser aceito no escuro. A marca de procedencia diz o quanto a materia estava firme quando foi publicada, e nao o quanto ela tem chance de ser verdade.
   </footer>
+</div>
 </div>
 
 <script type="application/json" id="album-data">
@@ -4939,31 +5192,160 @@
 
   /* o pe da folha. Some quando tudo cabe numa folha so */
   function desenhaVirar(folha, folhas, total) {
+    var orelha = document.getElementById("orelha");
+    var volta = document.getElementById("orelhaVolta");
+    if (orelha) orelha.hidden = folhas <= 1 || folha >= folhas;
+    if (volta) volta.hidden = folhas <= 1 || folha <= 1;
     if (!virarEl) return;
     if (folhas <= 1) { virarEl.hidden = true; virarEl.innerHTML = ""; return; }
     virarEl.hidden = false;
     virarEl.innerHTML =
       '<button type="button" class="folha-btn" data-ir="-1"' +
-        (folha <= 1 ? " disabled" : "") + ">Folha anterior</button>" +
+        (folha <= 1 ? " disabled" : "") + ">Voltar a página</button>" +
       '<span class="folha-conta">Folha ' + folha + " de " + folhas +
         " &#183; " + total + (total === 1 ? " matéria" : " matérias") + "</span>" +
       '<button type="button" class="folha-btn" data-ir="1"' +
         (folha >= folhas ? " disabled" : "") + ">Virar a página</button>";
   }
 
+  function passaFolha(quanto) {
+    state.folha += quanto;
+    render();
+    var alvo = document.querySelector(".press");
+    if (alvo) {
+      var y = alvo.getBoundingClientRect().top + window.pageYOffset - 12;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+  }
+
   if (virarEl) {
     virarEl.addEventListener("click", function (ev) {
       var b = ev.target.closest && ev.target.closest("button[data-ir]");
       if (!b || b.disabled) return;
-      state.folha += Number(b.dataset.ir);
-      render();
-      var alvo = document.querySelector(".press");
-      if (alvo) {
-        var y = alvo.getBoundingClientRect().top + window.pageYOffset - 12;
-        window.scrollTo({ top: y, behavior: "smooth" });
-      }
+      passaFolha(Number(b.dataset.ir));
     });
   }
+  var orelhaEl = document.getElementById("orelha");
+  if (orelhaEl) orelhaEl.addEventListener("click", function () { passaFolha(1); });
+  var voltaEl = document.getElementById("orelhaVolta");
+  if (voltaEl) voltaEl.addEventListener("click", function () { passaFolha(-1); });
+
+  /* ------------------------------------------------------------------
+     Arrastar para o lado.
+     Pointer event cobre dedo, mouse e caneta com o mesmo codigo, entao
+     isso funciona igual no celular e no computador. Para a direita puxa
+     as mais antigas, para a esquerda volta para as mais novas. So conta
+     como arrasto quando o movimento horizontal ganha do vertical, senao
+     rolar a pagina viraria folha sem querer.
+     --------------------------------------------------------------- */
+  (function () {
+    var folha = document.querySelector(".press");
+    if (!folha || !window.PointerEvent) return;
+    var corpo = document.getElementById("list");
+    var rumoE = null, rumoD = null;
+    function avisos() {
+      if (!rumoE) rumoE = document.getElementById("rumoEsq");
+      if (!rumoD) rumoD = document.getElementById("rumoDir");
+      return !!(rumoE && rumoD);
+    }
+    var x0 = 0, y0 = 0, ativo = false, decidido = false, valeu = false, idp = null;
+    var LIMITE = 78;
+
+    function podeIr(quanto) {
+      var b = virarEl && virarEl.querySelector('button[data-ir="' + quanto + '"]');
+      return !!b && !b.disabled;
+    }
+    function aviso(quanto, forte) {
+      if (!avisos()) return;
+      var e = quanto > 0 ? rumoE : rumoD;
+      var o = quanto > 0 ? rumoD : rumoE;
+      o.classList.remove("on");
+      e.textContent = quanto > 0 ? "Mais antigas" : "Mais novas";
+      e.classList.toggle("on", !!forte);
+    }
+    function limpa() {
+      if (avisos()) { rumoE.classList.remove("on"); rumoD.classList.remove("on"); }
+      folha.classList.remove("arrastando", "puxando");
+      if (corpo) corpo.style.transform = "";
+    }
+
+    folha.addEventListener("pointerdown", function (ev) {
+      if (ev.button !== undefined && ev.button !== 0) return;
+      /* campo de texto e botao continuam sendo deles. Link nao, senao o
+         gesto morria, porque quase tudo no jornal e link */
+      if (ev.target.closest("input, select, textarea, [contenteditable], .virar, .orelha")) return;
+      var alb = document.getElementById("album"), lei = document.getElementById("leitura");
+      if ((alb && !alb.hidden) || (lei && !lei.hidden)) return;
+      if (virarEl && virarEl.hidden) return;
+      ativo = true; decidido = false; valeu = false;
+      x0 = ev.clientX; y0 = ev.clientY; idp = ev.pointerId;
+    });
+
+    folha.addEventListener("pointermove", function (ev) {
+      if (!ativo || ev.pointerId !== idp) return;
+      var dx = ev.clientX - x0, dy = ev.clientY - y0;
+      if (!decidido) {
+        if (Math.abs(dx) < 12 && Math.abs(dy) < 12) return;
+        decidido = true;
+        valeu = Math.abs(dx) > Math.abs(dy) * 1.5;
+        if (valeu) {
+          folha.classList.add("arrastando", "puxando");
+          try { folha.setPointerCapture(idp); } catch (e) {}
+        }
+      }
+      if (!valeu) return;
+      ev.preventDefault();
+      var quanto = dx > 0 ? 1 : -1;
+      var pode = podeIr(quanto);
+      var puxa = Math.max(-52, Math.min(52, dx * (pode ? .34 : .1)));
+      if (corpo) corpo.style.transform = "translateX(" + puxa.toFixed(1) + "px)";
+      aviso(quanto, pode && Math.abs(dx) > LIMITE);
+    });
+
+    function solta(ev) {
+      if (!ativo || (ev && ev.pointerId !== idp)) return;
+      var dx = ev ? ev.clientX - x0 : 0;
+      ativo = false;
+      try { folha.releasePointerCapture(idp); } catch (e) {}
+      var quanto = dx > 0 ? 1 : -1;
+      /* arrastou de verdade, entao o clique que o navegador dispara em
+         seguida nao pode abrir a materia que estava debaixo do dedo */
+      if (valeu && Math.abs(dx) > 12) {
+        var mata = function (e) { e.preventDefault(); e.stopPropagation(); };
+        window.addEventListener("click", mata, true);
+        setTimeout(function () { window.removeEventListener("click", mata, true); }, 320);
+      }
+      if (valeu && Math.abs(dx) > LIMITE && podeIr(quanto)) {
+        folha.classList.remove("arrastando");
+        if (corpo) corpo.style.transform = "";
+        folha.classList.add(quanto > 0 ? "saindo-esq" : "saindo-dir");
+        setTimeout(function () {
+          folha.classList.remove("saindo-esq", "saindo-dir");
+          passaFolha(quanto);
+        }, 190);
+      }
+      limpa();
+    }
+    folha.addEventListener("dragstart", function (ev) { if (ativo) ev.preventDefault(); });
+    folha.addEventListener("pointerup", solta);
+    folha.addEventListener("pointercancel", solta);
+    folha.addEventListener("pointerleave", function (ev) { if (ativo) solta(ev); });
+  }());
+
+  /* as setas do teclado tambem viram, desde que a pessoa nao esteja
+     escrevendo na busca nem com o album ou a materia aberta */
+  document.addEventListener("keydown", function (ev) {
+    if (ev.key !== "ArrowLeft" && ev.key !== "ArrowRight") return;
+    if (ev.metaKey || ev.ctrlKey || ev.altKey) return;
+    var a = document.activeElement;
+    if (a && (a.tagName === "INPUT" || a.tagName === "TEXTAREA" || a.isContentEditable)) return;
+    var alb = document.getElementById("album"), lei = document.getElementById("leitura");
+    if ((alb && !alb.hidden) || (lei && !lei.hidden)) return;
+    var b = virarEl && virarEl.querySelector('button[data-ir="' + (ev.key === "ArrowRight" ? 1 : -1) + '"]');
+    if (!b || b.disabled) return;
+    ev.preventDefault();
+    passaFolha(ev.key === "ArrowRight" ? 1 : -1);
+  });
 
   listEl.addEventListener("click", function (ev) {
     var b = ev.target.closest && ev.target.closest("button.tag");
@@ -5796,7 +6178,7 @@
             "pagina": "https://harrypotter.fandom.com/wiki/Sybill_Trelawney"
       },
       "Dolores Umbridge": {
-            "src": "assets/figuras/dolores-umbridge.jpg",
+            "src": "assets/figuras/dolores-umbridge.png",
             "fonte": "Oficial, Wizarding World",
             "pagina": "https://harrypotter.fandom.com/wiki/Dolores_Umbridge"
       },
@@ -6486,7 +6868,7 @@ function retrato(nome) {
     var retratoSVG = CFC.frente(raro).replace('<g class="cfc-slot"></g>',
       '<path d="' + CFC.ARCO + '" fill="#1B1026"/>' +
       (f ? '<image href="' + esc(FONTE(f.src)) + '" x="44" y="19" width="112" height="96" ' +
-           'preserveAspectRatio="xMidYMid slice" clip-path="url(#cfcArco)"/>' : "") +
+           'preserveAspectRatio="xMidYMin slice" clip-path="url(#cfcArco)"/>' : "") +
       '<path d="' + CFC.ARCO + '" fill="url(#cfcVeu)"/>');
 
     var credito = f ? esc(f.fonte) : "Silhueta gravada para o Profeta";
@@ -7324,6 +7706,31 @@ function retrato(nome) {
     <div id="albumBooks"></div>
   </div>
 </div>
+<div class="magia" id="magia" aria-hidden="true"></div>
+<script>
+/* o numero ao lado do nome da coluna conta o que esta visivel, e nao o
+   total escondido, senao ele nao bate com o que a pessoa consegue contar */
+(function () {
+  var caixa = document.getElementById("desks");
+  if (!caixa) return;
+  function conta() {
+    var cols = caixa.querySelectorAll(".desk-col");
+    for (var i = 0; i < cols.length; i++) {
+      var n = 0, itens = cols[i].querySelectorAll("li");
+      for (var j = 0; j < itens.length; j++) {
+        if (itens[j].offsetParent !== null) n++;
+      }
+      var selo = cols[i].querySelector(".deskn");
+      if (selo) selo.textContent = String(n);
+    }
+  }
+  conta();
+  var bt = document.getElementById("desksToggle");
+  if (bt) bt.addEventListener("click", function () { setTimeout(conta, 60); });
+}());
+</script>
+<div class="rumo esq" id="rumoEsq" aria-hidden="true"></div>
+<div class="rumo dir" id="rumoDir" aria-hidden="true"></div>
 <div class="leitura" id="leitura" hidden>
   <div class="leitura-page" role="dialog" aria-modal="true" aria-label="Materia">
     <div class="leitura-topo">
@@ -7486,165 +7893,329 @@ function retrato(nome) {
 /* ---------------------------------------------------------------------
    Os objetos que ficam ao lado do jornal.
 
-   Sao desenhos, nao fotografias. Cada um e um SVG de traco, no mesmo
-   registro gravado do resto da folha, o que resolve de uma vez a questao
-   do tamanho, porque um desenho vetorial nao perde nitidez quando cresce
-   nem quando encolhe.
+   Sao desenhos vetoriais, e nao fotografias, mas desenhados com volume.
+   Cada material tem o seu degrade, o seu brilho e a sua textura, e cada
+   objeto tem sombra de apoio. Vetor nao perde nitidez em tamanho nenhum,
+   que e o que faz o mesmo arquivo servir grande no computador e pequeno
+   no celular.
    ------------------------------------------------------------------ */
 (function () {
   var casa = document.getElementById("magia");
   if (!casa) return;
 
-  function svg(vb, corpo) {
-    return '<svg viewBox="' + vb + '" fill="none" stroke="currentColor" ' +
-           'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ' +
-           'aria-hidden="true" focusable="false">' + corpo + "</svg>";
+  var conta = 0;
+  function id(nome) { return nome + (++conta); }
+
+  /* ponto de uma curva cubica, usado para assentar as barbas da pena
+     exatamente sobre a haste em vez de no chute */
+  function bez(p, t) {
+    var u = 1 - t, a = u * u * u, b = 3 * u * u * t, c = 3 * u * t * t, d = t * t * t;
+    return [a * p[0][0] + b * p[1][0] + c * p[2][0] + d * p[3][0],
+            a * p[0][1] + b * p[1][1] + c * p[2][1] + d * p[3][1]];
+  }
+  function d3(p) {
+    return "M " + p[0][0] + " " + p[0][1] + " C " + p[1][0] + " " + p[1][1] +
+           " " + p[2][0] + " " + p[2][1] + " " + p[3][0] + " " + p[3][1];
+  }
+  function n(v) { return (Math.round(v * 10) / 10); }
+
+  function svg(vb, defs, corpo) {
+    return '<svg viewBox="' + vb + '" xmlns="http://www.w3.org/2000/svg" ' +
+           'aria-hidden="true" focusable="false"><defs>' + defs + "</defs>" +
+           corpo + "</svg>";
   }
 
-  /* a pena. Haste curva, duas asas de barba e a ponta cortada em bico */
+  /* a sombra de apoio, o que tira o objeto de cima do nada */
+  function sombra(cx, cy, rx, ry, forca) {
+    var g = id("sb");
+    return {
+      def: '<radialGradient id="' + g + '"><stop offset="0" stop-color="#2A1D08" stop-opacity="' +
+           (forca || .45) + '"/><stop offset="1" stop-color="#2A1D08" stop-opacity="0"/></radialGradient>',
+      uso: '<ellipse cx="' + cx + '" cy="' + cy + '" rx="' + rx + '" ry="' + ry +
+           '" fill="url(#' + g + ')"/>'
+    };
+  }
+
+  /* ---------------- a pena ---------------- */
   function pena() {
-    var haste = "M 70 16 C 64 62 55 128 47 186 L 39 224";
-    var contorno = "M 70 16 C 41 48 21 106 21 150 C 21 174 31 187 47 186 " +
-                   "C 53 186 59 180 63 168 C 74 128 78 60 70 16 Z";
+    var gv = id("pv"), gv2 = id("pw"), gh = id("ph"), gb = id("pb"), sm = sombra(96, 556, 62, 12, .34);
+
+    var haste = [[150, 30], [122, 180], [96, 340], [74, 500]];
+    var esq   = [[150, 30], [58, 138], [34, 300], [86, 402]];
+    var dir   = [[150, 30], [180, 140], [152, 332], [92, 406]];
+
     var barbas = "";
-    for (var i = 0; i < 16; i++) {
-      var u = i / 15;
-      /* ponto na haste, dois segmentos aproximados por interpolacao simples */
-      var hx = 70 - 23 * u - 4 * u * u, hy = 16 + 170 * u;
-      var larg = Math.sin(Math.PI * Math.min(1, u * 1.12)) * (30 - 8 * u);
-      barbas += '<path d="M ' + hx.toFixed(1) + " " + hy.toFixed(1) +
-                " L " + (hx - larg).toFixed(1) + " " + (hy + 12).toFixed(1) +
-                '" opacity=".55" stroke-width="1.1"/>';
-      if (u > .08) {
-        barbas += '<path d="M ' + hx.toFixed(1) + " " + hy.toFixed(1) +
-                  " L " + (hx + larg * .42).toFixed(1) + " " + (hy + 9).toFixed(1) +
-                  '" opacity=".4" stroke-width="1"/>';
+    for (var i = 0; i < 54; i++) {
+      var t = 0.035 + (i / 53) * 0.845;
+      var S = bez(haste, t), E = bez(esq, t), D = bez(dir, t);
+      /* uma falha na barba, como acontece em pena usada */
+      var falha = (t > 0.5 && t < 0.545) || (t > 0.72 && t < 0.742);
+      var op = falha ? 0.12 : (0.3 + 0.34 * Math.sin(Math.PI * t));
+      var ax = S[0] + (E[0] - S[0]) * 0.94, ay = S[1] + (E[1] - S[1]) * 0.94 + 16 * t;
+      barbas += '<path d="M ' + n(S[0]) + " " + n(S[1]) + " Q " + n(S[0] + (ax - S[0]) * .45) +
+                " " + n(S[1] + 12 * t) + " " + n(ax) + " " + n(ay) +
+                '" stroke="#8C7A55" stroke-width="1.15" fill="none" opacity="' + n(op) + '"/>';
+      var bx = S[0] + (D[0] - S[0]) * 0.94, by = S[1] + (D[1] - S[1]) * 0.94 + 13 * t;
+      barbas += '<path d="M ' + n(S[0]) + " " + n(S[1]) + " Q " + n(S[0] + (bx - S[0]) * .45) +
+                " " + n(S[1] + 10 * t) + " " + n(bx) + " " + n(by) +
+                '" stroke="#7E6C48" stroke-width="1.05" fill="none" opacity="' + n(op * .82) + '"/>';
+    }
+
+    var defs = sm.def +
+      '<linearGradient id="' + gv + '" x1=".1" y1="0" x2=".9" y2=".7">' +
+        '<stop offset="0" stop-color="#B9A87E"/><stop offset=".42" stop-color="#EFE6CB"/>' +
+        '<stop offset=".72" stop-color="#D8CBA6"/><stop offset="1" stop-color="#A08C60"/></linearGradient>' +
+      '<linearGradient id="' + gv2 + '" x1="0" y1="0" x2="1" y2=".6">' +
+        '<stop offset="0" stop-color="#EFE6CB"/><stop offset=".55" stop-color="#CBBB92"/>' +
+        '<stop offset="1" stop-color="#8E7B52"/></linearGradient>' +
+      '<linearGradient id="' + gh + '" x1="0" y1="0" x2="1" y2="0">' +
+        '<stop offset="0" stop-color="#6E5C34"/><stop offset=".38" stop-color="#F4EDD8"/>' +
+        '<stop offset=".62" stop-color="#C9B98F"/><stop offset="1" stop-color="#5E4E2A"/></linearGradient>' +
+      '<linearGradient id="' + gb + '" x1="0" y1="0" x2="1" y2=".4">' +
+        '<stop offset="0" stop-color="#3A2E1A"/><stop offset=".45" stop-color="#7A6642"/>' +
+        '<stop offset="1" stop-color="#241B0C"/></linearGradient>';
+
+    var corpo = sm.uso +
+      /* a folha da pena, os dois lados */
+      '<path d="M 150 30 C 58 138 34 300 86 402 C 96 340 116 180 150 30 Z" fill="url(#' + gv + ')"/>' +
+      '<path d="M 150 30 C 180 140 152 332 92 406 C 106 336 122 178 150 30 Z" fill="url(#' + gv2 + ')"/>' +
+      barbas +
+      /* o vinco de sombra que corre junto da haste */
+      '<path d="M 150 30 C 124 178 100 336 78 480" stroke="#6E5C34" stroke-width="7" ' +
+      'fill="none" opacity=".16"/>' +
+      /* a haste, cilindrica */
+      '<path d="' + d3(haste) + '" stroke="url(#' + gh + ')" stroke-width="7.5" ' +
+      'fill="none" stroke-linecap="round"/>' +
+      '<path d="' + d3(haste) + '" stroke="#FFF8E6" stroke-width="1.6" fill="none" ' +
+      'opacity=".55" transform="translate(-1.6,0)"/>' +
+      /* o bico cortado, com a fenda e um resto de tinta */
+      '<path d="M 74 500 L 82 508 L 70 556 L 62 512 Z" fill="url(#' + gb + ')"/>' +
+      '<path d="M 72 516 L 70 550" stroke="#160F04" stroke-width="1.4" opacity=".8"/>' +
+      '<path d="M 76 508 L 79 520" stroke="#FFF6DC" stroke-width="1.2" opacity=".45"/>' +
+      '<path d="M 70 556 C 66 548 68 542 70 540 C 73 543 74 550 70 556 Z" fill="#2B1008" opacity=".85"/>';
+
+    return svg("0 0 200 580", defs, corpo);
+  }
+
+  /* ---------------- a varinha ---------------- */
+  function varinha() {
+    var gm = id("vm"), gl = id("vl"), gp = id("vp"), sm = sombra(66, 548, 44, 9, .38);
+    var corpo_d = "M 46 44 C 41 62 39 92 40 122 L 52 496 C 53 514 56 528 61 542 " +
+                  "C 66 528 69 514 70 496 L 80 122 C 81 92 79 62 74 44 " +
+                  "C 66 36 54 36 46 44 Z";
+    var aneis = "";
+    for (var i = 0; i < 7; i++) {
+      var y = 62 + i * 13;
+      aneis += '<path d="M ' + (41 + i * .1) + " " + y + " Q 60 " + (y + 5) + " " +
+               (79 - i * .1) + " " + y + '" stroke="#2E1E0B" stroke-width="1.5" ' +
+               'fill="none" opacity=".45"/>' +
+               '<path d="M ' + (41 + i * .1) + " " + (y + 2) + " Q 60 " + (y + 7) + " " +
+               (79 - i * .1) + " " + (y + 2) + '" stroke="#C79B58" stroke-width="1" ' +
+               'fill="none" opacity=".3"/>';
+    }
+    var veios = "";
+    for (var j = 0; j < 6; j++) {
+      var x = 46 + j * 5.6;
+      veios += '<path d="M ' + x + ' 170 C ' + (x - 2) + " 280 " + (x + 1) + " 380 " +
+               (58 + j * 1.2) + ' 470" stroke="#31200C" stroke-width="1" fill="none" ' +
+               'opacity="' + (0.13 + (j % 3) * .06) + '"/>';
+    }
+    var defs = sm.def +
+      '<linearGradient id="' + gm + '" x1="0" y1="0" x2="1" y2="0">' +
+        '<stop offset="0" stop-color="#2A1A08"/><stop offset=".22" stop-color="#6E4A1E"/>' +
+        '<stop offset=".42" stop-color="#A5763A"/><stop offset=".58" stop-color="#7A5426"/>' +
+        '<stop offset="1" stop-color="#241505"/></linearGradient>' +
+      '<linearGradient id="' + gl + '" x1="0" y1="0" x2="1" y2="0">' +
+        '<stop offset="0" stop-color="#4A3208"/><stop offset=".3" stop-color="#E8C878"/>' +
+        '<stop offset=".55" stop-color="#A87C22"/><stop offset="1" stop-color="#3A2708"/></linearGradient>' +
+      '<linearGradient id="' + gp + '" x1="0" y1="0" x2="0" y2="1">' +
+        '<stop offset="0" stop-color="#C99A55"/><stop offset="1" stop-color="#E8D4A6"/></linearGradient>';
+
+    var corpo = sm.uso +
+      '<path d="' + corpo_d + '" fill="url(#' + gm + ')"/>' +
+      veios +
+      /* o punho trabalhado */
+      '<path d="M 46 44 C 41 62 39 92 40 122 L 41 152 L 79 152 L 80 122 ' +
+      'C 81 92 79 62 74 44 C 66 36 54 36 46 44 Z" fill="#2E1D08" opacity=".3"/>' +
+      aneis +
+      /* a virola de metal */
+      '<path d="M 41 152 L 79 152 L 78.6 168 L 41.4 168 Z" fill="url(#' + gl + ')"/>' +
+      '<path d="M 41 152 L 79 152" stroke="#FFF3C8" stroke-width="1" opacity=".5"/>' +
+      /* o brilho comprido, que e o que faz parecer redondo */
+      '<path d="M 52 60 C 49 200 55 360 60 496" stroke="#F0D9A8" stroke-width="2.6" ' +
+      'fill="none" opacity=".28" stroke-linecap="round"/>' +
+      '<path d="M 51 170 C 50 260 54 350 57 430" stroke="#FFF6DC" stroke-width="1.2" ' +
+      'fill="none" opacity=".35"/>' +
+      /* a ponta gasta */
+      '<path d="M 56 470 L 66 470 L 61 542 Z" fill="url(#' + gp + ')" opacity=".75"/>';
+
+    return svg("0 0 120 560", defs, corpo);
+  }
+
+  /* ---------------- a gota ---------------- */
+  function gota() {
+    var gg = id("gg"), gl = id("gl"), sm = sombra(110, 250, 46, 10, .4);
+    var pingos = [[42, 96, 9], [176, 84, 7.5], [30, 158, 5], [190, 146, 4],
+                  [62, 206, 6.5], [154, 216, 5], [110, 262, 3.4]];
+    var extra = "", defsX = "";
+    for (var i = 0; i < pingos.length; i++) {
+      var g2 = id("gp");
+      defsX += '<radialGradient id="' + g2 + '" cx=".35" cy=".3" r=".85">' +
+               '<stop offset="0" stop-color="#C4363B"/><stop offset=".55" stop-color="#7E1218"/>' +
+               '<stop offset="1" stop-color="#37060A"/></radialGradient>';
+      extra += '<circle cx="' + pingos[i][0] + '" cy="' + pingos[i][1] + '" r="' + pingos[i][2] +
+               '" fill="url(#' + g2 + ')"/>' +
+               '<circle cx="' + (pingos[i][0] - pingos[i][2] * .3) + '" cy="' +
+               (pingos[i][1] - pingos[i][2] * .35) + '" r="' + (pingos[i][2] * .28) +
+               '" fill="#FFE6D6" opacity=".55"/>';
+    }
+    var defs = sm.def + defsX +
+      '<radialGradient id="' + gg + '" cx=".36" cy=".28" r=".9">' +
+        '<stop offset="0" stop-color="#CE454A"/><stop offset=".38" stop-color="#96181F"/>' +
+        '<stop offset=".78" stop-color="#5A0A10"/><stop offset="1" stop-color="#2E0407"/></radialGradient>' +
+      '<linearGradient id="' + gl + '" x1="0" y1="0" x2=".6" y2="1">' +
+        '<stop offset="0" stop-color="#FFFFFF" stop-opacity=".85"/>' +
+        '<stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></linearGradient>';
+
+    var corpo = sm.uso +
+      '<path d="M 110 22 C 110 88 60 120 60 176 C 60 216 82 242 110 242 ' +
+      'C 138 242 160 216 160 176 C 160 120 110 88 110 22 Z" fill="url(#' + gg + ')"/>' +
+      /* o brilho de cima, alongado, como em liquido de verdade */
+      '<ellipse cx="92" cy="150" rx="13" ry="26" fill="url(#' + gl + ')" ' +
+      'transform="rotate(-16 92 150)"/>' +
+      '<ellipse cx="86" cy="118" rx="4" ry="9" fill="#FFFFFF" opacity=".7" ' +
+      'transform="rotate(-14 86 118)"/>' +
+      /* a luz que contorna a barriga do lado escuro */
+      '<path d="M 152 168 C 154 200 140 226 118 234" stroke="#E8737A" stroke-width="3" ' +
+      'fill="none" opacity=".45"/>' +
+      extra;
+
+    return svg("0 0 220 280", defs, corpo);
+  }
+
+  /* ---------------- a chave alada ---------------- */
+  function chave() {
+    var gb = id("cb"), ga = id("ca"), gs = id("cs"), sm = sombra(180, 196, 92, 11, .3);
+
+    /* as asas. Cada pena e uma lamina propria, com degrade e nervura, e
+       as de tras entram mais escuras para dar profundidade */
+    var penas = "";
+    for (var lado = 0; lado < 2; lado++) {
+      var sinal = lado ? 1 : -1;
+      for (var i = 0; i < 6; i++) {
+        var u = i / 5;
+        var raiz = 108 + u * 30;
+        var ry = 96 + sinal * (6 + u * 3);
+        var pontaX = 158 + u * 104;
+        var pontaY = 96 + sinal * (68 + u * 30);
+        var larg = 20 - u * 5;
+        penas +=
+          '<path d="M ' + n(raiz) + " " + n(ry) +
+          " C " + n(raiz + 26) + " " + n(ry + sinal * (larg + 10)) +
+          " " + n(pontaX - 44) + " " + n(pontaY - sinal * 8) +
+          " " + n(pontaX) + " " + n(pontaY) +
+          " C " + n(pontaX - 52) + " " + n(pontaY + sinal * 9) +
+          " " + n(raiz + 30) + " " + n(ry + sinal * (larg + 24)) +
+          " " + n(raiz) + " " + n(ry) +
+          '" fill="url(#' + ga + ')" stroke="#8A7549" stroke-width=".9" ' +
+          'opacity="' + n(.72 + i * .045) + '"/>' +
+          '<path d="M ' + n(raiz + 6) + " " + n(ry + sinal * 4) +
+          " C " + n(raiz + 40) + " " + n(ry + sinal * (larg + 6)) +
+          " " + n(pontaX - 40) + " " + n(pontaY - sinal * 4) +
+          " " + n(pontaX - 6) + " " + n(pontaY) +
+          '" stroke="#6E5C34" stroke-width="1" fill="none" opacity=".45"/>';
       }
     }
-    return svg("0 0 100 250",
-      '<path d="' + contorno + '" opacity=".9"/>' + barbas +
-      '<path d="' + haste + '" stroke-width="2"/>' +
-      '<path d="M 39 224 L 33 243 L 44 233 Z" fill="currentColor" stroke-width="1.2"/>' +
-      '<path d="M 36 233 L 39 224" stroke-width="1"/>');
+
+    var defs = sm.def +
+      '<linearGradient id="' + gb + '" x1="0" y1="0" x2="0" y2="1">' +
+        '<stop offset="0" stop-color="#3A2708"/><stop offset=".18" stop-color="#E8C878"/>' +
+        '<stop offset=".42" stop-color="#FFF6D2"/><stop offset=".6" stop-color="#A87C22"/>' +
+        '<stop offset=".84" stop-color="#6E5116"/><stop offset="1" stop-color="#2E1F07"/></linearGradient>' +
+      '<linearGradient id="' + ga + '" x1="0" y1="0" x2=".85" y2=".35">' +
+        '<stop offset="0" stop-color="#FBF4DF"/><stop offset=".45" stop-color="#DCCEA6"/>' +
+        '<stop offset=".8" stop-color="#B4A377"/><stop offset="1" stop-color="#8A7549"/></linearGradient>' +
+      '<linearGradient id="' + gs + '" x1="0" y1="0" x2="0" y2="1">' +
+        '<stop offset="0" stop-color="#FFF8DC" stop-opacity=".9"/>' +
+        '<stop offset="1" stop-color="#FFF8DC" stop-opacity="0"/></linearGradient>';
+
+    var corpo = sm.uso + penas +
+      '<circle cx="66" cy="96" r="36" fill="none" stroke="url(#' + gb + ')" stroke-width="14"/>' +
+      '<circle cx="66" cy="96" r="43" fill="none" stroke="#2E1F07" stroke-width="1.2" opacity=".45"/>' +
+      '<circle cx="66" cy="96" r="29" fill="none" stroke="#2E1F07" stroke-width="1.2" opacity=".4"/>' +
+      '<path d="M 42 74 C 50 65 62 61 74 63" stroke="#FFF8DC" stroke-width="3.4" ' +
+      'fill="none" opacity=".6" stroke-linecap="round"/>' +
+      '<rect x="98" y="87" width="214" height="18" rx="4.5" fill="url(#' + gb + ')"/>' +
+      '<rect x="98" y="87" width="214" height="7" rx="3.5" fill="url(#' + gs + ')" opacity=".55"/>' +
+      '<path d="M 100 104 L 308 104" stroke="#2E1F07" stroke-width="1.6" opacity=".5"/>' +
+      '<rect x="248" y="104" width="14" height="32" rx="2.5" fill="url(#' + gb + ')"/>' +
+      '<rect x="270" y="104" width="14" height="21" rx="2.5" fill="url(#' + gb + ')"/>' +
+      '<rect x="292" y="104" width="14" height="38" rx="2.5" fill="url(#' + gb + ')"/>' +
+      '<circle cx="60" cy="64" r="3.6" fill="#FFF9E4" opacity=".8"/>';
+
+    return svg("0 0 330 215", defs, corpo);
   }
 
-  /* a gota, com o respingo em volta. E o sangue, ou a tinta, conforme o dia */
-  function gota() {
-    var respingo = "";
-    var pontos = [[26, 96, 4.2], [78, 84, 3.4], [20, 132, 2.6], [86, 128, 2],
-                  [40, 154, 3], [66, 160, 2.2], [52, 176, 1.6]];
-    for (var i = 0; i < pontos.length; i++) {
-      respingo += '<circle cx="' + pontos[i][0] + '" cy="' + pontos[i][1] +
-                  '" r="' + pontos[i][2] + '" fill="currentColor" stroke="none" opacity=".7"/>';
-    }
-    return svg("0 0 110 200",
-      '<path d="M 54 14 C 54 52 30 72 30 100 C 30 122 41 136 54 136 ' +
-      'C 67 136 78 122 78 100 C 78 72 54 52 54 14 Z" ' +
-      'fill="currentColor" stroke="none" opacity=".82"/>' +
-      '<path d="M 46 62 C 40 80 39 96 43 110" stroke="var(--paper, #EFE6CB)" ' +
-      'stroke-width="2.4" opacity=".45"/>' + respingo);
-  }
-
-  /* a varinha, com o cabo trabalhado e a faisca na ponta */
-  function varinha() {
-    var aneis = "";
-    for (var i = 0; i < 5; i++) {
-      var y = 40 + i * 11;
-      aneis += '<path d="M 40 ' + y + " L 60 " + y + '" stroke-width="1.2" opacity=".65"/>';
-    }
-    var faiscas = "";
-    for (var j = 0; j < 7; j++) {
-      var a = -Math.PI / 2 + (j - 3) * 0.42;
-      var r1 = 14 + (j % 3) * 6, r2 = r1 + 12 + (j % 2) * 7;
-      faiscas += '<path d="M ' + (50 + Math.cos(a) * r1).toFixed(1) + " " +
-                 (208 + Math.sin(a) * r1 * -1).toFixed(1) + " L " +
-                 (50 + Math.cos(a) * r2).toFixed(1) + " " +
-                 (208 + Math.sin(a) * r2 * -1).toFixed(1) +
-                 '" stroke-width="1.2" opacity=".6"/>';
-    }
-    return svg("0 0 100 250",
-      '<path d="M 43 22 C 40 22 38 25 38 30 L 38 96 L 46 214 L 50 226 ' +
-      'L 54 214 L 62 96 L 62 30 C 62 25 60 22 57 22 Z" ' +
-      'fill="currentColor" stroke="none" opacity=".16"/>' +
-      '<path d="M 43 22 C 40 22 38 25 38 30 L 38 96 L 46 214 L 50 226 ' +
-      'L 54 214 L 62 96 L 62 30 C 62 25 60 22 57 22 Z" stroke-width="1.8"/>' +
-      '<path d="M 38 96 L 62 96" stroke-width="1.6"/>' + aneis +
-      '<circle cx="50" cy="30" r="3.4" fill="currentColor" stroke="none"/>' +
-      faiscas);
-  }
-
-  /* a chave alada, que e o objeto que voa na primeira prova da pedra */
-  function chave() {
-    /* as asas ganham pena, senao a silhueta vira folha */
-    var penas = "";
-    for (var i = 0; i < 5; i++) {
-      var u = i / 4;
-      var bx = 66 + u * 52, by = 54 - u * 6;
-      var tx = 80 + u * 56, ty = 26 - u * 12;
-      penas += '<path d="M ' + bx.toFixed(1) + " " + by.toFixed(1) +
-               " C " + (bx + 8).toFixed(1) + " " + (by - 12).toFixed(1) +
-               " " + (tx - 6).toFixed(1) + " " + (ty + 8).toFixed(1) +
-               " " + tx.toFixed(1) + " " + ty.toFixed(1) +
-               '" stroke-width="1.1" opacity=".6"/>';
-      penas += '<path d="M ' + bx.toFixed(1) + " " + (140 - by).toFixed(1) +
-               " C " + (bx + 8).toFixed(1) + " " + (140 - by + 12).toFixed(1) +
-               " " + (tx - 6).toFixed(1) + " " + (140 - ty - 8).toFixed(1) +
-               " " + tx.toFixed(1) + " " + (140 - ty).toFixed(1) +
-               '" stroke-width="1.1" opacity=".6"/>';
-    }
-    return svg("0 0 210 140",
-      '<path d="M 66 56 C 82 24 122 6 152 10 C 146 28 122 46 92 54 Z" opacity=".9"/>' +
-      '<path d="M 66 84 C 82 116 122 134 152 130 C 146 112 122 94 92 86 Z" opacity=".9"/>' +
-      penas +
-      '<circle cx="44" cy="70" r="19" stroke-width="2"/>' +
-      '<circle cx="44" cy="70" r="8.5" opacity=".55"/>' +
-      '<path d="M 63 70 L 186 70" stroke-width="2.8"/>' +
-      '<path d="M 158 70 L 158 92 M 170 70 L 170 84 M 182 70 L 182 96" stroke-width="2.4"/>' +
-      '<circle cx="44" cy="51" r="2.4" fill="currentColor" stroke="none" opacity=".8"/>');
-  }
-
-  /* os oculos redondos */
+  /* ---------------- os oculos ---------------- */
   function oculos() {
-    return svg("0 0 200 90",
-      '<circle cx="58" cy="48" r="26"/><circle cx="142" cy="48" r="26"/>' +
-      '<path d="M 84 44 C 92 38 108 38 116 44"/>' +
-      '<path d="M 32 40 C 22 34 14 30 6 30 M 168 40 C 178 34 186 30 194 30"/>' +
-      '<circle cx="58" cy="48" r="20" opacity=".35" stroke-width="1"/>' +
-      '<circle cx="142" cy="48" r="20" opacity=".35" stroke-width="1"/>');
-  }
+    var gm = id("om"), gv = id("ov"), gr = id("or"), sm = sombra(170, 146, 118, 9, .3);
+    function lente(cx) {
+      return '<circle cx="' + cx + '" cy="80" r="50" fill="url(#' + gv + ')"/>' +
+             '<path d="M ' + (cx - 34) + ' 106 L ' + (cx + 6) + ' 34" stroke="#FFFFFF" ' +
+             'stroke-width="9" opacity=".28" stroke-linecap="round"/>' +
+             '<path d="M ' + (cx - 18) + ' 112 L ' + (cx + 20) + ' 44" stroke="#FFFFFF" ' +
+             'stroke-width="4" opacity=".22" stroke-linecap="round"/>' +
+             '<circle cx="' + cx + '" cy="80" r="50" fill="none" stroke="url(#' + gm + ')" ' +
+             'stroke-width="6"/>' +
+             '<circle cx="' + cx + '" cy="80" r="53" fill="none" stroke="#2E1F07" ' +
+             'stroke-width="1" opacity=".35"/>';
+    }
+    var defs = sm.def +
+      '<linearGradient id="' + gm + '" x1="0" y1="0" x2=".4" y2="1">' +
+        '<stop offset="0" stop-color="#FFF6D2"/><stop offset=".3" stop-color="#B8912F"/>' +
+        '<stop offset=".55" stop-color="#5E430F"/><stop offset=".78" stop-color="#E0BE68"/>' +
+        '<stop offset="1" stop-color="#4A3308"/></linearGradient>' +
+      '<radialGradient id="' + gv + '" cx=".35" cy=".3" r=".85">' +
+        '<stop offset="0" stop-color="#F4F7FA" stop-opacity=".5"/>' +
+        '<stop offset=".7" stop-color="#C8D4DC" stop-opacity=".3"/>' +
+        '<stop offset="1" stop-color="#8FA2AE" stop-opacity=".38"/></radialGradient>' +
+      '<linearGradient id="' + gr + '" x1="0" y1="0" x2="1" y2="0">' +
+        '<stop offset="0" stop-color="#5E430F"/><stop offset=".5" stop-color="#D9B45E"/>' +
+        '<stop offset="1" stop-color="#4A3308"/></linearGradient>';
 
-  /* a vela que flutua no salao */
-  function vela() {
-    return svg("0 0 90 230",
-      '<path d="M 30 78 L 30 200 C 30 208 36 212 45 212 C 54 212 60 208 60 200 L 60 78 Z"/>' +
-      '<path d="M 30 78 C 30 72 36 68 45 68 C 54 68 60 72 60 78" opacity=".8"/>' +
-      '<path d="M 34 82 C 32 96 33 112 36 124 C 38 132 34 138 33 146" ' +
-      'stroke-width="1.2" opacity=".55"/>' +
-      '<path d="M 57 84 C 59 100 57 116 55 128" stroke-width="1.2" opacity=".45"/>' +
-      '<path d="M 45 68 L 45 56" stroke-width="1.6"/>' +
-      '<path d="M 45 14 C 55 30 60 40 60 48 C 60 58 53 64 45 64 ' +
-      'C 37 64 30 58 30 48 C 30 40 35 30 45 14 Z" opacity=".9"/>' +
-      '<path d="M 45 30 C 50 40 52 45 52 49 C 52 54 49 57 45 57" ' +
-      'stroke-width="1.1" opacity=".5"/>');
+    var corpo = sm.uso + lente(104) + lente(236) +
+      '<path d="M 154 68 C 166 56 174 56 186 68" stroke="url(#' + gr + ')" ' +
+      'stroke-width="5.5" fill="none"/>' +
+      '<path d="M 54 62 C 36 48 22 40 6 38" stroke="url(#' + gr + ')" stroke-width="5" ' +
+      'fill="none" stroke-linecap="round"/>' +
+      '<path d="M 286 62 C 304 48 318 40 334 38" stroke="url(#' + gr + ')" stroke-width="5" ' +
+      'fill="none" stroke-linecap="round"/>' +
+      '<circle cx="104" cy="80" r="50" fill="none" stroke="#FFF8DC" stroke-width="1.4" ' +
+      'opacity=".4" stroke-dasharray="30 130" transform="rotate(-40 104 80)"/>' +
+      '<circle cx="236" cy="80" r="50" fill="none" stroke="#FFF8DC" stroke-width="1.4" ' +
+      'opacity=".4" stroke-dasharray="30 130" transform="rotate(-40 236 80)"/>';
+
+    return svg("0 0 340 160", defs, corpo);
   }
 
   /* onde cada objeto se apoia. Alternando os lados, e nunca dois vizinhos
      na mesma altura, senao a margem fica pesada de um lado so */
   var PECAS = [
-    { faz: pena,    lado: "esq", topo: 5,  gira: -14, forca: .58 },
-    { faz: varinha, lado: "dir", topo: 17, gira: 12,  forca: .5 },
-    { faz: gota,    lado: "esq", topo: 33, gira: 6,   forca: .42 },
-    { faz: chave,   lado: "dir", topo: 45, gira: -8,  forca: .5 },
-    { faz: oculos,  lado: "esq", topo: 60, gira: 9,   forca: .44 },
-    { faz: vela,    lado: "dir", topo: 71, gira: -5,  forca: .5 },
-    { faz: pena,    lado: "esq", topo: 86, gira: 166, forca: .38 }
+    { faz: pena,    lado: "esq", topo: 5,  gira: -14, forca: .95, enfia: 30 },
+    { faz: varinha, lado: "dir", topo: 17, gira: 12,  forca: .95, enfia: 26 },
+    { faz: gota,    lado: "esq", topo: 33, gira: 4,   forca: .9,  enfia: 46 },
+    { faz: chave,   lado: "dir", topo: 45, gira: -8,  forca: .92, enfia: 62 },
+    { faz: oculos,  lado: "esq", topo: 60, gira: 9,   forca: .9,  enfia: 58 },
+    { faz: varinha, lado: "dir", topo: 72, gira: -9,  forca: .88, enfia: 30 },
+    { faz: pena,    lado: "esq", topo: 86, gira: 168, forca: .85, enfia: 34 }
   ];
 
   var html = "";
   for (var i = 0; i < PECAS.length; i++) {
     var q = PECAS[i];
     html += '<span class="mg mg-' + q.lado + '" style="top:' + q.topo + "%;" +
-            "--gira:" + q.gira + "deg;--forca:" + q.forca + '">' + q.faz() + "</span>";
+            "--gira:" + q.gira + "deg;--forca:" + q.forca +
+            ";--enfia:" + (q.enfia || 34) + 'px">' + q.faz() + "</span>";
   }
   casa.innerHTML = html;
 
