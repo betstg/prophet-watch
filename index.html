@@ -10,6 +10,10 @@
   html { color-scheme: dark; }
   :root[data-theme="light"] { color-scheme: light; }
   body { margin: 0; }
+  /* o objeto da margem pinta um pouco para fora da folha. Cortar no eixo
+     horizontal impede que isso vire barra de rolagem, sem prender o que e
+     fixo na tela, que e o que o overflow hidden faria. */
+  html, body { overflow-x: clip; }
   img { max-width: 100%; }
   [hidden] { display: none !important; }
 </style>
@@ -1814,6 +1818,258 @@
   }
 
 
+
+  /* =====================================================================
+     O FIO DE OURO DAS FOTOS
+     A mesma moldura das figurinhas, so que fina e em volta da imagem. O
+     ouro e um leque conico que gira devagar, o grao vem de um ruido e o
+     brilho passa por cima de vez em quando. Sem a propriedade animada o
+     leque fica parado, e continua sendo ouro.
+     ===================================================================== */
+  @property --giro { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+
+  .ouro {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+    padding: var(--fio, 3px);
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23g)'/%3E%3C/svg%3E"),
+      conic-gradient(from var(--giro, 0deg),
+        #FFFBEA, #E8C878, #6E5116, #FFF3C8, #A87C22,
+        #4A3308, #F0D68C, #8A6416, #FFF7D6, #5E430F,
+        #EBD08A, #7A5713, #FFFBEA);
+    background-size: 90px 90px, auto;
+    background-blend-mode: overlay, normal;
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    animation: ouroGira 11s linear infinite;
+    box-shadow: inset 0 0 0 1px rgba(46, 31, 7, .45),
+                0 0 0 1px rgba(46, 31, 7, .3);
+  }
+  @keyframes ouroGira { to { --giro: 360deg; } }
+
+  /* o brilho que atravessa o fio, o que da o ar holografico */
+  .ouro::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: inherit;
+    background: linear-gradient(115deg,
+      transparent 38%, rgba(255,255,255,.85) 50%, transparent 62%);
+    background-size: 300% 100%;
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    animation: ouroBrilho 6.5s ease-in-out infinite;
+  }
+  @keyframes ouroBrilho {
+    0%, 100% { background-position: 160% 0; }
+    50% { background-position: -60% 0; }
+  }
+  /* no papel impresso o ouro fica mais seco, senao briga com a tinta */
+  :root[data-theme="light"] .ouro { opacity: .82; }
+  .shot.sem-foto .ouro { opacity: .5; }
+  .card.lead .shot .ouro, .frontpage .shot .ouro { --fio: 4px; }
+  .leitura figure .ouro { --fio: 4px; }
+  @media (prefers-reduced-motion: reduce) {
+    .ouro, .ouro::after { animation: none !important; }
+  }
+
+
+  /* =====================================================================
+     O CABECALHO DO DIA
+     Era um fio com a data de lado. Agora e uma tarja, com fio duplo em
+     cima e embaixo, a data no tipo de manchete e um amuleto de cada lado.
+     ===================================================================== */
+  #list > .day-head {
+    grid-column: 1 / -1;
+    display: flex !important;
+    align-items: center;
+    gap: 14px;
+    border-top: 4px double var(--rule-strong) !important;
+    border-bottom: 4px double var(--rule-strong) !important;
+    padding: 11px 8px 13px !important;
+    margin: 30px 0 18px !important;
+    position: relative;
+  }
+  #list > .day-head::before {
+    content: "";
+    position: absolute;
+    inset: 3px 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    pointer-events: none;
+    opacity: .55;
+  }
+  #list > .day-head .day-mid {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: none;
+    order: 2;
+  }
+  #list > .day-head .day-rule {
+    flex: 1 1 auto;
+    height: 0;
+    border-top: 1px solid var(--rule-strong);
+    opacity: .7;
+  }
+  #list > .day-head .day-rule:first-child { order: 1; }
+  #list > .day-head .day-rule:nth-child(3) { order: 3; }
+  #list > .day-head .day-count { order: 4; flex: none; }
+  #list > .day-head .day-date {
+    font-family: var(--font-head) !important;
+    font-weight: 400 !important;
+    font-size: clamp(15px, 1.9vw, 26px) !important;
+    letter-spacing: .07em !important;
+    text-transform: uppercase;
+    color: var(--ink);
+    white-space: nowrap;
+    line-height: 1.1;
+    padding-top: .08em;
+  }
+  #list > .day-head .day-charm {
+    width: 17px; height: 17px;
+    flex: none;
+    color: var(--gold);
+    opacity: .9;
+  }
+  #list > .day-head .day-charm.flip { transform: scaleX(-1); }
+  #list > .day-head .day-count {
+    font-family: var(--font-label) !important;
+    font-size: 9.5px !important;
+    letter-spacing: .2em;
+    color: var(--ink-faint);
+  }
+  :root[data-theme="light"] #list > .day-head .day-date { color: #100B04; }
+  @media (max-width: 700px) {
+    #list > .day-head { gap: 9px; padding: 9px 4px 11px !important; margin: 22px 0 14px !important; }
+    #list > .day-head .day-count { display: none; }
+    #list > .day-head .day-charm { width: 14px; height: 14px; }
+  }
+
+  /* =====================================================================
+     VIRAR A PAGINA
+     O jornal deixa de despejar quarenta materias de uma vez. Doze por
+     folha, e o pe da folha vira o lugar de passar adiante.
+     ===================================================================== */
+  .virar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin: 18px 0 0;
+    padding: 14px 4px 0;
+    border-top: 4px double var(--rule-strong);
+  }
+  .virar[hidden] { display: none !important; }
+  .folha-conta {
+    font-family: var(--font-label);
+    font-size: 10px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    text-align: center;
+    flex: 1 1 auto;
+  }
+  .folha-btn {
+    font-family: var(--font-deck);
+    font-size: 11px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: none;
+    border: 1px solid var(--rule-strong);
+    padding: 9px 16px;
+    cursor: pointer;
+    flex: none;
+    transition: background .2s ease, color .2s ease;
+  }
+  .folha-btn:hover:not([disabled]) { background: var(--gold-dim); color: var(--paper); }
+  .folha-btn[disabled] { opacity: .3; cursor: default; }
+  :root[data-theme="light"] .folha-btn { color: #100B04; border-color: #100B04; }
+  @media (max-width: 620px) {
+    .virar { gap: 10px; }
+    .folha-conta { order: 3; flex: 1 1 100%; }
+    .folha-btn { flex: 1 1 0; text-align: center; padding: 10px 8px; }
+  }
+
+
+  /* =====================================================================
+     OS OBJETOS SOBRE A MESA
+     Pena, tinteiro, varinha, chave alada, oculos e vela, desenhados em
+     SVG e nao em imagem, que e o que garante o traco limpo em qualquer
+     tamanho e em qualquer tela. Ficam na margem, ao lado da folha, e
+     acendem quando entram no campo de visao.
+
+     Tamanho. No computador cada objeto tem cerca de metade do tamanho que
+     a coisa teria na vida real. No celular cai para perto de um quarto e
+     encosta no canto da folha, porque ali nao existe margem.
+
+     A conta do afastamento nunca passa da margem que sobrou na tela,
+     entao o objeto pode chegar a encostar na folha em tela estreita, mas
+     nunca empurra a pagina para o lado.
+     ===================================================================== */
+  .magia {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .mg {
+    position: absolute;
+    display: block;
+    width: var(--w, 150px);
+    color: var(--gold-dim);
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 1s ease, transform 1.1s cubic-bezier(.2,.8,.25,1);
+    will-change: opacity, transform;
+  }
+  .mg.acesa { opacity: var(--forca, .5); transform: translateY(0); }
+  .mg svg { stroke-width: 1.7; }
+  .mg svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    transform: rotate(var(--gira, 0deg));
+  }
+  .mg-esq { left: calc(-1 * max(0px, min(var(--w, 150px) + 18px, (100vw - 100%) / 2 - 10px))); }
+  .mg-dir { right: calc(-1 * max(0px, min(var(--w, 150px) + 18px, (100vw - 100%) / 2 - 10px))); }
+
+  /* no impresso o objeto e tinta no papel, nao ouro */
+  :root[data-theme="light"] .mg { color: #4A3A18; }
+  :root[data-theme="light"] .mg.acesa { opacity: calc(var(--forca, .5) * .78); }
+
+  /* tela media, ainda ha margem, mas menos */
+  @media (max-width: 1699px) {
+    .mg { --w: 96px; }
+    .mg.acesa { opacity: calc(var(--forca, .5) * .55); }
+  }
+  /* daqui para baixo a margem acabou, o objeto encosta na folha, entao ele
+     encolhe e clareia ate virar marca de papel em vez de estorvo */
+  @media (max-width: 1239px) {
+    .mg { --w: 70px; }
+    .mg.acesa { opacity: calc(var(--forca, .5) * .4); }
+  }
+  @media (max-width: 900px) {
+    .mg { --w: 54px; }
+    .mg.acesa { opacity: calc(var(--forca, .5) * .3); }
+  }
+  @media (max-width: 520px) {
+    .mg { --w: 40px; }
+    .mg.acesa { opacity: calc(var(--forca, .5) * .28); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mg { transition: none; }
+  }
+
   /* =====================================================================
      A PAGINA DE LEITURA
      A materia abre dentro do jornal, com a foto e o texto em portugues.
@@ -1900,6 +2156,7 @@
   .leitura figure {
     margin: 0 0 18px;
   }
+  .leitura figure .molde { position: relative; display: block; }
   .leitura figure img,
   .leitura figure iframe {
     display: block;
@@ -2575,7 +2832,9 @@
   <div class="press">
     <span class="ear ear-l" aria-hidden="true">Que ninguem diga que o Profeta nao avisou</span>
     <span class="ear ear-r" aria-hidden="true">Toda noticia aqui carrega a bancada de onde saiu</span>
+    <div class="magia" id="magia" aria-hidden="true"></div>
     <main id="list"></main>
+    <nav class="virar" id="virar" hidden aria-label="Paginas do jornal"></nav>
   </div>
 
   <section class="desks" id="desks">
@@ -4328,7 +4587,10 @@
 
   var data = JSON.parse(document.getElementById("news-data").textContent);
   var stories = data.stories.slice();
-  var state = { q: "", statuses: [], cats: [], newestFirst: true };
+  var state = { q: "", statuses: [], cats: [], newestFirst: true, folha: 1 };
+  /* quantas materias cabem numa folha do jornal */
+  var POR_FOLHA = 12;
+  var virarEl = document.getElementById("virar");
 
   var listEl = document.getElementById("list");
   var qEl = document.getElementById("q");
@@ -4435,7 +4697,7 @@
         (vid ? '<span class="reel" aria-hidden="true"></span>' : "") + fb;
     return '<figure class="cut">' +
       '<div class="' + cls + '" style="' + style + '"' + (vid ? ' data-video="' + esc(vid) + '"' : "") + '>' +
-      body + "</div>" +
+      body + '<span class="ouro" aria-hidden="true"></span></div>' +
       '<figcaption>' +
       (s.imagemIlustrativa
         ? esc(s.imagemIlustrativa) + ' &middot; <span class="ilustra">imagem ilustrativa</span><br>'
@@ -4553,8 +4815,13 @@
     fc.hidden = total === 0;
   }
 
+  var assinatura = null;
   function render() {
     drawApplied();
+    /* mexeu na busca, no filtro ou na ordem, o jornal volta para a folha 1 */
+    var sig = state.q + "|" + state.statuses.join(",") + "|" +
+              state.cats.join(",") + "|" + state.newestFirst;
+    if (sig !== assinatura) { assinatura = sig; state.folha = 1; }
     var rows = stories.filter(matches);
     rows.sort(function (a, b) {
       if (a.date === b.date) return 0;
@@ -4566,8 +4833,17 @@
       ? rows.length + " de " + stories.length + " histórias"
       : stories.length + " histórias";
 
+    /* quantas folhas o filtro atual rende, e em qual delas estamos */
+    var folhas = Math.max(1, Math.ceil(rows.length / POR_FOLHA));
+    if (state.folha > folhas) state.folha = folhas;
+    if (state.folha < 1) state.folha = 1;
+    var primeira = (state.folha - 1) * POR_FOLHA;
+    var todas = rows;
+    rows = rows.slice(primeira, primeira + POR_FOLHA);
+
     listEl.innerHTML = "";
-    if (!rows.length) {
+    if (!todas.length) {
+      desenhaVirar(1, 1, 0);
       var e = document.createElement("div");
       e.className = "empty";
       e.textContent = "Nada no arquivo bate com isso.";
@@ -4578,6 +4854,7 @@
       listEl.appendChild(e);
       return;
     }
+    desenhaVirar(state.folha, folhas, todas.length);
 
     var currentDate = null, dayIndex = 0;
     rows.forEach(function (s, idx) {
@@ -4586,20 +4863,29 @@
         var n = rows.filter(function (r) { return r.date === s.date; }).length;
         var head = document.createElement("div");
         head.className = "day-head";
-        var CHARMS = ["Fandom", "Games", "Books and audio", "Shops and experiences", "Stage"];
+        var CHARMS = ["Fandom", "Jogos", "Livros e áudio", "Lojas e experiências", "Teatro"];
         var charm = CHARMS[dayIndex++ % CHARMS.length];
-        head.innerHTML = '<span class="day-date">' + fmtDate(s.date) + "</span>" +
-                         icon(charm, "day-charm") +
-                         '<span class="day-line"></span>' +
+        head.innerHTML = '<span class="day-rule"></span>' +
+                         '<span class="day-mid">' +
+                           icon(charm, "day-charm") +
+                           '<span class="day-date">' + fmtDate(s.date) + "</span>" +
+                           icon(charm, "day-charm flip") +
+                         "</span>" +
+                         '<span class="day-rule"></span>' +
                          '<span class="day-count">' + n + (n === 1 ? " matéria" : " matérias") + "</span>";
         listEl.appendChild(head);
       }
 
       var art = document.createElement("article");
       var RANK = ["big", "mid", "brief", "mid", "brief", "brief", "mid", "brief"];
-      art.className = "card " + (idx === 0 ? "big opener" : RANK[(idx - 1) % RANK.length]);
+      var ehCapa = idx === 0 && state.folha === 1;
+      /* o ritmo dos tamanhos anda junto com a folha, senao toda folha comeca
+         igual a anterior. O resto negativo do JS pede o ajuste do meio */
+      var posto = state.folha === 1 ? idx - 1 : idx + state.folha * 3;
+      art.className = "card " + (ehCapa ? "big opener"
+        : RANK[((posto % RANK.length) + RANK.length) % RANK.length]);
       art.style.animationDelay = Math.min(idx, 10) * 45 + "ms";
-      if (idx === 0) {
+      if (idx === 0 && state.folha === 1) {
         /* a primeira pagina e diagramada a mao. A foto entra torta, o texto
            contorna o recorte dela e uma chamada sobe de lado na margem */
         var band = document.createElement("section");
@@ -4649,6 +4935,34 @@
     });
     wakeReels();
     compose();
+  }
+
+  /* o pe da folha. Some quando tudo cabe numa folha so */
+  function desenhaVirar(folha, folhas, total) {
+    if (!virarEl) return;
+    if (folhas <= 1) { virarEl.hidden = true; virarEl.innerHTML = ""; return; }
+    virarEl.hidden = false;
+    virarEl.innerHTML =
+      '<button type="button" class="folha-btn" data-ir="-1"' +
+        (folha <= 1 ? " disabled" : "") + ">Folha anterior</button>" +
+      '<span class="folha-conta">Folha ' + folha + " de " + folhas +
+        " &#183; " + total + (total === 1 ? " matéria" : " matérias") + "</span>" +
+      '<button type="button" class="folha-btn" data-ir="1"' +
+        (folha >= folhas ? " disabled" : "") + ">Virar a página</button>";
+  }
+
+  if (virarEl) {
+    virarEl.addEventListener("click", function (ev) {
+      var b = ev.target.closest && ev.target.closest("button[data-ir]");
+      if (!b || b.disabled) return;
+      state.folha += Number(b.dataset.ir);
+      render();
+      var alvo = document.querySelector(".press");
+      if (alvo) {
+        var y = alvo.getBoundingClientRect().top + window.pageYOffset - 12;
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
+    });
   }
 
   listEl.addEventListener("click", function (ev) {
@@ -7072,7 +7386,8 @@ function retrato(nome) {
                "</figure>";
     } else if (s.image) {
       var src = (window.IMGMAP && window.IMGMAP[s.image]) || s.image;
-      figura = '<figure><img src="' + esc(src) + '" alt="" loading="lazy">' +
+      figura = '<figure><span class="molde"><img src="' + esc(src) + '" alt="" loading="lazy">' +
+               '<span class="ouro" aria-hidden="true"></span></span>' +
                (s.imagemIlustrativa
                  ? "<figcaption>" + esc(s.imagemIlustrativa) + "</figcaption>"
                  : '<figcaption>Imagem ilustrativa</figcaption>') +
@@ -7163,6 +7478,187 @@ function retrato(nome) {
 
   window.addEventListener("hashchange", pelaUrl);
   pelaUrl();
+}());
+</script>
+
+
+<script>
+/* ---------------------------------------------------------------------
+   Os objetos que ficam ao lado do jornal.
+
+   Sao desenhos, nao fotografias. Cada um e um SVG de traco, no mesmo
+   registro gravado do resto da folha, o que resolve de uma vez a questao
+   do tamanho, porque um desenho vetorial nao perde nitidez quando cresce
+   nem quando encolhe.
+   ------------------------------------------------------------------ */
+(function () {
+  var casa = document.getElementById("magia");
+  if (!casa) return;
+
+  function svg(vb, corpo) {
+    return '<svg viewBox="' + vb + '" fill="none" stroke="currentColor" ' +
+           'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ' +
+           'aria-hidden="true" focusable="false">' + corpo + "</svg>";
+  }
+
+  /* a pena. Haste curva, duas asas de barba e a ponta cortada em bico */
+  function pena() {
+    var haste = "M 70 16 C 64 62 55 128 47 186 L 39 224";
+    var contorno = "M 70 16 C 41 48 21 106 21 150 C 21 174 31 187 47 186 " +
+                   "C 53 186 59 180 63 168 C 74 128 78 60 70 16 Z";
+    var barbas = "";
+    for (var i = 0; i < 16; i++) {
+      var u = i / 15;
+      /* ponto na haste, dois segmentos aproximados por interpolacao simples */
+      var hx = 70 - 23 * u - 4 * u * u, hy = 16 + 170 * u;
+      var larg = Math.sin(Math.PI * Math.min(1, u * 1.12)) * (30 - 8 * u);
+      barbas += '<path d="M ' + hx.toFixed(1) + " " + hy.toFixed(1) +
+                " L " + (hx - larg).toFixed(1) + " " + (hy + 12).toFixed(1) +
+                '" opacity=".55" stroke-width="1.1"/>';
+      if (u > .08) {
+        barbas += '<path d="M ' + hx.toFixed(1) + " " + hy.toFixed(1) +
+                  " L " + (hx + larg * .42).toFixed(1) + " " + (hy + 9).toFixed(1) +
+                  '" opacity=".4" stroke-width="1"/>';
+      }
+    }
+    return svg("0 0 100 250",
+      '<path d="' + contorno + '" opacity=".9"/>' + barbas +
+      '<path d="' + haste + '" stroke-width="2"/>' +
+      '<path d="M 39 224 L 33 243 L 44 233 Z" fill="currentColor" stroke-width="1.2"/>' +
+      '<path d="M 36 233 L 39 224" stroke-width="1"/>');
+  }
+
+  /* a gota, com o respingo em volta. E o sangue, ou a tinta, conforme o dia */
+  function gota() {
+    var respingo = "";
+    var pontos = [[26, 96, 4.2], [78, 84, 3.4], [20, 132, 2.6], [86, 128, 2],
+                  [40, 154, 3], [66, 160, 2.2], [52, 176, 1.6]];
+    for (var i = 0; i < pontos.length; i++) {
+      respingo += '<circle cx="' + pontos[i][0] + '" cy="' + pontos[i][1] +
+                  '" r="' + pontos[i][2] + '" fill="currentColor" stroke="none" opacity=".7"/>';
+    }
+    return svg("0 0 110 200",
+      '<path d="M 54 14 C 54 52 30 72 30 100 C 30 122 41 136 54 136 ' +
+      'C 67 136 78 122 78 100 C 78 72 54 52 54 14 Z" ' +
+      'fill="currentColor" stroke="none" opacity=".82"/>' +
+      '<path d="M 46 62 C 40 80 39 96 43 110" stroke="var(--paper, #EFE6CB)" ' +
+      'stroke-width="2.4" opacity=".45"/>' + respingo);
+  }
+
+  /* a varinha, com o cabo trabalhado e a faisca na ponta */
+  function varinha() {
+    var aneis = "";
+    for (var i = 0; i < 5; i++) {
+      var y = 40 + i * 11;
+      aneis += '<path d="M 40 ' + y + " L 60 " + y + '" stroke-width="1.2" opacity=".65"/>';
+    }
+    var faiscas = "";
+    for (var j = 0; j < 7; j++) {
+      var a = -Math.PI / 2 + (j - 3) * 0.42;
+      var r1 = 14 + (j % 3) * 6, r2 = r1 + 12 + (j % 2) * 7;
+      faiscas += '<path d="M ' + (50 + Math.cos(a) * r1).toFixed(1) + " " +
+                 (208 + Math.sin(a) * r1 * -1).toFixed(1) + " L " +
+                 (50 + Math.cos(a) * r2).toFixed(1) + " " +
+                 (208 + Math.sin(a) * r2 * -1).toFixed(1) +
+                 '" stroke-width="1.2" opacity=".6"/>';
+    }
+    return svg("0 0 100 250",
+      '<path d="M 43 22 C 40 22 38 25 38 30 L 38 96 L 46 214 L 50 226 ' +
+      'L 54 214 L 62 96 L 62 30 C 62 25 60 22 57 22 Z" ' +
+      'fill="currentColor" stroke="none" opacity=".16"/>' +
+      '<path d="M 43 22 C 40 22 38 25 38 30 L 38 96 L 46 214 L 50 226 ' +
+      'L 54 214 L 62 96 L 62 30 C 62 25 60 22 57 22 Z" stroke-width="1.8"/>' +
+      '<path d="M 38 96 L 62 96" stroke-width="1.6"/>' + aneis +
+      '<circle cx="50" cy="30" r="3.4" fill="currentColor" stroke="none"/>' +
+      faiscas);
+  }
+
+  /* a chave alada, que e o objeto que voa na primeira prova da pedra */
+  function chave() {
+    /* as asas ganham pena, senao a silhueta vira folha */
+    var penas = "";
+    for (var i = 0; i < 5; i++) {
+      var u = i / 4;
+      var bx = 66 + u * 52, by = 54 - u * 6;
+      var tx = 80 + u * 56, ty = 26 - u * 12;
+      penas += '<path d="M ' + bx.toFixed(1) + " " + by.toFixed(1) +
+               " C " + (bx + 8).toFixed(1) + " " + (by - 12).toFixed(1) +
+               " " + (tx - 6).toFixed(1) + " " + (ty + 8).toFixed(1) +
+               " " + tx.toFixed(1) + " " + ty.toFixed(1) +
+               '" stroke-width="1.1" opacity=".6"/>';
+      penas += '<path d="M ' + bx.toFixed(1) + " " + (140 - by).toFixed(1) +
+               " C " + (bx + 8).toFixed(1) + " " + (140 - by + 12).toFixed(1) +
+               " " + (tx - 6).toFixed(1) + " " + (140 - ty - 8).toFixed(1) +
+               " " + tx.toFixed(1) + " " + (140 - ty).toFixed(1) +
+               '" stroke-width="1.1" opacity=".6"/>';
+    }
+    return svg("0 0 210 140",
+      '<path d="M 66 56 C 82 24 122 6 152 10 C 146 28 122 46 92 54 Z" opacity=".9"/>' +
+      '<path d="M 66 84 C 82 116 122 134 152 130 C 146 112 122 94 92 86 Z" opacity=".9"/>' +
+      penas +
+      '<circle cx="44" cy="70" r="19" stroke-width="2"/>' +
+      '<circle cx="44" cy="70" r="8.5" opacity=".55"/>' +
+      '<path d="M 63 70 L 186 70" stroke-width="2.8"/>' +
+      '<path d="M 158 70 L 158 92 M 170 70 L 170 84 M 182 70 L 182 96" stroke-width="2.4"/>' +
+      '<circle cx="44" cy="51" r="2.4" fill="currentColor" stroke="none" opacity=".8"/>');
+  }
+
+  /* os oculos redondos */
+  function oculos() {
+    return svg("0 0 200 90",
+      '<circle cx="58" cy="48" r="26"/><circle cx="142" cy="48" r="26"/>' +
+      '<path d="M 84 44 C 92 38 108 38 116 44"/>' +
+      '<path d="M 32 40 C 22 34 14 30 6 30 M 168 40 C 178 34 186 30 194 30"/>' +
+      '<circle cx="58" cy="48" r="20" opacity=".35" stroke-width="1"/>' +
+      '<circle cx="142" cy="48" r="20" opacity=".35" stroke-width="1"/>');
+  }
+
+  /* a vela que flutua no salao */
+  function vela() {
+    return svg("0 0 90 230",
+      '<path d="M 30 78 L 30 200 C 30 208 36 212 45 212 C 54 212 60 208 60 200 L 60 78 Z"/>' +
+      '<path d="M 30 78 C 30 72 36 68 45 68 C 54 68 60 72 60 78" opacity=".8"/>' +
+      '<path d="M 34 82 C 32 96 33 112 36 124 C 38 132 34 138 33 146" ' +
+      'stroke-width="1.2" opacity=".55"/>' +
+      '<path d="M 57 84 C 59 100 57 116 55 128" stroke-width="1.2" opacity=".45"/>' +
+      '<path d="M 45 68 L 45 56" stroke-width="1.6"/>' +
+      '<path d="M 45 14 C 55 30 60 40 60 48 C 60 58 53 64 45 64 ' +
+      'C 37 64 30 58 30 48 C 30 40 35 30 45 14 Z" opacity=".9"/>' +
+      '<path d="M 45 30 C 50 40 52 45 52 49 C 52 54 49 57 45 57" ' +
+      'stroke-width="1.1" opacity=".5"/>');
+  }
+
+  /* onde cada objeto se apoia. Alternando os lados, e nunca dois vizinhos
+     na mesma altura, senao a margem fica pesada de um lado so */
+  var PECAS = [
+    { faz: pena,    lado: "esq", topo: 5,  gira: -14, forca: .58 },
+    { faz: varinha, lado: "dir", topo: 17, gira: 12,  forca: .5 },
+    { faz: gota,    lado: "esq", topo: 33, gira: 6,   forca: .42 },
+    { faz: chave,   lado: "dir", topo: 45, gira: -8,  forca: .5 },
+    { faz: oculos,  lado: "esq", topo: 60, gira: 9,   forca: .44 },
+    { faz: vela,    lado: "dir", topo: 71, gira: -5,  forca: .5 },
+    { faz: pena,    lado: "esq", topo: 86, gira: 166, forca: .38 }
+  ];
+
+  var html = "";
+  for (var i = 0; i < PECAS.length; i++) {
+    var q = PECAS[i];
+    html += '<span class="mg mg-' + q.lado + '" style="top:' + q.topo + "%;" +
+            "--gira:" + q.gira + "deg;--forca:" + q.forca + '">' + q.faz() + "</span>";
+  }
+  casa.innerHTML = html;
+
+  var pecas = casa.querySelectorAll(".mg");
+  if (!("IntersectionObserver" in window)) {
+    for (var k = 0; k < pecas.length; k++) pecas[k].classList.add("acesa");
+    return;
+  }
+  var olho = new IntersectionObserver(function (entradas) {
+    entradas.forEach(function (e) {
+      e.target.classList.toggle("acesa", e.isIntersecting);
+    });
+  }, { rootMargin: "-8% 0px -8% 0px" });
+  for (var m = 0; m < pecas.length; m++) olho.observe(pecas[m]);
 }());
 </script>
 
