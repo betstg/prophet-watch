@@ -1,44 +1,44 @@
 # Ultima rodada da redacao
 
-**Desfecho**, 2 materias abertas e nenhuma passou na checagem
+**Desfecho**, 4 materias abertas e nenhuma passou na checagem
 
-**Quando**, 10/09/2026 23:13 UTC
+**Quando**, 11/09/2026 04:44 UTC
 
 ```
-Prophet Watch, redacao de 2026-09-10. Janela de 2026-09-06 ate 2026-09-10.
+Prophet Watch, redacao de 2026-09-11. Janela de 2026-09-07 ate 2026-09-11.
 Ja no jornal, 46 materias.
 Chave do modelo, presente.
 
 == VIGIA ==
   Wizarding World                0 de 1
   WBD Pressroom                  0 de 11
-  Harry Potter no YouTube        0 de 15
+  Harry Potter no YouTube        HTTP 404
   Variety                        0 de 10
   Deadline                       0 de 12
   The Hollywood Reporter         0 de 10
-  TVLine                         0 de 20
+  TVLine                         0 de 19
   ScreenRant                     0 de 10
   Collider                       0 de 10
   Potterish                      0 de 25
   Ordem da Fenix Brasileira      0 de 25
   Mundo Bruxo                    0 de 10
-  Caldeirao Furado               0 de 15
-  Observatorio Potter            0 de 15
-  Wizarding Bruno                0 de 15
-  O Expresso de Hogwarts         0 de 15
+  Caldeirao Furado               HTTP 404
+  Observatorio Potter            HTTP 404
+  Wizarding Bruno                HTTP 500
+  O Expresso de Hogwarts         HTTP 404
   The Leaky Cauldron             HTTP 403
-  MuggleNet                      1 de 10
+  MuggleNet                      0 de 10
   Wizarding World Direct         0 de 10
-  SnitchSeeker                   0 de 25
+  SnitchSeeker                   2 de 25
   Harry Potter Theory            0 de 15
   Hogwarts Professor             0 de 10
   HP Lexicon                     0 de 0
   The Rowling Library            0 de 1
   Critical Magic Theory          0 de 0
   MuggleCast                     0 de 10
-  Super Carlin Brothers          0 de 15
-  r/HarryPotteronHBO             1 de 25
-  r/harrypotter                  HTTP 429
+  Super Carlin Brothers          HTTP 404
+  r/HarryPotteronHBO             3 de 25
+  r/harrypotter                  estreia, so aprendendo, 25 itens
   Watford Observer               0 de 25
   Soap Central                   HTTP 403
   GamingBible                    0 de 23
@@ -50,7 +50,7 @@ Chave do modelo, presente.
   Playbill                       0 de 10
   The Potter Collector           0 de 15
   Harry Potter Exhibition        0 de 0
-Novidades para olhar, 2.
+Novidades para olhar, 5.
 
 == MODELO ==
   gemini-flash-latest
@@ -58,18 +58,29 @@ Novidades para olhar, 2.
   nota, usando gemini-flash-latest
 
 == REPORTERES ==
-  serie     olhou  2 titulos, quer abrir 2
-      ABRIR    Scholastic Is Finally Using “Philosopher’s Stone” in the U.S. for New Harry Potter Editi
-               Trata de nova edição dos livros ligada à série e não é matéria repetida.
-               https://mugglenet.com/2026/09/harry-potter-philosophers-stone-us-tv-tie-in-edition/
-      ABRIR    Been a while since we heard anything from Horcruxinthepocket, hope they are okay and we 
-               Discussão da comunidade de fãs sobre fonte de vazamentos da série da HBO.
-               https://www.reddit.com/r/HarryPotteronHBO/comments/1wcwg5c/been_a_while_since_we_heard_anything_from/
+  palco     olhou  2 titulos, quer abrir 1
+      ABRIR    Fantastic Beast...
+               Faz referência direta ao universo expandido de Harry Potter com Animais Fantásticos.
+               https://www.snitchseeker.com/weasleys-wizard-wheezes-games/fantastic-beast-elimination-v-6-a-119468/
+      descarta Visual: What Are You Watching?
+               Fora do universo de Harry Potter, sendo uma seção não-HP.
+               https://www.snitchseeker.com/charing-cross-road-non-hp/what-are-you-watching-120388/
+  serie     olhou  3 titulos, quer abrir 3
+      ABRIR    More quantity shows - " Ron grew up accustomed to three hearty meals a day and fully too
+               Discussão de fãs sobre detalhes da série da HBO.
+               https://www.reddit.com/r/HarryPotteronHBO/comments/1wd5nvg/more_quantity_shows_ron_grew_up_accustomed_to/
+      ABRIR    Weekly Fancast Megathread (Fancasts only allowed here!)
+               Discussão de elenco para a série da HBO.
+               https://www.reddit.com/r/HarryPotteronHBO/comments/1wd5ha6/weekly_fancast_megathread_fancasts_only_allowed/
+      ABRIR    The little moments I really hope make it into the new show (re-reading Book 1)
+               Expectativas de fãs para a adaptação da série.
+               https://www.reddit.com/r/HarryPotteronHBO/comments/1wczsfu/the_little_moments_i_really_hope_make_it_into_the/
 
 == CHECAGEM ==
-  passou,    2026-09-10 mugglenet.com          Harry Potter TV Tie-In Changes Sorcerer’s Stone Title
-  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wcwg5c/been_a_whil
-  fora,      fato de fonte unica e fraca, mugglenet.com
+  reprovada, A pagina traz apenas um jogo de forum entr https://www.snitchseeker.com/weasleys-wizard-wheezes-games/fantastic-b
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wd5nvg/more_quanti
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wd5ha6/weekly_fanc
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wczsfu/the_little_
 
 Nada passou na checagem. A edicao de hoje fica como esta.
 ```
