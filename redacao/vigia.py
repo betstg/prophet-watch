@@ -82,9 +82,17 @@ def _do_feed(xml):
 
 
 def _do_indice(html, base):
-    """links de materia numa pagina que nao tem feed"""
+    """links de materia numa pagina que nao tem feed.
+
+    A janela do miolo da ancora precisa ser larga. Site moderno embrulha a
+    materia inteira dentro do <a>, com <picture>, srcset e varios <span>,
+    e isso passa de dois mil caracteres. Com a janela curta que estava
+    aqui antes, essas ancoras nao casavam com a expressao e a fonte ficava
+    cega. O harrypotter.com achava 1 link, que era item de menu, em vez
+    das 12 materias que estao na pagina.
+    """
     vistos, saida = set(), []
-    for m in re.finditer(r'<a\b[^>]*href="([^"#?]+)"[^>]*>(.{0,300}?)</a>',
+    for m in re.finditer(r'<a\b[^>]*href="([^"#?]+)"[^>]*>(.{0,4000}?)</a>',
                          html, re.I | re.S):
         endereco = urllib.parse.urljoin(base, m.group(1))
         titulo = re.sub(r"<[^>]+>", " ", m.group(2))
