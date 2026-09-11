@@ -1,8 +1,8 @@
 # Ultima rodada da redacao
 
-**Desfecho**, o editor nao aproveitou nenhuma das aprovadas
+**Desfecho**, edicao fechada com 2 materias novas
 
-**Quando**, 11/09/2026 11:26 UTC
+**Quando**, 11/09/2026 16:33 UTC
 
 ```
 Prophet Watch, redacao de 2026-09-11. Janela de 2026-09-07 ate 2026-09-11.
@@ -13,18 +13,18 @@ Chave do modelo, presente.
   Wizarding World                0 de 1
   WBD Pressroom                  0 de 11
   Harry Potter no YouTube        0 de 15
-  Variety                        0 de 10
+  Variety                        1 de 10
   Deadline                       0 de 12
   The Hollywood Reporter         0 de 10
-  TVLine                         0 de 19
-  ScreenRant                     1 de 10
-  Collider                       0 de 10
+  TVLine                         1 de 19
+  ScreenRant                     0 de 10
+  Collider                       1 de 10
   Potterish                      0 de 25
   Ordem da Fenix Brasileira      0 de 25
   Mundo Bruxo                    0 de 10
   Caldeirao Furado               0 de 15
   Observatorio Potter            0 de 15
-  Wizarding Bruno                0 de 15
+  Wizarding Bruno                1 de 15
   O Expresso de Hogwarts         0 de 15
   The Leaky Cauldron             HTTP 403
   MuggleNet                      0 de 10
@@ -37,7 +37,7 @@ Chave do modelo, presente.
   Critical Magic Theory          0 de 0
   MuggleCast                     0 de 10
   Super Carlin Brothers          0 de 15
-  r/HarryPotteronHBO             4 de 25
+  r/HarryPotteronHBO             5 de 25
   r/harrypotter                  HTTP 429
   Watford Observer               0 de 25
   Soap Central                   HTTP 403
@@ -46,11 +46,11 @@ Chave do modelo, presente.
   r/HarryPotterGame              HTTP 429
   Blooloop                       0 de 25
   Attractions Magazine           0 de 0
-  WhatsOnStage                   HTTP 403
+  WhatsOnStage                   0 de 0
   Playbill                       0 de 10
   The Potter Collector           0 de 15
   Harry Potter Exhibition        0 de 0
-Novidades para olhar, 5.
+Novidades para olhar, 9.
 
 == MODELO ==
   gemini-flash-latest
@@ -58,31 +58,58 @@ Novidades para olhar, 5.
   nota, usando gemini-flash-latest
 
 == REPORTERES ==
-  serie     olhou  4 titulos, quer abrir 4
-      ABRIR    I just love this part where Harry cheers up Neville ❤️
-               Comunidade de fãs comentando cena do universo Harry Potter.
-               https://www.reddit.com/r/HarryPotteronHBO/comments/1wdbngc/i_just_love_this_part_where_harry_cheers_up/
-      ABRIR    New Harry Potter Collab! Harry Potter Smartphone
-               Produto temático e colaboração do universo Harry Potter inédita no jornal.
-               https://www.reddit.com/r/HarryPotteronHBO/comments/1wd9at5/new_harry_potter_collab_harry_potter_smartphone/
-      ABRIR    Which number episode do you think would be the "Quidditch centered" episode?
-               Discussão de fãs sobre a estrutura dos episódios da nova série da HBO.
-               https://www.reddit.com/r/HarryPotteronHBO/comments/1wd7wgb/which_number_episode_do_you_think_would_be_the/
-      ABRIR    If you were in the writers room, what relationship would you add in to make the story mo
-               Discussão da comunidade de fãs sobre o roteiro da série da HBO.
-               https://www.reddit.com/r/HarryPotteronHBO/comments/1wd6g7x/if_you_were_in_the_writers_room_what_relationship/
-  tela      olhou  1 titulos, quer abrir 1
-      ABRIR    Hogwarts Legacy 2 Official Reveal Has Split Gamers
-               Trata-se de uma notícia sobre a sequência do jogo Hogwarts Legacy, ainda não publicada.
-               https://screenrant.com/hogwarts-legacy-2-official-reveal-gamers-react/
+  brasil    olhou  1 titulos, quer abrir 1
+      ABRIR    POR QUE DUMBLEDORE NUNCA CRIOU UMA PEDRA FILOSOFAL?
+               Teoria e análise sobre Dumbledore e a Pedra Filosofal no universo de Harry Potter, inédi
+               https://www.youtube.com/watch?v=3EnrYUXh6Ik
+  serie     olhou  5 titulos, quer abrir 5
+      ABRIR    I know why the new house banners/crests look like this..
+               Discussão da comunidade sobre o design visual dos novos brasões da série.
+               https://www.reddit.com/r/HarryPotteronHBO/comments/1wdh96v/i_know_why_the_new_house_bannerscrests_look_like/
+      ABRIR    Harry should arrive at Hogwarts by the end of Episode 2
+               Especulação sobre o roteiro e o ritmo dos episódios da primeira temporada.
+               https://www.reddit.com/r/HarryPotteronHBO/comments/1wdfxd6/harry_should_arrive_at_hogwarts_by_the_end_of/
+      ABRIR    Of all the castings that have been announced but we haven't seen in trailers/leaks yet, 
+               Debate sobre as expectativas para o elenco e figurinos da série da HBO.
+               https://www.reddit.com/r/HarryPotteronHBO/comments/1wdftrb/of_all_the_castings_that_have_been_announced_but/
+      ABRIR    Different sizes of first letters
+               Análise de detalhes visuais da identidade da série Harry Potter.
+               https://www.reddit.com/r/HarryPotteronHBO/comments/1wdf33b/different_sizes_of_first_letters/
+      ABRIR    When will we have the new merchandise?
+               Pergunta da comunidade sobre o lançamento de produtos licenciados da série.
+               https://www.reddit.com/r/HarryPotteronHBO/comments/1wddx44/when_will_we_have_the_new_merchandise/
+  tela      olhou  3 titulos, quer abrir 2
+      ABRIR    Lilly Wachowski on Her New Studio Anarchists United, the Black Power Origins of ‘The Mat
+               Trata da repercussão da obra e da comunidade de fãs.
+               https://variety.com/2026/tv/features/lilly-wachowski-jk-rowling-harry-potter-trans-the-matrix-1236858104/
+      ABRIR    Harry Potter Officially Makes a Historic Change Ahead of HBO’s New Series
+               Trata de mudanças nos livros e na nova série da HBO.
+               https://collider.com/harry-potter-sorcerers-stone-title-change-book-re-release-hbo-philosophers-stone/
+      descarta Outlander: Blood Of My Blood's Jeremy Irvine And Hermione Corfield Tease A Harrowing 'Ro
+               fora do universo
+               https://www.tvline.com/2255934/outlander-blood-of-my-blood-season-2-henry-julia-jeremy-irvine-hermione-corfield-interview/
 
 == CHECAGEM ==
-  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wdbngc/i_just_love
-  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wd9at5/new_harry_p
-  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wd7wgb/which_numbe
-  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wd6g7x/if_you_were
-  passou,    2026-09-11 screenrant.com         Hogwarts Legacy 2 Official Reveal Has Split Gamers
+  reprovada, A pagina nao pertence ao universo de Harry https://www.youtube.com/watch?v=3EnrYUXh6Ik
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wdh96v/i_know_why_
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wdfxd6/harry_shoul
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wdftrb/of_all_the_
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wdf33b/different_s
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wddx44/when_will_w
+  passou,    2026-09-11 variety.com            Lilly Wachowski on Her New Studio Anarchists United, the Bla
+  passou,    2026-09-11 collider.com           Harry Potter Officially Makes a Historic Change Ahead of HBO
 
 == EDITOR ==
-O editor nao aproveitou nenhuma.
+
+== FOTOS ==
+  lilly-wachowski-critica-fas-trans-2026-09-11, foto ok
+  titulo-original-pedra-filosofal-eua-2026-09-11, sem foto, a pagina desenha a chapa
+
+== FECHAMENTO ==
+Before you finish the run, go back to each of those articles and look for a photograph INSIDE the body of the piece. A site with no og:image usually still illustrates the article. Only leave a story with no picture once you have actually looked and found nothing.
+wrote artifact.html (2326003 bytes)
+
+Edicao fechada com 2 materias novas.
+  [confirmed] Cineasta Lilly Wachowski afirma que fãs de Harry Potter apoiam violência contra a comunidade trans
+  [official] Primeiro livro da série Harry Potter recebe título original britânico em novo relançamento nos Estados Unidos
 ```
