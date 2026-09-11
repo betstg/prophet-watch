@@ -2,7 +2,7 @@
 
 **Desfecho**, o modelo nao respondeu, o reporter de serie nao recebeu resposta do modelo
 
-**Quando**, 11/09/2026 21:00 UTC
+**Quando**, 11/09/2026 23:18 UTC
 
 ```
 Prophet Watch, redacao de 2026-09-11. Janela de 2026-09-07 ate 2026-09-11.
@@ -13,17 +13,17 @@ Chave do modelo, presente.
   Wizarding World                11 de 12
   WBD Pressroom                  0 de 11
   Harry Potter no YouTube        0 de 15
-  Variety                        0 de 10
+  Variety                        1 de 10
   Deadline                       0 de 12
   The Hollywood Reporter         0 de 10
-  TVLine                         0 de 19
+  TVLine                         0 de 20
   ScreenRant                     0 de 10
   Collider                       0 de 10
   Potterish                      0 de 25
   Ordem da Fenix Brasileira      0 de 25
   Mundo Bruxo                    0 de 10
   Caldeirao Furado               0 de 15
-  Observatorio Potter            0 de 15
+  Observatorio Potter            1 de 15
   Wizarding Bruno                0 de 15
   O Expresso de Hogwarts         0 de 15
   The Leaky Cauldron             HTTP 403
@@ -50,7 +50,7 @@ Chave do modelo, presente.
   Playbill                       0 de 10
   The Potter Collector           0 de 15
   Harry Potter Exhibition        0 de 0
-Novidades para olhar, 17.
+Novidades para olhar, 19.
 
 == MODELO ==
   gemini-flash-latest
@@ -58,13 +58,15 @@ Novidades para olhar, 17.
   nota, usando gemini-flash-latest
 
 == REPORTERES ==
+  brasil    olhou  1 titulos, quer abrir 1
+      ABRIR    O SEGUNDO TRAILER DA SÉRIE HARRY POTTER SAIU E ESTAMOS MALUCOS! l SEÇÃO RESERVADA #45
+               É do universo de Harry Potter e traz uma análise inédita do Observatório Potter.
+               https://www.youtube.com/watch?v=kRhgdQ4rgRI
   estudo    olhou  1 titulos, quer abrir 1
       ABRIR    J vs Ben: MAX Difficulty Muggle Born Harry Potter Quiz
-               Conteúdo da comunidade de fãs sobre Harry Potter não publicado anteriormente.
+               Conteúdo da comunidade de fãs sobre Harry Potter ainda não publicado pelo jornal.
                https://www.youtube.com/watch?v=LrTDwBSjreY
   PAROU AQUI, o reporter de serie nao recebeu resposta do modelo
   nota, a conta oferece 50 modelos, gemini-2.5-flash, gemini-2.5-pro, gemini-2.5-flash-preview-tts, gemini-2.5-pro-preview-tts, gemma-4-26b-a4b-it, gemma-4-31b-it, gemini-flash-latest, gemini-flash-lite-latest, gemini-pro-latest, gemini-2.5-flash-lite, gemini-2.5-flash-image, gemini-3-flash-preview, gemini-3.1-pro-preview, gemini-3.1-pro-preview-customtools
   nota, usando gemini-flash-latest
-  nota, gemini-flash-latest seguiu ocupado com HTTP 503, troquei de modelo
-  nota, usando gemini-3-flash-preview
 ```
