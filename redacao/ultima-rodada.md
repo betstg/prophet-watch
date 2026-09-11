@@ -1,8 +1,8 @@
 # Ultima rodada da redacao
 
-**Desfecho**, 4 materias abertas e nenhuma passou na checagem
+**Desfecho**, o editor nao aproveitou nenhuma das aprovadas
 
-**Quando**, 11/09/2026 04:44 UTC
+**Quando**, 11/09/2026 11:26 UTC
 
 ```
 Prophet Watch, redacao de 2026-09-11. Janela de 2026-09-07 ate 2026-09-11.
@@ -12,33 +12,33 @@ Chave do modelo, presente.
 == VIGIA ==
   Wizarding World                0 de 1
   WBD Pressroom                  0 de 11
-  Harry Potter no YouTube        HTTP 404
+  Harry Potter no YouTube        0 de 15
   Variety                        0 de 10
   Deadline                       0 de 12
   The Hollywood Reporter         0 de 10
   TVLine                         0 de 19
-  ScreenRant                     0 de 10
+  ScreenRant                     1 de 10
   Collider                       0 de 10
   Potterish                      0 de 25
   Ordem da Fenix Brasileira      0 de 25
   Mundo Bruxo                    0 de 10
-  Caldeirao Furado               HTTP 404
-  Observatorio Potter            HTTP 404
-  Wizarding Bruno                HTTP 500
-  O Expresso de Hogwarts         HTTP 404
+  Caldeirao Furado               0 de 15
+  Observatorio Potter            0 de 15
+  Wizarding Bruno                0 de 15
+  O Expresso de Hogwarts         0 de 15
   The Leaky Cauldron             HTTP 403
   MuggleNet                      0 de 10
   Wizarding World Direct         0 de 10
-  SnitchSeeker                   2 de 25
+  SnitchSeeker                   0 de 25
   Harry Potter Theory            0 de 15
   Hogwarts Professor             0 de 10
   HP Lexicon                     0 de 0
   The Rowling Library            0 de 1
   Critical Magic Theory          0 de 0
   MuggleCast                     0 de 10
-  Super Carlin Brothers          HTTP 404
-  r/HarryPotteronHBO             3 de 25
-  r/harrypotter                  estreia, so aprendendo, 25 itens
+  Super Carlin Brothers          0 de 15
+  r/HarryPotteronHBO             4 de 25
+  r/harrypotter                  HTTP 429
   Watford Observer               0 de 25
   Soap Central                   HTTP 403
   GamingBible                    0 de 23
@@ -46,7 +46,7 @@ Chave do modelo, presente.
   r/HarryPotterGame              HTTP 429
   Blooloop                       0 de 25
   Attractions Magazine           0 de 0
-  WhatsOnStage                   0 de 0
+  WhatsOnStage                   HTTP 403
   Playbill                       0 de 10
   The Potter Collector           0 de 15
   Harry Potter Exhibition        0 de 0
@@ -58,29 +58,31 @@ Novidades para olhar, 5.
   nota, usando gemini-flash-latest
 
 == REPORTERES ==
-  palco     olhou  2 titulos, quer abrir 1
-      ABRIR    Fantastic Beast...
-               Faz referência direta ao universo expandido de Harry Potter com Animais Fantásticos.
-               https://www.snitchseeker.com/weasleys-wizard-wheezes-games/fantastic-beast-elimination-v-6-a-119468/
-      descarta Visual: What Are You Watching?
-               Fora do universo de Harry Potter, sendo uma seção não-HP.
-               https://www.snitchseeker.com/charing-cross-road-non-hp/what-are-you-watching-120388/
-  serie     olhou  3 titulos, quer abrir 3
-      ABRIR    More quantity shows - " Ron grew up accustomed to three hearty meals a day and fully too
-               Discussão de fãs sobre detalhes da série da HBO.
-               https://www.reddit.com/r/HarryPotteronHBO/comments/1wd5nvg/more_quantity_shows_ron_grew_up_accustomed_to/
-      ABRIR    Weekly Fancast Megathread (Fancasts only allowed here!)
-               Discussão de elenco para a série da HBO.
-               https://www.reddit.com/r/HarryPotteronHBO/comments/1wd5ha6/weekly_fancast_megathread_fancasts_only_allowed/
-      ABRIR    The little moments I really hope make it into the new show (re-reading Book 1)
-               Expectativas de fãs para a adaptação da série.
-               https://www.reddit.com/r/HarryPotteronHBO/comments/1wczsfu/the_little_moments_i_really_hope_make_it_into_the/
+  serie     olhou  4 titulos, quer abrir 4
+      ABRIR    I just love this part where Harry cheers up Neville ❤️
+               Comunidade de fãs comentando cena do universo Harry Potter.
+               https://www.reddit.com/r/HarryPotteronHBO/comments/1wdbngc/i_just_love_this_part_where_harry_cheers_up/
+      ABRIR    New Harry Potter Collab! Harry Potter Smartphone
+               Produto temático e colaboração do universo Harry Potter inédita no jornal.
+               https://www.reddit.com/r/HarryPotteronHBO/comments/1wd9at5/new_harry_potter_collab_harry_potter_smartphone/
+      ABRIR    Which number episode do you think would be the "Quidditch centered" episode?
+               Discussão de fãs sobre a estrutura dos episódios da nova série da HBO.
+               https://www.reddit.com/r/HarryPotteronHBO/comments/1wd7wgb/which_number_episode_do_you_think_would_be_the/
+      ABRIR    If you were in the writers room, what relationship would you add in to make the story mo
+               Discussão da comunidade de fãs sobre o roteiro da série da HBO.
+               https://www.reddit.com/r/HarryPotteronHBO/comments/1wd6g7x/if_you_were_in_the_writers_room_what_relationship/
+  tela      olhou  1 titulos, quer abrir 1
+      ABRIR    Hogwarts Legacy 2 Official Reveal Has Split Gamers
+               Trata-se de uma notícia sobre a sequência do jogo Hogwarts Legacy, ainda não publicada.
+               https://screenrant.com/hogwarts-legacy-2-official-reveal-gamers-react/
 
 == CHECAGEM ==
-  reprovada, A pagina traz apenas um jogo de forum entr https://www.snitchseeker.com/weasleys-wizard-wheezes-games/fantastic-b
-  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wd5nvg/more_quanti
-  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wd5ha6/weekly_fanc
-  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wczsfu/the_little_
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wdbngc/i_just_love
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wd9at5/new_harry_p
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wd7wgb/which_numbe
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wd6g7x/if_you_were
+  passou,    2026-09-11 screenrant.com         Hogwarts Legacy 2 Official Reveal Has Split Gamers
 
-Nada passou na checagem. A edicao de hoje fica como esta.
+== EDITOR ==
+O editor nao aproveitou nenhuma.
 ```
