@@ -2,7 +2,7 @@
 
 **Desfecho**, o modelo nao respondeu, o reporter de serie nao recebeu resposta do modelo
 
-**Quando**, 12/09/2026 10:50 UTC
+**Quando**, 12/09/2026 15:37 UTC
 
 ```
 Prophet Watch, redacao de 2026-09-12. Janela de 2026-09-08 ate 2026-09-12.
@@ -17,7 +17,7 @@ Chave do modelo, presente.
   Deadline                       1 de 12
   The Hollywood Reporter         0 de 10
   TVLine                         0 de 20
-  ScreenRant                     0 de 10
+  ScreenRant                     1 de 10
   Collider                       0 de 10
   Potterish                      0 de 25
   Ordem da Fenix Brasileira      0 de 25
@@ -29,7 +29,7 @@ Chave do modelo, presente.
   The Leaky Cauldron             HTTP 403
   MuggleNet                      0 de 10
   Wizarding World Direct         0 de 10
-  SnitchSeeker                   0 de 25
+  SnitchSeeker                   1 de 25
   Harry Potter Theory            1 de 15
   Hogwarts Professor             0 de 10
   HP Lexicon                     0 de 0
@@ -37,11 +37,11 @@ Chave do modelo, presente.
   Critical Magic Theory          0 de 0
   MuggleCast                     0 de 10
   Super Carlin Brothers          1 de 15
-  r/HarryPotteronHBO             9 de 25
+  r/HarryPotteronHBO             13 de 25
   r/harrypotter                  HTTP 429
   Watford Observer               0 de 25
   Soap Central                   HTTP 403
-  GamingBible                    0 de 23
+  GamingBible                    1 de 23
   GamesRadar                     0 de 19
   r/HarryPotterGame              HTTP 429
   Blooloop                       0 de 25
@@ -50,7 +50,7 @@ Chave do modelo, presente.
   Playbill                       0 de 10
   The Potter Collector           0 de 15
   Harry Potter Exhibition        0 de 0
-Novidades para olhar, 25.
+Novidades para olhar, 32.
 
 == MODELO ==
   gemini-flash-latest
@@ -60,15 +60,23 @@ Novidades para olhar, 25.
 == REPORTERES ==
   brasil    olhou  1 titulos, quer abrir 1
       ABRIR    O SEGUNDO TRAILER DA SÉRIE HARRY POTTER SAIU E ESTAMOS MALUCOS! l SEÇÃO RESERVADA #45
-               Trata-se de análise da comunidade de fãs sobre o trailer da série de Harry Potter.
+               Reação e análise da comunidade de fãs sobre o novo trailer da série da HBO.
                https://www.youtube.com/watch?v=kRhgdQ4rgRI
   estudo    olhou  2 titulos, quer abrir 2
       ABRIR    Why Voldemort’s Horcruxes Didn’t ACTUALLY Make Him Immortal - Harry Potter Theory
-               Teoria inédita sobre as Horcruxes de Voldemort no universo de Harry Potter.
+               Trata-se de teoria da comunidade sobre as Horcruxes de Voldemort e não foi publicada ant
                https://www.youtube.com/watch?v=B-TVe-TiGH8
       ABRIR    J vs Ben: MAX Difficulty Muggle Born Harry Potter Quiz
-               Conteúdo inédito da comunidade de fãs sobre o universo de Harry Potter.
+               Conteúdo de quiz da comunidade de fãs sobre Harry Potter e inédito no jornal.
                https://www.youtube.com/watch?v=LrTDwBSjreY
+  jogos     olhou  1 titulos, quer abrir 1
+      ABRIR    Hogwarts Legacy fans can finally explore Diagon Alley thanks to new free expansion
+               Trata de Hogwarts Legacy e ainda não foi publicado pelo jornal.
+               https://www.gamingbible.com/news/platform/pc/hogwarts-legacy-diagon-alley-free-mod-698956-20260908
+  palco     olhou  1 titulos, quer abrir 1
+      ABRIR    WoWW Spotlight: Which Overlooked Friendship from the Books Deserves the Spotlight?
+               Discussão da comunidade sobre os livros e a nova série de Harry Potter.
+               https://www.snitchseeker.com/quality-quidditch-supplies-tv-series/which-overlooked-friendship-from-the-books-deserves-the-spotlight-121243/
   PAROU AQUI, o reporter de serie nao recebeu resposta do modelo
   nota, a conta oferece 50 modelos, gemini-2.5-flash, gemini-2.5-pro, gemini-2.5-flash-preview-tts, gemini-2.5-pro-preview-tts, gemma-4-26b-a4b-it, gemma-4-31b-it, gemini-flash-latest, gemini-flash-lite-latest, gemini-pro-latest, gemini-2.5-flash-lite, gemini-2.5-flash-image, gemini-3-flash-preview, gemini-3.1-pro-preview, gemini-3.1-pro-preview-customtools
   nota, usando gemini-flash-latest
