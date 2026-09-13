@@ -2,7 +2,7 @@
 
 **Desfecho**, o modelo nao respondeu, o reporter de serie nao recebeu resposta do modelo
 
-**Quando**, 13/09/2026 20:54 UTC
+**Quando**, 13/09/2026 23:12 UTC
 
 ```
 Prophet Watch, redacao de 2026-09-13. Janela de 2026-09-09 ate 2026-09-13.
@@ -18,7 +18,7 @@ Chave do modelo, presente.
   The Hollywood Reporter         0 de 10
   TVLine                         0 de 20
   ScreenRant                     0 de 10
-  Collider                       0 de 10
+  Collider                       1 de 10
   Potterish                      0 de 25
   Ordem da Fenix Brasileira      0 de 25
   Mundo Bruxo                    0 de 10
@@ -32,7 +32,7 @@ Chave do modelo, presente.
   SnitchSeeker                   3 de 25
   Harry Potter Theory            1 de 15
   Hogwarts Professor             0 de 10
-  HP Lexicon                     TimeoutError
+  HP Lexicon                     0 de 0
   The Rowling Library            0 de 1
   Critical Magic Theory          0 de 0
   MuggleCast                     0 de 10
@@ -43,14 +43,14 @@ Chave do modelo, presente.
   Soap Central                   HTTP 403
   GamingBible                    1 de 23
   GamesRadar                     0 de 19
-  r/HarryPotterGame              estreia, so aprendendo, 25 itens
+  r/HarryPotterGame              HTTP 429
   Blooloop                       0 de 25
   Attractions Magazine           0 de 0
   WhatsOnStage                   0 de 0
   Playbill                       0 de 10
   The Potter Collector           0 de 15
   Harry Potter Exhibition        0 de 0
-Novidades para olhar, 46.
+Novidades para olhar, 47.
 
 == MODELO ==
   gemini-flash-latest
@@ -60,28 +60,28 @@ Novidades para olhar, 46.
 == REPORTERES ==
   brasil    olhou  1 titulos, quer abrir 1
       ABRIR    O SEGUNDO TRAILER DA SÉRIE HARRY POTTER SAIU E ESTAMOS MALUCOS! l SEÇÃO RESERVADA #45
-               É conteúdo da comunidade de fãs sobre a nova série de Harry Potter e não foi publicado a
+               Trata da série de Harry Potter e da reação da comunidade fã brasileira, matéria ainda nã
                https://www.youtube.com/watch?v=kRhgdQ4rgRI
   estudo    olhou  2 titulos, quer abrir 2
       ABRIR    Why Voldemort’s Horcruxes Didn’t ACTUALLY Make Him Immortal - Harry Potter Theory
-               Teoria da comunidade de fãs sobre as Horcruxes e imortalidade no universo de Harry Potte
+               Teoria e análise da comunidade sobre o funcionamento das Horcruxes no cânone dos livros.
                https://www.youtube.com/watch?v=B-TVe-TiGH8
       ABRIR    J vs Ben: MAX Difficulty Muggle Born Harry Potter Quiz
-               Conteúdo da comunidade de fãs com quiz sobre o universo de Harry Potter, inédito no jorn
+               Conteúdo da comunidade de fãs testando conhecimentos detalhados sobre o universo de Harr
                https://www.youtube.com/watch?v=LrTDwBSjreY
   jogos     olhou  1 titulos, quer abrir 1
       ABRIR    Hogwarts Legacy fans can finally explore Diagon Alley thanks to new free expansion
-               Trata-se de conteúdo novo sobre o jogo Hogwarts Legacy e ainda não foi publicado.
+               Trata-se de uma expansão ou mod para o jogo Hogwarts Legacy, dentro do universo e ainda 
                https://www.gamingbible.com/news/platform/pc/hogwarts-legacy-diagon-alley-free-mod-698956-20260908
   palco     olhou  3 titulos, quer abrir 3
       ABRIR    WoWW Spotlight: Which Overlooked Friendship from the Books Deserves the Spotlight?
-               Trata de discussões da comunidade de fãs sobre personagens dos livros.
+               Trata de discussão da comunidade de fãs sobre personagens dos livros.
                https://www.snitchseeker.com/quality-quidditch-supplies-tv-series/which-overlooked-friendship-from-the-books-deserves-the-spotlight-121243/
       ABRIR    Virtual Quidditch v.12
-               Trata de atividade da comunidade de fãs relacionada ao esporte Quadribol.
+               Trata de jogo de Quadribol organizado pela comunidade de fãs.
                https://www.snitchseeker.com/weasleys-wizard-wheezes-games/virtual-quidditch-v-12-a-120051/
       ABRIR    Username ABC's v.4
-               Trata de interação e jogos da comunidade de fãs em site especializado.
+               Atividade social da comunidade de fãs em site especializado no universo.
                https://www.snitchseeker.com/weasleys-wizard-wheezes-games/username-abcs-v-4-a-118154/
   PAROU AQUI, o reporter de serie nao recebeu resposta do modelo
   nota, a conta oferece 50 modelos, gemini-2.5-flash, gemini-2.5-pro, gemini-2.5-flash-preview-tts, gemini-2.5-pro-preview-tts, gemma-4-26b-a4b-it, gemma-4-31b-it, gemini-flash-latest, gemini-flash-lite-latest, gemini-pro-latest, gemini-2.5-flash-lite, gemini-2.5-flash-image, gemini-3-flash-preview, gemini-3.1-pro-preview, gemini-3.1-pro-preview-customtools
