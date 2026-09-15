@@ -2,7 +2,7 @@
 
 **Desfecho**, o modelo nao respondeu, o reporter de serie nao recebeu resposta do modelo
 
-**Quando**, 15/09/2026 04:59 UTC
+**Quando**, 15/09/2026 11:48 UTC
 
 ```
 Prophet Watch, redacao de 2026-09-15. Janela de 2026-09-11 ate 2026-09-15.
@@ -12,31 +12,31 @@ Chave do modelo, presente.
 == VIGIA ==
   Wizarding World                11 de 12
   WBD Pressroom                  0 de 11
-  Harry Potter no YouTube        HTTP 404
+  Harry Potter no YouTube        0 de 15
   Variety                        3 de 10
   Deadline                       1 de 12
   The Hollywood Reporter         0 de 10
   TVLine                         0 de 20
-  ScreenRant                     0 de 10
+  ScreenRant                     1 de 10
   Collider                       0 de 10
   Potterish                      0 de 25
   Ordem da Fenix Brasileira      0 de 25
   Mundo Bruxo                    0 de 10
-  Caldeirao Furado               HTTP 404
-  Observatorio Potter            HTTP 404
-  Wizarding Bruno                HTTP 404
-  O Expresso de Hogwarts         HTTP 404
+  Caldeirao Furado               1 de 15
+  Observatorio Potter            1 de 15
+  Wizarding Bruno                1 de 15
+  O Expresso de Hogwarts         1 de 15
   The Leaky Cauldron             HTTP 403
   MuggleNet                      0 de 10
   Wizarding World Direct         0 de 10
-  SnitchSeeker                   3 de 25
-  Harry Potter Theory            HTTP 404
+  SnitchSeeker                   URLError
+  Harry Potter Theory            2 de 15
   Hogwarts Professor             2 de 10
   HP Lexicon                     0 de 0
   The Rowling Library            0 de 1
   Critical Magic Theory          0 de 0
   MuggleCast                     0 de 10
-  Super Carlin Brothers          HTTP 404
+  Super Carlin Brothers          1 de 15
   r/HarryPotteronHBO             25 de 25
   r/harrypotter                  HTTP 429
   Watford Observer               0 de 25
@@ -46,11 +46,11 @@ Chave do modelo, presente.
   r/HarryPotterGame              HTTP 429
   Blooloop                       0 de 25
   Attractions Magazine           0 de 0
-  WhatsOnStage                   0 de 0
+  WhatsOnStage                   HTTP 403
   Playbill                       0 de 10
-  The Potter Collector           HTTP 404
+  The Potter Collector           0 de 15
   Harry Potter Exhibition        0 de 0
-Novidades para olhar, 45.
+Novidades para olhar, 50.
 
 == MODELO ==
   gemini-flash-latest
@@ -58,27 +58,39 @@ Novidades para olhar, 45.
   nota, usando gemini-flash-latest
 
 == REPORTERES ==
-  estudo    olhou  2 titulos, quer abrir 1
+  brasil    olhou  4 titulos, quer abrir 4
+      ABRIR    ANÁLISE DE TODOS OS BRASÕES REVELADOS NA SÉRIE HARRY POTTER ATÉ AGORA.
+               Analisa os novos brasões da série HBO pelo canal fã Caldeirão Furado.
+               https://www.youtube.com/watch?v=w3ZW_tH66xY
+      ABRIR    O SEGUNDO TRAILER DA SÉRIE HARRY POTTER SAIU E ESTAMOS MALUCOS! l SEÇÃO RESERVADA #45
+               Reação e análise da comunidade fã do Observatório Potter sobre o trailer da série.
+               https://www.youtube.com/watch?v=kRhgdQ4rgRI
+      ABRIR    ISSO REVELOU COMO A HBO VAI CONTAR A HISTÓRIA DE HARRY POTTER NA SÉRIE!
+               Análise do canal fã Wizarding Bruno sobre a narrativa da nova série da HBO.
+               https://www.youtube.com/watch?v=Ok6HWLsC3G0
+      ABRIR    O que a série de Harry Potter tá escondendo de propósito?
+               Teoria e análise inédita do canal O Expresso de Hogwarts sobre a série da HBO.
+               https://www.youtube.com/watch?v=lTc8IKaPtxE
+  estudo    olhou  5 titulos, quer abrir 5
+      ABRIR    Why Did Dumbledore Avoid Harry in Order of the Phoenix? - Harry Potter Explained
+               Matéria relevante sobre os livros e personagens de Harry Potter.
+               https://www.youtube.com/watch?v=ssmt-QVOnms
+      ABRIR    Why Voldemort’s Horcruxes Didn’t ACTUALLY Make Him Immortal - Harry Potter Theory
+               Análise de elementos canônicos da série Harry Potter.
+               https://www.youtube.com/watch?v=B-TVe-TiGH8
       ABRIR    Rowling Tweets About Congenital Blood Condition: von Willebrand Disease
-               Envolve a autora da obra e análise da comunidade de fãs sobre suas declarações.
+               Discussão acadêmica sobre a obra e a autora de Harry Potter.
                https://www.hogwartsprofessor.com/rowling-tweets-about-congenital-blood-condition/
-      descarta Happy First Birthday, Hallmarked Man!
-               Fora do universo de Harry Potter, trata de outra franquia literária da autora.
+      ABRIR    Happy First Birthday, Hallmarked Man!
+               Ensaio literário do Hogwarts Professor sobre o universo estendido da autora.
                https://www.hogwartsprofessor.com/happy-first-birthday-hallmarked-man/
+      ABRIR    J vs Ben: MAX Difficulty Muggle Born Harry Potter Quiz
+               Conteúdo da comunidade de fãs sobre o universo de Harry Potter.
+               https://www.youtube.com/watch?v=LrTDwBSjreY
   jogos     olhou  1 titulos, quer abrir 1
       ABRIR    Hogwarts Legacy fans can finally explore Diagon Alley thanks to new free expansion
-               É sobre Hogwarts Legacy e ainda não foi publicado pelo jornal.
+               Trata-se de conteudo do jogo Hogwarts Legacy pertencente ao universo de Harry Potter.
                https://www.gamingbible.com/news/platform/pc/hogwarts-legacy-diagon-alley-free-mod-698956-20260908
-  palco     olhou  3 titulos, quer abrir 3
-      ABRIR    WoWW Spotlight: Which Overlooked Friendship from the Books Deserves the Spotlight?
-               Discussão da comunidade de fãs sobre personagens dos livros.
-               https://www.snitchseeker.com/quality-quidditch-supplies-tv-series/which-overlooked-friendship-from-the-books-deserves-the-spotlight-121243/
-      ABRIR    Build a Roadtrip...
-               Interação da comunidade de fãs em site especializado no universo.
-               https://www.snitchseeker.com/weasleys-wizard-wheezes-games/build-a-roadtrip-playlist-112850/
-      ABRIR    Ask a Question and...
-               Jogo da comunidade de fãs dentro do contexto da franquia.
-               https://www.snitchseeker.com/weasleys-wizard-wheezes-games/ask-a-question-and-get-the-wrong-answer-v-7-a-118031/
   PAROU AQUI, o reporter de serie nao recebeu resposta do modelo
   nota, a conta oferece 50 modelos, gemini-2.5-flash, gemini-2.5-pro, gemini-2.5-flash-preview-tts, gemini-2.5-pro-preview-tts, gemma-4-26b-a4b-it, gemma-4-31b-it, gemini-flash-latest, gemini-flash-lite-latest, gemini-pro-latest, gemini-2.5-flash-lite, gemini-2.5-flash-image, gemini-3-flash-preview, gemini-3.1-pro-preview, gemini-3.1-pro-preview-customtools
   nota, usando gemini-flash-latest
