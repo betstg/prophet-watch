@@ -48,36 +48,55 @@ Quando abrir for false, o porque diz qual das duas regras reprovou, fora do
 universo ou ja publicado. Nao invente endereco, use exatamente os que recebeu."""
 
 
-def pauta(editoria, novidades, ja_publicadas=None, teto=45):
+def pauta(editoria, novidades, ja_publicadas=None, teto=45, lote=10):
+    """Le os titulos da area e diz quais valem abrir.
+
+    Vai em lotes pequenos de proposito. O reporter tem que devolver um item
+    para cada manchete que recebeu, entao a resposta cresce junto com a
+    lista. Com trinta e seis manchetes numa tacada so, a resposta estourava
+    o teto de saida, voltava cortada, nao virava json e o modelo parecia
+    mudo. A rodada morria ali. Em lotes de dez isso nao acontece.
+
+    Um lote que nao responde nao derruba os outros. So quando nenhum lote
+    responde e que a rodada para, porque ai o modelo esta mesmo fora do ar
+    e a redacao nao pode fingir que o dia estava parado.
+    """
     if not novidades:
         return [], []
     ja = "\n".join("- " + t for t in (ja_publicadas or [])[:40]) or "nada ainda"
-    lista = "\n".join(
-        "%d. [%s] %s\n   %s" % (i + 1, n["bancada"], n["titulo"][:170], n["endereco"])
-        for i, n in enumerate(novidades[:teto]))
-    saida = modelo.pergunta(
-        INSTRUCAO.format(pauta=PAUTA.get(editoria, "noticias de Harry Potter")),
-        ("Manchetes que o jornal ja publicou.\n%s\n\n"
-         "Manchetes novas da sua area.\n\n%s" % (ja, lista)),
-        teto_saida=2500)
-    if saida is None:
-        # o modelo nao respondeu. Isso nao pode passar por dia sem noticia,
-        # senao a redacao fica muda e ninguem descobre.
-        raise modelo.SemModelo("o reporter de %s nao recebeu resposta do modelo" % editoria)
-    if not isinstance(saida, list):
-        raise modelo.SemModelo("o reporter de %s recebeu resposta fora do formato" % editoria)
     titulos = {n["endereco"]: n["titulo"] for n in novidades}
+    fila = novidades[:teto]
     escolhidos, descartados = [], []
-    for item in saida:
-        if not isinstance(item, dict):
+    responderam = mudos = 0
+    for corte in range(0, len(fila), lote):
+        pedaco = fila[corte:corte + lote]
+        lista = "\n".join(
+            "%d. [%s] %s\n   %s" % (i + 1, n["bancada"], n["titulo"][:170], n["endereco"])
+            for i, n in enumerate(pedaco))
+        saida = modelo.pergunta(
+            INSTRUCAO.format(pauta=PAUTA.get(editoria, "noticias de Harry Potter")),
+            ("Manchetes que o jornal ja publicou.\n%s\n\n"
+             "Manchetes novas da sua area.\n\n%s" % (ja, lista)),
+            teto_saida=2500)
+        if saida is None or not isinstance(saida, list):
+            mudos += 1
             continue
-        e = (item.get("endereco") or "").strip()
-        if e not in titulos:
-            continue
-        registro = dict(endereco=e, titulo=titulos[e],
-                        porque=item.get("porque", ""), editoria=editoria)
-        if item.get("abrir"):
-            escolhidos.append(registro)
-        else:
-            descartados.append(registro)
+        responderam += 1
+        for item in saida:
+            if not isinstance(item, dict):
+                continue
+            e = (item.get("endereco") or "").strip()
+            if e not in titulos:
+                continue
+            registro = dict(endereco=e, titulo=titulos[e],
+                            porque=item.get("porque", ""), editoria=editoria)
+            if item.get("abrir"):
+                escolhidos.append(registro)
+            else:
+                descartados.append(registro)
+    if not responderam:
+        raise modelo.SemModelo("o reporter de %s nao recebeu resposta do modelo" % editoria)
+    if mudos:
+        modelo.NOTAS.append("o reporter de %s ficou sem resposta em %d lote de %d"
+                            % (editoria, mudos, lote))
     return escolhidos, descartados
