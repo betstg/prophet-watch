@@ -2,10 +2,55 @@
 
 **Desfecho**, 20 materias abertas e nenhuma passou na checagem
 
-**Quando**, 18/09/2026 04:50 UTC
+**Quando**, 18/09/2026 11:24 UTC
 
 ```
-ovidades para olhar, 56.
+Prophet Watch, redacao de 2026-09-18. Janela de 2026-09-14 ate 2026-09-18.
+Ja no jornal, 53 materias.
+Chave do modelo, presente.
+
+== VIGIA ==
+  Wizarding World                0 de 12
+  WBD Pressroom                  0 de 11
+  Harry Potter no YouTube        0 de 15
+  Variety                        0 de 10
+  Deadline                       0 de 12
+  The Hollywood Reporter         0 de 10
+  TVLine                         0 de 20
+  ScreenRant                     0 de 10
+  Collider                       1 de 10
+  Potterish                      0 de 25
+  Ordem da Fenix Brasileira      0 de 25
+  Mundo Bruxo                    0 de 10
+  Caldeirao Furado               0 de 15
+  Observatorio Potter            0 de 15
+  Wizarding Bruno                0 de 15
+  O Expresso de Hogwarts         3 de 15
+  The Leaky Cauldron             HTTP 403
+  MuggleNet                      0 de 10
+  Wizarding World Direct         0 de 10
+  SnitchSeeker                   TimeoutError
+  Harry Potter Theory            12 de 15
+  Hogwarts Professor             0 de 10
+  HP Lexicon                     0 de 0
+  The Rowling Library            0 de 1
+  Critical Magic Theory          0 de 0
+  MuggleCast                     0 de 10
+  Super Carlin Brothers          6 de 15
+  r/HarryPotteronHBO             0 de 25
+  r/harrypotter                  HTTP 429
+  Watford Observer               1 de 25
+  Soap Central                   HTTP 403
+  GamingBible                    20 de 23
+  GamesRadar                     17 de 20
+  r/HarryPotterGame              HTTP 429
+  Blooloop                       0 de 25
+  Attractions Magazine           0 de 0
+  WhatsOnStage                   HTTP 403
+  Playbill                       0 de 10
+  The Potter Collector           7 de 15
+  Harry Potter Exhibition        0 de 0
+Novidades para olhar, 67.
 
 == MODELO ==
   gemini-flash-latest
@@ -13,158 +58,144 @@ ovidades para olhar, 56.
   nota, usando gemini-flash-latest
 
 == REPORTERES ==
-  estudo    olhou 15 titulos, quer abrir 13
-      ABRIR    Happy Birthday J K Rowling! Opening the Gift of the Biggest Secret in Her Lake of Inspir
-               Ensaio crítico sobre a obra e inspiração de J.K. Rowling no universo da autora.
-               https://www.hogwartsprofessor.com/happy-birthday-j-k-rowling-opening-the-gift-of-the-biggest-secret-in-her-lake-of-inspiration-kanreki-31/
-      ABRIR    A Lake and Shed Look at the Lost Child ‘Golden Thread’ in J K Rowling’s Work (Kanreki 30
-               Análise literária e temática da obra de Harry Potter e J.K. Rowling.
-               https://www.hogwartsprofessor.com/a-lake-and-shed-look-at-the-lost-child-golden-thread-in-j-k-rowlings-work-kanreki-30/
-      ABRIR    A Lake and Shed Reading of ‘The Tales of Beedle the Bard’ (Kanreki 29)
-               Leitura crítica de Os Contos de Beedle, o Bardo, livro do universo de Harry Potter.
-               https://www.hogwartsprofessor.com/a-lake-and-shed-reading-of-the-tales-of-beedle-the-bard-kanreki-29/
-      ABRIR    A Lake and Shed Reading of Fantastic Beasts and Where to Find Them Textbook (Kanreki 28)
-               Análise crítica do livro Animais Fantásticos e Onde Habitam.
-               https://www.hogwartsprofessor.com/a-lake-and-shed-reading-of-fantastic-beasts-and-where-to-find-them-textbook-kanreki-28/
-      ABRIR    Episode #767: Snitches Get Stitches (DH Chapter 7, ‘The Will of Albus Dumbledore’)
-               Podcast de fãs discutindo capítulo de Relíquias da Morte.
-               https://mugglecast.com/episode-767-deathly-hallows-chapter-7-will-albus-dumbledore/
-      ABRIR    Episode #766: Analyzing the NEW ‘Philosopher’s Stone’ TV Show Trailer!
-               Análise do trailer da série da HBO feita pelo podcast MuggleCast.
-               https://mugglecast.com/episode-766-new-philosophers-stone-tv-show-trailer-analysis/
-      ABRIR    Episode #765: Albus The Book Banner? (DH Chapter 6, ‘The Ghoul in Pajamas’)
-               Podcast de fãs discutindo capítulo de Relíquias da Morte.
-               https://mugglecast.com/episode-765-albus-the-book-banner-dh-chapter-6-the-ghoul-in-pajamas/
-      ABRIR    Transcript #764
-               Transcrição de episódio de podcast dedicado a Harry Potter.
-               https://mugglecast.com/transcript-764/
-      ABRIR    Episode #764: Ear Today, Gone Tomorrow (DH Chapter 5, ‘Fallen Warrior’)
-               Podcast de fãs analisando capítulos dos livros de Harry Potter.
-               https://mugglecast.com/episode-764-deathly-hallows-chapter-5-fallen-warrior/
-      ABRIR    Transcript #763
-               Transcrição de podcast sobre o universo de Harry Potter.
-               https://mugglecast.com/transcript-763/
-      ABRIR    Episode #763: Zero Potters, Maximum Chaos (DH Chapter 4, ‘The Seven Potters’)
-               Análise de capítulo de Relíquias da Morte por comunidade de fãs.
-               https://mugglecast.com/episode-763-deathly-hallows-chapter-4-the-seven-potters/
-      ABRIR    Transcript #762
-               Transcrição de discussão sobre a obra literária original.
-               https://mugglecast.com/transcript-762/
-      ABRIR    Episode #762: Wiz-ness Protection (DH Chapter 3, ‘The Dursleys Departing’)
-               Podcast focado na leitura e crítica dos livros da série.
-               https://mugglecast.com/episode-762-deathly-hallows-chapter-3-dursleys-departing/
-      descarta HBO’s Harry Potter and the Alchemical Symbols
-               Já publicado pelo jornal sob o título de simbolismo alquímico nos novos emblemas da HBO.
-               https://www.hogwartsprofessor.com/hbos-harry-potter-and-the-alchemical-symbols/
-  palco     olhou  1 titulos, quer abrir 1
-      ABRIR    Latest Harry Potter News &amp; Rumours
-               Portal de notícias do universo Harry Potter não presente na lista de publicados.
-               https://www.snitchseeker.com/harry-potter-news/
-  serie     olhou 39 titulos, quer abrir 25
-      ABRIR    I'm doing an article about this show for my school newspaper, any suggestions?
-               Trata da comunidade de fãs discutindo a série da HBO.
-               https://www.reddit.com/r/HarryPotteronHBO/comments/1wjfydg/im_doing_an_article_about_this_show_for_my_school/
-      ABRIR    Weekly Fancast Megathread (Fancasts only allowed here!)
-               Trata do elenco e da comunidade de fãs discutindo a série da HBO.
-               https://www.reddit.com/r/HarryPotteronHBO/comments/1wjfpzb/weekly_fancast_megathread_fancasts_only_allowed/
-      ABRIR    Are we expecting the episode names to be the same as the chapter titles in the books?
-               Trata da série da HBO e da comunidade de fãs.
-               https://www.reddit.com/r/HarryPotteronHBO/comments/1wjbtsm/are_we_expecting_the_episode_names_to_be_the_same/
-      ABRIR    Where is a good place to end the first episode of S2?
-               Trata da produção e da segunda temporada da série da HBO.
-               https://www.reddit.com/r/HarryPotteronHBO/comments/1wjbip5/where_is_a_good_place_to_end_the_first_episode_of/
-      ABRIR    Could Harry have controlled or hurt Voldemort if he had been trained, given their mental
-               Trata do universo de Harry Potter e dos livros.
-               https://www.reddit.com/r/harrypotter/comments/1wjffjk/could_harry_have_controlled_or_hurt_voldemort_if/
-      ABRIR    Goblet of fire, egg retrieval
-               Trata do universo de Harry Potter e dos livros/filmes.
-               https://www.reddit.com/r/harrypotter/comments/1wjf7aw/goblet_of_fire_egg_retrieval/
-      ABRIR    Is Hermionie actually the brightest witch of her age?
-               Trata do universo de Harry Potter e dos livros.
-               https://www.reddit.com/r/harrypotter/comments/1wjdz8x/is_hermionie_actually_the_brightest_witch_of_her/
-      ABRIR    Hagrid gets a bad deal
-               Trata do universo de Harry Potter e dos livros.
-               https://www.reddit.com/r/harrypotter/comments/1wjda4s/hagrid_gets_a_bad_deal/
-      ABRIR    Challenge Prep
-               Trata do universo de Harry Potter.
-               https://www.reddit.com/r/harrypotter/comments/1wj99jw/challenge_prep/
-      ABRIR    “What is the answer you would most like to hear?” Pottermore question
-               Trata do universo de Harry Potter e do Pottermore.
-               https://www.reddit.com/r/harrypotter/comments/1wj955v/what_is_the_answer_you_would_most_like_to_hear/
-      ABRIR    The Black sisters dynamics
-               Faz parte da comunidade de fas discutindo personagens do universo de Harry Potter.
-               https://www.reddit.com/r/harrypotter/comments/1wj92ma/the_black_sisters_dynamics/
-      ABRIR    Crimes & Whispers: A Harry Potter Oneshot Fanfic
-               Trata-se de fanfic e conteudo criado por fas dentro do universo de Harry Potter.
-               https://www.reddit.com/r/harrypotter/comments/1wj8spe/crimes_whispers_a_harry_potter_oneshot_fanfic/
-      ABRIR    Young Harry's Life
-               Discussao da comunidade sobre a infancia do protagonista na obra.
-               https://www.reddit.com/r/harrypotter/comments/1wj7p36/young_harrys_life/
-      ABRIR    Potential hat stall- Weasley edition…
-               Discussao de fas sobre cenarios e personagens do universo de Harry Potter.
-               https://www.reddit.com/r/harrypotter/comments/1wj7l9f/potential_hat_stall_weasley_edition/
-      ABRIR    Dumbledore was pretty awful at hiring staff
-               Comunidade debatendo acoes de personagens e aspectos do universo dos livros e filmes.
-               https://www.reddit.com/r/harrypotter/comments/1wj6phr/dumbledore_was_pretty_awful_at_hiring_staff/
-      ABRIR    The reason Snape and Hermione never got along was because Hermione was Harry’s friend
-               Analise de fas sobre a relacao entre personagens da saga.
-               https://www.reddit.com/r/harrypotter/comments/1wj6goz/the_reason_snape_and_hermione_never_got_along_was/
-      ABRIR    Would any of you guys want a movie or series about the legendary dark wizard Ekrisdis?
-               Fas especulando sobre possiveis adaptacoes e expansoes do universo de Harry Potter.
-               https://www.reddit.com/r/harrypotter/comments/1wj5qqb/would_any_of_you_guys_want_a_movie_or_series/
-      ABRIR    How do you the books could incorporated Vampires in a unique way with a fresh take on th
-               Discussao sobre elementos magicos e criaturas do universo dos livros.
-               https://www.reddit.com/r/harrypotter/comments/1wj5bo5/how_do_you_the_books_could_incorporated_vampires/
-      ABRIR    Does a Boggart gain some of the abilities of whatever it transforms into, or can it only
-               Fas debatendo as regras das criaturas magicas do universo de Harry Potter.
-               https://www.reddit.com/r/harrypotter/comments/1wj5bcm/does_a_boggart_gain_some_of_the_abilities_of/
-      ABRIR    Been thinking about the Hogwarts March and how it’s interpreted
-               Fãs discutindo a trilha sonora dos filmes da franquia.
-               https://www.reddit.com/r/harrypotter/comments/1wj4u5u/been_thinking_about_the_hogwarts_march_and_how/
-      ABRIR    What are some unintentionally hilarious movie moments?
-               Discussão de fãs sobre cenas dos filmes de Harry Potter.
-               https://www.reddit.com/r/harrypotter/comments/1wj2ygc/what_are_some_unintentionally_hilarious_movie/
-      ABRIR    Would Lily have remarried if she and harry survived but James didn't?
-               Teoria e discussão de fãs sobre personagens do universo de Harry Potter.
-               https://www.reddit.com/r/harrypotter/comments/1wj0r8q/would_lily_have_remarried_if_she_and_harry/
-      ABRIR    Seamus’s rings
-               Fãs analisando detalhes de figurino de ator da série de filmes.
-               https://www.reddit.com/r/harrypotter/comments/1wj0nsb/seamuss_rings/
-      ABRIR    What's the deal with house elves and clothes?
-               Discussão de fãs sobre a lore dos elfos-domésticos no universo Harry Potter.
-               https://www.reddit.com/r/harrypotter/comments/1wj0er5/whats_the_deal_with_house_elves_and_clothes/
-      ABRIR    Theory: Ominis Gaunt is blind due to inbreeding
-               Discussão de fãs sobre personagens do jogo Hogwarts Legacy do universo de Harry Potter.
-               https://www.reddit.com/r/harrypotter/comments/1wj067v/theory_ominis_gaunt_is_blind_due_to_inbreeding/
-      descarta Cine para mañana viernes 18 de septiembre de 2026 y pasado mañana sábado 19 de septiembr
-               Fora do universo
-               https://www.reddit.com/r/harrypotter/comments/1wiyoha/cine_para_mañana_viernes_18_de_septiembre_de_2026/
+  brasil    olhou  3 titulos, quer abrir 3
+      ABRIR    COMO ANDA A 2ª TEMPORADA DE HARRY POTTER?
+               Trata de atualizações sobre a produção da segunda temporada da série da HBO.
+               https://www.youtube.com/watch?v=CfkDYcyvvEg
+      ABRIR    Harry Potter não sabia que era uma criança triste
+               Análise de personagem e conteúdo da comunidade de fãs sobre o protagonista.
+               https://www.youtube.com/shorts/M47FCKHvqD0
+      ABRIR    Reagindo ao TRAILER de Harry Potter da HBO
+               Reação da comunidade de fãs ao trailer da nova série da HBO.
+               https://www.youtube.com/shorts/J186UBu_z_I
+  estudo    olhou 25 titulos, quer abrir 14
+      ABRIR    Why Didn’t Voldemort Realize Snape Was a Double Agent? - Harry Potter Theory
+               Trata de teoria sobre personagens centrais dos livros.
+               https://www.youtube.com/watch?v=EFGOhR9K3W8
+      ABRIR    The Biggest Issue With the New Harry Potter Series
+               Crítica sobre a nova série da HBO.
+               https://www.youtube.com/watch?v=yUyVJivUz7s
+      ABRIR    Harry Potter HBO Trailer 2: Everything You Missed!
+               Análise de detalhes do novo trailer da série.
+               https://www.youtube.com/watch?v=OtYkRfgadJM
+      ABRIR    The WORST Chapter In Every Harry Potter Book
+               Crítica literária sobre os capítulos dos livros originais.
+               https://www.youtube.com/watch?v=LqgwNenkMgs
+      ABRIR    The SECRET Pattern Hidden in Harry Potter
+               Análise de padrões e simbolismos na obra.
+               https://www.youtube.com/watch?v=mHFBnNYzFTc
+      ABRIR    J vs Ben: INSANE Harry Potter Muggle Quiz
+               Conteúdo da comunidade de fãs sobre o universo.
+               https://www.youtube.com/watch?v=46tA7e0_wh8
+      ABRIR    5 Tiny Harry Potter Secrets Hidden in Plain Sight
+               Exploração de segredos e detalhes da obra.
+               https://www.youtube.com/watch?v=2qi06lMFt4Q
+      ABRIR    NEW Harry Potter Philosopher's Stone Trailer | First Reaction and Thoughts | HBO Max
+               Reação e análise de fã sobre o novo trailer da HBO.
+               https://www.youtube.com/watch?v=USfjXw5mlGw
+      ABRIR    An AMAZING Wizarding Trunk Unboxing ☠️ Perfect Potions: The Darkest of Arts
+               Unboxing de produtos licenciados/temáticos da franquia.
+               https://www.youtube.com/watch?v=lKmpNP4K-NA
+      ABRIR    Lucius Malfoy Wand Replica Review | Harry Potter x The Noble Collection
+               Trata-se de uma análise de réplica oficial de varinha do universo Harry Potter.
+               https://www.youtube.com/watch?v=KYNMur9ZO8U
+      ABRIR    I PURCHASED THE EXCLUSIVE HOGWARTS HOUSE WANDS | Harry Potter Shop
+               Conteúdo focado em produtos exclusivos da loja oficial de Harry Potter.
+               https://www.youtube.com/watch?v=qGFH3NESfxo
+      ABRIR    I LOVED This Wizarding Trunk Box Unboxing | Perfect Potions: Joke Shop
+               Unboxing de caixa temática produzida pela comunidade de fãs da franquia.
+               https://www.youtube.com/watch?v=H3UX-EUDsKs
+      ABRIR    Opening 15 Harry Potter Mystery Wands From Walmart | Potions Series
+               Abertura de colecionáveis licenciados de Harry Potter.
+               https://www.youtube.com/watch?v=hoYp37dee2c
+      ABRIR    A GREAT Wizarding Trunk Box | Archive of Wizardry | Magical Unboxing
+               Vídeo sobre itens de colecionador inspirados no mundo bruxo.
+               https://www.youtube.com/watch?v=ekUxrPGQ2N0
+      descarta We Sorted Every Disney Princess Into Hogwarts Houses
+               Trata de outra franquia (Disney) apenas citando Harry Potter de passagem.
+               https://www.youtube.com/watch?v=wcOebaMd5oI
+  jogos     olhou 37 titulos, quer abrir 14
+      ABRIR    Fans told to &#x27;circle this date&#x27; for Hogwarts Legacy 2 reveal
+               Trata-se de uma possível data de revelação da sequência de Hogwarts Legacy.
+               https://www.gamingbible.com/news/hogwarts-legacy-2-reveal-date-surfaces-online-417158-20260714
+      ABRIR    Hogwarts Legacy sequel needs to be less witchy, more Witcher
+               Discussão sobre o desenvolvimento e direção criativa da sequência de Hogwarts Legacy.
+               https://www.gamingbible.com/features/hogwarts-legacy-sequel-less-witchy-more-witcher-254364-20260531
+      ABRIR    Hogwarts Legacy player unearths secret dragon encounter and fans go wild: &#x27;She&#x27
+               Conteúdo de jogabilidade e descoberta da comunidade dentro de Hogwarts Legacy.
+               https://www.gamingbible.com/news/hogwarts-legacy-player-secret-dragon-encounter-965610-20260706
+      ABRIR    Hogwarts Legacy 2 Void Filled By New Harry Potter &#x27;Defend Hogwarts&#x27; Game
+               Notícia sobre um novo título de jogo da franquia Harry Potter.
+               https://www.gamingbible.com/news/tv-and-film/harry-potter/hogwarts-legacy-2-void-new-harry-potter-game-266483-20260521
+      ABRIR    Harry Potter TV Series Suffers First Recast As Season 2 Filming Underway
+               Informação sobre mudanças específicas no elenco da série da HBO.
+               https://www.gamingbible.com/news/tv-and-film/harry-potter/harry-potter-tv-series-first-recast-season-2-520888-20260519
+      ABRIR    Hogwarts Legacy 2 Release Teased Ahead of Major Reveal Next Month
+               Novas informações sobre a janela de lançamento e revelação de Hogwarts Legacy 2.
+               https://www.gamingbible.com/news/hogwarts-legacy-release-date-reveal-001940-20260518
+      ABRIR    The Chamber of Secrets Is Being Overlooked By Most Hogwarts Legacy Players
+               Exploração de locais icônicos dos livros dentro do jogo Hogwarts Legacy.
+               https://www.gamingbible.com/news/chamber-secrets-overlooked-hogwarts-legacy-players-384262-20260512
+      ABRIR    Harry Potter director reveals Robin Williams wanted to play Lupin
+               Trata de bastidores e elenco da franquia de filmes Harry Potter.
+               https://www.gamesradar.com/harry-potter-director-reveals-robin-williams-wanted-to-play-lupin/
+      ABRIR    The best Harry Potter movies ranked from worst to wand-erful
+               Conteúdo focado na classificação dos filmes do universo Harry Potter.
+               https://www.gamesradar.com/best-harry-potter-movies/
+      ABRIR    Ian McKellen was nearly our dream Dumbledore, but bad blood got in the way
+               Aborda curiosidades sobre a escalação do personagem Dumbledore.
+               https://www.gamesradar.com/ian-mckellen-was-nearly-our-dream-dumbledore-but-bad-blood-got-in-the-way/
+      ABRIR    14 actors you didn't realise were in Harry Potter AND Game of Thrones
+               Lista atores que fazem parte do elenco de Harry Potter.
+               https://www.gamesradar.com/14-actors-you-didnt-realise-were-in-harry-potter-and-game-of-thrones/
+      ABRIR    JK Rowling's early Harry Potter sketches feature Peeves, Snape, and more
+               Apresenta esboços originais de personagens criados pela autora.
+               https://www.gamesradar.com/harry-potter-jk-rowling-sketches/
+      ABRIR    Daniel Radcliffe is "leaving room" for a Harry Potter comeback
+               Entrevista com o ator principal sobre o futuro na franquia.
+               https://www.gamesradar.com/daniel-radcliffe-is-leaving-room-for-a-harry-potter-comeback/
+      ABRIR    Harry Potter and the Cursed Child won't have Daniel Radcliffe in the audience any time s
+               Relacionado ao ator da franquia e à peça teatral oficial.
+               https://www.gamesradar.com/harry-potter-and-the-cursed-child-wont-have-daniel-radcliffe-in-the-audience-any-time-soon/
+      descarta This new Steam RPG is a cozy rival to Hogwarts Legacy you won&#x27;t want to miss
+               fora do universo
+               https://www.gamingbible.com/news/platform/steam/steam-rpg-cozy-rival-hogwarts-legacy-175460-20260708
+      descarta Hogwarts Legacy 9/10 Rival Impresses On Steam At A Fraction Of The Cost
+               fora do universo
+               https://www.gamingbible.com/news/platform/steam/hogwarts-legacy-steam-fraction-of-cost-464629-20260513
+      descarta Cozy RPG Will Easily Rival Hogwarts Legacy, Confirms 2026 Release
+               fora do universo
+               https://www.gamingbible.com/news/cozy-rpg-rival-hogwarts-legacy-2026-release-139914-20260507
+  serie     olhou  1 titulos, quer abrir 1
+      ABRIR    Popular Harry Potter-themed Airbnb appeals after being told it must shut down
+               Trata-se de uma experiência temática da comunidade de fãs e não foi publicada.
+               https://www.watfordobserver.co.uk/news/26561354.harry-potter-airbnb-appeals-decision-must-shut/?ref=rss
   tela      olhou  1 titulos, quer abrir 1
-      ABRIR    Kit Harington Officially Breaks Silence on ‘Harry Potter’ Casting
-               Trata-se de elenco e repercussão da nova série de Harry Potter da HBO.
-               https://collider.com/kit-harington-hbo-harry-potter-backlash-response/
+      ABRIR    Harry Potter Officially Takes Over Streaming Ahead of HBO Max Reboot
+               Trata do desempenho de streaming dos filmes e da expectativa para o reboot da HBO.
+               https://collider.com/harry-potter-and-the-chamber-of-secrets-streaming-success-hbo-max-september-2026/
 
 == CHECAGEM ==
-  reprovada, fora da janela, 2026-07-31                 https://www.hogwartsprofessor.com/happy-birthday-j-k-rowling-opening-t
-  reprovada, fora da janela, 2026-07-30                 https://www.hogwartsprofessor.com/a-lake-and-shed-look-at-the-lost-chi
-  reprovada, fora da janela, 2026-07-29                 https://www.hogwartsprofessor.com/a-lake-and-shed-reading-of-the-tales
-  reprovada, fora da janela, 2026-07-28                 https://www.hogwartsprofessor.com/a-lake-and-shed-reading-of-fantastic
-  reprovada, A pagina traz apenas a discussao de um pod https://mugglecast.com/episode-767-deathly-hallows-chapter-7-will-albu
-  reprovada, A pagina fala sobre um trailer falso ou ge https://mugglecast.com/episode-766-new-philosophers-stone-tv-show-trai
-  reprovada, A pagina contem apenas notas de um episodi https://mugglecast.com/episode-765-albus-the-book-banner-dh-chapter-6-
-  reprovada, fora da janela, 2026-08-19                 https://mugglecast.com/transcript-764/
-  reprovada, fora da janela, 2026-08-19                 https://mugglecast.com/episode-764-deathly-hallows-chapter-5-fallen-wa
-  reprovada, nao abriu, TimeoutError                    https://mugglecast.com/transcript-763/
-  reprovada, fora da janela, 2026-08-12                 https://mugglecast.com/episode-763-deathly-hallows-chapter-4-the-seven
-  reprovada, o texto e apenas a transcricao de um podca https://mugglecast.com/transcript-762/
-  reprovada, fora da janela, 2026-07-29                 https://mugglecast.com/episode-762-deathly-hallows-chapter-3-dursleys-
-  reprovada, nao abriu, URLError                        https://www.snitchseeker.com/harry-potter-news/
-  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wjfydg/im_doing_an
-  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wjfpzb/weekly_fanc
-  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wjbtsm/are_we_expe
-  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wjbip5/where_is_a_
-  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/harrypotter/comments/1wjffjk/could_harry_have
-  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/harrypotter/comments/1wjf7aw/goblet_of_fire_e
+  reprovada, O corpo da pagina nao sustenta nenhuma ale https://www.youtube.com/watch?v=CfkDYcyvvEg
+  reprovada, O corpo da página contém apenas código téc https://www.youtube.com/shorts/M47FCKHvqD0
+  reprovada, pagina contem apenas codigo bruto e metada https://www.youtube.com/shorts/J186UBu_z_I
+  reprovada, o corpo so contem codigo de pagina e dados https://www.youtube.com/watch?v=EFGOhR9K3W8
+  reprovada, o corpo nao sustenta nenhuma alegacao      https://www.youtube.com/watch?v=yUyVJivUz7s
+  reprovada, pagina de codigo fonte do youtube sem cont https://www.youtube.com/watch?v=OtYkRfgadJM
+  reprovada, O corpo nao sustenta nenhuma alegacao, e s https://www.youtube.com/watch?v=LqgwNenkMgs
+  reprovada, o corpo nao sustenta nenhuma alegacao      https://www.youtube.com/watch?v=mHFBnNYzFTc
+  reprovada, corpo so tem codigo e propaganda           https://www.youtube.com/watch?v=46tA7e0_wh8
+  reprovada, O corpo não sustenta nenhuma alegação, é s https://www.youtube.com/watch?v=2qi06lMFt4Q
+  reprovada, O corpo nao sustenta nenhuma alegacao, e s https://www.youtube.com/watch?v=USfjXw5mlGw
+  reprovada, A pagina traz apenas codigo fonte e metada https://www.youtube.com/watch?v=lKmpNP4K-NA
+  reprovada, A pagina nao traz conteudo editorial real  https://www.youtube.com/watch?v=KYNMur9ZO8U
+  reprovada, A pagina nao contem texto util sobre o uni https://www.youtube.com/watch?v=qGFH3NESfxo
+  reprovada, o corpo nao sustenta nenhuma alegacao      https://www.youtube.com/watch?v=H3UX-EUDsKs
+  reprovada, o corpo nao traz informacao util           https://www.youtube.com/watch?v=hoYp37dee2c
+  reprovada, pagina sem conteudo relevante do universo  https://www.youtube.com/watch?v=ekUxrPGQ2N0
+  reprovada, fora da janela, 2026-07-14                 https://www.gamingbible.com/news/hogwarts-legacy-2-reveal-date-surface
+  reprovada, o checador nao respondeu                   https://www.gamingbible.com/features/hogwarts-legacy-sequel-less-witch
+  reprovada, fora da janela, 2026-07-06                 https://www.gamingbible.com/news/hogwarts-legacy-player-secret-dragon-
 
 Nada passou na checagem. A edicao de hoje fica como esta.
 ```
