@@ -2,7 +2,7 @@
 
 **Desfecho**, 3 materias abertas e nenhuma passou na checagem
 
-**Quando**, 19/09/2026 20:43 UTC
+**Quando**, 19/09/2026 23:09 UTC
 
 ```
 Prophet Watch, redacao de 2026-09-19. Janela de 2026-09-15 ate 2026-09-19.
@@ -18,18 +18,18 @@ Chave do modelo, presente.
   The Hollywood Reporter         0 de 10
   TVLine                         0 de 20
   ScreenRant                     0 de 10
-  Collider                       0 de 10
+  Collider                       1 de 10
   Potterish                      0 de 25
   Ordem da Fenix Brasileira      0 de 25
   Mundo Bruxo                    0 de 10
-  Caldeirao Furado               0 de 15
+  Caldeirao Furado               1 de 15
   Observatorio Potter            0 de 15
   Wizarding Bruno                0 de 15
   O Expresso de Hogwarts         0 de 15
   The Leaky Cauldron             HTTP 403
-  MuggleNet                      1 de 10
+  MuggleNet                      0 de 10
   Wizarding World Direct         0 de 10
-  SnitchSeeker                   0 de 25
+  SnitchSeeker                   2 de 25
   Harry Potter Theory            0 de 15
   Hogwarts Professor             0 de 10
   HP Lexicon                     0 de 0
@@ -37,7 +37,7 @@ Chave do modelo, presente.
   Critical Magic Theory          0 de 0
   MuggleCast                     0 de 10
   Super Carlin Brothers          0 de 15
-  r/HarryPotteronHBO             3 de 25
+  r/HarryPotteronHBO             1 de 25
   r/harrypotter                  HTTP 429
   Watford Observer               0 de 25
   Soap Central                   HTTP 403
@@ -50,7 +50,7 @@ Chave do modelo, presente.
   Playbill                       0 de 10
   The Potter Collector           0 de 15
   Harry Potter Exhibition        0 de 0
-Novidades para olhar, 4.
+Novidades para olhar, 5.
 
 == MODELO ==
   gemini-flash-latest
@@ -58,24 +58,30 @@ Novidades para olhar, 4.
   nota, usando gemini-flash-latest
 
 == REPORTERES ==
-  serie     olhou  4 titulos, quer abrir 3
-      ABRIR    Looking at Neville's wand, it's hard to believe that no teacher noticed it might be the 
-               Discussao da comunidade de fas sobre a varinha de Neville.
-               https://www.reddit.com/r/HarryPotteronHBO/comments/1wkud9q/looking_at_nevilles_wand_its_hard_to_believe_that/
-      ABRIR    Are you re-reading the 1st book before December?
-               Discussao da comunidade sobre a releitura do primeiro livro antes da serie.
-               https://www.reddit.com/r/HarryPotteronHBO/comments/1wku3yn/are_you_rereading_the_1st_book_before_december/
-      ABRIR    Show Arthur trolling Audiobook Arthur (also Movie Slughorn in the back)
-               Post de fas comparando atores da serie, audiolivro e filmes.
-               https://www.reddit.com/r/HarryPotteronHBO/comments/1wkqhhl/show_arthur_trolling_audiobook_arthur_also_movie/
-      descarta Scholastic Is Finally Using “Philosopher’s Stone” in the U.S. for New Harry Potter Editi
-               Materia ja publicada sobre o relancamento do primeiro livro com titulo original nos EUA.
-               https://mugglenet.com/2026/09/harry-potter-philosophers-stone-us-tv-tie-in-edition/
+  brasil    olhou  1 titulos, quer abrir 1
+      ABRIR    ANÁLISE E TODOS OS DETALHES DAS NOVAS VARINHAS DA SÉRIE HARRY POTTER!
+               É do universo de Harry Potter e traz uma análise inédita sobre as novas varinhas da séri
+               https://www.youtube.com/watch?v=kKealCKSJ6M
+  palco     olhou  2 titulos, quer abrir 1
+      ABRIR    The Newbie Below Me
+               Interação da comunidade de fãs em fórum temático de Harry Potter.
+               https://www.snitchseeker.com/platform-9-newbies/the-newbie-below-me-120217/
+      descarta Visual: What Are You Watching?
+               Fora do universo de Harry Potter, tópico dedicado a assuntos e produções não relacionado
+               https://www.snitchseeker.com/charing-cross-road-non-hp/what-are-you-watching-120388/
+  serie     olhou  1 titulos, quer abrir 1
+      ABRIR    Season 3 of the show will be when it can really show us how great a new adaption can be.
+               Discussão da comunidade de fãs sobre a futura terceira temporada da série da HBO ainda n
+               https://www.reddit.com/r/HarryPotteronHBO/comments/1wkzdiy/season_3_of_the_show_will_be_when_it_can_really/
+  tela      olhou  1 titulos, quer abrir 0
+      descarta Netflix Officially Says Goodbye to a 'Harry Potter' Icon's Forgotten Spy Thriller
+               Fora do universo de Harry Potter, trata da saída de outro filme da Netflix e só cita a f
+               https://collider.com/ralph-fiennes-official-secrets-leaving-netflix-october-2026/
 
 == CHECAGEM ==
-  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wkud9q/looking_at_
-  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wku3yn/are_you_rer
-  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wkqhhl/show_arthur
+  reprovada, A pagina contem apenas codigo tecnico do Y https://www.youtube.com/watch?v=kKealCKSJ6M
+  reprovada, A pagina contem apenas um jogo de pergunta https://www.snitchseeker.com/platform-9-newbies/the-newbie-below-me-12
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wkzdiy/season_3_of
 
 Nada passou na checagem. A edicao de hoje fica como esta.
 ```
