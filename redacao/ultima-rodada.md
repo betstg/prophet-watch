@@ -1,18 +1,18 @@
 # Ultima rodada da redacao
 
-**Desfecho**, 15 materias abertas e nenhuma passou na checagem
+**Desfecho**, 20 materias abertas e nenhuma passou na checagem
 
-**Quando**, 20/09/2026 23:17 UTC
+**Quando**, 21/09/2026 04:59 UTC
 
 ```
-Prophet Watch, redacao de 2026-09-20. Janela de 2026-09-16 ate 2026-09-20.
+Prophet Watch, redacao de 2026-09-21. Janela de 2026-09-17 ate 2026-09-21.
 Ja no jornal, 55 materias.
 Chave do modelo, presente.
 
 == VIGIA ==
   Wizarding World                0 de 12
   WBD Pressroom                  0 de 11
-  Harry Potter no YouTube        0 de 15
+  Harry Potter no YouTube        HTTP 404
   Variety                        0 de 10
   Deadline                       0 de 12
   The Hollywood Reporter         0 de 10
@@ -22,35 +22,35 @@ Chave do modelo, presente.
   Potterish                      0 de 25
   Ordem da Fenix Brasileira      0 de 25
   Mundo Bruxo                    0 de 10
-  Caldeirao Furado               2 de 15
-  Observatorio Potter            1 de 15
-  Wizarding Bruno                2 de 15
-  O Expresso de Hogwarts         1 de 15
+  Caldeirao Furado               HTTP 404
+  Observatorio Potter            HTTP 404
+  Wizarding Bruno                HTTP 404
+  O Expresso de Hogwarts         HTTP 404
   The Leaky Cauldron             HTTP 403
-  MuggleNet                      2 de 10
-  Wizarding World Direct         1 de 10
-  SnitchSeeker                   0 de 25
-  Harry Potter Theory            2 de 15
-  Hogwarts Professor             2 de 10
+  MuggleNet                      0 de 10
+  Wizarding World Direct         0 de 10
+  SnitchSeeker                   1 de 25
+  Harry Potter Theory            HTTP 404
+  Hogwarts Professor             1 de 10
   HP Lexicon                     0 de 0
   The Rowling Library            0 de 1
   Critical Magic Theory          0 de 0
   MuggleCast                     0 de 10
-  Super Carlin Brothers          1 de 15
-  r/HarryPotteronHBO             4 de 25
-  r/harrypotter                  HTTP 429
+  Super Carlin Brothers          HTTP 404
+  r/HarryPotteronHBO             0 de 25
+  r/harrypotter                  25 de 25
   Watford Observer               0 de 25
   Soap Central                   HTTP 403
-  GamingBible                    0 de 23
+  GamingBible                    1 de 23
   GamesRadar                     0 de 20
   r/HarryPotterGame              HTTP 429
   Blooloop                       0 de 25
   Attractions Magazine           0 de 0
-  WhatsOnStage                   HTTP 403
+  WhatsOnStage                   0 de 0
   Playbill                       0 de 10
-  The Potter Collector           0 de 15
+  The Potter Collector           HTTP 404
   Harry Potter Exhibition        0 de 0
-Novidades para olhar, 16.
+Novidades para olhar, 27.
 
 == MODELO ==
   gemini-flash-latest
@@ -58,74 +58,112 @@ Novidades para olhar, 16.
   nota, usando gemini-flash-latest
 
 == REPORTERES ==
-  brasil    olhou  6 titulos, quer abrir 6
-      ABRIR    "A SÉRIE HARRY POTTER ESTÁ SÓ COPIANDO OS FILMES" | Desmentindo e provando o contrário.
-               Analisa e debate elementos da nova serie de Harry Potter da HBO.
-               https://www.youtube.com/watch?v=cxdYRTkUDYA
-      ABRIR    ANÁLISE DE TODOS OS BRASÕES REVELADOS NA SÉRIE HARRY POTTER ATÉ AGORA.
-               Analise detalhada da comunidade de fas sobre os brasões revelados pela serie.
-               https://www.youtube.com/watch?v=w3ZW_tH66xY
-      ABRIR    O SEGUNDO TRAILER DA SÉRIE HARRY POTTER SAIU E ESTAMOS MALUCOS! l SEÇÃO RESERVADA #45
-               Reacao e debate de canal fa sobre o novo trailer da serie.
-               https://www.youtube.com/watch?v=kRhgdQ4rgRI
-      ABRIR    COMO FRED REALMENTE MORRE EM HARRY POTTER? #harrypotter #weasley
-               Conteudo da comunidade explicando eventos dos livros e filmes de Harry Potter.
-               https://www.youtube.com/shorts/t9GHGGSrGdM
-      ABRIR    ISSO REVELOU COMO A HBO VAI CONTAR A HISTÓRIA DE HARRY POTTER NA SÉRIE!
-               Analise sobre a estrutura narrativa e adaptacao da nova serie da HBO.
-               https://www.youtube.com/watch?v=Ok6HWLsC3G0
-      ABRIR    O que a série de Harry Potter tá escondendo de propósito?
-               Analise de fas sobre detalhes e segredos na divulgacao da serie de Harry Potter.
-               https://www.youtube.com/watch?v=lTc8IKaPtxE
-  estudo    olhou  4 titulos, quer abrir 4
-      ABRIR    Why Did Dumbledore Avoid Harry in Order of the Phoenix? - Harry Potter Explained
-               Teoria e análise de fã sobre Harry Potter e a Ordem da Fênix inédita no jornal.
-               https://www.youtube.com/watch?v=ssmt-QVOnms
-      ABRIR    Why Voldemort’s Horcruxes Didn’t ACTUALLY Make Him Immortal - Harry Potter Theory
-               Teoria e análise literária sobre as Horcruxes de Voldemort inédita no jornal.
-               https://www.youtube.com/watch?v=B-TVe-TiGH8
-      ABRIR    Happy First Birthday, Hallmarked Man!
-               Texto do Hogwarts Professor sobre obra e escrita de J.K. Rowling inédito no jornal.
-               https://www.hogwartsprofessor.com/happy-first-birthday-hallmarked-man/
-      ABRIR    J vs Ben: MAX Difficulty Muggle Born Harry Potter Quiz
-               Conteúdo da comunidade de fãs com quiz temático de Harry Potter inédito no jornal.
-               https://www.youtube.com/watch?v=LrTDwBSjreY
-  serie     olhou  6 titulos, quer abrir 5
-      ABRIR    ‘Harry Potter and the Cursed Child’ Reveals Cast for New One-Part London Production
-               anuncio do elenco da nova versao de Cursed Child
-               https://mugglenet.com/2026/09/harry-potter-cursed-child-new-london-cast-one-part/
-      ABRIR    Which season are you most looking forward to casting wise?
-               discussao de fas sobre elenco das proximas temporadas da serie
-               https://www.reddit.com/r/HarryPotteronHBO/comments/1wlvfb0/which_season_are_you_most_looking_forward_to/
-      ABRIR    How do you think Tom Riddle will be utilized in the show vs what was done in the Chamber
-               discussao de fas sobre Tom Riddle na serie da HBO
-               https://www.reddit.com/r/HarryPotteronHBO/comments/1wluv4l/how_do_you_think_tom_riddle_will_be_utilized_in/
-      ABRIR    The look of Hogwarts and the Castle Grounds
-               discussao da comunidade sobre o visual de Hogwarts na serie
-               https://www.reddit.com/r/HarryPotteronHBO/comments/1wlu6gm/the_look_of_hogwarts_and_the_castle_grounds/
-      ABRIR    Next Friday will be the 12 week mark until the new hbo harry potter starts
-               comunidade comentando contagem regressiva para a estreia da serie
-               https://www.reddit.com/r/HarryPotteronHBO/comments/1wltsua/next_friday_will_be_the_12_week_mark_until_the/
-      descarta Rafe Spall, Molly Hewitt-Richards, and Jasper Ambrose Join HBO’s “Harry Potter” Season 2
-               ja publicado
-               https://mugglenet.com/2026/09/harry-potter-hbo-season-2-arthur-weasley-moaning-myrtle-colin-creevey/
+  estudo    olhou  1 titulos, quer abrir 0
+      descarta The Magician’s Nephew and Magic Far Deeper than Netfilx
+               Fora do universo de Harry Potter; trata de As Crônicas de Nárnia e adaptação da Netflix.
+               https://www.hogwartsprofessor.com/the-magicians-nephew-and-magic-far-deeper-than-netfilx/
+  palco     olhou  1 titulos, quer abrir 1
+      ABRIR    Seven-Word Acid Pops
+               Trata-se de atividade da comunidade de fãs em site temático de Harry Potter e não foi pu
+               https://www.snitchseeker.com/honeydukes-creative-writing/seven-word-acid-pops-121034/
+  serie     olhou 25 titulos, quer abrir 25
+      ABRIR    Would Voldemort's memories appear among Harry's in the Pensieve?
+               Discussão de fãs sobre o universo de Harry Potter não publicada anteriormente.
+               https://www.reddit.com/r/harrypotter/comments/1wm2lme/would_voldemorts_memories_appear_among_harrys_in/
+      ABRIR    Horcruxes
+               Discussão sobre elementos do universo de Harry Potter não publicada anteriormente.
+               https://www.reddit.com/r/harrypotter/comments/1wly8yg/horcruxes/
+      ABRIR    Harry Potter and the prisoner of Azkaban
+               Discussão da comunidade sobre a obra não publicada anteriormente.
+               https://www.reddit.com/r/harrypotter/comments/1wltcsb/harry_potter_and_the_prisoner_of_azkaban/
+      ABRIR    To those who have read the books, are the movies entertaining?
+               Debate de fãs comparando livros e filmes da franquia não publicado anteriormente.
+               https://www.reddit.com/r/harrypotter/comments/1wlsb64/to_those_who_have_read_the_books_are_the_movies/
+      ABRIR    Harry Potter alignment chart
+               Conteúdo da comunidade sobre personagens do universo de Harry Potter inédito no jornal.
+               https://www.reddit.com/r/harrypotter/comments/1wloshx/harry_potter_alignment_chart/
+      ABRIR    Did Dumbledore know who killed Ariana?
+               Discussão sobre a história dos livros de Harry Potter não abordada antes.
+               https://www.reddit.com/r/harrypotter/comments/1wlor73/did_dumbledore_know_who_killed_ariana/
+      ABRIR    Muggle things in the wizarding world
+               Debate da comunidade sobre o universo bruxo e trouxa não publicado anteriormente.
+               https://www.reddit.com/r/harrypotter/comments/1wlnky9/muggle_things_in_the_wizarding_world/
+      ABRIR    Were you obsessed with the books/movies but later couldn't read/watch them
+               Discussão sobre a relação dos fãs com os livros e filmes da saga inédita no jornal.
+               https://www.reddit.com/r/harrypotter/comments/1wlktu8/were_you_obsessed_with_the_booksmovies_but_later/
+      ABRIR    Why didn’t Voldemrot just read harry’s mind for the prophecy
+               Teoria e discussão sobre o enredo dos livros e filmes não publicada anteriormente.
+               https://www.reddit.com/r/harrypotter/comments/1wlk362/why_didnt_voldemrot_just_read_harrys_mind_for_the/
+      ABRIR    Fans who watched the movies first, did anything that disappoint you when you finally rea
+               Relato da comunidade sobre a experiência com os livros e filmes não publicado anteriorme
+               https://www.reddit.com/r/harrypotter/comments/1wlix06/fans_who_watched_the_movies_first_did_anything/
+      ABRIR    Harry Potter and the cursed child
+               Discussão de fãs sobre Harry Potter and the Cursed Child dentro do universo.
+               https://www.reddit.com/r/harrypotter/comments/1wli9ac/harry_potter_and_the_cursed_child/
+      ABRIR    Is it much better to read the books for the first time VERY far away from movie watches?
+               Discussão da comunidade sobre os livros e filmes da saga.
+               https://www.reddit.com/r/harrypotter/comments/1wlgg61/is_it_much_better_to_read_the_books_for_the_first/
+      ABRIR    [Films] Has your order (best to worst) changed from childhood to adulthood?
+               Discussão de fãs sobre a classificação dos filmes de Harry Potter.
+               https://www.reddit.com/r/harrypotter/comments/1wledzm/films_has_your_order_best_to_worst_changed_from/
+      ABRIR    What wands with pheonix feather cores producing greatest range of magic means?
+               Debate sobre o funcionamento e a magia das varinhas no universo da saga.
+               https://www.reddit.com/r/harrypotter/comments/1wldiao/what_wands_with_pheonix_feather_cores_producing/
+      ABRIR    Firenze redesign.. am I seeing things???
+               Discussão da comunidade sobre visual e redesign do personagem Firenze.
+               https://www.reddit.com/r/harrypotter/comments/1wldabm/firenze_redesign_am_i_seeing_things/
+      ABRIR    When did the chamber of secrets become the room of requirement??
+               Discussão sobre locais clássicos de Hogwarts na obra.
+               https://www.reddit.com/r/harrypotter/comments/1wlcvnn/when_did_the_chamber_of_secrets_become_the_room/
+      ABRIR    Imperio is by far the most dangerous unforgivable curse
+               Debate da comunidade sobre as Maldições Imperdoáveis de Harry Potter.
+               https://www.reddit.com/r/harrypotter/comments/1wlcjd3/imperio_is_by_far_the_most_dangerous_unforgivable/
+      ABRIR    No Stupid Questions Sunday!
+               Tópico semanal de dúvidas da comunidade sobre o universo Harry Potter.
+               https://www.reddit.com/r/harrypotter/comments/1wlbzvg/no_stupid_questions_sunday/
+      ABRIR    my headcannon for the elder wand's allegiance
+               Teoria de fã sobre a lealdade da Varinha das Varinhas.
+               https://www.reddit.com/r/harrypotter/comments/1wlbxes/my_headcannon_for_the_elder_wands_allegiance/
+      ABRIR    What's your favorite part from the movies that wasn't in the book?
+               Debate da comunidade comparando cenas dos filmes e dos livros.
+               https://www.reddit.com/r/harrypotter/comments/1wl9ssp/whats_your_favorite_part_from_the_movies_that/
+      ABRIR    Why did Dumbledore employ Filch?
+               Discussão de fãs sobre personagens do universo de Harry Potter e ainda não publicada.
+               https://www.reddit.com/r/harrypotter/comments/1wl95h5/why_did_dumbledore_employ_filch/
+      ABRIR    Wizarding world cities
+               Debate da comunidade sobre os locais do Mundo Bruxo e ainda não publicado.
+               https://www.reddit.com/r/harrypotter/comments/1wl8wzj/wizarding_world_cities/
+      ABRIR    Harry and Dumbledore trip.
+               Discussão sobre acontecimentos dos livros e filmes e ainda não publicada.
+               https://www.reddit.com/r/harrypotter/comments/1wl749z/harry_and_dumbledore_trip/
+      ABRIR    Trolls!!
+               Tópico sobre criaturas mágicas do universo de Harry Potter e assunto inédito.
+               https://www.reddit.com/r/harrypotter/comments/1wl6tgl/trolls/
+      ABRIR    Hagrid is horrible
+               Debate da comunidade sobre o personagem Hagrid e matéria ainda não coberta.
+               https://www.reddit.com/r/harrypotter/comments/1wl6bs2/hagrid_is_horrible/
 
 == CHECAGEM ==
-  reprovada, A pagina nao traz conteudo legivel sobre H https://www.youtube.com/watch?v=cxdYRTkUDYA
-  reprovada, A pagina contem apenas codigo bruto de nav https://www.youtube.com/watch?v=w3ZW_tH66xY
-  reprovada, A pagina contem apenas codigo de sistema d https://www.youtube.com/watch?v=kRhgdQ4rgRI
-  reprovada, O corpo da pagina nao contem texto nem sus https://www.youtube.com/shorts/t9GHGGSrGdM
-  reprovada, A pagina contem apenas codigo tecnico sem  https://www.youtube.com/watch?v=Ok6HWLsC3G0
-  reprovada, A página não contém conteúdo legível sobre https://www.youtube.com/watch?v=lTc8IKaPtxE
-  reprovada, O corpo traz apenas codigo do YouTube sem  https://www.youtube.com/watch?v=ssmt-QVOnms
-  reprovada, A pagina contem apenas codigos tecnicos do https://www.youtube.com/watch?v=B-TVe-TiGH8
-  reprovada, A pagina trata da serie Cormoran Strike e  https://www.hogwartsprofessor.com/happy-first-birthday-hallmarked-man/
-  reprovada, A pagina nao apresenta conteudo sobre Harr https://www.youtube.com/watch?v=LrTDwBSjreY
-  reprovada, fora da janela, 2026-09-15                 https://mugglenet.com/2026/09/harry-potter-cursed-child-new-london-cas
-  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wlvfb0/which_seaso
-  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wluv4l/how_do_you_
-  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wlu6gm/the_look_of
-  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/HarryPotteronHBO/comments/1wltsua/next_friday
+  reprovada, A página é apenas um tópico de fórum com b https://www.snitchseeker.com/honeydukes-creative-writing/seven-word-ac
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/harrypotter/comments/1wm2lme/would_voldemorts
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/harrypotter/comments/1wly8yg/horcruxes/
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/harrypotter/comments/1wltcsb/harry_potter_and
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/harrypotter/comments/1wlsb64/to_those_who_hav
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/harrypotter/comments/1wloshx/harry_potter_ali
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/harrypotter/comments/1wlor73/did_dumbledore_k
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/harrypotter/comments/1wlnky9/muggle_things_in
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/harrypotter/comments/1wlktu8/were_you_obsesse
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/harrypotter/comments/1wlk362/why_didnt_voldem
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/harrypotter/comments/1wlix06/fans_who_watched
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/harrypotter/comments/1wli9ac/harry_potter_and
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/harrypotter/comments/1wlgg61/is_it_much_bette
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/harrypotter/comments/1wledzm/films_has_your_o
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/harrypotter/comments/1wldiao/what_wands_with_
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/harrypotter/comments/1wldabm/firenze_redesign
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/harrypotter/comments/1wlcvnn/when_did_the_cha
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/harrypotter/comments/1wlcjd3/imperio_is_by_fa
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/harrypotter/comments/1wlbzvg/no_stupid_questi
+  reprovada, nao abriu, HTTPError                       https://www.reddit.com/r/harrypotter/comments/1wlbxes/my_headcannon_fo
 
 Nada passou na checagem. A edicao de hoje fica como esta.
 ```
