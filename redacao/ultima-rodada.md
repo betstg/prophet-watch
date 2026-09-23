@@ -2,7 +2,7 @@
 
 **Desfecho**, o modelo nao respondeu, o reporter de tela nao recebeu resposta do modelo
 
-**Quando**, 23/09/2026 17:04 UTC
+**Quando**, 23/09/2026 21:33 UTC
 
 ```
 Prophet Watch, redacao de 2026-09-23. Janela de 2026-09-19 ate 2026-09-23.
@@ -36,8 +36,8 @@ Chave do modelo, presente.
   The Rowling Library            0 de 1
   Critical Magic Theory          0 de 0
   MuggleCast                     1 de 10
-  Super Carlin Brothers          0 de 15
-  r/HarryPotteronHBO             7 de 25
+  Super Carlin Brothers          1 de 15
+  r/HarryPotteronHBO             8 de 25
   r/harrypotter                  HTTP 429
   Watford Observer               0 de 25
   Soap Central                   HTTP 403
@@ -50,7 +50,7 @@ Chave do modelo, presente.
   Playbill                       0 de 10
   The Potter Collector           0 de 15
   Harry Potter Exhibition        0 de 0
-Novidades para olhar, 35.
+Novidades para olhar, 37.
 
 == MODELO ==
   gemini-flash-latest
@@ -60,89 +60,95 @@ Novidades para olhar, 35.
 == REPORTERES ==
   brasil    olhou  2 titulos, quer abrir 2
       ABRIR    A CENA MAIS DIFÍCIL DA CARREIRA DE GARY OLDMAN FOI EM HARRY POTTER! #harrypotter
-               Trata dos bastidores dos filmes de Harry Potter e não foi publicada anteriormente.
+               Trata dos bastidores e do elenco dos filmes de Harry Potter e ainda nao foi publicado.
                https://www.youtube.com/shorts/eGsKjfWv62Q
       ABRIR    DESDE QUANDO LUCIO MALFOY SOFRIA BULLYING EM HOGWARTS?
-               Analisa a história de Lúcio Malfoy em Hogwarts e é inédita no jornal.
+               Aborda a historia e personagens do universo de Harry Potter e ainda nao foi publicado.
                https://www.youtube.com/watch?v=UkMvzdV2_kU
-  estudo    olhou  2 titulos, quer abrir 2
+  estudo    olhou  3 titulos, quer abrir 3
       ABRIR    The TRAGEDY of Frank & Alice Longbottom - Harry Potter Explained
-               Trata do universo de Harry Potter e nao foi publicada anteriormente.
+               Teoria sobre Frank e Alice Longbottom inédita no jornal.
                https://www.youtube.com/watch?v=hP45CCEebAg
       ABRIR    Episode #769: Two Weddings and a Podcast (DH Chapter 8, ‘The Wedding’)
-               Trata do universo de Harry Potter e nao foi publicada anteriormente.
+               Análise de capítulo de Relíquias da Morte pelo MuggleCast ainda não publicada.
                https://mugglecast.com/episode-769-deathly-hallows-chapter-8-the-wedding/
+      ABRIR    Slughorn’s SECRET Role In Creating Voldemort
+               Teoria sobre o papel de Slughorn na criação de Voldemort não abordada antes.
+               https://www.youtube.com/watch?v=izCx_fRrTw4
   jogos     olhou  1 titulos, quer abrir 1
       ABRIR    Game of Thrones star Kit Harington says he joined the Harry Potter show because he think
-               É do universo de Harry Potter e traz novas declarações do ator sobre sua entrada na séri
+               Declarações de Kit Harington sobre sua motivação para entrar na série da HBO do universo
                https://www.gamesradar.com/entertainment/fantasy-shows/game-of-thrones-star-kit-harington-says-he-joined-the-harry-potter-show-because-he-thinks-its-a-great-idea/
   palco     olhou  1 titulos, quer abrir 1
       ABRIR    Harry Potter Hangman...
-               Trata-se de atividade da comunidade de fãs de Harry Potter e ainda não foi publicada.
+               Trata-se de atividade da comunidade de fãs de Harry Potter e não foi publicado anteriorm
                https://www.snitchseeker.com/weasleys-wizard-wheezes-games/harry-potter-hangman-v-6-a-118098/
-  serie     olhou 21 titulos, quer abrir 20
+  serie     olhou 22 titulos, quer abrir 21
       ABRIR    The Sorting Hat always knows just what to say ✨ #HarryPotter #Hogwarts #SortingHat
-               Conteúdo oficial de Harry Potter sobre o Chapéu Seletor inédito no jornal.
+               Conteúdo oficial sobre o Chapéu Seletor no universo de Harry Potter.
                https://www.youtube.com/shorts/1x4gdZzO96I
       ABRIR    Magic in the air. #harrypotterhbo
-               Teaser promocional inédito da nova série de Harry Potter da HBO.
+               Teaser promocional da nova série de Harry Potter da HBO.
                https://www.youtube.com/shorts/iAlh6nY8O6Q
       ABRIR    Harry Potter and the Philosopher's Stone | Official Teaser Trailer | HBO Max
-               Teaser trailer oficial da série da HBO Max com potencial de novos detalhes.
+               Teaser trailer oficial da série da HBO no YouTube.
                https://www.youtube.com/watch?v=SJVmeJaS44s
       ABRIR    FULL AUDIOBOOK | Harry Potter and the Philosopher's Stone | Chapters 10-13 | Narrated by
-               Lançamento de capítulos do audiolivro narrado por Stephen Fry.
+               Lançamento oficial de capítulos do audiolivro de Harry Potter narrado por Stephen Fry.
                https://www.youtube.com/watch?v=idfgdOIHOfg
       ABRIR    Harry Potter: From Film to Series ft. David Heyman
                Entrevista com o produtor David Heyman sobre a transição dos filmes para a série.
                https://www.youtube.com/watch?v=pnfh52yeM9M
       ABRIR    Back to Hogwarts Showcase 2026 Livestream | Harry Potter
-               Transmissão ao vivo do evento Back to Hogwarts com novidades da franquia.
+               Transmissão ao vivo do evento anual Back to Hogwarts com novidades da franquia.
                https://www.youtube.com/watch?v=tqqhFtRpnWw
       ABRIR    Meet us on the pitch tomorrow. 🧹 #HarryPotterHBO
-               Teaser inédito da série da HBO com foco em Quadribol.
+               Vídeo promocional da série da HBO com foco em Quadribol.
                https://www.youtube.com/shorts/86uvNj8Ojes
       ABRIR    Harry Potter #WizardsOfBaking Season 3
-               Novidades sobre a nova temporada do programa Wizards of Baking.
+               Novidade sobre nova temporada do programa oficial Wizards of Baking.
                https://www.youtube.com/watch?v=AxYsZULb-LE
       ABRIR    An Exclusive Look at ice! Featuring Harry Potter™ | Back To Hogwarts
-               Apresentação da atração temática ICE! inspirada em Harry Potter.
+               Prévia de atração temática de gelo oficial da franquia Harry Potter.
                https://www.youtube.com/watch?v=z8cu9cB47Fs
       ABRIR    Three New Harry Potter Themed Lands | The Countdown Is On ⚡
-               Vídeo sobre as três novas áreas temáticas de Harry Potter em parques.
+               Vídeo oficial de contagem regressiva para as novas áreas temáticas de Harry Potter.
                https://www.youtube.com/watch?v=qWIByerF_Qc
       ABRIR    LEGO® Harry Potter™ Collection - Official Nintendo Switch 2 Announce Trailer
-               Trailer oficial de anúncio de jogo do universo Harry Potter para nova plataforma.
+               Trata de anúncio de jogo do universo de Harry Potter e ainda não foi publicado.
                https://www.youtube.com/watch?v=zpLF2QXbb0g
       ABRIR    All New James & Lily Potter Love Story – Harry Potter: Hogwarts Mystery
-               Novo conteúdo oficial do jogo Harry Potter: Hogwarts Mystery.
+               Trata de novidade no jogo Hogwarts Mystery e não foi publicado.
                https://www.youtube.com/watch?v=UyOXmBj0j5M
       ABRIR    Harry Potter Meets The Elf on the Shelf in New Holiday Collection
-               Lançamento inédito de linha temática de produtos de Harry Potter.
+               Trata de nova coleção de produtos da franquia e não foi publicado.
                https://mugglenet.com/2026/09/harry-potter-elf-on-the-shelf-collection-2026/
+      ABRIR    What are you hopes and worries for the HBO version?
+               Discussão da comunidade sobre a nova série da HBO ainda não coberta.
+               https://www.reddit.com/r/HarryPotteronHBO/comments/1wof177/what_are_you_hopes_and_worries_for_the_hbo_version/
       ABRIR    Alright you guys weren't over hyping this I'm only a few hours into book one and this is
-               Discussão da comunidade de fãs sobre experiência imersiva com obra de Harry Potter.
+               Discussão de fãs sobre a experiência das obras da franquia e não foi publicada.
                https://www.reddit.com/r/HarryPotteronHBO/comments/1wo9i53/alright_you_guys_werent_over_hyping_this_im_only/
       ABRIR    A possible reaval or trailer on the anniversary's of 10th anniversary of the fantastic b
-               Especulação da comunidade sobre datas para novidades e trailers da franquia.
+               Especulação da comunidade sobre trailers e datas da franquia não publicada.
                https://www.reddit.com/r/HarryPotteronHBO/comments/1wo7kmp/a_possible_reaval_or_trailer_on_the_anniversarys/
       ABRIR    Iconic harry potter theme song changed!!!!
-               Repercussão dos fãs sobre alterações na música tema de Harry Potter.
+               Discussão sobre a trilha sonora da franquia e da série, ainda não publicada.
                https://www.reddit.com/r/HarryPotteronHBO/comments/1wo74ve/iconic_harry_potter_theme_song_changed/
       ABRIR    When should we expect a next announcement for the upcoming tv series its nearly been 1 m
-               Discussão de fãs sobre o cronograma de anúncios da série da HBO.
+               Discussão da comunidade sobre o cronograma de anúncios da série da HBO.
                https://www.reddit.com/r/HarryPotteronHBO/comments/1wo5omv/when_should_we_expect_a_next_announcement_for_the/
       ABRIR    Do y’all think there will be any more Casting announcements before December?
-               Comunidade debatendo previsões de novos anúncios de elenco da série.
+               Discussão de fãs sobre anúncios de elenco da série da HBO não publicada.
                https://www.reddit.com/r/HarryPotteronHBO/comments/1wo54fx/do_yall_think_there_will_be_any_more_casting/
       ABRIR    Are these yet another versions of the Hogwarts Houses logos?
-               Debate da comunidade sobre variações visuais dos brasões das casas de Hogwarts.
+               Trata de possíveis novas variações dos brasões das casas na série da HBO e ainda não foi
                https://www.reddit.com/r/HarryPotteronHBO/comments/1wo34vn/are_these_yet_another_versions_of_the_hogwarts/
       ABRIR    Harry Potter and the Philosopher's Stone (2026/2001) | Teaser Trailer 2 Comparison | HBO
-               É conteúdo sobre a série da HBO comparando com o filme original e não foi publicado ante
+               Comparação cena a cena entre o trailer da série da HBO e o filme original de 2001 ainda 
                https://www.reddit.com/r/HarryPotteronHBO/comments/1wnzl4q/harry_potter_and_the_philosophers_stone_20262001/
       descarta “Harry Potter: A Forbidden Forest Experience” Returns to New York with New Magic
-               Matéria já publicada anteriormente sobre o retorno da experiência da Floresta Proibida a
+               Matéria já publicada sobre o retorno da experiência da Floresta Proibida a Nova York.
                https://mugglenet.com/2026/09/harry-potter-forbidden-forest-experience-new-york-2026/
   PAROU AQUI, o reporter de tela nao recebeu resposta do modelo
   nota, a conta oferece 50 modelos, gemini-2.5-flash, gemini-2.5-pro, gemini-2.5-flash-preview-tts, gemini-2.5-pro-preview-tts, gemma-4-26b-a4b-it, gemma-4-31b-it, gemini-flash-latest, gemini-flash-lite-latest, gemini-pro-latest, gemini-2.5-flash-lite, gemini-2.5-flash-image, gemini-3-flash-preview, gemini-3.1-pro-preview, gemini-3.1-pro-preview-customtools
