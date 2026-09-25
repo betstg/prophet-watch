@@ -2,7 +2,7 @@
 
 **Desfecho**, o modelo nao respondeu, o reporter de brasil nao recebeu resposta do modelo
 
-**Quando**, 25/09/2026 11:54 UTC
+**Quando**, 25/09/2026 17:14 UTC
 
 ```
 Prophet Watch, redacao de 2026-09-25. Janela de 2026-09-21 ate 2026-09-25.
@@ -27,7 +27,7 @@ Chave do modelo, presente.
   Wizarding Bruno                2 de 15
   O Expresso de Hogwarts         0 de 15
   The Leaky Cauldron             HTTP 403
-  MuggleNet                      2 de 10
+  MuggleNet                      3 de 10
   Wizarding World Direct         0 de 10
   SnitchSeeker                   6 de 25
   Harry Potter Theory            1 de 15
@@ -37,20 +37,20 @@ Chave do modelo, presente.
   Critical Magic Theory          0 de 0
   MuggleCast                     1 de 10
   Super Carlin Brothers          1 de 15
-  r/HarryPotteronHBO             24 de 25
+  r/HarryPotteronHBO             25 de 25
   r/harrypotter                  HTTP 429
   Watford Observer               0 de 25
   Soap Central                   HTTP 403
   GamingBible                    0 de 23
   GamesRadar                     1 de 20
-  r/HarryPotterGame              estreia, so aprendendo, 25 itens
+  r/HarryPotterGame              HTTP 429
   Blooloop                       0 de 25
   Attractions Magazine           0 de 0
   WhatsOnStage                   HTTP 403
   Playbill                       0 de 10
   The Potter Collector           0 de 15
   Harry Potter Exhibition        0 de 0
-Novidades para olhar, 58.
+Novidades para olhar, 60.
 
 == MODELO ==
   gemini-flash-latest
